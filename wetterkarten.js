@@ -130,6 +130,7 @@ var Weathermap = {
 
             panelDiv.data("obj", p);
             panelDiv.data("imageNr", 0);
+
             panelDiv.on("click", function () {
                 var panelObj = $(this).data("obj");
                 var nextImage = 1 * $(this).data("imageNr") + 1;
@@ -149,6 +150,12 @@ var Weathermap = {
                 }
             });
 
+            panelDiv.on("contextmenu", function () {
+                var image = new Image();
+                image.src =  $(this).find("img").first().attr("src");
+                $("#imageDetails").empty().append(image);
+                $("#imageDetails").dialog({ width: image.width+50, height: image.height+70});
+            });
 
             $(self.container).append(panelDiv);
             i += 1;
