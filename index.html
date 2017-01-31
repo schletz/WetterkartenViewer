@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="jquery_ui/jquery-ui.css">
+    <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="jquery_ui/jquery-ui.js"></script>
+    <script type="text/javascript" src="wetterkarten.js"></script>
+    <title>Wetterkarten Client</title>
+</head>
+
+<body>
+    <div id="slidebar">
+        <div id="slider"></div>
+        <div id="buttons">
+            <button type="button" style="margin-left:10px;" onclick="slideTo(-12);">-12h</button>
+            <button type="button" onclick="slideTo(-3);">-3h</button>
+            <button type="button" onclick="slideTo(3);">+3h</button>
+            <button type="button" onclick="slideTo(12);">+12h</button>            
+        </div>
+    </div>
+
+    <div id="panels">      
+    </div>
+    <div id="modelChooseWindow">
+        <p>Wählen Sie einen Modellauf aus.</p>
+        <div class="preview" style="background-image: url(http://wxcharts.eu/charts/gfs/europe/00/850temp_384.jpg)" onclick="initUi(0)"></div>
+        <div class="preview" style="background-image: url(http://wxcharts.eu/charts/gfs/europe/06/850temp_384.jpg)" onclick="initUi(6)"></div>
+        <div class="preview" style="background-image: url(http://wxcharts.eu/charts/gfs/europe/12/850temp_384.jpg)" onclick="initUi(12)"></div>
+        <div class="preview" style="background-image: url(http://wxcharts.eu/charts/gfs/europe/18/850temp_384.jpg)" onclick="initUi(18)"></div>
+    </div>    
+</body>
+
+</html>

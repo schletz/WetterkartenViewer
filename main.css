@@ -1,0 +1,109 @@
+html, body {
+    margin:0px;
+    padding:0px;
+    width:100%;
+}
+* {
+    box-sizing: border-box;
+}
+
+#panels {
+    margin-top:20px;
+    padding:0px;
+}
+
+.weatherPanel {
+    margin:0px;
+    padding:0px;
+    float:left;
+    width:100%;
+}
+
+.weatherPanel img {
+    width:100%;
+}
+
+.overlayContainer img {
+    position: absolute;
+    left:0px;
+    top:0px;
+    width: 100%;
+}
+
+.overlay {
+    opacity: 0.5;
+    z-index:1;
+}
+
+#slidebar {
+    position: fixed;
+    background-color: white;
+    left:0px;
+    top:0px;
+    width: 100%;
+    height: 30px;
+    padding-top:10px;
+    padding-left:10px;
+    z-index:10;
+    display: none;
+}
+
+#slider {
+    width: calc(100% - 230px);
+}
+
+#buttons {
+    float:right;
+    margin-top:-20px;
+    width:230px;
+}
+#slidebar button {
+    width:50px;
+    height:30px;
+}
+
+#modelChooseWindow {
+    width:100%;
+}
+
+#modelChooseWindow .preview {
+    width:200px;
+    height:25px;
+    background-position: left top;    
+    background-position: -880px -12px;  
+    border:1px solid blue;
+    margin-left:10px;
+    float:left;
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 760px) and (max-width: 1280px) {
+    .weatherPanel {
+        width:50%;
+    }
+
+    #panels .col-2 {
+        clear: both;
+    }
+}
+
+@media only screen and (min-width: 1281px) and (max-width: 1920px) {
+    .weatherPanel {
+        width:33%;
+    }
+
+    #panels .col-3 {
+        clear: both;
+    }
+}
+
+@media only screen and (min-width: 1921px) {
+    .weatherPanel {
+        width:25%;
+    }
+
+    #panels .col-4 {
+        clear: both;
+    }
+}
+
