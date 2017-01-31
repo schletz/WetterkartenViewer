@@ -11,4 +11,5 @@ Beim Starten ist der letzte Modelllauf (das höchste Datum) zu wählen. Danach k
 Festures:
 - Preloader
 - Slider für die Zeitschritte 
-- Anklickbare Panels
+- Klick wechselt das Bild im Panel.
+- Rechtsklick zeigt das Bild 1:1 in einem Fenster an.
