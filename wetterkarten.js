@@ -1,6 +1,33 @@
 /*jslint this:true, white:true for:true */
 /*global Image $ */
 "use strict";
+
+Date.fromRun = function (hour) {
+    var d = new Date();
+    var now = new Date();
+    d.setUTCHours(hour);
+    d.setUTCMinutes(0);
+    d.setUTCSeconds(0);
+    d.setUTCMilliseconds(0);
+
+    if (d.getTime() > now.getTime()) {
+        d.setUTCDate(d.getUTCDate() - 1);
+    }
+    return d;
+}
+
+Date.prototype.getUTCymd = function () {
+    var year = this.getUTCFullYear();
+    var month = this.getUTCMonth() + 1;
+    var day = this.getUTCDate();
+
+    if (month < 10) { month = "0" + month; }
+    if (day < 10) { day = "0" + day; }
+
+    return "" + year + month + day;
+}
+
+
 function Panel() {
     this.images = [];
     this.imageDictionary = {};
@@ -18,8 +45,9 @@ Panel.prototype.loadImage = function (url) {
 };
 
 Panel.prototype.createImages = function (run, timestep) {
-    if (this.images[run] === undefined) {
-        this.images[run] = [];
+    var runHour = run.getUTCHours();
+    if (this.images[runHour] === undefined) {
+        this.images[runHour] = [];
     }
     var time = 0;
     if (!timestep.start) { timestep.start = 0; }
@@ -28,18 +56,18 @@ Panel.prototype.createImages = function (run, timestep) {
     if (!timestep.offset) { timestep.offset = 0; }
 
     for (time = timestep.start; time <= timestep.stop; time += timestep.step) {
-        if (this.images[run][time] === undefined) {
-            this.images[run][time] = [];
+        if (this.images[runHour][time] === undefined) {
+            this.images[runHour][time] = [];
         }
         if (timestep.preload) {
-            this.images[run][time].push({
+            this.images[runHour][time].push({
                 urlGenerator: timestep.urlGenerator,
                 offset: timestep.offset,
                 image: this.loadImage(timestep.urlGenerator(run, time + timestep.offset))
             });
         }
         else {
-            this.images[run][time].push({
+            this.images[runHour][time].push({
                 urlGenerator: timestep.urlGenerator,
                 offset: timestep.offset,
                 image: null
@@ -50,10 +78,11 @@ Panel.prototype.createImages = function (run, timestep) {
 
 Panel.prototype.getImage = function (run, time, imageNr) {
     try {
+        var runHour = run.getUTCHours();
         if (typeof imageNr !== "number" || isNaN(imageNr)) {
             imageNr = 0;
         }
-        var imgElem = this.images[run][time][imageNr];
+        var imgElem = this.images[runHour][time][imageNr];
         if (imgElem.image === null) {
             imgElem.image = this.loadImage(imgElem.urlGenerator(run, time + imgElem.offset));
         }
@@ -66,12 +95,12 @@ Panel.prototype.getImage = function (run, time, imageNr) {
 
 Panel.prototype.getImageCount = function (run, time) {
     try {
-        return this.images[run][time].length;
+        var runHour = run.getUTCHours();
+        return this.images[runHour][time].length;
     }
     catch (err) {
         return 0;
     }
-
 };
 
 var Weathermap = {
@@ -81,20 +110,20 @@ var Weathermap = {
     maxTime: 384,
     step: 3,
     time: 0,
-    lastRun: -1,
+    lastRun: null,
     getWxcUrlGenerator: function (type, region) {
         if (region === undefined) {
             region = "euratl";
         }
         return function (run, time) {
-            var runParam = run < 10 ? "0" + run : run;
+            var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
             var timeParam = time < 10 ? "00" + time : (time < 100 ? "0" + time : time);
             return "http://wxcharts.eu/charts/gfs/" + region + "/" + runParam + "/" + type + "_" + timeParam + ".jpg";
         };
     },
     getWzUrlGenerator: function (type) {
         return function (run, time) {
-            var runParam = run < 10 ? "0" + run : run;
+            var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
             var timeParam = time;
             return "http://www.wetterzentrale.de/maps/GFSOPME" + runParam + "_" + timeParam + "_" + type + ".png";
         };
@@ -107,7 +136,7 @@ var Weathermap = {
             model = "";
         }
         return function (run, time) {
-            var runParam = run < 10 ? "0" + run : run;
+            var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
             var timeParam = time < 10 ? "0" + time : time;
             return "http://www1.wetter3.de/Animation_" + runParam + "_UTC_025Grad" + model + "/" + timeParam + "_" + type + ".gif";
         };
@@ -152,9 +181,9 @@ var Weathermap = {
 
             panelDiv.on("contextmenu", function () {
                 var image = new Image();
-                image.src =  $(this).find("img").first().attr("src");
+                image.src = $(this).find("img").first().attr("src");
                 $("#imageDetails").empty().append(image);
-                $("#imageDetails").dialog({ width: image.width+50, height: image.height+70});
+                $("#imageDetails").dialog({ width: image.width + 50, height: image.height + 70 });
             });
 
             $(self.container).append(panelDiv);
