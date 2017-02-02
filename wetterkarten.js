@@ -113,7 +113,7 @@ var Weathermap = {
     lastRun: null,
     getWxcUrlGenerator: function (type, region) {
         if (region === undefined) {
-            region = "euratl";
+            var region = "euratl";
         }
         return function (run, time) {
             var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
@@ -140,6 +140,17 @@ var Weathermap = {
             var timeParam = time < 10 ? "0" + time : time;
             return "http://www1.wetter3.de/Animation_" + runParam + "_UTC_025Grad" + model + "/" + timeParam + "_" + type + ".gif";
         };
+    },
+    getOgimetUrlGenerator: function (type) {
+        return function (run, time) {
+            if (type === undefined) {
+                var type = "SFC";
+            }
+            var runParam1 = run.getUTCymd() + "_" + (run < 12 ? "00" : "12")
+            var runParam2 = "" + run.getUTCymd() + (run < 12 ? "00" : "12")
+            var timeParam = time < 10 ? "00" + time : (time < 100 ? "0" + time : time);
+            return "http://www.ogimet.com/forecasts/" + runParam1 + "/" + type + "/" + runParam2 + "H" + timeParam + "_EU00_" + type + ".jpg";
+        };        
     },
 
     displayPanels: function () {
@@ -260,7 +271,10 @@ Weathermap.panelsToLoad = [
         { start: 252, step: 12, stop: 384, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
         { start: 249, step: 12, stop: 384, offset: 3, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
         { start: 246, step: 12, stop: 384, offset: -6, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
-        { start: 243, step: 12, stop: 384, offset: -3, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") }
+        { start: 243, step: 12, stop: 384, offset: -3, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
+
+        { start: 12, step: 6, stop: 192, urlGenerator: Weathermap.getOgimetUrlGenerator("SFC") },
+        { start: 15, step: 6, stop: 192, offset:3, urlGenerator: Weathermap.getOgimetUrlGenerator("SFC") }
     ],
     /* w3 niederschlag und wolken   */
     [
