@@ -29,6 +29,13 @@ Date.prototype.getUTCymd = function () {
     return "" + year + month + day;
 }
 
+Date.prototype.getUTCymdh = function () {
+    var hour = this.getUTCHours();
+    hour = hour < 10 ? "0" + hour : "" + hour;
+
+    return this.getUTCymd() + hour;
+}
+
 
 function Panel() {
     this.images = [];
@@ -68,7 +75,7 @@ Panel.prototype.createImages = function (run, timestep) {
     for (time = timestep.start; time <= timestep.stop; time += timestep.step) {
         if (this.images[runHour][time] === undefined) {
             this.images[runHour][time] = [];
-        }     
+        }
         if (timestep.preload) {
             this.images[runHour][time][timestep.layer] = {
                 urlGenerator: timestep.urlGenerator,
@@ -156,7 +163,7 @@ var Weathermap = {
             if (type === undefined) {
                 var type = "SFC";
             }
-            var ogimetRun = new Date (run);
+            var ogimetRun = new Date(run);
             if (run.getUTCHours() < 12) {
                 ogimetRun.setUTCHours(0);
                 time += run.getUTCHours();
@@ -171,6 +178,18 @@ var Weathermap = {
             var timeParam = time < 10 ? "00" + time : (time < 100 ? "0" + time : time);
             return "http://www.ogimet.com/forecasts/" + runParam1 + "/" + type + "/" + runParam2 + "H" + timeParam + "_EU00_" + type + ".jpg";
         };
+    },
+
+    getMeteocielUrlGenerator: function (type) {
+        return function (run, time) {
+            if (type === undefined) { var type = 0; }
+            var runParam = run.getUTCymdh();
+            var timeParam = time;
+            var append = (time % 6 != 0) ? "-3h" : "";
+
+            return "http://modeles.meteociel.fr/modeles/gfs/run/gfs-" + type + "-" + timeParam + append + ".png";
+        }
+
     },
 
     displayPanels: function () {
@@ -201,7 +220,7 @@ var Weathermap = {
 
                 var image = panelObj.getImage(self.lastRun, self.time, layer, 12);
                 $(this).data("layer", layer);
-                $(this).empty().append(image);                
+                $(this).empty().append(image);
             });
 
             panelDiv.on("contextmenu", function () {
@@ -239,8 +258,11 @@ Weathermap.panelsToLoad = [
         { start: 0, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("gh500") },
         { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("gh500") },
 
-        { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") },
-        { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") },
+        { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getMeteocielUrlGenerator(0) },
+        { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getMeteocielUrlGenerator(0) },
+
+        { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") },
+        { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") }
     ],
     /* wxcharts 850 hpa temp, 850 hpa temp anomaly und 6h w3 extremtemp */
     [
@@ -257,7 +279,7 @@ Weathermap.panelsToLoad = [
     ],
     /* wxcharts overview */
     [
-        { start: 3, step: 3, stop: 240, layer:0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview") },
+        { start: 3, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview") },
         { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview") },
 
         { start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
@@ -268,9 +290,9 @@ Weathermap.panelsToLoad = [
     /* w3 niederschlag und wolken   */
     [
         // Die Niderschlagskarten sind 6stündig. Für die Zwischenkarten die 6h Datei aus t+3h laden.
-        { start: 6, step: 6, stop: 78, layer: 0,  preload: true, urlGenerator: Weathermap.getW3UrlGenerator(4, "icon") },
+        { start: 6, step: 6, stop: 78, layer: 0, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(4, "icon") },
         { start: 81, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(28) },
-        { start: 3, step: 3, stop: 78, layer: 1,  urlGenerator: Weathermap.getW3UrlGenerator(13, "icon") },
+        { start: 3, step: 3, stop: 78, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(13, "icon") },
         { start: 81, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(18) }
     ],
     /* wz 850hpa wind und theta e */
