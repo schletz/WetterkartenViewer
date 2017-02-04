@@ -34,6 +34,7 @@ function Panel() {
     this.images = [];
     this.imageDictionary = {};
     this.defaultImage = new Image();
+    this.maxLayer = 0;
 
     this.defaultImage.src = "notAvailable.jpg";
 }
@@ -61,6 +62,9 @@ Panel.prototype.createImages = function (run, timestep) {
     if (!timestep.offset) { timestep.offset = 0; }
     if (!timestep.layer) { timestep.layer = 0; }
 
+    if (timestep.layer > this.maxLayer) {
+        this.maxLayer = timestep.layer;
+    }
     for (time = timestep.start; time <= timestep.stop; time += timestep.step) {
         if (this.images[runHour][time] === undefined) {
             this.images[runHour][time] = [];
@@ -106,19 +110,6 @@ Panel.prototype.getImage = function (run, time, layer, seek) {
     }
     catch (err) {
         return this.defaultImage;
-    }
-};
-
-Panel.prototype.getImageCount = function (run, time) {
-    try {
-        if (typeof run !== "object") { var run = Date.fromRun(0); }
-        if (typeof time !== "number") { var time = 0; }
-
-        var runHour = run.getUTCHours();
-        return this.images[runHour][time].length;
-    }
-    catch (err) {
-        return 0;
     }
 };
 
@@ -193,13 +184,12 @@ var Weathermap = {
             panelDiv.on("click", function () {
                 var panelObj = $(this).data("obj");
                 var layer = 1 * $(this).data("layer") + 1;
-                var image = panelObj.getImage(self.lastRun, self.time, layer, 12);
 
-                if (image === panelObj.defaultImage) {
+                if (layer > panelObj.maxLayer) {
                     layer = 0;
-                    image = panelObj.getImage(self.lastRun, self.time, 0, 12);
                 }
 
+                var image = panelObj.getImage(self.lastRun, self.time, layer, 12);
                 $(this).data("layer", layer);
                 $(this).empty().append(image);                
             });
