@@ -3,6 +3,8 @@
 "use strict";
 
 Date.fromRun = function (hour) {
+    if (typeof hour !== "number" || hour < 0 || hour > 23) { var hour = 0; }
+
     var d = new Date();
     var now = new Date();
     d.setUTCHours(hour);
@@ -31,6 +33,9 @@ Date.prototype.getUTCymd = function () {
 function Panel() {
     this.images = [];
     this.imageDictionary = {};
+    this.defaultImage = new Image();
+
+    this.defaultImage.src = "notAvailable.jpg";
 }
 
 Panel.prototype.loadImage = function (url) {
@@ -54,47 +59,61 @@ Panel.prototype.createImages = function (run, timestep) {
     if (!timestep.step) { timestep.step = 1; }
     if (!timestep.stop) { timestep.stop = 0; }
     if (!timestep.offset) { timestep.offset = 0; }
+    if (!timestep.layer) { timestep.layer = 0; }
 
     for (time = timestep.start; time <= timestep.stop; time += timestep.step) {
         if (this.images[runHour][time] === undefined) {
             this.images[runHour][time] = [];
-        }
+        }     
         if (timestep.preload) {
-            this.images[runHour][time].push({
+            this.images[runHour][time][timestep.layer] = {
                 urlGenerator: timestep.urlGenerator,
                 offset: timestep.offset,
                 image: this.loadImage(timestep.urlGenerator(run, time + timestep.offset))
-            });
+            };
         }
         else {
-            this.images[runHour][time].push({
+            this.images[runHour][time][timestep.layer] = {
                 urlGenerator: timestep.urlGenerator,
                 offset: timestep.offset,
                 image: null
-            });
+            };
         }
     }
 };
 
-Panel.prototype.getImage = function (run, time, imageNr) {
+Panel.prototype.getImage = function (run, time, layer, seek) {
     try {
+        if (typeof run !== "object") { var run = Date.fromRun(0); }
+        if (typeof time !== "number") { var time = 0; }
+        if (typeof layer !== "number") { var layer = 0; }
+        if (typeof seek !== "number") { var seek = 0; }
+
         var runHour = run.getUTCHours();
-        if (typeof imageNr !== "number" || isNaN(imageNr)) {
-            imageNr = 0;
+        var imgElem = null;
+        var t = 0;
+
+        for (t = time; t <= time + seek; t++) {
+            if (this.images[runHour][t] !== undefined && this.images[runHour][t][layer] !== undefined) {
+                imgElem = this.images[runHour][t][layer];
+                if (imgElem.image === null) {
+                    imgElem.image = this.loadImage(imgElem.urlGenerator(run, t + imgElem.offset));
+                }
+                return imgElem.image;
+            }
         }
-        var imgElem = this.images[runHour][time][imageNr];
-        if (imgElem.image === null) {
-            imgElem.image = this.loadImage(imgElem.urlGenerator(run, time + imgElem.offset));
-        }
-        return imgElem.image;
+        return this.defaultImage;
     }
     catch (err) {
-        return null;
+        return this.defaultImage;
     }
 };
 
 Panel.prototype.getImageCount = function (run, time) {
     try {
+        if (typeof run !== "object") { var run = Date.fromRun(0); }
+        if (typeof time !== "number") { var time = 0; }
+
         var runHour = run.getUTCHours();
         return this.images[runHour][time].length;
     }
@@ -150,7 +169,7 @@ var Weathermap = {
             var runParam2 = "" + run.getUTCymd() + (run < 12 ? "00" : "12")
             var timeParam = time < 10 ? "00" + time : (time < 100 ? "0" + time : time);
             return "http://www.ogimet.com/forecasts/" + runParam1 + "/" + type + "/" + runParam2 + "H" + timeParam + "_EU00_" + type + ".jpg";
-        };        
+        };
     },
 
     displayPanels: function () {
@@ -169,25 +188,20 @@ var Weathermap = {
             if (i % 5 === 0) { panelDiv.addClass("col-5"); }
 
             panelDiv.data("obj", p);
-            panelDiv.data("imageNr", 0);
+            panelDiv.data("layer", 0);
 
             panelDiv.on("click", function () {
                 var panelObj = $(this).data("obj");
-                var nextImage = 1 * $(this).data("imageNr") + 1;
-                if (nextImage >= panelObj.getImageCount(self.lastRun, self.time)) {
-                    nextImage = 0;
+                var layer = 1 * $(this).data("layer") + 1;
+                var image = panelObj.getImage(self.lastRun, self.time, layer, 12);
+
+                if (image === panelObj.defaultImage) {
+                    layer = 0;
+                    image = panelObj.getImage(self.lastRun, self.time, 0, 12);
                 }
 
-                var image = panelObj.getImage(self.lastRun, self.time, nextImage);
-                if (image !== null) {
-                    $(this).data("imageNr", nextImage);
-                    $(this).empty().append(image);
-                }
-                else {
-                    $(this).data("imageNr", 0);
-                    image = panelObj.getImage(self.lastRun, self.time, 0);
-                    $(this).empty().append(image);
-                }
+                $(this).data("layer", layer);
+                $(this).empty().append(image);                
             });
 
             panelDiv.on("contextmenu", function () {
@@ -206,17 +220,10 @@ var Weathermap = {
         var self = this;
         $(".weatherPanel").each(function () {
             var panelObj = $(this).data("obj");
-            var imageNr = 1 * $(this).data("imageNr");
-            var image = panelObj.getImage(self.lastRun, self.time, imageNr);
+            var layer = 1 * $(this).data("layer");
+            var image = panelObj.getImage(self.lastRun, self.time, layer, 12);
 
-            if (image !== null) {
-                $(this).empty().append(image);
-            }
-            else {
-                $(this).data("imageNr", 0);
-                image = panelObj.getImage(self.lastRun, self.time, 0);
-                $(this).empty().append(image);
-            }
+            $(this).empty().append(image);
         });
     }
 };
@@ -226,69 +233,45 @@ Weathermap.panelsToLoad = [
     [
         { start: 0, step: 3, stop: 240, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
         { start: 252, step: 12, stop: 384, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
-        { start: 249, step: 12, stop: 384, offset: 3, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
-        { start: 246, step: 12, stop: 384, offset: -6, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
-        { start: 243, step: 12, stop: 384, offset: -3, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") }
     ],
     /* wxcharts 500 hpa geopot height */
     [
-        { start: 0, step: 3, stop: 240, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("gh500") },
-        { start: 252, step: 12, stop: 384, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("gh500") },
-        { start: 249, step: 12, stop: 384, offset: 3, urlGenerator: Weathermap.getWxcUrlGenerator("gh500") },
-        { start: 246, step: 12, stop: 384, offset: -6, urlGenerator: Weathermap.getWxcUrlGenerator("gh500") },
-        { start: 243, step: 12, stop: 384, offset: -3, urlGenerator: Weathermap.getWxcUrlGenerator("gh500") },
+        { start: 0, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("gh500") },
+        { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("gh500") },
 
-        { start: 0, step: 3, stop: 240, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") },
-        { start: 252, step: 12, stop: 384, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") },
-        { start: 249, step: 12, stop: 384, offset: 3, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") },
-        { start: 246, step: 12, stop: 384, offset: -6, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") },
-        { start: 243, step: 12, stop: 384, offset: -3, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") }
+        { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") },
+        { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") },
     ],
     /* wxcharts 850 hpa temp und 6h w3 extremtemp */
     [
-        { start: 0, step: 3, stop: 240, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("850temp") },
-        { start: 252, step: 12, stop: 384, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("850temp") },
-        { start: 249, step: 12, stop: 384, offset: 3, urlGenerator: Weathermap.getWxcUrlGenerator("850temp") },
-        { start: 246, step: 12, stop: 384, offset: -6, urlGenerator: Weathermap.getWxcUrlGenerator("850temp") },
-        { start: 243, step: 12, stop: 384, offset: -3, urlGenerator: Weathermap.getWxcUrlGenerator("850temp") },
+        { start: 0, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("850temp") },
+        { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("850temp") },
 
-        { start: 6, step: 6, stop: 78, urlGenerator: Weathermap.getW3UrlGenerator(9, "icon") },
-        { start: 3, step: 6, stop: 78, offset: 3, urlGenerator: Weathermap.getW3UrlGenerator(9, "icon") },
-        { start: 84, step: 6, stop: 240, urlGenerator: Weathermap.getW3UrlGenerator(9) },
-        { start: 81, step: 6, stop: 240, offset: 3, urlGenerator: Weathermap.getW3UrlGenerator(9) }
+        { start: 6, step: 6, stop: 78, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(9, "icon") },
+        { start: 84, step: 6, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(9) },
     ],
     /* wxcharts overview */
     [
-        { start: 0, step: 3, stop: 0, offset: 3, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview") },
-        { start: 3, step: 3, stop: 240, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview") },
-        { start: 252, step: 12, stop: 384, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview") },
-        { start: 249, step: 12, stop: 384, offset: 3, urlGenerator: Weathermap.getWxcUrlGenerator("overview") },
-        { start: 246, step: 12, stop: 384, offset: -6, urlGenerator: Weathermap.getWxcUrlGenerator("overview") },
-        { start: 243, step: 12, stop: 384, offset: -3, urlGenerator: Weathermap.getWxcUrlGenerator("overview") },
+        { start: 3, step: 3, stop: 240, layer:0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview") },
+        { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview") },
 
-        { start: 0, step: 3, stop: 0, offset: 3, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
-        { start: 3, step: 3, stop: 240, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
-        { start: 252, step: 12, stop: 384, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
-        { start: 249, step: 12, stop: 384, offset: 3, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
-        { start: 246, step: 12, stop: 384, offset: -6, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
-        { start: 243, step: 12, stop: 384, offset: -3, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
+        { start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
+        { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
 
-        { start: 12, step: 6, stop: 192, urlGenerator: Weathermap.getOgimetUrlGenerator("SFC") },
-        { start: 15, step: 6, stop: 192, offset:3, urlGenerator: Weathermap.getOgimetUrlGenerator("SFC") }
+        { start: 12, step: 6, stop: 192, layer: 2, urlGenerator: Weathermap.getOgimetUrlGenerator("SFC") },
     ],
     /* w3 niederschlag und wolken   */
     [
-        { start: 6, step: 6, stop: 78, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(4, "icon") },
         // Die Niderschlagskarten sind 6stündig. Für die Zwischenkarten die 6h Datei aus t+3h laden.
-        { start: 3, step: 6, stop: 78, offset: 3, urlGenerator: Weathermap.getW3UrlGenerator(4, "icon") },
-        { start: 81, step: 3, stop: 240, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(28) },
-        { start: 0, step: 3, stop: 78, urlGenerator: Weathermap.getW3UrlGenerator(13, "icon") },
-        { start: 81, step: 3, stop: 240, urlGenerator: Weathermap.getW3UrlGenerator(18) }
+        { start: 6, step: 6, stop: 78, layer: 0,  preload: true, urlGenerator: Weathermap.getW3UrlGenerator(4, "icon") },
+        { start: 81, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(28) },
+        { start: 3, step: 3, stop: 78, layer: 1,  urlGenerator: Weathermap.getW3UrlGenerator(13, "icon") },
+        { start: 81, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(18) }
     ],
     /* wz 850hpa wind und theta e */
     [
-        { start: 0, step: 3, stop: 240, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(3) },
-        { start: 0, step: 3, stop: 240, urlGenerator: Weathermap.getWzUrlGenerator(7) }
+        { start: 0, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(3) },
+        { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(7) }
 
     ]
 ];
