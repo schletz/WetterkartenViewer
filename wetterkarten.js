@@ -156,8 +156,18 @@ var Weathermap = {
             if (type === undefined) {
                 var type = "SFC";
             }
-            var runParam1 = run.getUTCymd() + "_" + (run < 12 ? "00" : "12")
-            var runParam2 = "" + run.getUTCymd() + (run < 12 ? "00" : "12")
+            var ogimetRun = new Date (run);
+            if (run.getUTCHours() < 12) {
+                ogimetRun.setUTCHours(0);
+                time += run.getUTCHours();
+            }
+            else {
+                ogimetRun.setUTCHours(12);
+                time += run.getUTCHours() + 12;
+            }
+            run.getUTCHours() < 12
+            var runParam1 = ogimetRun.getUTCymd() + "_" + (ogimetRun.getUTCHours() < 12 ? "00" : "12")
+            var runParam2 = "" + ogimetRun.getUTCymd() + (ogimetRun.getUTCHours() < 12 ? "00" : "12")
             var timeParam = time < 10 ? "00" + time : (time < 100 ? "0" + time : time);
             return "http://www.ogimet.com/forecasts/" + runParam1 + "/" + type + "/" + runParam2 + "H" + timeParam + "_EU00_" + type + ".jpg";
         };
@@ -253,7 +263,7 @@ Weathermap.panelsToLoad = [
         { start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
         { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
 
-        { start: 12, step: 6, stop: 192, layer: 2, urlGenerator: Weathermap.getOgimetUrlGenerator("SFC") },
+        { start: 0, step: 6, stop: 192, layer: 2, urlGenerator: Weathermap.getOgimetUrlGenerator("SFC") },
     ],
     /* w3 niederschlag und wolken   */
     [
