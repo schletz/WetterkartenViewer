@@ -261,7 +261,7 @@ Weathermap.panelsToLoad = [
         { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getMeteocielUrlGenerator(0) },
         { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getMeteocielUrlGenerator(0) },
 
-        { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") },
+        { start: 3, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") },
         { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") }
     ],
     /* wxcharts 850 hpa temp, 850 hpa temp anomaly und 6h w3 extremtemp */
