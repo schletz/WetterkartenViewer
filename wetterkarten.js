@@ -104,7 +104,7 @@ Panel.prototype.getImage = function (run, time, layer, seek) {
         var imgElem = null;
         var t = 0;
 
-        for (t = time; t <= time + seek; t+=1) {
+        for (t = time; t <= time + seek; t += 1) {
             if (this.images[runHour][t] !== undefined && this.images[runHour][t][layer] !== undefined) {
                 imgElem = this.images[runHour][t][layer];
                 if (imgElem.image === null) {
@@ -244,21 +244,23 @@ var Weathermap = {
         var panelObj = $(panel).data("obj");
         var layer = 1 * $(panel).data("layer");
         var image = panelObj.getImage(this.lastRun, this.time, layer, 12);
-        var leftPos = 0, topPos = 20;
-        
-        if (image.naturalWidth != 0 && image.naturalHeight != 0) {
-            leftPos = ($(window).width() - image.naturalWidth - 20) / 2;
-            topPos = ($(window).height() - image.naturalHeight - 20) / 2;
-            if (leftPos < 0) { leftPos = 0; }
-            if (topPos < 0) { topPos = 0; }
+        var leftPos = 0, topPos = 20, width = 600, height = 400;
+
+        if (image.naturalWidth && image.naturalHeight) {
+            leftPos = Math.max(0, ($(window).width() - image.naturalWidth) / 2);
+            topPos = Math.max(0, ($(window).height() - image.naturalHeight) / 2);
+            width = Math.min($(window).width(), image.naturalWidth);
+            height = Math.round(width * image.naturalHeight / image.naturalWidth);
         }
 
         $("#imageDetails img").remove();
         $("#imageDetails").append($(image).clone());
         $("#imageDetails").css("left", leftPos + "px");
         $("#imageDetails").css("top", topPos + "px");
-        $("#imageDetails").css("width", (image.naturalWidth + 20) + "px");
-        $("#imageDetails").css("height", (image.naturalHeight + 20) + "px");
+        $("#imageDetails").css("width", width + "px");
+        $("#imageDetails").css("height", height + "px");
+        $("#imageDetails img").css("width", width + "px");
+        $("#imageDetails img").css("height", height + "px");
         $("#imageDetails").show();
     }
 };
@@ -314,9 +316,9 @@ Weathermap.panelsToLoad = [
     /* wz 850hpa wind (mitteleuropa und europa) und theta e */
     [
         { start: 0, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(3) },
-        { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(3) },        
-        { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3,"GFSOPEU") },        
-        { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3,"GFSOPEU") },        
+        { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(3) },
+        { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPEU") },
+        { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPEU") },
         { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(7) },
         { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(7) }
 
