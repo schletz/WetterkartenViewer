@@ -138,11 +138,14 @@ var Weathermap = {
             return "http://wxcharts.eu/charts/gfs/" + region + "/" + runParam + "/" + type + "_" + timeParam + ".jpg";
         };
     },
-    getWzUrlGenerator: function (type) {
+    getWzUrlGenerator: function (type, region) {
+        if (region === undefined) {
+            var region = "GFSOPME";
+        }
         return function (run, time) {
             var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
             var timeParam = time;
-            return "http://www.wetterzentrale.de/maps/GFSOPME" + runParam + "_" + timeParam + "_" + type + ".png";
+            return "http://www.wetterzentrale.de/maps/" + region + runParam + "_" + timeParam + "_" + type + ".png";
         };
     },
     getW3UrlGenerator: function (type, model) {
@@ -242,13 +245,13 @@ var Weathermap = {
     onPanelRightClick: function (panel) {
         var image = new Image();
         image.src = $(panel).find("img").first().attr("src");
-        var leftPos = ($(document).width() - image.width + 20)/2 + "px";        
-        var topPos = ($(document).height() - image.height + 20)/2 + "px";        
+        var leftPos = ($(document).width() - image.width + 20) / 2 + "px";
+        var topPos = ($(document).height() - image.height + 20) / 2 + "px";
         $("#imageDetails").append(image);
         $("#imageDetails").css("left", leftPos);
         $("#imageDetails").css("top", topPos);
-        $("#imageDetails").css("width", (image.width+20)+"px");
-        $("#imageDetails").css("height", (image.height+20)+"px");
+        $("#imageDetails").css("width", (image.width + 20) + "px");
+        $("#imageDetails").css("height", (image.height + 20) + "px");
         $("#imageDetails").show();
     }
 };
@@ -259,13 +262,13 @@ Weathermap.panelsToLoad = [
         { start: 0, step: 3, stop: 240, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
         { start: 252, step: 12, stop: 384, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
     ],
-    /* wxcharts 500 hpa geopot height */
+    /* wxcharts 500 hpa geopot height (europa von wxcharts und wetterzentrale, wxcharts polaransicht) */
     [
         { start: 0, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("gh500") },
         { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("gh500") },
 
-        { start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getMeteocielUrlGenerator(0) },
-        { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getMeteocielUrlGenerator(0) },
+        { start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPEU") },
+        { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPEU") },
 
         { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") },
         { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") }
@@ -301,10 +304,11 @@ Weathermap.panelsToLoad = [
         { start: 3, step: 3, stop: 78, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(13, "icon") },
         { start: 81, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(18) }
     ],
-    /* wz 850hpa wind und theta e */
+    /* wz 850hpa wind (mitteleuropa und europa) und theta e */
     [
         { start: 0, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(3) },
-        { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(7) }
+        { start: 0, step: 3, stop: 240, layer: 1, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(3,"GFSOPEU") },        
+        { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(7) }
 
     ]
 ];
