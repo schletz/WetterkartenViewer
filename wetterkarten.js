@@ -314,8 +314,11 @@ Weathermap.panelsToLoad = [
     /* wz 850hpa wind (mitteleuropa und europa) und theta e */
     [
         { start: 0, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(3) },
-        { start: 0, step: 3, stop: 240, layer: 1, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(3,"GFSOPEU") },        
-        { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(7) }
+        { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(3) },        
+        { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3,"GFSOPEU") },        
+        { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3,"GFSOPEU") },        
+        { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(7) },
+        { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(7) }
 
     ]
 ];
