@@ -16,7 +16,7 @@ Date.fromRun = function (hour) {
         d.setUTCDate(d.getUTCDate() - 1);
     }
     return d;
-}
+};
 
 Date.prototype.getUTCymd = function () {
     var year = this.getUTCFullYear();
@@ -27,14 +27,14 @@ Date.prototype.getUTCymd = function () {
     if (day < 10) { day = "0" + day; }
 
     return "" + year + month + day;
-}
+};
 
 Date.prototype.getUTCymdh = function () {
     var hour = this.getUTCHours();
     hour = hour < 10 ? "0" + hour : "" + hour;
 
     return this.getUTCymd() + hour;
-}
+};
 
 
 function Panel() {
@@ -104,7 +104,7 @@ Panel.prototype.getImage = function (run, time, layer, seek) {
         var imgElem = null;
         var t = 0;
 
-        for (t = time; t <= time + seek; t++) {
+        for (t = time; t <= time + seek; t+=1) {
             if (this.images[runHour][t] !== undefined && this.images[runHour][t][layer] !== undefined) {
                 imgElem = this.images[runHour][t][layer];
                 if (imgElem.image === null) {
@@ -175,9 +175,8 @@ var Weathermap = {
                 ogimetRun.setUTCHours(12);
                 time += run.getUTCHours() + 12;
             }
-            run.getUTCHours() < 12
-            var runParam1 = ogimetRun.getUTCymd() + "_" + (ogimetRun.getUTCHours() < 12 ? "00" : "12")
-            var runParam2 = "" + ogimetRun.getUTCymd() + (ogimetRun.getUTCHours() < 12 ? "00" : "12")
+            var runParam1 = ogimetRun.getUTCymd() + "_" + (ogimetRun.getUTCHours() < 12 ? "00" : "12");
+            var runParam2 = "" + ogimetRun.getUTCymd() + (ogimetRun.getUTCHours() < 12 ? "00" : "12");
             var timeParam = time < 10 ? "00" + time : (time < 100 ? "0" + time : time);
             return "http://www.ogimet.com/forecasts/" + runParam1 + "/" + type + "/" + runParam2 + "H" + timeParam + "_EU00_" + type + ".jpg";
         };
@@ -191,8 +190,7 @@ var Weathermap = {
             var append = (time % 6 != 0) ? "-3h" : "";
 
             return "http://modeles.meteociel.fr/modeles/gfs/run/gfs-" + type + "-" + timeParam + append + ".png";
-        }
-
+        };
     },
 
     displayPanels: function () {
@@ -249,14 +247,14 @@ var Weathermap = {
         var leftPos = 0, topPos = 20;
         
         if (image.naturalWidth != 0 && image.naturalHeight != 0) {
-            leftPos = ($(document).width() - image.naturalWidth - 20) / 2;
-            topPos = ($(document).height() - image.naturalHeight - 20) / 2;
+            leftPos = ($(window).width() - image.naturalWidth - 20) / 2;
+            topPos = ($(window).height() - image.naturalHeight - 20) / 2;
             if (leftPos < 0) { leftPos = 0; }
             if (topPos < 0) { topPos = 0; }
         }
 
         $("#imageDetails img").remove();
-        $("#imageDetails").append($(image).clone());;
+        $("#imageDetails").append($(image).clone());
         $("#imageDetails").css("left", leftPos + "px");
         $("#imageDetails").css("top", topPos + "px");
         $("#imageDetails").css("width", (image.naturalWidth + 20) + "px");
@@ -269,7 +267,7 @@ Weathermap.panelsToLoad = [
     /* wxcharts MSLP */
     [
         { start: 0, step: 3, stop: 240, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
-        { start: 252, step: 12, stop: 384, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
+        { start: 252, step: 12, stop: 384, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") }
     ],
     /* wxcharts 500 hpa geopot height (europa von wxcharts und wetterzentrale, wxcharts polaransicht) */
     [
@@ -303,7 +301,7 @@ Weathermap.panelsToLoad = [
         { start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
         { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
 
-        { start: 0, step: 6, stop: 192, layer: 2, urlGenerator: Weathermap.getOgimetUrlGenerator("SFC") },
+        { start: 0, step: 6, stop: 192, layer: 2, urlGenerator: Weathermap.getOgimetUrlGenerator("SFC") }
     ],
     /* w3 niederschlag und wolken   */
     [
