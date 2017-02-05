@@ -4,22 +4,25 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="main.css">
-    <link rel="stylesheet" type="text/css" href="jquery_ui/jquery-ui.css">
-    <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="jquery_ui/jquery-ui.js"></script>
     <script type="text/javascript" src="wetterkarten.js"></script>
     <title>Wetterkarten Client</title>
 </head>
 
 <body>
     <div id="slidebar">
-        <div id="slider"></div>
+        <div id="slider">
+            <input type="range" name="timeSlider" id="timeSlider" min="0" max="384" step="3" value="0">
+        </div>
         <div id="buttons">
-            <button type="button" style="margin-left:10px;" onclick="slideTo(-12);">-12h</button>
-            <button type="button" onclick="slideTo(-3);">-3h</button>
-            <button type="button" onclick="slideTo(3);">+3h</button>
-            <button type="button" onclick="slideTo(12);">+12h</button>            
+            <a href="#" class="ui-btn ui-btn-inline" onclick="slideTo(-12)">-12 h</a>            
+            <a href="#" class="ui-btn ui-btn-inline" onclick="slideTo(-3)">-3 h</a>            
+            <a href="#" class="ui-btn ui-btn-inline" onclick="slideTo(3)">+3 h</a>            
+            <a href="#" class="ui-btn ui-btn-inline" onclick="slideTo(12)">+12 h</a>                      
         </div>
     </div>
 
@@ -34,7 +37,7 @@
     </div>    
 
     <div id="imageDetails" title="Kartenansicht">
-        
+        <a href="#" onclick="hideDetailsWindow()">X</a>
     </div>
 </body>
 
