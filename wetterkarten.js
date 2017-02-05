@@ -243,15 +243,24 @@ var Weathermap = {
     },
 
     onPanelRightClick: function (panel) {
-        var image = new Image();
-        image.src = $(panel).find("img").first().attr("src");
-        var leftPos = ($(document).width() - image.width + 20) / 2 + "px";
-        var topPos = ($(document).height() - image.height + 20) / 2 + "px";
-        $("#imageDetails").append(image);
-        $("#imageDetails").css("left", leftPos);
-        $("#imageDetails").css("top", topPos);
-        $("#imageDetails").css("width", (image.width + 20) + "px");
-        $("#imageDetails").css("height", (image.height + 20) + "px");
+        var panelObj = $(panel).data("obj");
+        var layer = 1 * $(panel).data("layer");
+        var image = panelObj.getImage(this.lastRun, this.time, layer, 12);
+        var leftPos = 0, topPos = 20;
+        
+        if (image.naturalWidth != 0 && image.naturalHeight != 0) {
+            leftPos = ($(document).width() - image.naturalWidth - 20) / 2;
+            topPos = ($(document).height() - image.naturalHeight - 20) / 2;
+            if (leftPos < 0) { leftPos = 0; }
+            if (topPos < 0) { topPos = 0; }
+        }
+
+        $("#imageDetails img").remove();
+        $("#imageDetails").append($(image).clone());;
+        $("#imageDetails").css("left", leftPos + "px");
+        $("#imageDetails").css("top", topPos + "px");
+        $("#imageDetails").css("width", (image.naturalWidth + 20) + "px");
+        $("#imageDetails").css("height", (image.naturalHeight + 20) + "px");
         $("#imageDetails").show();
     }
 };
