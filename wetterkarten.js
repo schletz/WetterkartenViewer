@@ -134,10 +134,14 @@ var Weathermap = {
             model = "gfs";
         }
         var run = Date.fromRunParam(6, 5);
-        var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
+        var runHour = run.getUTCHours();
+        var runParam = runHour < 10 ? "0" + runHour : runHour;
         return function (time) {
+            var modelParam = model;
+            // Die 6 h und 18 h Läufe werden bei Wxcharts nur bis 72 h gerechnet.
+            if (model === "arpege" && (runHour === 6 || runHour === 18) && time > 72) { modelParam = "gfs"; }
             var timeParam = time < 10 ? "00" + time : (time < 100 ? "0" + time : time);
-            return "http://wxcharts.eu/charts/" + model + "/" + region + "/" + runParam + "/" + type + "_" + timeParam + ".jpg";
+            return "http://wxcharts.eu/charts/" + modelParam + "/" + region + "/" + runParam + "/" + type + "_" + timeParam + ".jpg";
         };
     },
     getWzUrlGenerator: function (type, region) {
@@ -162,11 +166,16 @@ var Weathermap = {
         }
 
         var run = Date.fromRunParam(6, 5);
-        var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
+        var runHour = run.getUTCHours();
+        var runParam = runHour < 10 ? "0" + runHour : runHour;
 
         return function (time) {
+            var modelParam = model;
+            // Die 6 h und 18 h Läufe werden bei Wetter3 nur bis +72 h bzw. +60 h gerechnet.
+            if (model === "_ARPEGE" && runHour === 6 && time > 72) { modelParam = ""; }
+            if (model === "_ARPEGE" && runHour === 18 && time > 60) { modelParam = ""; }
             var timeParam = time < 10 ? "0" + time : time;
-            return "http://www1.wetter3.de/Animation_" + runParam + "_UTC_025Grad" + model + "/" + timeParam + "_" + type + ".gif";
+            return "http://www1.wetter3.de/Animation_" + runParam + "_UTC_025Grad" + modelParam + "/" + timeParam + "_" + type + ".gif";
         };
     },
 
