@@ -93,7 +93,7 @@ Panel.prototype.getImage = function (time, options) {
         var seek = 0, imgElem = null, t = 0;
         var imgElem = null;
         var t = 0;
-        
+
         if (typeof time !== "number") { var time = 0; }
         if (typeof options.seek === "number") { 
             seek = options.seek;
@@ -171,7 +171,7 @@ var Weathermap = {
         var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
 
         return function (time) {
-            time += 9;
+            time += 6;
             var timeParam = time < 10 ? "0" + time : time;
             return "http://www.modellzentrale.de/" + model + "/" + runParam + "Z/" + timeParam + "h/" + type + ".png";
         };
