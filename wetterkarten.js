@@ -173,21 +173,14 @@ var Weathermap = {
     getMzUrlGenerator: function (type, model) {
         if (model === undefined) { var model = "WRF4km"; }
         var run = Date.fromRunParam(12, 7);
+        var wxChartsRun = Date.fromRunParam(6, 5);
         var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
 
         return function (time) {
             /* Da die WRF 4km Modelle 2x am Tag mit 7 Stunden verzögerung zur Verfügung stehen, 
-             * muss eine Korrektur zu den anderen Modellen (4x am Tag mit 5 h Verzögerung)
-             * eingefügt werden. Funktioniert nur mit den oben stehenden Parametern. */
-            var d = new Date();
-            var diffIndicator = (Math.floor((d.getUTCHours() + 1 % 24) / 2));
-            if (diffIndicator <= 2) { time += 6; }
-            else if (diffIndicator <= 3) { time += 12; }
-            else if (diffIndicator <= 5) { time += 0; }
-            else if (diffIndicator <= 8) { time += 6; }
-            else if (diffIndicator <= 9) { time += 12; }
-            else if (diffIndicator <= 11) { time += 0; }
-
+             * muss eine Korrektur zu den anderen Modellen (4x am Tag mit 6 h Verzögerung)
+             * eingefügt werden.  */
+            time += (wxChartsRun.getTime() - run.getTime()) / 3600000;
             var timeParam = time < 10 ? "0" + time : time;
             return "http://www.modellzentrale.de/" + model + "/" + runParam + "Z/" + timeParam + "h/" + type + ".png";
         };
@@ -235,24 +228,34 @@ var Weathermap = {
 
     showImageDetails: function (panel) {
         var panelObj = null, image = null;
+        var leftPos = 0, topPos = 0, width = 0, height = 0;
         if (panel !== undefined) {
             panelObj = $(panel).data("obj");
             image = panelObj.currentImage;
-            var leftPos = 0, topPos = 20, width = 600, height = 400;
 
             if (image.naturalWidth && image.naturalHeight) {
-                leftPos = Math.max(0, ($(window).width() - image.naturalWidth) / 2);
-                topPos = Math.max(0, ($(window).height() - image.naturalHeight) / 2);
-                width = Math.min($(window).width(), image.naturalWidth);
-                height = Math.round(width * image.naturalHeight / image.naturalWidth);
+                width = image.naturalWidth;
+                height = image.naturalHeight;
+                if ($(window).width() < width) {
+                    width = $(window).width();
+                    height = width * image.naturalHeight / image.naturalWidth;
+                }
+                if ($(window).height() < height) {
+                    height = $(window).height();
+                    width = height * image.naturalWidth / image.naturalHeight;
+                }
             }
+            else {
+                width = 600;
+                height = 400;
+            }
+            leftPos = ($(window).width() - width) / 2;
+            topPos = Math.max(20, ($(window).height() - height) / 2);
             $("#imageDetails").data("panelObj", panelObj);
             $("#imageDetails").css("left", leftPos + "px");
             $("#imageDetails").css("top", topPos + "px");
             $("#imageDetails").css("width", width + "px");
             $("#imageDetails").css("height", height + "px");
-            $("#imageDetails img").css("width", width + "px");
-            $("#imageDetails img").css("height", height + "px");
         }
         else {
             if ($("#imageDetails img").length == 0) {
