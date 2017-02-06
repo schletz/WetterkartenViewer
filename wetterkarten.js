@@ -176,7 +176,18 @@ var Weathermap = {
         var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
 
         return function (time) {
-            time += 6;
+            /* Da die WRF 4km Modelle 2x am Tag mit 7 Stunden verzögerung zur Verfügung stehen, 
+             * muss eine Korrektur zu den anderen Modellen (4x am Tag mit 5 h Verzögerung)
+             * eingefügt werden. Funktioniert nur mit den oben stehenden Parametern. */
+            var d = new Date();
+            var diffIndicator = (Math.floor((d.getUTCHours() + 1 % 24) / 2));
+            if (diffIndicator <= 2) { time += 6; }
+            else if (diffIndicator <= 3) { time += 12; }
+            else if (diffIndicator <= 5) { time += 0; }
+            else if (diffIndicator <= 8) { time += 6; }
+            else if (diffIndicator <= 9) { time += 12; }
+            else if (diffIndicator <= 11) { time += 0; }
+
             var timeParam = time < 10 ? "0" + time : time;
             return "http://www.modellzentrale.de/" + model + "/" + runParam + "Z/" + timeParam + "h/" + type + ".png";
         };
