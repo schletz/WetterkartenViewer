@@ -95,11 +95,11 @@ Panel.prototype.getImage = function (time, options) {
         var t = 0;
 
         if (typeof time !== "number") { var time = 0; }
-        if (typeof options.seek === "number") { 
+        if (typeof options.seek === "number") {
             seek = options.seek;
         }
-        if (typeof options.layer === "number") { 
-            this.currentLayer = options.layer > this.maxLayer ? 0 : options.layer; 
+        if (typeof options.layer === "number") {
+            this.currentLayer = options.layer > this.maxLayer ? 0 : options.layer;
         }
 
         for (t = time; t <= time + seek; t += 1) {
@@ -126,15 +126,18 @@ var Weathermap = {
     maxTime: 384,
     step: 3,
     time: 0,
-    getWxcUrlGenerator: function (type, region) {
+    getWxcUrlGenerator: function (type, region, model) {
         if (region === undefined) {
             var region = "euratl";
+        }
+        if (model === undefined) {
+            model = "gfs";
         }
         var run = Date.fromRunParam(6, 5);
         var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
         return function (time) {
             var timeParam = time < 10 ? "00" + time : (time < 100 ? "0" + time : time);
-            return "http://wxcharts.eu/charts/gfs/" + region + "/" + runParam + "/" + type + "_" + timeParam + ".jpg";
+            return "http://wxcharts.eu/charts/" + model + "/" + region + "/" + runParam + "/" + type + "_" + timeParam + ".jpg";
         };
     },
     getWzUrlGenerator: function (type, region) {
@@ -150,12 +153,14 @@ var Weathermap = {
         };
     },
     getW3UrlGenerator: function (type, model) {
-        if (model === "ICON" || model === "icon") {
-            model = "_ICON";
-        }
-        else {
+        if (model === undefined) { var model = "ICON"; }
+        if (model === "GFS") {
             model = "";
         }
+        else {
+            model = "_" + model;
+        }
+
         var run = Date.fromRunParam(6, 5);
         var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
 
@@ -274,8 +279,8 @@ Weathermap.panelsToLoad = [
         { start: 0, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("850temp") },
         { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("850temp") },
 
-        { start: 6, step: 6, stop: 78, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(9, "icon") },
-        { start: 84, step: 6, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(9) },
+        { start: 6, step: 6, stop: 102, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(9, "ARPEGE") },
+        { start: 108, step: 6, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(9, "GFS") },
 
         { start: 0, step: 3, stop: 72, layer: 2, urlGenerator: Weathermap.getMzUrlGenerator("T2m_eu3") },
 
@@ -286,20 +291,22 @@ Weathermap.panelsToLoad = [
     ],
     /* wxcharts overview */
     [
-        { start: 3, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview") },
+        { start: 3, step: 3, stop: 102, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "europe", "arpege") },
+        { start: 105, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview") },
         { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview") },
 
-        { start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
+        { start: 3, step: 3, stop: 102, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany", "arpege") },
+        { start: 105, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
         { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") }
     ],
     /* w3 niederschlag und wolken   */
     [
         // Die Niderschlagskarten sind 6stündig. Für die Zwischenkarten die 6h Datei aus t+3h laden.
-        { start: 6, step: 6, stop: 78, layer: 0, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(4, "icon") },
-        { start: 81, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(28) },
+        { start: 6, step: 6, stop: 102, layer: 0, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(4, "ARPEGE") },
+        { start: 105, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(28, "GFS") },
 
-        { start: 3, step: 3, stop: 78, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(13, "icon") },
-        { start: 81, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(18) },
+        { start: 6, step: 6, stop: 102, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(26, "ARPEGE") },
+
         // WRF 4km Modellzentrale Niederschlag
         { start: 0, step: 3, stop: 72, layer: 2, urlGenerator: Weathermap.getMzUrlGenerator("RR3h_eu") }
     ],
