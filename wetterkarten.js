@@ -1,20 +1,17 @@
 /*jslint this:true, white:true for:true */
 /*global Image $ */
 "use strict";
+Date.fromRunParam = function (runsInterval, delay, testdate) {
+    if (!runsInterval) { var runsInterval = 6; }
+    if (!delay) { var delay = 0; }
 
-Date.fromRun = function (hour) {
-    if (typeof hour !== "number" || hour < 0 || hour > 23) { var hour = 0; }
-
+    runsInterval *= 3600000;
     var d = new Date();
-    var now = new Date();
-    d.setUTCHours(hour);
+    d.setUTCHours(d.getUTCHours() - delay);
     d.setUTCMinutes(0);
     d.setUTCSeconds(0);
     d.setUTCMilliseconds(0);
-
-    if (d.getTime() > now.getTime()) {
-        d.setUTCDate(d.getUTCDate() - 1);
-    }
+    d.setTime(Math.floor(d.getTime() / runsInterval) * runsInterval);
     return d;
 };
 
@@ -57,11 +54,7 @@ Panel.prototype.loadImage = function (url) {
     return img;
 };
 
-Panel.prototype.createImages = function (run, timestep) {
-    var runHour = run.getUTCHours();
-    if (this.images[runHour] === undefined) {
-        this.images[runHour] = [];
-    }
+Panel.prototype.createImages = function (timestep) {
     var time = 0;
     if (!timestep.start) { timestep.start = 0; }
     if (!timestep.step) { timestep.step = 1; }
@@ -73,18 +66,18 @@ Panel.prototype.createImages = function (run, timestep) {
         this.maxLayer = timestep.layer;
     }
     for (time = timestep.start; time <= timestep.stop; time += timestep.step) {
-        if (this.images[runHour][time] === undefined) {
-            this.images[runHour][time] = [];
+        if (this.images[time] === undefined) {
+            this.images[time] = [];
         }
         if (timestep.preload) {
-            this.images[runHour][time][timestep.layer] = {
+            this.images[time][timestep.layer] = {
                 urlGenerator: timestep.urlGenerator,
                 offset: timestep.offset,
-                image: this.loadImage(timestep.urlGenerator(run, time + timestep.offset))
+                image: this.loadImage(timestep.urlGenerator(time + timestep.offset))
             };
         }
         else {
-            this.images[runHour][time][timestep.layer] = {
+            this.images[time][timestep.layer] = {
                 urlGenerator: timestep.urlGenerator,
                 offset: timestep.offset,
                 image: null
@@ -93,22 +86,20 @@ Panel.prototype.createImages = function (run, timestep) {
     }
 };
 
-Panel.prototype.getImage = function (run, time, layer, seek) {
+Panel.prototype.getImage = function (time, layer, seek) {
     try {
-        if (typeof run !== "object") { var run = Date.fromRun(0); }
         if (typeof time !== "number") { var time = 0; }
         if (typeof layer !== "number") { var layer = 0; }
         if (typeof seek !== "number") { var seek = 0; }
 
-        var runHour = run.getUTCHours();
         var imgElem = null;
         var t = 0;
 
         for (t = time; t <= time + seek; t += 1) {
-            if (this.images[runHour][t] !== undefined && this.images[runHour][t][layer] !== undefined) {
-                imgElem = this.images[runHour][t][layer];
+            if (this.images[t] !== undefined && this.images[t][layer] !== undefined) {
+                imgElem = this.images[t][layer];
                 if (imgElem.image === null) {
-                    imgElem.image = this.loadImage(imgElem.urlGenerator(run, t + imgElem.offset));
+                    imgElem.image = this.loadImage(imgElem.urlGenerator(t + imgElem.offset));
                 }
                 return imgElem.image;
             }
@@ -127,13 +118,13 @@ var Weathermap = {
     maxTime: 384,
     step: 3,
     time: 0,
-    lastRun: null,
     getWxcUrlGenerator: function (type, region) {
         if (region === undefined) {
             var region = "euratl";
         }
-        return function (run, time) {
-            var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
+        var run = Date.fromRunParam(6, 5);
+        var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
+        return function (time) {
             var timeParam = time < 10 ? "00" + time : (time < 100 ? "0" + time : time);
             return "http://wxcharts.eu/charts/gfs/" + region + "/" + runParam + "/" + type + "_" + timeParam + ".jpg";
         };
@@ -142,8 +133,10 @@ var Weathermap = {
         if (region === undefined) {
             var region = "GFSOPME";
         }
-        return function (run, time) {
-            var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
+        var run = Date.fromRunParam(6, 5);
+        var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
+
+        return function (time) {
             var timeParam = time;
             return "http://www.wetterzentrale.de/maps/" + region + runParam + "_" + timeParam + "_" + type + ".png";
         };
@@ -155,43 +148,27 @@ var Weathermap = {
         else {
             model = "";
         }
-        return function (run, time) {
-            var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
+        var run = Date.fromRunParam(6, 5);
+        var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
+
+        return function (time) {
             var timeParam = time < 10 ? "0" + time : time;
             return "http://www1.wetter3.de/Animation_" + runParam + "_UTC_025Grad" + model + "/" + timeParam + "_" + type + ".gif";
         };
     },
-    getOgimetUrlGenerator: function (type) {
-        return function (run, time) {
-            if (type === undefined) {
-                var type = "SFC";
-            }
-            var ogimetRun = new Date(run);
-            if (run.getUTCHours() < 12) {
-                ogimetRun.setUTCHours(0);
-                time += run.getUTCHours();
-            }
-            else {
-                ogimetRun.setUTCHours(12);
-                time += run.getUTCHours() + 12;
-            }
-            var runParam1 = ogimetRun.getUTCymd() + "_" + (ogimetRun.getUTCHours() < 12 ? "00" : "12");
-            var runParam2 = "" + ogimetRun.getUTCymd() + (ogimetRun.getUTCHours() < 12 ? "00" : "12");
-            var timeParam = time < 10 ? "00" + time : (time < 100 ? "0" + time : time);
-            return "http://www.ogimet.com/forecasts/" + runParam1 + "/" + type + "/" + runParam2 + "H" + timeParam + "_EU00_" + type + ".jpg";
+
+    getMzUrlGenerator: function (type, model) {
+        if (model === undefined) { var model = "WRF4km"; }
+        var run = Date.fromRunParam(12, 7);
+        var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
+
+        return function (time) {
+            time += 9;
+            var timeParam = time < 10 ? "0" + time : time;
+            return "http://www.modellzentrale.de/" + model + "/" + runParam + "Z/" + timeParam + "h/" + type + ".png";
         };
     },
 
-    getMeteocielUrlGenerator: function (type) {
-        return function (run, time) {
-            if (type === undefined) { var type = 0; }
-            var runParam = run.getUTCymdh();
-            var timeParam = time;
-            var append = (time % 6 != 0) ? "-3h" : "";
-
-            return "http://modeles.meteociel.fr/modeles/gfs/run/gfs-" + type + "-" + timeParam + append + ".png";
-        };
-    },
 
     displayPanels: function () {
         var p = null, panelDiv = null, i = 0;
@@ -200,7 +177,7 @@ var Weathermap = {
         self.panelsToLoad.forEach(function (panel) {
             p = new Panel();
             panel.forEach(function (panelData) {
-                p.createImages(self.lastRun, panelData);
+                p.createImages(panelData);
             });
             panelDiv = $("<div>").addClass("weatherPanel").attr("id", "panel" + i);
             if (i % 2 === 0) { panelDiv.addClass("col-2"); }
@@ -211,7 +188,7 @@ var Weathermap = {
             panelDiv.data("obj", p);
             panelDiv.data("layer", 0);
             panelDiv.on("click", function () { self.onPanelClick(this); });
-            panelDiv.on("contextmenu", function () { self.onPanelRightClick(this); });
+            panelDiv.on("contextmenu", function () { self.showImageDetails(this); });
             $(self.container).append(panelDiv);
             i += 1;
         });
@@ -222,7 +199,7 @@ var Weathermap = {
         $(".weatherPanel").each(function () {
             var panelObj = $(this).data("obj");
             var layer = 1 * $(this).data("layer");
-            var image = panelObj.getImage(self.lastRun, self.time, layer, 12);
+            var image = panelObj.getImage(self.time, layer, 12);
             $(this).empty().append(image);
         });
     },
@@ -235,32 +212,45 @@ var Weathermap = {
             layer = 0;
         }
 
-        var image = panelObj.getImage(this.lastRun, this.time, layer, 12);
+        var image = panelObj.getImage(this.time, layer, 12);
         $(panel).data("layer", layer);
         $(panel).empty().append(image);
     },
 
-    onPanelRightClick: function (panel) {
-        var panelObj = $(panel).data("obj");
-        var layer = 1 * $(panel).data("layer");
-        var image = panelObj.getImage(this.lastRun, this.time, layer, 12);
-        var leftPos = 0, topPos = 20, width = 600, height = 400;
+    showImageDetails: function (panel) {
+        var panelObj = null, layer = 0, image = null;
+        if (panel !== undefined) {
+            panelObj = $(panel).data("obj");
+            layer = 1 * $(panel).data("layer");
+            image = panelObj.getImage(this.time, layer, 12);
+            var leftPos = 0, topPos = 20, width = 600, height = 400;
 
-        if (image.naturalWidth && image.naturalHeight) {
-            leftPos = Math.max(0, ($(window).width() - image.naturalWidth) / 2);
-            topPos = Math.max(0, ($(window).height() - image.naturalHeight) / 2);
-            width = Math.min($(window).width(), image.naturalWidth);
-            height = Math.round(width * image.naturalHeight / image.naturalWidth);
+            if (image.naturalWidth && image.naturalHeight) {
+                leftPos = Math.max(0, ($(window).width() - image.naturalWidth) / 2);
+                topPos = Math.max(0, ($(window).height() - image.naturalHeight) / 2);
+                width = Math.min($(window).width(), image.naturalWidth);
+                height = Math.round(width * image.naturalHeight / image.naturalWidth);
+            }
+            $("#imageDetails").data("panelObj", panelObj);
+            $("#imageDetails").data("layer", layer);
+            $("#imageDetails").css("left", leftPos + "px");
+            $("#imageDetails").css("top", topPos + "px");
+            $("#imageDetails").css("width", width + "px");
+            $("#imageDetails").css("height", height + "px");
+            $("#imageDetails img").css("width", width + "px");
+            $("#imageDetails img").css("height", height + "px");
+        }
+        else {
+            if ($("#imageDetails img").length == 0) {
+                return;
+            }
+            panelObj = $("#imageDetails").data("panelObj");            
+            layer = 1 * $("#imageDetails").data("layer");            
+            image = panelObj.getImage(this.time, layer, 12);
         }
 
         $("#imageDetails img").remove();
         $("#imageDetails").append($(image).clone());
-        $("#imageDetails").css("left", leftPos + "px");
-        $("#imageDetails").css("top", topPos + "px");
-        $("#imageDetails").css("width", width + "px");
-        $("#imageDetails").css("height", height + "px");
-        $("#imageDetails img").css("width", width + "px");
-        $("#imageDetails img").css("height", height + "px");
         $("#imageDetails").show();
     }
 };
@@ -290,8 +280,10 @@ Weathermap.panelsToLoad = [
         { start: 6, step: 6, stop: 78, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(9, "icon") },
         { start: 84, step: 6, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(9) },
 
-        { start: 0, step: 6, stop: 240, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("850temp_anom") },
-        { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("850temp_anom") }
+        { start: 0, step: 3, stop: 72, layer: 2, urlGenerator: Weathermap.getMzUrlGenerator("T2m_eu3") },
+
+        { start: 0, step: 6, stop: 240, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("850temp_anom") },
+        { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("850temp_anom") }
 
 
     ],
@@ -301,17 +293,18 @@ Weathermap.panelsToLoad = [
         { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview") },
 
         { start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
-        { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
-
-        { start: 0, step: 6, stop: 192, layer: 2, urlGenerator: Weathermap.getOgimetUrlGenerator("SFC") }
+        { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") }
     ],
     /* w3 niederschlag und wolken   */
     [
         // Die Niderschlagskarten sind 6stündig. Für die Zwischenkarten die 6h Datei aus t+3h laden.
         { start: 6, step: 6, stop: 78, layer: 0, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(4, "icon") },
         { start: 81, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(28) },
+
         { start: 3, step: 3, stop: 78, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(13, "icon") },
-        { start: 81, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(18) }
+        { start: 81, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(18) },
+        // WRF 4km Modellzentrale Niederschlag
+        { start: 0, step: 3, stop: 72, layer: 2, urlGenerator: Weathermap.getMzUrlGenerator("RR3h_eu") }
     ],
     /* wz 850hpa wind (mitteleuropa und europa) und theta e */
     [
@@ -325,14 +318,12 @@ Weathermap.panelsToLoad = [
     ]
 ];
 
-function initUi(lastRun) {
-    $("#modelChooseWindow").hide();
-    $("#slidebar").show();
+function initUi() {
     $("#timeSlider").on("change", function (event, ui) {
         Weathermap.time = 1 * $("#timeSlider").val();
         Weathermap.showImages();
+        Weathermap.showImageDetails();
     });
-    Weathermap.lastRun = lastRun;
     Weathermap.time = 0;
     Weathermap.displayPanels("panels");
     Weathermap.showImages();
@@ -344,6 +335,7 @@ function slideTo(offset) {
     if (newTime > Weathermap.maxTime) { newTime = Weathermap.maxTime; }
     Weathermap.time = newTime;
     Weathermap.showImages();
+    Weathermap.showImageDetails();    
     $("#timeSlider").val(newTime);
     $('#timeSlider').slider('refresh');
 }
