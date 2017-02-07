@@ -1,9 +1,10 @@
-/*jslint this:true, white:true for:true */
-/*global Image $ */
+/* jshint strict:global */
+/* globals $, Image, window  */
+
 "use strict";
-Date.fromRunParam = function (runsInterval, delay, testdate) {
-    if (!runsInterval) { var runsInterval = 6; }
-    if (!delay) { var delay = 0; }
+Date.fromRunParam = function (runsInterval, delay) {
+    if (isNaN(runsInterval)) { runsInterval = 6; }
+    if (isNaN(delay)) { delay = 0; }
 
     runsInterval *= 3600000;
     var d = new Date();
@@ -58,11 +59,12 @@ Panel.prototype.loadImage = function (url) {
 
 Panel.prototype.createImages = function (timestep) {
     var time = 0;
-    if (!timestep.start) { timestep.start = 0; }
-    if (!timestep.step) { timestep.step = 1; }
-    if (!timestep.stop) { timestep.stop = 0; }
-    if (!timestep.offset) { timestep.offset = 0; }
-    if (!timestep.layer) { timestep.layer = 0; }
+    if (timestep === undefined) { timestep = {}; }
+    if (isNaN(timestep.start)) { timestep.start = 0; }
+    if (isNaN(timestep.step)) { timestep.step = 1; }
+    if (isNaN(timestep.stop)) { timestep.stop = 0; }
+    if (isNaN(timestep.offset)) { timestep.offset = 0; }
+    if (isNaN(timestep.layer)) { timestep.layer = 0; }
 
     if (timestep.layer > this.maxLayer) {
         this.maxLayer = timestep.layer;
@@ -90,19 +92,18 @@ Panel.prototype.createImages = function (timestep) {
 
 Panel.prototype.getImage = function (time, options) {
     try {
-        var seek = 0, imgElem = null, t = 0;
-        var imgElem = null;
-        var t = 0;
-
-        if (typeof time !== "number") { var time = 0; }
-        if (typeof options.seek === "number") {
-            seek = options.seek;
+        var imgElem = null, t = 0;
+        if (isNaN(time)) { time = 0; }
+        if (options === undefined) { options = {}; }
+        if (isNaN(options.seek)) { options.seek = 0; }
+        if (isNaN(options.layer)) {
+            options.layer = 0;
         }
-        if (typeof options.layer === "number") {
+        else {
             this.currentLayer = options.layer > this.maxLayer ? 0 : options.layer;
         }
 
-        for (t = time; t <= time + seek; t += 1) {
+        for (t = time; t <= time + options.seek; t += 1) {
             if (this.images[t] !== undefined && this.images[t][this.currentLayer] !== undefined) {
                 imgElem = this.images[t][this.currentLayer];
                 if (imgElem.image === null) {
@@ -120,15 +121,66 @@ Panel.prototype.getImage = function (time, options) {
     return this.currentImage;
 };
 
+/**
+ * 
+ */
 var Weathermap = {
-    container: "#panels",
+    _container: "",
+    get container() {
+        return this._container;
+    },
+    set container(newContainer) {
+        $(this.container).empty();
+        this._container = "#" + newContainer;
+        this.createPanels();
+    },
     minTime: 0,
     maxTime: 384,
     step: 3,
-    time: 0,
+    _time: 0,
+    get time() {
+        return this._time;
+    },
+    set time(newTime) {
+        this._time = Math.min(this.maxTime, Math.max(this.minTime, newTime));
+        var self = this;
+
+        if ($("#timeSlider").val() != this.time) {
+            $("#timeSlider").val(this.time);
+            $('#timeSlider').slider('refresh');
+        }
+
+        $(".weatherPanel").each(function () {
+            var panelObj = $(this).data("panel");
+            var image = panelObj.getImage(self.time, { seek: 12 });
+            $(this).empty().append(image);
+        });
+
+        if (this.fullsizePanel !== null) {
+            var fullsizeImage = this.fullsizePanel.currentImage;
+            $("#imageDetails img").remove();
+            $("#imageDetails").append($(fullsizeImage).clone());
+        }
+    },
+    _fullsizePanel: null,
+    get fullsizePanel() {
+        return this._fullsizePanel;
+    },
+    set fullsizePanel(newPanel) {
+        this._fullsizePanel = newPanel;
+        if (newPanel !== null) {
+            this.showFullsizePanel();
+        }
+        else {
+            $("#imageDetails img").remove();
+            $("#imageDetails").hide();
+        }
+    },
+
+
     getWxcUrlGenerator: function (type, region, model) {
         if (region === undefined) {
-            var region = "euratl";
+            region = "euratl";
         }
         if (model === undefined) {
             model = "gfs";
@@ -146,7 +198,7 @@ var Weathermap = {
     },
     getWzUrlGenerator: function (type, region) {
         if (region === undefined) {
-            var region = "GFSOPME";
+            region = "GFSOPME";
         }
         var run = Date.fromRunParam(6, 5);
         var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
@@ -157,13 +209,9 @@ var Weathermap = {
         };
     },
     getW3UrlGenerator: function (type, model) {
-        if (model === undefined) { var model = "ICON"; }
-        if (model === "GFS") {
-            model = "";
-        }
-        else {
-            model = "_" + model;
-        }
+        if (model === undefined) { model = "_ICON"; }
+        else if (model === "GFS") { model = ""; }
+        else { model = "_" + model; }
 
         var run = Date.fromRunParam(6, 5);
         var runHour = run.getUTCHours();
@@ -180,7 +228,7 @@ var Weathermap = {
     },
 
     getMzUrlGenerator: function (type, model) {
-        if (model === undefined) { var model = "WRF4km"; }
+        if (model === undefined) { model = "WRF4km"; }
         var run = Date.fromRunParam(12, 7);
         var wxChartsRun = Date.fromRunParam(6, 5);
         var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
@@ -196,10 +244,9 @@ var Weathermap = {
     },
 
 
-    displayPanels: function () {
+    createPanels: function () {
         var p = null, panelDiv = null, i = 0;
         var self = this;
-        $(self.container).empty();
         self.panelsToLoad.forEach(function (panel) {
             p = new Panel();
             panel.forEach(function (panelData) {
@@ -211,70 +258,42 @@ var Weathermap = {
             if (i % 4 === 0) { panelDiv.addClass("col-4"); }
             if (i % 5 === 0) { panelDiv.addClass("col-5"); }
 
-            panelDiv.data("obj", p);
+            panelDiv.data("panel", p);
             panelDiv.data("layer", 0);
             panelDiv.on("click", function () { self.onPanelClick(this); });
-            panelDiv.on("contextmenu", function () { self.showImageDetails(this); });
+            panelDiv.on("contextmenu", function () { self.fullsizePanel = $(this).data("panel"); });
             $(self.container).append(panelDiv);
             i += 1;
         });
     },
 
-    showImages: function () {
-        var self = this;
-        $(".weatherPanel").each(function () {
-            var panelObj = $(this).data("obj");
-            var image = panelObj.getImage(self.time, { seek: 12 });
-            $(this).empty().append(image);
-        });
-    },
-
     onPanelClick: function (panel) {
-        var panelObj = $(panel).data("obj");
+        var panelObj = $(panel).data("panel");
         var image = panelObj.getImage(this.time, { layer: panelObj.currentLayer + 1, seek: 12 });
         $(panel).empty().append(image);
     },
 
-    showImageDetails: function (panel) {
-        var panelObj = null, image = null;
-        var leftPos = 0, topPos = 0, width = 0, height = 0;
-        if (panel !== undefined) {
-            panelObj = $(panel).data("obj");
-            image = panelObj.currentImage;
+    showFullsizePanel: function () {
+        var leftPos = 0, topPos = 0, width = 600, height = 400;
+        var image = this.fullsizePanel.currentImage;
 
-            if (image.naturalWidth && image.naturalHeight) {
-                width = image.naturalWidth;
-                height = image.naturalHeight;
-                if ($(window).width() < width) {
-                    width = $(window).width();
-                    height = width * image.naturalHeight / image.naturalWidth;
-                }
-                if ($(window).height() < height) {
-                    height = $(window).height();
-                    width = height * image.naturalWidth / image.naturalHeight;
-                }
+        if (image.naturalWidth && image.naturalHeight) {
+            width = image.naturalWidth;
+            height = image.naturalHeight;
+            if ($(window).width() < width) {
+                width = $(window).width();
+                height = width * image.naturalHeight / image.naturalWidth;
             }
-            else {
-                width = 600;
-                height = 400;
+            if ($(window).height() < height) {
+                height = $(window).height();
+                width = height * image.naturalWidth / image.naturalHeight;
             }
-            leftPos = ($(window).width() - width) / 2;
-            topPos = Math.max(20, ($(window).height() - height) / 2);
-            $("#imageDetails").data("panelObj", panelObj);
-            $("#imageDetails").css("left", leftPos + "px");
-            $("#imageDetails").css("top", topPos + "px");
-            $("#imageDetails").css("width", width + "px");
-            $("#imageDetails").css("height", height + "px");
         }
-        else {
-            if ($("#imageDetails img").length == 0) {
-                return;
-            }
-            panelObj = $("#imageDetails").data("panelObj");
-            image = panelObj.currentImage;
-        }
-
+        leftPos = ($(window).width() - width) / 2;
         $("#imageDetails img").remove();
+        $("#imageDetails").css("left", leftPos + "px");
+        $("#imageDetails").css("width", width + "px");
+        $("#imageDetails").css("height", height + "px");
         $("#imageDetails").append($(image).clone());
         $("#imageDetails").show();
     }
@@ -347,27 +366,8 @@ Weathermap.panelsToLoad = [
 
 function initUi() {
     $("#timeSlider").on("change", function (event, ui) {
-        Weathermap.time = 1 * $("#timeSlider").val();
-        Weathermap.showImages();
-        Weathermap.showImageDetails();
+        Weathermap.time = $("#timeSlider").val();
     });
+    Weathermap.container = "panels";
     Weathermap.time = 0;
-    Weathermap.displayPanels("panels");
-    Weathermap.showImages();
-}
-
-function slideTo(offset) {
-    var newTime = Weathermap.time + offset;
-    if (newTime < Weathermap.minTime) { newTime = Weathermap.minTime; }
-    if (newTime > Weathermap.maxTime) { newTime = Weathermap.maxTime; }
-    Weathermap.time = newTime;
-    Weathermap.showImages();
-    Weathermap.showImageDetails();
-    $("#timeSlider").val(newTime);
-    $('#timeSlider').slider('refresh');
-}
-
-function hideDetailsWindow() {
-    $("#imageDetails img").remove();
-    $("#imageDetails").hide();
 }

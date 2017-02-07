@@ -20,18 +20,6 @@ html, body {
     width:100%;
 }
 
-.overlayContainer img {
-    position: absolute;
-    left:0px;
-    top:0px;
-    width: 100%;
-}
-
-.overlay {
-    opacity: 0.5;
-    z-index:1;
-}
-
 #slidebar {
     position: fixed;
     background-color: white;
@@ -60,6 +48,7 @@ html, body {
     position:fixed;
     z-index:100;
     border:10px solid gray;
+    margin-top:10px;
     display:none;    
 }
 
