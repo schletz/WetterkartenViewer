@@ -344,8 +344,12 @@ Weathermap.panelsToLoad = [
         // W3 6h Max/Min 2m Temperatur
         { start: 6, step: 6, stop: 102, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(9, "ARPEGE") },
         { start: 108, step: 6, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(9, "GFS") },
-        // MZ WRF 2m Temperatur
-        { start: 0, step: 3, stop: 72, layer: 2, urlGenerator: Weathermap.getMzUrlGenerator("T2m_eu3") },
+        // 850 hpa temp germany
+        { start: 0, step: 3, stop: 72, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("850temp", "germany", "arpege") },
+        { start: 78, step: 6, stop: 102, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("850temp", "germany", "arpege") },
+        { start: 105, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("850temp", "germany") },
+        { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("850temp", "germany") },
+
         // WXC 850hpa Anomalie
         { start: 0, step: 6, stop: 240, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("850temp_anom") },
         { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("850temp_anom") }
@@ -364,7 +368,7 @@ Weathermap.panelsToLoad = [
     ],
     /* w3 niederschlag und wolken   */
     [
-        // Die Niderschlagskarten sind 6stündig. Für die Zwischenkarten die 6h Datei aus t+3h laden.
+        // Die Niderschlagskarten sind 6stündig.
         { start: 6, step: 6, stop: 102, layer: 0, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(4, "ARPEGE") },
         { start: 105, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(28, "GFS") },
         // WRF 4km Modellzentrale Niederschlag
