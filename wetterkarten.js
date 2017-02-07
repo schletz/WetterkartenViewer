@@ -189,6 +189,7 @@ var Weathermap = {
         return function (time) {
             var runHour = run.getUTCHours();
             var modelParam = model;
+            var regionParam = region;
             /* Die 6 h und 18 h Läufe werden bei Wxcharts nur bis 72 h gerechnet. Daher nehmen wir
              * die Läufe von 0 h bzw. 12 h */
             if (model === "arpege" && (runHour === 6 || runHour === 18) && time > 72) {
@@ -198,12 +199,13 @@ var Weathermap = {
 
                 }
                 else {
+                    regionParam = "euratl";
                     modelParam = "gfs";
                 }
             }
             var timeParam = time < 10 ? "00" + time : (time < 100 ? "0" + time : time);
             var runParam = runHour < 10 ? "0" + runHour : runHour;
-            return "http://wxcharts.eu/charts/" + modelParam + "/" + region + "/" + runParam + "/" + type + "_" + timeParam + ".jpg";
+            return "http://wxcharts.eu/charts/" + modelParam + "/" + regionParam + "/" + runParam + "/" + type + "_" + timeParam + ".jpg";
         };
     },
     getWzUrlGenerator: function (type, region) {
