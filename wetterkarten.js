@@ -186,13 +186,23 @@ var Weathermap = {
             model = "gfs";
         }
         var run = Date.fromRunParam(6, 5);
-        var runHour = run.getUTCHours();
-        var runParam = runHour < 10 ? "0" + runHour : runHour;
         return function (time) {
+            var runHour = run.getUTCHours();
             var modelParam = model;
-            // Die 6 h und 18 h Läufe werden bei Wxcharts nur bis 72 h gerechnet.
-            if (model === "arpege" && (runHour === 6 || runHour === 18) && time > 72) { modelParam = "gfs"; }
+            /* Die 6 h und 18 h Läufe werden bei Wxcharts nur bis 72 h gerechnet. Daher nehmen wir
+             * die Läufe von 0 h bzw. 12 h */
+            if (model === "arpege" && (runHour === 6 || runHour === 18) && time > 72) {
+                if (time + 6 <= 102) {
+                    runHour = (runHour - 6) % 24;
+                    time += 6;
+
+                }
+                else {
+                    modelParam = "gfs";
+                }
+            }
             var timeParam = time < 10 ? "00" + time : (time < 100 ? "0" + time : time);
+            var runParam = runHour < 10 ? "0" + runHour : runHour;
             return "http://wxcharts.eu/charts/" + modelParam + "/" + region + "/" + runParam + "/" + type + "_" + timeParam + ".jpg";
         };
     },
@@ -214,14 +224,23 @@ var Weathermap = {
         else { model = "_" + model; }
 
         var run = Date.fromRunParam(6, 5);
-        var runHour = run.getUTCHours();
-        var runParam = runHour < 10 ? "0" + runHour : runHour;
+
 
         return function (time) {
+            var runHour = run.getUTCHours();
             var modelParam = model;
-            // Die 6 h und 18 h Läufe werden bei Wetter3 nur bis +72 h bzw. +60 h gerechnet.
-            if (model === "_ARPEGE" && runHour === 6 && time > 72) { modelParam = ""; }
-            if (model === "_ARPEGE" && runHour === 18 && time > 60) { modelParam = ""; }
+            /* Die 6 h und 18 h Läufe werden bei Wetter3 nur bis +72 h bzw. +60 h gerechnet. Daher nehmen
+             * wir den Lauf von 0 h bzw. 12 h */
+            if (model === "_ARPEGE" && ((runHour === 6 && time > 72) || (runHour === 18 && time > 60))) {
+                if (time + 6 <= 102) {
+                    runHour = (runHour - 6) % 24;
+                    time += 6;
+                }
+                else {
+                    modelParam = "";
+                }
+            }
+            var runParam = runHour < 10 ? "0" + runHour : runHour;
             var timeParam = time < 10 ? "0" + time : time;
             return "http://www1.wetter3.de/Animation_" + runParam + "_UTC_025Grad" + modelParam + "/" + timeParam + "_" + type + ".gif";
         };
@@ -351,7 +370,7 @@ Weathermap.panelsToLoad = [
         // Gesamtbewölkung
         { start: 3, step: 3, stop: 72, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
         { start: 78, step: 6, stop: 102, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
-        { start: 105, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(18, "GFS") },        
+        { start: 105, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(18, "GFS") },
         // WRF 4km Modellzentrale Low Clouds
         { start: 0, step: 3, stop: 72, layer: 3, urlGenerator: Weathermap.getMzUrlGenerator("cloudslow_eu") },
         // Akkumulierter Niederschlag
