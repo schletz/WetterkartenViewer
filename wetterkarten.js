@@ -1,5 +1,5 @@
 /* jshint strict:global */
-/* globals $, Image, window  */
+/* globals $, Image, window, console  */
 
 "use strict";
 Date.fromRunParam = function (runsInterval, delay) {
@@ -62,7 +62,7 @@ Panel.prototype.createImages = function (timestep) {
     if (timestep === undefined) { timestep = {}; }
     if (isNaN(timestep.start)) { timestep.start = 0; }
     if (isNaN(timestep.step)) { timestep.step = 1; }
-    if (isNaN(timestep.stop)) { timestep.stop = 0; }
+    if (isNaN(timestep.stop)) { timestep.stop = timestep.start; }
     if (isNaN(timestep.offset)) { timestep.offset = 0; }
     if (isNaN(timestep.layer)) { timestep.layer = 0; }
 
@@ -95,15 +95,11 @@ Panel.prototype.getImage = function (time, options) {
         var imgElem = null, t = 0;
         if (isNaN(time)) { time = 0; }
         if (options === undefined) { options = {}; }
-        if (isNaN(options.seek)) { options.seek = 0; }
-        if (isNaN(options.layer)) {
-            options.layer = 0;
-        }
-        else {
-            this.currentLayer = options.layer > this.maxLayer ? 0 : options.layer;
-        }
+        if (isNaN(options.seek)) { options.seek = this.images.length; }
+        if (isNaN(options.layer)) { options.layer = this.currentLayer; }
 
-        for (t = time; t <= time + options.seek; t += 1) {
+        this.currentLayer = options.layer > this.maxLayer ? 0 : options.layer;
+        for (t = time; t <= time + options.seek; t++) {
             if (this.images[t] !== undefined && this.images[t][this.currentLayer] !== undefined) {
                 imgElem = this.images[t][this.currentLayer];
                 if (imgElem.image === null) {
@@ -152,7 +148,7 @@ var Weathermap = {
 
         $(".weatherPanel").each(function () {
             var panelObj = $(this).data("panel");
-            var image = panelObj.getImage(self.time, { seek: 12 });
+            var image = panelObj.getImage(self.time);
             $(this).empty().append(image);
         });
 
@@ -290,7 +286,7 @@ var Weathermap = {
 
     onPanelClick: function (panel) {
         var panelObj = $(panel).data("panel");
-        var image = panelObj.getImage(this.time, { layer: panelObj.currentLayer + 1, seek: 12 });
+        var image = panelObj.getImage(this.time, { layer: panelObj.currentLayer + 1 });
         $(panel).empty().append(image);
     },
 
@@ -323,8 +319,11 @@ var Weathermap = {
 Weathermap.panelsToLoad = [
     /* wxcharts MSLP */
     [
-        { start: 0, step: 3, stop: 240, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
-        { start: 252, step: 12, stop: 384, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") }
+        { start: 0, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
+        { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
+        { start: Weathermap.maxTime, layer: 1, urlGenerator: function () { return "http://old.wetterzentrale.de/pics/11035.gif"; } },
+        { start: Weathermap.maxTime, layer: 2, urlGenerator: function () { return "http://old.wetterzentrale.de/pics/11035s.gif"; } },
+        { start: Weathermap.maxTime, layer: 3, urlGenerator: function () { return "http://old.wetterzentrale.de/pics/MT8_Wien_ens.png"; } }
     ],
     /* wxcharts 500 hpa geopot height (europa von wxcharts und wetterzentrale, wxcharts polaransicht) */
     [
