@@ -209,11 +209,23 @@ var Weathermap = {
             region = "GFSOPME";
         }
         var run = Date.fromRunParam(6, 5);
-        var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
 
         return function (time) {
-            var timeParam = time;
-            return "http://www.wetterzentrale.de/maps/" + region + runParam + "_" + timeParam + "_" + type + ".png";
+            var regionParam = region;
+            var runHour = run.getUTCHours();
+            /* Der 6h Lauf von ARPEGE wird nur bis 72h gerechnet. Daher nehmen wir den 0h Lauf. */
+            if (region.substring(0, 5) === "ARPOP" && runHour === 6 && time > 72) {
+                if (time + 6 <= 102) {
+                    runHour = (runHour - 6) % 24;
+                    time += 6;
+                }
+                else {
+                    regionParam = "GFSOP" + regionParam.substring(5);
+                }
+            }
+            var timeParam = time;            
+            var runParam = runHour < 10 ? "0" + runHour : runHour;
+            return "http://www.wetterzentrale.de/maps/" + regionParam + runParam + "_" + timeParam + "_" + type + ".png";
         };
     },
     getW3UrlGenerator: function (type, model) {
@@ -371,17 +383,14 @@ Weathermap.panelsToLoad = [
         // w3 6h niederschlag
         { start: 6, step: 6, stop: 102, layer: 0, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(4, "ARPEGE") },
         { start: 105, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(28, "GFS") },
-        // WRF 4km Modellzentrale Niederschlag bis 72h, danach wz wrf niederschlag bis 120h
-        { start: 0, step: 3, stop: 72, layer: 1, urlGenerator: Weathermap.getMzUrlGenerator("RR3h_eu") },
-        { start: 75, step: 3, stop: 120, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(43, "WRFOPAL") },
         // Gesamtbewölkung
-        { start: 3, step: 3, stop: 72, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
-        { start: 78, step: 6, stop: 102, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
-        { start: 105, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(18, "GFS") },
+        { start: 3, step: 3, stop: 72, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
+        { start: 78, step: 6, stop: 102, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
+        { start: 105, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(18, "GFS") },
+        // WRF 4km Modellzentrale Niederschlag bis 72h
+        { start: 0, step: 3, stop: 72, layer: 2, urlGenerator: Weathermap.getMzUrlGenerator("RR3h_eu") },
         // WRF 4km Modellzentrale Low Clouds
         { start: 0, step: 3, stop: 72, layer: 3, urlGenerator: Weathermap.getMzUrlGenerator("cloudslow_eu") },
-        { start: 75, step: 3, stop: 120, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(15, "WRFOPAL") },
-
         // Akkumulierter Niederschlag
         { start: 6, step: 6, stop: 102, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(26, "ARPEGE") }
     ],
@@ -390,8 +399,11 @@ Weathermap.panelsToLoad = [
         // w3 10m wind gust
         { start: 3, step: 3, stop: 72, layer: 0, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
         { start: 78, step: 6, stop: 102, layer: 0, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
+        { start: 105, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(19) },
+        { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(19) },
         // wz 850 hpa gfs stromlinien (mitteleuropa und europa)
-        { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3) },
+        { start: 0, step: 3, stop: 102, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3, "ARPOPME") },
+        { start: 102, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3) },
         { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3) },
         { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPEU") },
         { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPEU") },
