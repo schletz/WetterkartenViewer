@@ -2,6 +2,15 @@
 /* globals $, Image, window, console  */
 
 "use strict";
+/**
+ * Erzeugt ein Datumsobjekt, welches auf den aktuellen Lauf verweist. Dabei wird das Intervall der
+ * Läufe und die Verzögerung der Datenaufbereitung berücksichtigt. 
+ * @example Date.fromRunParam(6,5) // Liefert am 12.2.2017 um 15:00 UTC den Wert 12.2.2017 6:00 UTC
+ * 
+ * @param {number} runsInterval Der Abstand zwischen den Läufen (z. B: 6 für 4x täglich)
+ * @param {number} delay Die Verzögerung, bis die Daten zur Verfügungs stehen.
+ * @returns Das Datumsobjekt, wann der aktuelle Lauf gestartet wurde.
+ */
 Date.fromRunParam = function (runsInterval, delay) {
     if (isNaN(runsInterval)) { runsInterval = 6; }
     if (isNaN(delay)) { delay = 0; }
@@ -16,6 +25,11 @@ Date.fromRunParam = function (runsInterval, delay) {
     return d;
 };
 
+/**
+ * Formatiert das Datum in der Form YYYYMMDD. Dies wird bei manchen URLs als Parameter verwendet.
+ * 
+ * @returns Ein String der Form YYYYMMDD
+ */
 Date.prototype.getUTCymd = function () {
     var year = this.getUTCFullYear();
     var month = this.getUTCMonth() + 1;
@@ -27,6 +41,11 @@ Date.prototype.getUTCymd = function () {
     return "" + year + month + day;
 };
 
+/**
+ * Formatiert das Datum in der Form YYYYMMDDHH. Dies wird bei manchen URLs als Parameter verwendet.
+ * 
+ * @returns Ein String der Form YYYYMMDDHH
+ */
 Date.prototype.getUTCymdh = function () {
     var hour = this.getUTCHours();
     hour = hour < 10 ? "0" + hour : "" + hour;
@@ -35,17 +54,29 @@ Date.prototype.getUTCymdh = function () {
 };
 
 
+/**
+ * Repräsentiert das einzelne Panel. Ein Pabel beinhaltet mehrere Zeitschritte, ein Zeitschritte
+ * beinhaltet mehrere Layer.
+ */
 function Panel() {
     this.images = [];
-    this.imageDictionary = {};
+    this.imageDictionary = {};        // Damit nur 1 Bild pro URL erzeugt wird.
     this.defaultImage = new Image();
-    this.currentImage = null;
-    this.currentLayer = 0;
-    this.maxLayer = 0;
+    this.currentImage = null;         // Wird von getImage gesetzt.
+    this.currentLayer = 0;            // Wird von getImage gesetzt.
+    this.maxLayer = 0;                // Wird von createImages gesetzt.
 
     this.defaultImage.src = "notAvailable.jpg";
 }
 
+/**
+ * Erzeugt ein Imageobjekt und setzt die Quelle auf die übergebene URL. Zusätzlich wird die URL
+ * als Key für das Imagedirectory verwendet. Wurde diese URL schon geladen, wird aus dem 
+ * Directory das Imageobjekt zurückgegeben.
+ * 
+ * @param {string} url
+ * @returns
+ */
 Panel.prototype.loadImage = function (url) {
     if (this.imageDictionary[url] !== undefined) {
         return this.imageDictionary[url];
@@ -57,6 +88,21 @@ Panel.prototype.loadImage = function (url) {
     return img;
 };
 
+/**
+ * Legt die leere Arraystruktur des Panels an:
+ * images
+ *   |_ time
+ *        |_ layer
+ *             |_ {urlGenerator, offset, image}
+ * 
+ * @param {object} timestep Die Konfiguration des Panels in der Form 
+ * {start: number, step: number, stop: number, offset:number, layer:number, preload:boolean}
+ * start/stop gibt den untersten/pbersten Zeitwert (inklusive) an, step die Schrittweite.
+ * Der Wert in offset wird dazugezählt, bevor die URL generiert wird.
+ * layer gibt die Ebene an. Bei jedem Klick wird um 1 Ebene weitergeschalten.
+ * Bei preload = true werden alle Bilder vorgeladen. Sonst wird als Imageobjekt null erzeugt und 
+ * erst bei Bedarf erzeugt.
+ */
 Panel.prototype.createImages = function (timestep) {
     var time = 0;
     if (timestep === undefined) { timestep = {}; }
@@ -73,23 +119,46 @@ Panel.prototype.createImages = function (timestep) {
         if (this.images[time] === undefined) {
             this.images[time] = [];
         }
-        if (timestep.preload) {
-            this.images[time][timestep.layer] = {
-                urlGenerator: timestep.urlGenerator,
-                offset: timestep.offset,
-                image: this.loadImage(timestep.urlGenerator(time + timestep.offset))
-            };
-        }
-        else {
-            this.images[time][timestep.layer] = {
-                urlGenerator: timestep.urlGenerator,
-                offset: timestep.offset,
-                image: null
-            };
+        this.images[time][timestep.layer] = {
+            urlGenerator: timestep.urlGenerator,
+            offset: timestep.offset,
+            image: null
+        };
+    }
+    if (timestep.preload) {
+        this.preloadImages(timestep.layer);
+    }
+};
+
+/**
+ * Lädt alle Bilder der entsprechenden Ebene des Panels vor. Dies kann am Anfang durch die Option
+ * preload:true erfolgen. Wird ein Panel vergrößert, dann werden alle Bilder vorgeladen.
+ * 
+ * @param {number} layer
+ */
+Panel.prototype.preloadImages = function (layer) {
+    if (isNaN(layer)) { layer = this.currentLayer; }
+
+    var self = this, time = 0, imgElem = null;
+    for (time in this.images) {
+        time *= 1;                                             // for...in liefert einen string key!
+        imgElem = this.images[time][layer];
+        if (imgElem !== undefined && imgElem.image === null) {
+            imgElem.image = this.loadImage(imgElem.urlGenerator(time + imgElem.offset));
         }
     }
 };
 
+/**
+ * Liefert ein Imageobjekt aus dem Panel zurück.
+ * 
+ * @param {number} time Der Zeitpunkt, welches Bild gewählt werden soll.
+ * @param {object} options Besteht aus {seek:number, layer:number}. Seek gibt an, wie viel Stunden
+ * in der Zukunft nach einem Bild gesucht werden soll (bei 12h Intervallen gibt es keine Bilder für
+ * 3h, 6h und 9h. Daher ist das notwendig). Der Defaultwert ist unendlich.
+ * Layer gibt die Ebene an. Der Defaultwert ist die aktuell angezeigte Ebene.
+ * @returns
+ */
 Panel.prototype.getImage = function (time, options) {
     try {
         var imgElem = null, t = 0;
@@ -118,7 +187,7 @@ Panel.prototype.getImage = function (time, options) {
 };
 
 /**
- * 
+ * View Model Weathermap
  */
 var Weathermap = {
     _container: "",
@@ -223,7 +292,7 @@ var Weathermap = {
                     regionParam = "GFSOP" + regionParam.substring(5);
                 }
             }
-            var timeParam = time;            
+            var timeParam = time;
             var runParam = runHour < 10 ? "0" + runHour : runHour;
             return "http://www.wetterzentrale.de/maps/" + regionParam + runParam + "_" + timeParam + "_" + type + ".png";
         };
@@ -304,6 +373,8 @@ var Weathermap = {
 
     showFullsizePanel: function () {
         var leftPos = 0, topPos = 0, width = 600, height = 400;
+        // Wenn ein Panel maximiert wird, werden alle Bilder dieses Layers vorgeladen.
+        this.fullsizePanel.preloadImages();
         var image = this.fullsizePanel.currentImage;
 
         if (image.naturalWidth && image.naturalHeight) {
@@ -402,10 +473,14 @@ Weathermap.panelsToLoad = [
         { start: 105, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(19) },
         { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(19) },
         // wz 850 hpa gfs stromlinien (mitteleuropa und europa)
-        { start: 0, step: 3, stop: 102, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3, "ARPOPME") },
-        { start: 102, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3) },
+        { start: 0, step: 3, stop: 93, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3, "ARPOPME") },
+        { start: 96, step: 6, stop: 102, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3, "ARPOPME") },
+        { start: 105, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3) },
         { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3) },
-        { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPEU") },
+
+        { start: 0, step: 3, stop: 93, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(3, "ARPOPEU") },
+        { start: 93, step: 6, stop: 102, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(3, "ARPOPEU") },
+        { start: 105, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPEU") },
         { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPEU") },
         // wz theta 3
         { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7) },
