@@ -93,15 +93,16 @@ Panel.prototype.loadImage = function (url) {
  * images
  *   |_ time
  *        |_ layer
- *             |_ {urlGenerator, offset, image}
+ *             |_ {url, image}
  * 
  * @param {object} timestep Die Konfiguration des Panels in der Form 
- * {start: number, step: number, stop: number, offset:number, layer:number, preload:boolean}
- * start/stop gibt den untersten/pbersten Zeitwert (inklusive) an, step die Schrittweite.
- * Der Wert in offset wird dazugezählt, bevor die URL generiert wird.
+ * {start: number, step: number, stop: number, layer:number, preload:boolean, urlGenerator:function}
+ * start/stop gibt den untersten/pbersten Zeitwert in h (inklusive) an, step die Schrittweite in h.
  * layer gibt die Ebene an. Bei jedem Klick wird um 1 Ebene weitergeschalten.
  * Bei preload = true werden alle Bilder vorgeladen. Sonst wird als Imageobjekt null erzeugt und 
  * erst bei Bedarf erzeugt.
+ * Die Funktion urlGenerator wird automatisch mit 1 Parameter (der Zeit in h) aufgerufen. Die 
+ * zurückgegebene URL wird zum Laden des Bildes verwendet.
  */
 Panel.prototype.createImages = function (timestep) {
     var time = 0;
@@ -109,7 +110,6 @@ Panel.prototype.createImages = function (timestep) {
     if (isNaN(timestep.start)) { timestep.start = 0; }
     if (isNaN(timestep.step)) { timestep.step = 1; }
     if (isNaN(timestep.stop)) { timestep.stop = timestep.start; }
-    if (isNaN(timestep.offset)) { timestep.offset = 0; }
     if (isNaN(timestep.layer)) { timestep.layer = 0; }
 
     if (timestep.layer > this.maxLayer) {
@@ -120,8 +120,7 @@ Panel.prototype.createImages = function (timestep) {
             this.images[time] = [];
         }
         this.images[time][timestep.layer] = {
-            urlGenerator: timestep.urlGenerator,
-            offset: timestep.offset,
+            url: timestep.urlGenerator(time),
             image: null
         };
     }
@@ -143,8 +142,9 @@ Panel.prototype.preloadImages = function (layer) {
     for (time in this.images) {
         time *= 1;                                             // for...in liefert einen string key!
         imgElem = this.images[time][layer];
+        // Nicht alle Ebenen haben bei jedem Zeitschritt einen Eintrag (6h Bilder vs 3h Bilder).
         if (imgElem !== undefined && imgElem.image === null) {
-            imgElem.image = this.loadImage(imgElem.urlGenerator(time + imgElem.offset));
+            imgElem.image = this.loadImage(imgElem.url);
         }
     }
 };
@@ -157,7 +157,7 @@ Panel.prototype.preloadImages = function (layer) {
  * in der Zukunft nach einem Bild gesucht werden soll (bei 12h Intervallen gibt es keine Bilder für
  * 3h, 6h und 9h. Daher ist das notwendig). Der Defaultwert ist unendlich.
  * Layer gibt die Ebene an. Der Defaultwert ist die aktuell angezeigte Ebene.
- * @returns
+ * @returns Das gefundene und geladene Imageobjekt.
  */
 Panel.prototype.getImage = function (time, options) {
     try {
@@ -168,11 +168,13 @@ Panel.prototype.getImage = function (time, options) {
         if (isNaN(options.layer)) { options.layer = this.currentLayer; }
 
         this.currentLayer = options.layer > this.maxLayer ? 0 : options.layer;
+        // Vom aktuellen Zeitpunkt an in der Zukunft nach dem ersten Bild suchen.
         for (t = time; t <= time + options.seek; t++) {
             if (this.images[t] !== undefined && this.images[t][this.currentLayer] !== undefined) {
                 imgElem = this.images[t][this.currentLayer];
                 if (imgElem.image === null) {
-                    imgElem.image = this.loadImage(imgElem.urlGenerator(t + imgElem.offset));
+                    // Wenn das Bild nicht vorgeladen wurde, laden wir es jetzt.
+                    imgElem.image = this.loadImage(imgElem.url);
                 }
                 this.currentImage = imgElem.image;
                 return this.currentImage;
