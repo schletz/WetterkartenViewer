@@ -465,7 +465,10 @@ Weathermap.panelsToLoad = [
         // WRF 4km Modellzentrale Low Clouds
         { start: 0, step: 3, stop: 72, layer: 3, urlGenerator: Weathermap.getMzUrlGenerator("cloudslow_eu") },
         // Akkumulierter Niederschlag
-        { start: 6, step: 6, stop: 102, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(26, "ARPEGE") }
+        { start: 6, step: 6, stop: 102, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(26, "ARPEGE") },
+        { start: 108, step: 6, stop: 240, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(26, "GFS") },
+        { start: 252, step: 6, stop: 384, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(49, "GFSOPME") }
+        
     ],
     /* wz 850hpa wind (mitteleuropa und europa) und theta e */
     [
