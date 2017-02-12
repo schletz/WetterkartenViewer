@@ -343,7 +343,6 @@ var Weathermap = {
         };
     },
 
-
     createPanels: function () {
         var p = null, panelDiv = null, i = 0;
         var self = this;
@@ -407,9 +406,8 @@ Weathermap.panelsToLoad = [
         { start: 0, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
         { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
         { start: Weathermap.maxTime, layer: 1, urlGenerator: function () { return "http://old.wetterzentrale.de/pics/11035.gif"; } },
-        { start: Weathermap.maxTime, layer: 2, urlGenerator: function () { return "http://old.wetterzentrale.de/pics/11035s.gif"; } },
-        { start: Weathermap.maxTime, layer: 3, urlGenerator: function () { return "http://old.wetterzentrale.de/pics/MT8_Wien_ens.png"; } },
-        { start: Weathermap.maxTime, layer: 4, urlGenerator: function () { return "http://www.wetterzentrale.de/maps/GFSENS00_48_16_206.png"; } }
+        { start: Weathermap.maxTime, layer: 2, urlGenerator: function () { return "http://old.wetterzentrale.de/pics/MT8_Wien_ens.png"; } },
+        { start: Weathermap.maxTime, layer: 3, urlGenerator: function () { return "http://www.wetterzentrale.de/maps/GFSENS00_48_16_206.png"; } }
     ],
     /* wxcharts 500 hpa geopot height (europa von wxcharts und wetterzentrale, wxcharts polaransicht) */
     [
