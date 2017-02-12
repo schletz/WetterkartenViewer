@@ -472,11 +472,6 @@ Weathermap.panelsToLoad = [
     ],
     /* wz 850hpa wind (mitteleuropa und europa) und theta e */
     [
-        // w3 10m wind gust
-        { start: 3, step: 3, stop: 72, layer: 0, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
-        { start: 78, step: 6, stop: 102, layer: 0, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
-        { start: 105, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(19) },
-        { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(19) },
         // wz 850 hpa gfs stromlinien (mitteleuropa und europa)
         { start: 0, step: 3, stop: 93, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3, "ARPOPME") },
         { start: 96, step: 6, stop: 102, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3, "ARPOPME") },
@@ -487,6 +482,11 @@ Weathermap.panelsToLoad = [
         { start: 93, step: 6, stop: 102, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(3, "ARPOPEU") },
         { start: 105, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPEU") },
         { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPEU") },
+        // w3 10m wind gust
+        { start: 3, step: 3, stop: 72, layer: 0, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
+        { start: 78, step: 6, stop: 102, layer: 0, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
+        { start: 105, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(19) },
+        { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(19) },
         // wz theta 3
         { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7) },
         { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7) }
