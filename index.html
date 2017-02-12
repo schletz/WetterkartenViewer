@@ -13,7 +13,7 @@
     <title>Wetterkarten Client</title>
 </head>
 
-<body onload="initUi()">
+<body onload="initUi()" ondragover="event.preventDefault();" ondrop="ImageDetailWindow.drop(event);">
     <div id="slidebar">
         <div id="slider">
             <input type="range" name="timeSlider" id="timeSlider" min="0" max="384" step="3" value="0">
@@ -27,10 +27,13 @@
     </div>
 
     <div id="panels">
-        <div id="imageDetails" title="Kartenansicht">
+        <div id="imageDetails" title="Kartenansicht"  draggable="true" ondragstart="ImageDetailWindow.drag(event);">
             <a href="#" onclick="Weathermap.fullsizePanel = null">X</a>
         </div>
     </div>
+    <script type="text/javascript">
+    var ImageDetailWindow = DraggableWindow("#imageDetails");
+    </script>
 </body>
 
 </html>
