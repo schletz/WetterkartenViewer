@@ -486,9 +486,10 @@ Weathermap.panelsToLoad = [
         { start: 105, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(19) },
         { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(19) },
         // wz theta 3
-        { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7) },
+        { start: 0, step: 3, stop: 93, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7, "ARPOPME") },
+        { start: 96, step: 6, stop: 102, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7, "ARPOPME") },
+        { start: 105, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7) },
         { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7) }
-
     ]
 ];
 
