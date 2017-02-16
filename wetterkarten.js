@@ -83,8 +83,11 @@ Panel.prototype.loadImage = function (url) {
     }
 
     var img = new Image();
-    img.src = url;
     this.imageDictionary[url] = img;
+    /* Der URL wird der GET Parameter rnd angefügt, damit das Bild immer neu geladen wird, auch Wenn
+     * es im Cache ist */
+    url = url + ((url.indexOf("?") === -1) ? "?" : "&") + "rnd=" + Date.now();
+    img.src = url;
     return img;
 };
 
@@ -439,7 +442,7 @@ Weathermap.panelsToLoad = [
 
 
     ],
-    /* wxcharts overview */
+    /* wxcharts overview, niederschlag und Gesamtbewölkung*/
     [
         { start: 3, step: 3, stop: 102, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "europe", "arpege") },
         { start: 105, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview") },
@@ -447,26 +450,27 @@ Weathermap.panelsToLoad = [
 
         { start: 3, step: 3, stop: 102, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany", "arpege") },
         { start: 105, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
-        { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") }
-    ],
-    /* w3 niederschlag und wolken   */
-    [
+        { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
         // w3 6h niederschlag
-        { start: 6, step: 6, stop: 102, layer: 0, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(4, "ARPEGE") },
-        { start: 105, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getW3UrlGenerator(28, "GFS") },
+        { start: 6, step: 6, stop: 102, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(4, "ARPEGE") },
+        { start: 105, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(28, "GFS") },
         // Gesamtbewölkung
-        { start: 3, step: 3, stop: 72, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
-        { start: 78, step: 6, stop: 102, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
-        { start: 105, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(18, "GFS") },
+        { start: 3, step: 3, stop: 72, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
+        { start: 78, step: 6, stop: 102, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
+        { start: 105, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(18, "GFS") }
+    ],
+    /* wrf 4km karten, akkumulierter niederschlag */
+    [
         // WRF 4km Modellzentrale Niederschlag bis 72h
-        { start: 0, step: 3, stop: 72, layer: 2, urlGenerator: Weathermap.getMzUrlGenerator("RR3h_eu") },
+        { start: 0, step: 3, stop: 72, layer: 0, preload: true, urlGenerator: Weathermap.getMzUrlGenerator("RR3h_eu") },
         // WRF 4km Modellzentrale Low Clouds
-        { start: 0, step: 3, stop: 72, layer: 3, urlGenerator: Weathermap.getMzUrlGenerator("cloudslow_eu") },
+        { start: 0, step: 3, stop: 72, layer: 1, urlGenerator: Weathermap.getMzUrlGenerator("cloudslow_eu") },
+        // significant weather
+        { start: 0, step: 3, stop: 72, layer: 2, urlGenerator: Weathermap.getMzUrlGenerator("wx_eu") },
         // Akkumulierter Niederschlag
-        { start: 6, step: 6, stop: 102, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(26, "ARPEGE") },
-        { start: 108, step: 6, stop: 240, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(26, "GFS") },
-        { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(49, "GFSOPME") }
-
+        { start: 6, step: 6, stop: 102, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(26, "ARPEGE") },
+        { start: 108, step: 6, stop: 240, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(26, "GFS") },
+        { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(49, "GFSOPME") }
     ],
     /* wz 850hpa wind (mitteleuropa und europa) und theta e */
     [
