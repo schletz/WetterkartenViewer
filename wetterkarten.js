@@ -84,9 +84,10 @@ Panel.prototype.loadImage = function (url) {
 
     var img = new Image();
     this.imageDictionary[url] = img;
-    /* Der URL wird der GET Parameter rnd angefügt, damit das Bild immer neu geladen wird, auch Wenn
-     * es im Cache ist */
-    url = url + ((url.indexOf("?") === -1) ? "?" : "&") + "rnd=" + Date.now();
+    /* Der URL wird der GET Parameter rnd mit der aktuellen Stunde angefügt, damit das Bild 
+     * mindestens 1x pro Stunde neu geladen wird, auch wenn es im Cache ist */
+    var d = new Date();
+    url = url + ((url.indexOf("?") === -1) ? "?" : "&") + "rnd=" + d.getUTCymdh();
     img.src = url;
     return img;
 };
