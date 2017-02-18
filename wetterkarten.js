@@ -421,8 +421,11 @@ Weathermap.panelsToLoad = [
         { start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPEU") },
         { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPEU") },
 
-        { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") },
-        { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") }
+        { start: 3, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPME") },
+        { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPME") },
+
+        { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") },
+        { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") }
     ],
     /* wxcharts 850 hpa temp, 850 hpa temp anomaly und 6h w3 extremtemp */
     [
@@ -431,11 +434,9 @@ Weathermap.panelsToLoad = [
         // W3 6h Max/Min 2m Temperatur
         { start: 6, step: 6, stop: 102, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(9, "ARPEGE") },
         { start: 108, step: 6, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(9, "GFS") },
-        // 850 hpa temp germany
-        { start: 0, step: 3, stop: 72, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("850temp", "germany", "arpege") },
-        { start: 78, step: 6, stop: 102, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("850temp", "germany", "arpege") },
-        { start: 105, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("850temp", "germany") },
-        { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("850temp", "germany") },
+        // 850 hpa temp me
+        { start: 3, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPME") },
+        { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPME") },
 
         // WXC 850hpa Anomalie
         { start: 0, step: 6, stop: 240, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("850temp_anom") },
