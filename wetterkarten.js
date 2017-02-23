@@ -343,7 +343,13 @@ var Weathermap = {
              * eingefügt werden.  */
             time += (wxChartsRun.getTime() - run.getTime()) / 3600000;
             var timeParam = time < 10 ? "0" + time : time;
-            return "http://www.modellzentrale.de/" + model + "/" + runParam + "Z/" + timeParam + "h/" + type + ".png";
+            var modelParam = model;
+            // Der 12h Lauf des 4km WRF Modelles geht nur bis 54h. Danach nehmen wir das 12km Modell.
+            if (model == "WRF4km" && run.getUTCHours() == 12 && time > 54) {
+                time -= 3;      // Bei WRG4km ist t=0 leer, eigentlich beginnt der 12h Lauf bei 15h.
+                modelParam = "WRF";
+            }
+            return "http://www.modellzentrale.de/" + modelParam + "/" + runParam + "Z/" + timeParam + "h/" + type + ".png";
         };
     },
 
