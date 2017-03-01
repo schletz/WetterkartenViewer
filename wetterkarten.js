@@ -1,59 +1,7 @@
 /* jshint strict:global */
-/* globals $, Image, window, console  */
+/* globals $, Image, window, console, lastRun  */
 
 "use strict";
-/**
- * Erzeugt ein Datumsobjekt, welches auf den aktuellen Lauf verweist. Dabei wird das Intervall der
- * Läufe und die Verzögerung der Datenaufbereitung berücksichtigt. 
- * @example Date.fromRunParam(6,5) // Liefert am 12.2.2017 um 15:00 UTC den Wert 12.2.2017 6:00 UTC
- * 
- * @param {number} runsInterval Der Abstand zwischen den Läufen (z. B: 6 für 4x täglich)
- * @param {number} delay Die Verzögerung, bis die Daten zur Verfügungs stehen.
- * @returns Das Datumsobjekt, wann der aktuelle Lauf gestartet wurde.
- */
-Date.fromRunParam = function (runsInterval, delay) {
-    if (isNaN(runsInterval)) { runsInterval = 6; }
-    if (isNaN(delay)) { delay = 0; }
-
-    runsInterval *= 3600000;
-    var d = new Date();
-    d.setUTCHours(d.getUTCHours() - delay);
-    d.setUTCMinutes(0);
-    d.setUTCSeconds(0);
-    d.setUTCMilliseconds(0);
-    d.setTime(Math.floor(d.getTime() / runsInterval) * runsInterval);
-    return d;
-};
-
-/**
- * Formatiert das Datum in der Form YYYYMMDD. Dies wird bei manchen URLs als Parameter verwendet.
- * 
- * @returns Ein String der Form YYYYMMDD
- */
-Date.prototype.getUTCymd = function () {
-    var year = this.getUTCFullYear();
-    var month = this.getUTCMonth() + 1;
-    var day = this.getUTCDate();
-
-    if (month < 10) { month = "0" + month; }
-    if (day < 10) { day = "0" + day; }
-
-    return "" + year + month + day;
-};
-
-/**
- * Formatiert das Datum in der Form YYYYMMDDHH. Dies wird bei manchen URLs als Parameter verwendet.
- * 
- * @returns Ein String der Form YYYYMMDDHH
- */
-Date.prototype.getUTCymdh = function () {
-    var hour = this.getUTCHours();
-    hour = hour < 10 ? "0" + hour : "" + hour;
-
-    return this.getUTCymd() + hour;
-};
-
-
 /**
  * Repräsentiert das einzelne Panel. Ein Pabel beinhaltet mehrere Zeitschritte, ein Zeitschritte
  * beinhaltet mehrere Layer.
@@ -208,6 +156,7 @@ var Weathermap = {
     minTime: 0,
     maxTime: 384,
     step: 3,
+    lastRun: lastRun,                                             // Wird in index.html gesetzt.    
     _time: 0,
     get time() {
         return this._time;
@@ -256,11 +205,22 @@ var Weathermap = {
         if (model === undefined) {
             model = "gfs";
         }
-        var run = Date.fromRunParam(6, 5);
+
+        /* DIe Zeit berichtigen, da arpege immer später dran ist. Daher können wir zwar schon
+         * Daten des GFS 6h Laufes, aber noch keine von Arpege haben. */
+        var arpegeDelay = (Weathermap.lastRun.gfs.getTime() - Weathermap.lastRun.arpege.getTime()) / 3600000;
+
         return function (time) {
-            var runHour = run.getUTCHours();
+            var runHour = 0;
             var modelParam = model;
             var regionParam = region;
+
+            if (model === "arpege") {
+                runHour = Weathermap.lastRun.arpege.getUTCHours();
+                time += arpegeDelay;
+            }
+            else { runHour = Weathermap.lastRun.gfs.getUTCHours(); }
+
             /* Die 6 h und 18 h Läufe werden bei Wxcharts nur bis 72 h gerechnet. Daher nehmen wir
              * die Läufe von 0 h bzw. 12 h */
             if (model === "arpege" && (runHour === 6 || runHour === 18) && time > 72) {
@@ -283,11 +243,21 @@ var Weathermap = {
         if (region === undefined) {
             region = "GFSOPME";
         }
-        var run = Date.fromRunParam(6, 5);
+        /* DIe Zeit berichtigen, da arpege immer später dran ist. Daher können wir zwar schon
+         * Daten des GFS 6h Laufes, aber noch keine von Arpege haben. */
+        var arpegeDelay = (Weathermap.lastRun.gfs.getTime() - Weathermap.lastRun.arpege.getTime()) / 3600000;
 
         return function (time) {
             var regionParam = region;
-            var runHour = run.getUTCHours();
+            var runHour = 0;
+
+
+            if (region.substring(0, 5) === "ARPOP") {
+                runHour = Weathermap.lastRun.arpege.getUTCHours();
+                time += arpegeDelay;
+            }
+            else { runHour = Weathermap.lastRun.gfs.getUTCHours(); }
+
             /* Der 6h Lauf von ARPEGE wird nur bis 72h gerechnet. Daher nehmen wir den 0h Lauf. */
             if (region.substring(0, 5) === "ARPOP" && runHour === 6 && time > 72) {
                 if (time + 6 <= 102) {
@@ -304,15 +274,21 @@ var Weathermap = {
         };
     },
     getW3UrlGenerator: function (type, model) {
-        if (model === undefined) { model = "_ICON"; }
-        else if (model === "GFS") { model = ""; }
+        if (model === undefined || model === "GFS") { model = ""; }
         else { model = "_" + model; }
 
-        var run = Date.fromRunParam(6, 5);
-
+        /* DIe Zeit berichtigen, da arpege immer später dran ist. Daher können wir zwar schon
+         * Daten des GFS 6h Laufes, aber noch keine von Arpege haben. */
+        var arpegeDelay = (Weathermap.lastRun.gfs.getTime() - Weathermap.lastRun.arpege.getTime()) / 3600000;
 
         return function (time) {
-            var runHour = run.getUTCHours();
+            var runHour = 0;
+            if (model === "_ARPEGE") {
+                runHour = Weathermap.lastRun.arpege.getUTCHours();
+                time += arpegeDelay;
+            }
+            else { runHour = Weathermap.lastRun.gfs.getUTCHours(); }
+
             var modelParam = model;
             /* Die 6 h und 18 h Läufe werden bei Wetter3 nur bis +72 h bzw. +60 h gerechnet. Daher nehmen
              * wir den Lauf von 0 h bzw. 12 h */

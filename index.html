@@ -7,9 +7,24 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="dateMethods.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="main.css">
+    <!-- init1 von www.wetter3.de lesen, damit wir wissen, welcher Lauf der Neueste ist. Die Vararbeitung
+         benötigt einige Stunden und schwankt, daher können wir das von der Zeit nicht ableiten. -->
+    <script type="text/javascript" src="http://www1.wetter3.de/initarpege"></script>
+    <script type="text/javascript">
+        var lastRun = {arpege: Date.fromW3InitString(init1)};
+        init1 = "";
+    </script>
+    <!-- Jetzt den GFS Lauf ermitteln. -->
+    <script type="text/javascript" src="http://www1.wetter3.de/initgfs"></script>
+    <script type="text/javascript">
+        lastRun.gfs = Date.fromW3InitString(init1);
+    </script>
+
     <script type="text/javascript" src="wetterkarten.js"></script>
+    <link rel="stylesheet" type="text/css" href="main.css">
+
     <title>Wetterkarten Client</title>
 </head>
 
