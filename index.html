@@ -13,7 +13,7 @@
          benötigt einige Stunden und schwankt, daher können wir das von der Zeit nicht ableiten. -->
     <script type="text/javascript" src="http://www1.wetter3.de/initarpege"></script>
     <script type="text/javascript">
-        var lastRun = {arpege: Date.fromW3InitString(init1)};
+        var lastRun = { arpege: Date.fromW3InitString(init1) };
         init1 = "";
     </script>
     <!-- Jetzt den GFS Lauf ermitteln. -->
@@ -28,26 +28,89 @@
     <title>Wetterkarten Client</title>
 </head>
 
-<body onload="initUi()" ondragover="event.preventDefault();" ondrop="ImageDetailWindow.drop(event);">
-    <div id="slidebar">
-        <div id="slider">
-            <input type="range" name="timeSlider" id="timeSlider" min="0" max="384" step="3" value="0">
+<body ondragover="event.preventDefault();" ondrop="ImageDetailWindow.drop(event);">
+    <div id="panelsPage">
+        <div id="slidebar">
+            <div id="slider">
+                <input type="range" name="timeSlider" id="timeSlider" min="0" max="384" step="3" value="0">
+            </div>
+            <div id="buttons">
+                <a href="#" class="ui-btn ui-btn-inline" onclick="Weathermap.time = Weathermap.time - 12;">-12 h</a>
+                <a href="#" class="ui-btn ui-btn-inline" onclick="Weathermap.time = Weathermap.time - 3;">-3 h</a>
+                <a href="#" class="ui-btn ui-btn-inline" onclick="Weathermap.time = Weathermap.time + 3;">+3 h</a>
+                <a href="#" class="ui-btn ui-btn-inline" onclick="Weathermap.time = Weathermap.time + 12;">+12 h</a>
+            </div>
         </div>
-        <div id="buttons">
-            <a href="#" class="ui-btn ui-btn-inline" onclick="Weathermap.time = Weathermap.time - 12;">-12 h</a>
-            <a href="#" class="ui-btn ui-btn-inline" onclick="Weathermap.time = Weathermap.time - 3;">-3 h</a>
-            <a href="#" class="ui-btn ui-btn-inline" onclick="Weathermap.time = Weathermap.time + 3;">+3 h</a>
-            <a href="#" class="ui-btn ui-btn-inline" onclick="Weathermap.time = Weathermap.time + 12;">+12 h</a>
+
+        <div id="panels">
+            <div id="imageDetails" title="Kartenansicht" draggable="true" ondragstart="ImageDetailWindow.drag(event);">
+                <a href="#" onclick="Weathermap.fullsizePanel = null">X</a>
+            </div>
         </div>
     </div>
-
-    <div id="panels">
-        <div id="imageDetails" title="Kartenansicht"  draggable="true" ondragstart="ImageDetailWindow.drag(event);">
-            <a href="#" onclick="Weathermap.fullsizePanel = null">X</a>
+    <div id="modelChooserPage">
+        <div class="modelChooser" data-model="gfs">
+            <h2>GFS Model Run</h2>
+            <div class="wxImage" data-run="0">
+                <script>
+                                     var d = new Date();
+                                     var rand = d.getUTCymdh();
+                                     document.write('<img src="http://wxcharts.eu/charts/gfs/germany/00/overview_384.jpg?rnd=' + rand + '">');
+                </script>
+            </div>
+            <div class="wxImage" data-run="6">
+                <script>
+                    document.write('<img src="http://wxcharts.eu/charts/gfs/germany/06/overview_384.jpg?rnd=' + rand + '">');
+                </script>
+            </div>
+            <div class="wxImage" data-run="12">
+                <script>
+                    document.write('<img src="http://wxcharts.eu/charts/gfs/germany/12/overview_384.jpg?rnd=' + rand + '">');
+                </script>
+            </div>
+            <div class="wxImage" data-run="18">
+                <script>
+                    document.write('<img src="http://wxcharts.eu/charts/gfs/germany/18/overview_384.jpg?rnd=' + rand + '">');
+                </script>
+            </div>
+        </div>
+        <div class="modelChooser" data-model="arpege">
+            <h2>ARPEGE Model Run</h2>
+            <div class="wxImage" data-run="0">
+                <script>
+                    document.write('<img src="http://wxcharts.eu/charts/arpege/germany/00/overview_102.jpg?rnd=' + rand + '">');
+                </script>
+            </div>
+            <div class="wxImage" data-run="6">
+                <script>
+                    document.write('<img src="http://wxcharts.eu/charts/arpege/germany/06/overview_072.jpg?rnd=' + rand + '">');
+                </script>
+            </div>
+            <div class="wxImage" data-run="12">
+                <script>
+                    document.write('<img src="http://wxcharts.eu/charts/arpege/germany/12/overview_102.jpg?rnd=' + rand + '">');
+                </script>
+            </div>
+            <div class="wxImage" data-run="18">
+                <script>
+                    document.write('<img src="http://wxcharts.eu/charts/arpege/germany/18/overview_060.jpg?rnd=' + rand + '">');
+                </script>
+            </div>
         </div>
     </div>
     <script type="text/javascript">
-    var ImageDetailWindow = DraggableWindow("#imageDetails");
+                    var ImageDetailWindow = DraggableWindow("#imageDetails");    
+                    $(".modelChooser .wxImage").on("click", function () {
+                        $(this).parent().find(".wxImage").css("border", "0px");
+                        $(this).css("border", "3px solid blue");
+
+                        var hour = 1 * $(this).data("run");
+                        var model = $(this).parent().data("model");
+                        Weathermap.lastRun[model] = Date.fromUTCHours(hour);
+                        if (Weathermap.lastRun.arpege != null && Weathermap.lastRun.gfs != null) {
+                            initUi();
+                        }
+                    });
     </script>
 </body>
 

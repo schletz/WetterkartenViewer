@@ -4,6 +4,9 @@ html, body {
     width:100%;
 }
 
+#panelsPage {
+    display: none;
+}
 #panels {
     margin-top:20px;
     padding:0px;
@@ -68,6 +71,28 @@ html, body {
     border:3px solid blue;
     text-decoration: none;
 }
+
+.modelChooser {
+    clear:both;
+}
+.modelChooser h2 {
+    margin-top:3em;
+}
+
+.wxImage {
+  width: 144px;
+  height: 18px;
+  background-color: white;
+  padding:5px;
+  overflow: hidden;
+  float:left;
+  margin-right:10px;
+}
+.wxImage img {
+  margin-left:-930px;
+  margin-top:-15px;
+}
+
 
 @media only screen and (min-width: 760px) and (max-width: 1280px) {
     .weatherPanel {

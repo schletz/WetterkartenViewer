@@ -51,6 +51,24 @@ Date.fromW3InitString = function (val) {
     }
 };
 
+/**
+ * Erzeugt ein Datumsobjekt mit der übergebenen vollen Stunde (0min, 0sek). Würde das Datum in der
+ * Zukunft liegen, so wird der Vortag genommen.
+ * Date.fromUTCHours(4) liefet also am 3.2.2017 3h UTC das Datum 2.2.2017 4:00:00 UTC
+ * @param {number} hour Die Stunde.
+ * @returns Das Datumsobjekt, welches den oberen Regeln entspricht.
+ */
+Date.fromUTCHours = function(hour) {
+    var d = new Date();
+    if (d.getUTCHours() < hour) {
+        d.setUTCDate(d.getUTCDate()-1);
+    }
+    d.setUTCHours(hour);
+    d.setUTCMinutes(0);
+    d.setUTCSeconds(0);
+    d.setUTCMilliseconds(0);
+    return d;
+};
 
 /**
  * Formatiert das Datum in der Form YYYYMMDD. Dies wird bei manchen URLs als Parameter verwendet.

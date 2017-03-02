@@ -144,19 +144,10 @@ Panel.prototype.getImage = function (time, options) {
  * View Model Weathermap
  */
 var Weathermap = {
-    _container: "",
-    get container() {
-        return this._container;
-    },
-    set container(newContainer) {
-        $(this.container).empty();
-        this._container = "#" + newContainer;
-        this.createPanels();
-    },
     minTime: 0,
     maxTime: 384,
     step: 3,
-    lastRun: lastRun,                                             // Wird in index.html gesetzt.    
+    lastRun: { arpege: null, gfs: null },                                 // Wird in index.html gesetzt.    
     _time: 0,
     get time() {
         return this._time;
@@ -329,10 +320,11 @@ var Weathermap = {
         };
     },
 
-    createPanels: function () {
+    createPanels: function (container, panelsToLoad) {
         var p = null, panelDiv = null, i = 0;
         var self = this;
-        self.panelsToLoad.forEach(function (panel) {
+        container = "#" + container;
+        panelsToLoad.forEach(function (panel) {
             p = new Panel();
             panel.forEach(function (panelData) {
                 p.createImages(panelData);
@@ -347,7 +339,7 @@ var Weathermap = {
             panelDiv.data("layer", 0);
             panelDiv.on("click", function () { self.onPanelClick(this); });
             panelDiv.on("contextmenu", function () { self.fullsizePanel = $(this).data("panel"); });
-            $(self.container).append(panelDiv);
+            $(container).append(panelDiv);
             i += 1;
         });
     },
@@ -363,7 +355,6 @@ var Weathermap = {
         // Wenn ein Panel maximiert wird, werden alle Bilder dieses Layers vorgeladen.
         this.fullsizePanel.preloadImages();
         var image = this.fullsizePanel.currentImage;
-
         if (image.naturalWidth && image.naturalHeight) {
             width = image.naturalWidth;
             height = image.naturalHeight;
@@ -386,107 +377,107 @@ var Weathermap = {
     }
 };
 
-Weathermap.panelsToLoad = [
-    /* wxcharts MSLP */
-    [
-        { start: 0, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
-        { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
-        { start: Weathermap.maxTime, layer: 1, urlGenerator: function () { return "http://old.wetterzentrale.de/pics/11035.gif"; } },
-        { start: Weathermap.maxTime, layer: 2, urlGenerator: function () { return "http://old.wetterzentrale.de/pics/MT8_Wien_ens.png"; } },
-        { start: Weathermap.maxTime, layer: 3, urlGenerator: function () { return "http://www.wetterzentrale.de/maps/GFSENS00_48_16_206.png"; } }
-    ],
-    /* wxcharts 500 hpa geopot height (europa von wxcharts und wetterzentrale, wxcharts polaransicht) */
-    [
-        { start: 0, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("gh500") },
-        { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("gh500") },
-
-        { start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPEU") },
-        { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPEU") },
-
-        { start: 3, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPME") },
-        { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPME") },
-
-        { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") },
-        { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") }
-    ],
-    /* wxcharts 850 hpa temp, 850 hpa temp anomaly und 6h w3 extremtemp */
-    [
-        { start: 0, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("850temp") },
-        { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("850temp") },
-        // W3 6h Max/Min 2m Temperatur
-        { start: 6, step: 6, stop: 102, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(9, "ARPEGE") },
-        { start: 108, step: 6, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(9, "GFS") },
-        // 850 hpa temp me
-        { start: 3, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPME") },
-        { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPME") },
-
-        // WXC 850hpa Anomalie
-        { start: 0, step: 6, stop: 240, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("850temp_anom") },
-        { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("850temp_anom") }
-
-
-    ],
-    /* wxcharts overview, niederschlag und Gesamtbewölkung*/
-    [
-        { start: 3, step: 3, stop: 102, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "europe", "arpege") },
-        { start: 105, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview") },
-        { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview") },
-
-        { start: 3, step: 3, stop: 102, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany", "arpege") },
-        { start: 105, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
-        { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
-        // w3 6h niederschlag
-        { start: 6, step: 6, stop: 102, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(4, "ARPEGE") },
-        { start: 105, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(28, "GFS") },
-        // Gesamtbewölkung
-        { start: 3, step: 3, stop: 72, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
-        { start: 78, step: 6, stop: 102, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
-        { start: 105, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(18, "GFS") }
-    ],
-    /* wrf 4km karten, akkumulierter niederschlag */
-    [
-        // WRF 4km Modellzentrale Niederschlag bis 72h
-        { start: 0, step: 3, stop: 72, layer: 0, preload: true, urlGenerator: Weathermap.getMzUrlGenerator("RR3h_eu") },
-        // WRF 4km Modellzentrale Low Clouds
-        { start: 0, step: 3, stop: 72, layer: 1, urlGenerator: Weathermap.getMzUrlGenerator("cloudslow_eu") },
-        // significant weather
-        { start: 0, step: 3, stop: 72, layer: 2, urlGenerator: Weathermap.getMzUrlGenerator("wx_eu") },
-        // Akkumulierter Niederschlag
-        { start: 6, step: 6, stop: 102, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(26, "ARPEGE") },
-        { start: 108, step: 6, stop: 240, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(26, "GFS") },
-        { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(49, "GFSOPME") }
-    ],
-    /* wz 850hpa wind (mitteleuropa und europa) und theta e */
-    [
-        // wz 850 hpa gfs stromlinien (mitteleuropa und europa)
-        { start: 0, step: 3, stop: 93, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(3, "ARPOPME") },
-        { start: 96, step: 6, stop: 102, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(3, "ARPOPME") },
-        { start: 105, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(3) },
-        { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(3) },
-
-        { start: 0, step: 3, stop: 93, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3, "ARPOPEU") },
-        { start: 93, step: 6, stop: 102, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3, "ARPOPEU") },
-        { start: 105, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPEU") },
-        { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPEU") },
-        // w3 10m wind gust
-        { start: 3, step: 3, stop: 72, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
-        { start: 78, step: 6, stop: 102, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
-        { start: 105, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(19) },
-        { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(19) },
-        // wz theta 3
-        { start: 0, step: 3, stop: 93, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7, "ARPOPME") },
-        { start: 96, step: 6, stop: 102, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7, "ARPOPME") },
-        { start: 105, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7) },
-        { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7) }
-    ]
-];
-
 function initUi() {
+    $("#modelChooserPage").hide();
+    $("#panelsPage").show();
     $("#timeSlider").on("change", function (event, ui) {
         Weathermap.time = $("#timeSlider").val();
     });
-    Weathermap.container = "panels";
-    Weathermap.time = 0;
+    Weathermap.createPanels("panels", [
+        /* wxcharts MSLP */
+        [
+            { start: 0, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
+            { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
+            { start: Weathermap.maxTime, layer: 1, urlGenerator: function () { return "http://old.wetterzentrale.de/pics/11035.gif"; } },
+            { start: Weathermap.maxTime, layer: 2, urlGenerator: function () { return "http://old.wetterzentrale.de/pics/MT8_Wien_ens.png"; } },
+            { start: Weathermap.maxTime, layer: 3, urlGenerator: function () { return "http://www.wetterzentrale.de/maps/GFSENS00_48_16_206.png"; } }
+        ],
+        /* wxcharts 500 hpa geopot height (europa von wxcharts und wetterzentrale, wxcharts polaransicht) */
+        [
+            { start: 0, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("gh500") },
+            { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("gh500") },
+
+            { start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPEU") },
+            { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPEU") },
+
+            { start: 3, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPME") },
+            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPME") },
+
+            { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") },
+            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") }
+        ],
+        /* wxcharts 850 hpa temp, 850 hpa temp anomaly und 6h w3 extremtemp */
+        [
+            { start: 0, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("850temp") },
+            { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("850temp") },
+            // W3 6h Max/Min 2m Temperatur
+            { start: 6, step: 6, stop: 102, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(9, "ARPEGE") },
+            { start: 108, step: 6, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(9, "GFS") },
+            // 850 hpa temp me
+            { start: 3, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPME") },
+            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPME") },
+
+            // WXC 850hpa Anomalie
+            { start: 0, step: 6, stop: 240, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("850temp_anom") },
+            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("850temp_anom") }
+
+
+        ],
+        /* wxcharts overview, niederschlag und Gesamtbewölkung*/
+        [
+            { start: 3, step: 3, stop: 102, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "europe", "arpege") },
+            { start: 105, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview") },
+            { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview") },
+
+            { start: 3, step: 3, stop: 102, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany", "arpege") },
+            { start: 105, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
+            { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
+            // w3 6h niederschlag
+            { start: 6, step: 6, stop: 102, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(4, "ARPEGE") },
+            { start: 105, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(28, "GFS") },
+            // Gesamtbewölkung
+            { start: 3, step: 3, stop: 72, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
+            { start: 78, step: 6, stop: 102, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
+            { start: 105, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(18, "GFS") }
+        ],
+        /* wrf 4km karten, akkumulierter niederschlag */
+        [
+            // WRF 4km Modellzentrale Niederschlag bis 72h
+            { start: 0, step: 3, stop: 72, layer: 0, preload: true, urlGenerator: Weathermap.getMzUrlGenerator("RR3h_eu") },
+            // WRF 4km Modellzentrale Low Clouds
+            { start: 0, step: 3, stop: 72, layer: 1, urlGenerator: Weathermap.getMzUrlGenerator("cloudslow_eu") },
+            // significant weather
+            { start: 0, step: 3, stop: 72, layer: 2, urlGenerator: Weathermap.getMzUrlGenerator("wx_eu") },
+            // Akkumulierter Niederschlag
+            { start: 6, step: 6, stop: 102, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(26, "ARPEGE") },
+            { start: 108, step: 6, stop: 240, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(26, "GFS") },
+            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(49, "GFSOPME") }
+        ],
+        /* wz 850hpa wind (mitteleuropa und europa) und theta e */
+        [
+            // wz 850 hpa gfs stromlinien (mitteleuropa und europa)
+            { start: 0, step: 3, stop: 93, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(3, "ARPOPME") },
+            { start: 96, step: 6, stop: 102, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(3, "ARPOPME") },
+            { start: 105, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(3) },
+            { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(3) },
+
+            { start: 0, step: 3, stop: 93, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3, "ARPOPEU") },
+            { start: 93, step: 6, stop: 102, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3, "ARPOPEU") },
+            { start: 105, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPEU") },
+            { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPEU") },
+            // w3 10m wind gust
+            { start: 3, step: 3, stop: 72, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
+            { start: 78, step: 6, stop: 102, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
+            { start: 105, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(19) },
+            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(19) },
+            // wz theta 3
+            { start: 0, step: 3, stop: 93, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7, "ARPOPME") },
+            { start: 96, step: 6, stop: 102, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7, "ARPOPME") },
+            { start: 105, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7) },
+            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7) }
+        ]
+    ]);
+    Weathermap.time = 0;  // Panels zum Zeitpunkt t=0 anzeigen.
 }
 
 var DraggableWindow = function (container) {
