@@ -96,6 +96,7 @@
                      * Proxy nötig, da der Server keine Cross Origin Requests erlaubt. */
                     var url = "https://crossorigin.me/http://www1.wetter3.de/initarpege?rnd=" + rand;
                     Weathermap.lastRun.arpegeWetter3 = null;
+                    $("#modelChooserPage .log").append('<p>Lade Wetter3 ARPEGE Daten...</p>');
                     $.ajax({
                         url: url,
                         dataType: "text",
@@ -110,8 +111,8 @@
                             $("#modelChooserPage .log").append('<p class="error">String von <a href="http://www1.wetter3.de/initarpege">http://www1.wetter3.de/initarpege</a> nicht lesbar.</p>');
                         }
                         $("#modelChooserPage .log").append('<p>Gelesener Arpege Lauf von Wetter3:' + Weathermap.lastRun.arpegeWetter3.toISOString() + "<p>");
-                    }).fail(function () {
-                        $("#modelChooserPage .log").append('<p class="error">Request von <a href="' + url + '">' + url + '</a>" nicht möglich.</p>');
+                    }).fail(function (err) {
+                        $("#modelChooserPage .log").append('<p class="error">Request von <a href="' + url + '">' + url + '</a>" nicht möglich:' + err +'</p>');
                     });
 
                     /* Eventhandler für die Buttons des Modellaufes. */
