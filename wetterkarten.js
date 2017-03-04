@@ -537,9 +537,7 @@ function initUi() {
             { start: 105, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(19) },
             { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(19) },
             // wz theta 3
-            { start: 0, step: 3, stop: 93, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(7, "ARPOPME") },
-            { start: 96, step: 6, stop: 102, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(7, "ARPOPME") },
-            { start: 105, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(7) },
+            { start: 0, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(7) },
             { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(7) },
             // Meteoviel ThetaE WRF 0.05°
             { start: 1, step: 1, stop: 72, layer: 5, urlGenerator: Weathermap.getMeteocielUrlCenerator("wrfnmm", 5, "nmmde") }
