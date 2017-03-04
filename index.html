@@ -96,7 +96,7 @@
                     /* Wenn die Variable init1 geladen wurde, setzen wir diese. Wenn nicht (bei
                      * Android kann es wegen dem Content Type text für ein JS zu Problemen kommen),
                      * laden wir sie über einen AJAX Request. */
-                    if (init1 && (Weathermap.lastRun.arpegeWetter3 = Date.fromW3InitString(init1))) {
+                    if (typeof init1 !== "undefined" && (Weathermap.lastRun.arpegeWetter3 = Date.fromW3InitString(init1))) {
                         $("#modelChooserPage .log").append('<p>Gelesener Arpege Lauf von Wetter3:' +
                             Weathermap.lastRun.arpegeWetter3.toISOString() + "<p>");
                     }
@@ -115,13 +115,13 @@
                         }).done(function (res) {
                             /* Match für var init1 = 'Fr, 03-03-2017 18 UTC' */
                             var matches = res.match(/var\s+init1\s*=\s*'([^']+)'/i);
-                            if (matches !== null) {
-                                Weathermap.lastRun.arpegeWetter3 = Date.fromW3InitString(matches[1]);
+                            if (matches !== null &&
+                                (Weathermap.lastRun.arpegeWetter3 = Date.fromW3InitString(matches[1]))) {
+                                $("#modelChooserPage .log").append('<p>Gelesener Arpege Lauf von Wetter3 über Ajax:' + Weathermap.lastRun.arpegeWetter3.toISOString() + "<p>");
                             }
-                            if (Weathermap.lastRun.arpegeWetter3 === null) {
+                            else {
                                 $("#modelChooserPage .log").append('<p class="error">String von <a href="http://www1.wetter3.de/initarpege">http://www1.wetter3.de/initarpege</a> nicht lesbar.</p>');
                             }
-                            $("#modelChooserPage .log").append('<p>Gelesener Arpege Lauf von Wetter3 über Ajax:' + Weathermap.lastRun.arpegeWetter3.toISOString() + "<p>");
                         }).fail(function (xhr, textStatus, errorThrown) {
                             $("#modelChooserPage .log").append('<p class="error">Request von <a href="' + url + '">' + url + '</a>" nicht möglich.</p>');
                         });
