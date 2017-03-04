@@ -72,11 +72,16 @@ html, body {
     text-decoration: none;
 }
 
-.modelChooser {
+#modelChooserPage > div {
     clear:both;
 }
-.modelChooser h2 {
+
+#modelChooserPage h2 {
     margin-top:3em;
+}
+
+.error {
+    color:red;
 }
 
 .wxImage {

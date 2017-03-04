@@ -45,9 +45,7 @@ Date.fromW3InitString = function (val) {
         return d;
     }
     else {
-        /* Wird kein Muster erkannt, so setzen wir das Datum auf die letzten vollen 6 Stunden, die
-         * aber mindestens 6 Stunden her sind. */
-        return Date.fromRunParam(6, 6);
+        return null;
     }
 };
 

@@ -147,7 +147,7 @@ var Weathermap = {
     minTime: 0,
     maxTime: 384,
     step: 3,
-    lastRun: { arpege: null, gfs: null },                                 // Wird in index.html gesetzt.    
+    lastRun: { arpege: null, gfs: null, arpegeWetter3: null },        // Wird in index.html gesetzt.    
     _time: 0,
     get time() {
         return this._time;
@@ -199,7 +199,7 @@ var Weathermap = {
 
         /* DIe Zeit berichtigen, da arpege immer später dran ist. Daher können wir zwar schon
          * Daten des GFS 6h Laufes, aber noch keine von Arpege haben. */
-        var arpegeDelay = (Weathermap.lastRun.gfs.getTime() - Weathermap.lastRun.arpege.getTime()) / 3600000;
+        var arpegeDelay = (this.lastRun.gfs.getTime() - this.lastRun.arpege.getTime()) / 3600000;
 
         return function (time) {
             var runHour = 0;
@@ -212,9 +212,9 @@ var Weathermap = {
             }
             else { runHour = Weathermap.lastRun.gfs.getUTCHours(); }
 
-            /* Die 6 h und 18 h Läufe werden bei Wxcharts nur bis 72 h gerechnet. Daher nehmen wir
+            /* Die 6 h und 18 h Läufe werden bei ARPEGE nur bis 72 h bzw. 60h gerechnet. Daher nehmen wir
              * die Läufe von 0 h bzw. 12 h */
-            if (model === "arpege" && (runHour === 6 || runHour === 18) && time > 72) {
+            if (model === "arpege" && ((runHour === 6 && time > 72) || (runHour === 18 && time > 60))) {
                 if (time + 6 <= 102) {
                     runHour = (runHour - 6) % 24;
                     time += 6;
@@ -223,6 +223,8 @@ var Weathermap = {
                 else {
                     regionParam = "euratl";
                     modelParam = "gfs";
+                    runHour = Weathermap.lastRun.gfs.getUTCHours();
+                    time -= arpegeDelay;
                 }
             }
             var timeParam = time < 10 ? "00" + time : (time < 100 ? "0" + time : time);
@@ -236,7 +238,7 @@ var Weathermap = {
         }
         /* DIe Zeit berichtigen, da arpege immer später dran ist. Daher können wir zwar schon
          * Daten des GFS 6h Laufes, aber noch keine von Arpege haben. */
-        var arpegeDelay = (Weathermap.lastRun.gfs.getTime() - Weathermap.lastRun.arpege.getTime()) / 3600000;
+        var arpegeDelay = (this.lastRun.gfs.getTime() - this.lastRun.arpege.getTime()) / 3600000;
 
         return function (time) {
             var regionParam = region;
@@ -249,16 +251,20 @@ var Weathermap = {
             }
             else { runHour = Weathermap.lastRun.gfs.getUTCHours(); }
 
-            /* Der 6h Lauf von ARPEGE wird nur bis 72h gerechnet. Daher nehmen wir den 0h Lauf. */
-            if (region.substring(0, 5) === "ARPOP" && runHour === 6 && time > 72) {
+            /* Die 6 h und 18 h Läufe werden bei ARPEGE nur bis 72 h bzw. 60h gerechnet. Daher nehmen wir
+             * die Läufe von 0 h bzw. 12 h */
+            if (region.substring(0, 5) === "ARPOP" && ((runHour === 6 && time > 72) || (runHour === 18 && time > 60))) {
                 if (time + 6 <= 102) {
                     runHour = (runHour - 6) % 24;
                     time += 6;
                 }
                 else {
                     regionParam = "GFSOP" + regionParam.substring(5);
+                    runHour = Weathermap.lastRun.gfs.getUTCHours();
+                    time -= arpegeDelay;
                 }
             }
+
             var timeParam = time;
             var runParam = runHour < 10 ? "0" + runHour : runHour;
             return "http://www.wetterzentrale.de/maps/" + regionParam + runParam + "_" + timeParam + "_" + type + ".png";
@@ -268,14 +274,20 @@ var Weathermap = {
         if (model === undefined || model === "GFS") { model = ""; }
         else { model = "_" + model; }
 
+        /* Konnte der Arpegelauf nicht von wetter3 gelesen werden, dann nehmen wir den vom User
+         * gew#hlten Wert. */
+        if (!this.lastRun.arpegeWetter3) {
+            this.lastRun.arpegeWetter3 = this.lastRun.arpege;
+        }
+
         /* DIe Zeit berichtigen, da arpege immer später dran ist. Daher können wir zwar schon
          * Daten des GFS 6h Laufes, aber noch keine von Arpege haben. */
-        var arpegeDelay = (Weathermap.lastRun.gfs.getTime() - Weathermap.lastRun.arpege.getTime()) / 3600000;
+        var arpegeDelay = (this.lastRun.gfs.getTime() - this.lastRun.arpegeWetter3.getTime()) / 3600000;
 
         return function (time) {
             var runHour = 0;
             if (model === "_ARPEGE") {
-                runHour = Weathermap.lastRun.arpege.getUTCHours();
+                runHour = Weathermap.lastRun.arpegeWetter3.getUTCHours();
                 time += arpegeDelay;
             }
             else { runHour = Weathermap.lastRun.gfs.getUTCHours(); }
@@ -290,6 +302,8 @@ var Weathermap = {
                 }
                 else {
                     modelParam = "";
+                    runHour = Weathermap.lastRun.gfs.getUTCHours();
+                    time -= arpegeDelay;
                 }
             }
             var runParam = runHour < 10 ? "0" + runHour : runHour;
@@ -301,22 +315,55 @@ var Weathermap = {
     getMzUrlGenerator: function (type, model) {
         if (model === undefined) { model = "WRF4km"; }
         var run = Date.fromRunParam(12, 7);
-        var wxChartsRun = Date.fromRunParam(6, 5);
         var runParam = run.getUTCHours() < 10 ? "0" + run.getUTCHours() : run.getUTCHours();
+        /* Da die WRF 4km Modelle 2x am Tag mit 7 Stunden verzögerung zur Verfügung stehen, 
+         * muss eine Korrektur zu den anderen Modellen (4x am Tag mit 6 h Verzögerung)
+         * eingefügt werden.  */
+        var wrfDelay = (Weathermap.lastRun.gfs.getTime() - run.getTime()) / 3600000;
 
         return function (time) {
-            /* Da die WRF 4km Modelle 2x am Tag mit 7 Stunden verzögerung zur Verfügung stehen, 
-             * muss eine Korrektur zu den anderen Modellen (4x am Tag mit 6 h Verzögerung)
-             * eingefügt werden.  */
-            time += (wxChartsRun.getTime() - run.getTime()) / 3600000;
-            var timeParam = time < 10 ? "0" + time : time;
+            time += wrfDelay;
+            var timeParam = "";
             var modelParam = model;
             // Der 12h Lauf des 4km WRF Modelles geht nur bis 54h. Danach nehmen wir das 12km Modell.
             if (model == "WRF4km" && run.getUTCHours() == 12 && time > 54) {
-                time -= 3;      // Bei WRG4km ist t=0 leer, eigentlich beginnt der 12h Lauf bei 15h.
                 modelParam = "WRF";
             }
-            return "http://www.modellzentrale.de/" + modelParam + "/" + runParam + "Z/" + timeParam + "h/" + type + ".png";
+            /* Die 1h Karten gibt es nur für 1h Niederschlag, Bewölkung und 2m Temperatur */
+            if (type === "RR1h_eu" || type === "clouds_comp2b" || type === "T2m_eu2") {
+                /* Die Basis für den Zeitoffset ist 2h nach dem GFS Initiallauf. */
+                time -= 2;
+                timeParam = time < 10 ? "0" + time : time;
+                return "http://www.modellzentrale.de/" + modelParam + "/" + runParam + "Z/eu_dt/" + type + "_" + timeParam + "h.png";
+            }
+            else {
+                timeParam = time < 10 ? "0" + time : time;
+                return "http://www.modellzentrale.de/" + modelParam + "/" + runParam + "Z/" + timeParam + "h/" + type + ".png";
+            }
+        };
+    },
+
+    getMeteocielUrlCenerator: function (model, type, map) {
+        if (model === undefined) { model = "gfs"; }
+        if (type === undefined) { type = "0"; }
+        if (map === undefined) { map = "gfseu"; }
+
+        var runParam = Date.fromRunParam(6, 7).getUTCymdh();
+        return function (time) {
+            var stepParam = "";
+            /* Die 3h Zwischenkarten haben ein Prefix, da sie nicht gespeichert werden. */
+            if ((time + 3) % 6 === 0) {
+                stepParam = "-3h";
+            }
+            /* GFS berücksichtigt keinen Timestamp für den Lauf, es wird der Letzte geliefert. */
+            if (model === "gfs") {
+                /* http://modeles.meteociel.fr/modeles/gfs/run/gfseu-0-6.png */
+                return "http://modeles.meteociel.fr/modeles/gfs/run/" + map + "-" + type + "-" + time + stepParam + ".png";
+            }
+            else {
+                /* http://modeles.meteociel.fr/modeles/wrfnmm/runs/2017030400/nmmde-1-44-0.png */
+                return "http://modeles.meteociel.fr/modeles/" + model + "/runs/" + runParam + "/" + map + "-" + type + "-" + time + "-0.png";
+            }
         };
     },
 
@@ -400,26 +447,27 @@ function initUi() {
             { start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPEU") },
             { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPEU") },
 
-            { start: 3, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPME") },
-            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPME") },
+            { start: 3, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getMeteocielUrlCenerator("gfs", 0) },
+            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getMeteocielUrlCenerator("gfs", 0) },
 
-            { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") },
-            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") }
+            { start: 3, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPME") },
+            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPME") },
+
+            { start: 0, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") },
+            { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") }
         ],
-        /* wxcharts 850 hpa temp, 850 hpa temp anomaly und 6h w3 extremtemp */
+        /* wxcharts 850 hpa temp, 850 hpa temp anomaly */
         [
             { start: 0, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("850temp") },
             { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("850temp") },
-            // W3 6h Max/Min 2m Temperatur
-            { start: 6, step: 6, stop: 102, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(9, "ARPEGE") },
-            { start: 108, step: 6, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(9, "GFS") },
+
             // 850 hpa temp me
-            { start: 3, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPME") },
-            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPME") },
+            { start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPME") },
+            { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPME") },
 
             // WXC 850hpa Anomalie
-            { start: 0, step: 6, stop: 240, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("850temp_anom") },
-            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("850temp_anom") }
+            { start: 0, step: 6, stop: 240, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("850temp_anom") },
+            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("850temp_anom") }
 
 
         ],
@@ -435,23 +483,38 @@ function initUi() {
             // w3 6h niederschlag
             { start: 6, step: 6, stop: 102, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(4, "ARPEGE") },
             { start: 105, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(28, "GFS") },
+
             // Gesamtbewölkung
             { start: 3, step: 3, stop: 72, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
             { start: 78, step: 6, stop: 102, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
-            { start: 105, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(18, "GFS") }
+            { start: 105, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(18, "GFS") },
+
+            // W3 6h Max/Min 2m Temperatur
+            { start: 6, step: 6, stop: 102, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(9, "ARPEGE") },
+            { start: 108, step: 6, stop: 240, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(9, "GFS") },
+
+            // Akkumulierter Niederschlag
+            { start: 6, step: 6, stop: 102, layer: 5, urlGenerator: Weathermap.getW3UrlGenerator(26, "ARPEGE") },
+            { start: 108, step: 6, stop: 240, layer: 5, urlGenerator: Weathermap.getW3UrlGenerator(26, "GFS") },
+            { start: 252, step: 12, stop: 384, layer: 5, urlGenerator: Weathermap.getWzUrlGenerator(49, "GFSOPME") }
         ],
         /* wrf 4km karten, akkumulierter niederschlag */
         [
-            // WRF 4km Modellzentrale Niederschlag bis 72h
-            { start: 0, step: 3, stop: 72, layer: 0, preload: true, urlGenerator: Weathermap.getMzUrlGenerator("RR3h_eu") },
+            // WRF 4km Modellzentrale Niederschlag bis 72h 
+            { start: 3, step: 1, stop: 72, layer: 0, preload: true, urlGenerator: Weathermap.getMzUrlGenerator("RR1h_eu") },
             // WRF 4km Modellzentrale Low Clouds
-            { start: 0, step: 3, stop: 72, layer: 1, urlGenerator: Weathermap.getMzUrlGenerator("cloudslow_eu") },
+            { start: 3, step: 1, stop: 72, layer: 1, urlGenerator: Weathermap.getMzUrlGenerator("clouds_comp2b") },
+            // WRF 4km Temperatur und Wind
+            { start: 3, step: 1, stop: 72, layer: 2, urlGenerator: Weathermap.getMzUrlGenerator("T2m_eu2") },
+            // WRF Wind
+            { start: 0, step: 3, stop: 72, layer: 3, urlGenerator: Weathermap.getMzUrlGenerator("vectors10m_eu2") },
             // significant weather
-            { start: 0, step: 3, stop: 72, layer: 2, urlGenerator: Weathermap.getMzUrlGenerator("wx_eu") },
-            // Akkumulierter Niederschlag
-            { start: 6, step: 6, stop: 102, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(26, "ARPEGE") },
-            { start: 108, step: 6, stop: 240, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(26, "GFS") },
-            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(49, "GFSOPME") }
+            { start: 0, step: 3, stop: 72, layer: 4, urlGenerator: Weathermap.getMzUrlGenerator("wx_eu") },
+
+            // Meteociel WRF 0.05° Niederschlag
+            { start: 1, step: 1, stop: 72, layer: 5, urlGenerator: Weathermap.getMeteocielUrlCenerator("wrfnmm", 1, "nmmde") },
+            { start: 1, step: 1, stop: 72, layer: 6, urlGenerator: Weathermap.getMeteocielUrlCenerator("wrfnmm", 1, "nmmsw") }
+
         ],
         /* wz 850hpa wind (mitteleuropa und europa) und theta e */
         [
@@ -474,7 +537,9 @@ function initUi() {
             { start: 0, step: 3, stop: 93, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7, "ARPOPME") },
             { start: 96, step: 6, stop: 102, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7, "ARPOPME") },
             { start: 105, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7) },
-            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7) }
+            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7) },
+            // Meteoviel ThetaE WRF 0.05°
+            { start: 1, step: 1, stop: 72, layer: 4, urlGenerator: Weathermap.getMeteocielUrlCenerator("wrfnmm", 5, "nmmde") }
         ]
     ]);
     Weathermap.time = 0;  // Panels zum Zeitpunkt t=0 anzeigen.

@@ -8,20 +8,6 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript" src="dateMethods.js"></script>
-
-    <!-- init1 von www.wetter3.de lesen, damit wir wissen, welcher Lauf der Neueste ist. Die Vararbeitung
-         benötigt einige Stunden und schwankt, daher können wir das von der Zeit nicht ableiten. -->
-    <script type="text/javascript" src="http://www1.wetter3.de/initarpege"></script>
-    <script type="text/javascript">
-        var lastRun = { arpege: Date.fromW3InitString(init1) };
-        init1 = "";
-    </script>
-    <!-- Jetzt den GFS Lauf ermitteln. -->
-    <script type="text/javascript" src="http://www1.wetter3.de/initgfs"></script>
-    <script type="text/javascript">
-        lastRun.gfs = Date.fromW3InitString(init1);
-    </script>
-
     <script type="text/javascript" src="wetterkarten.js"></script>
     <link rel="stylesheet" type="text/css" href="main.css">
 
@@ -32,7 +18,7 @@
     <div id="panelsPage">
         <div id="slidebar">
             <div id="slider">
-                <input type="range" name="timeSlider" id="timeSlider" min="0" max="384" step="3" value="0">
+                <input type="range" name="timeSlider" id="timeSlider" min="0" max="384" step="1" value="0">
             </div>
             <div id="buttons">
                 <a href="#" class="ui-btn ui-btn-inline" onclick="Weathermap.time = Weathermap.time - 12;">-12 h</a>
@@ -49,6 +35,7 @@
         </div>
     </div>
     <div id="modelChooserPage">
+        <h1>Wählen Sie je einen Modellauf aus, um das Programm zu starten.</h1>
         <div class="modelChooser" data-model="gfs">
             <h2>GFS Model Run</h2>
             <div class="wxImage" data-run="0">
@@ -60,7 +47,7 @@
             </div>
             <div class="wxImage" data-run="6">
                 <script>
-                    document.write('<img src="http://wxcharts.eu/charts/gfs/germany/06/overview_384.jpg?rnd=' + rand + '">');
+                                     document.write('<img src="http://wxcharts.eu/charts/gfs/germany/06/overview_384.jpg?rnd=' + rand + '">');
                 </script>
             </div>
             <div class="wxImage" data-run="12">
@@ -97,9 +84,37 @@
                 </script>
             </div>
         </div>
+        <div class="log">
+            <h2>Log</h2>
+        </div>
     </div>
     <script type="text/javascript">
-                    var ImageDetailWindow = DraggableWindow("#imageDetails");    
+                    var ImageDetailWindow = DraggableWindow("#imageDetails");
+                    var rand = Math.floor(Math.random() * 4294967296);
+                    /* Die Variable init1 von http://www1.wetter3.de/initarpege laden, damit wir
+                     * den Modelllauf von Arpege auf wetter3.de lesen können. Dazu ist ein CORS
+                     * Proxy nötig, da der Server keine Cross Origin Requests erlaubt. */
+                    var url = "https://crossorigin.me/http://www1.wetter3.de/initarpege?rnd=" + rand;
+                    Weathermap.lastRun.arpegeWetter3 = null;
+                    $.ajax({
+                        url: url,
+                        dataType: "text",
+                        method: "get"
+                    }).done(function (res) {
+                        /* Match für var init1 = 'Fr, 03-03-2017 18 UTC' */
+                        var matches = res.match(/var\s+init1\s*=\s*'([^']+)'/i);
+                        if (matches !== null) {
+                            Weathermap.lastRun.arpegeWetter3 = Date.fromW3InitString(matches[1]);
+                        }
+                        if (Weathermap.lastRun.arpegeWetter3 === null) {
+                            $("#modelChooserPage .log").append('<p class="error">String von <a href="http://www1.wetter3.de/initarpege">http://www1.wetter3.de/initarpege</a> nicht lesbar.</p>');
+                        }
+                        $("#modelChooserPage .log").append('<p>Gelesener Arpege Lauf von Wetter3:' + Weathermap.lastRun.arpegeWetter3.toISOString() + "<p>");
+                    }).fail(function () {
+                        $("#modelChooserPage .log").append('<p class="error">Request von <a href="' + url + '">' + url + '</a>" nicht möglich.</p>');
+                    });
+
+                    /* Eventhandler für die Buttons des Modellaufes. */
                     $(".modelChooser .wxImage").on("click", function () {
                         $(this).parent().find(".wxImage").css("border", "0px");
                         $(this).css("border", "3px solid blue");
@@ -107,7 +122,7 @@
                         var hour = 1 * $(this).data("run");
                         var model = $(this).parent().data("model");
                         Weathermap.lastRun[model] = Date.fromUTCHours(hour);
-                        if (Weathermap.lastRun.arpege != null && Weathermap.lastRun.gfs != null) {
+                        if (Weathermap.lastRun.arpege && Weathermap.lastRun.gfs) {
                             initUi();
                         }
                     });
