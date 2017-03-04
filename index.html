@@ -97,7 +97,8 @@
                      * Android kann es wegen dem Content Type text für ein JS zu Problemen kommen),
                      * laden wir sie über einen AJAX Request. */
                     if (init1 && (Weathermap.lastRun.arpegeWetter3 = Date.fromW3InitString(init1))) {
-                        $("#modelChooserPage .log").append('<p>Gelesener Arpege Lauf von Wetter3:' + Weathermap.lastRun.arpegeWetter3.toISOString() + "<p>");
+                        $("#modelChooserPage .log").append('<p>Gelesener Arpege Lauf von Wetter3:' +
+                            Weathermap.lastRun.arpegeWetter3.toISOString() + "<p>");
                     }
                     else {
                         var rand = Math.floor(Math.random() * 4294967296);
