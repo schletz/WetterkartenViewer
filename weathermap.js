@@ -508,18 +508,18 @@ Weathermap.initUi = function(container) {
         ],
         /* wrf 4km karten, akkumulierter niederschlag */
         [
-            // Meteociel WRF 0.05° Niederschlag DE
-            { start: 1, step: 1, stop: 72, layer: 0, preload: true, urlGenerator: Weathermap.getMeteocielUrlCenerator("wrfnmm", 1, "nmmde") },
             // WRF 4km Modellzentrale Niederschlag bis 72h 
-            { start: 3, step: 1, stop: 72, layer: 1, preload: true, urlGenerator: Weathermap.getMzUrlGenerator("RR1h_eu") },
+            { start: 3, step: 1, stop: 72, layer: 0, preload: true, urlGenerator: Weathermap.getMzUrlGenerator("RR1h_eu") },
             // WRF 4km Modellzentrale Low Clouds
-            { start: 3, step: 1, stop: 72, layer: 2, urlGenerator: Weathermap.getMzUrlGenerator("clouds_comp2b") },
+            { start: 3, step: 1, stop: 72, layer: 1, urlGenerator: Weathermap.getMzUrlGenerator("clouds_comp2b") },
             // WRF 4km Temperatur und Wind
-            { start: 3, step: 1, stop: 72, layer: 3, urlGenerator: Weathermap.getMzUrlGenerator("T2m_eu2") },
+            { start: 3, step: 1, stop: 72, layer: 2, urlGenerator: Weathermap.getMzUrlGenerator("T2m_eu2") },
             // WRF Wind
-            { start: 0, step: 3, stop: 72, layer: 4, urlGenerator: Weathermap.getMzUrlGenerator("vectors10m_eu2") },
+            { start: 0, step: 3, stop: 72, layer: 3, urlGenerator: Weathermap.getMzUrlGenerator("vectors10m_eu2") },
             // significant weather
-            { start: 0, step: 3, stop: 72, layer: 5, urlGenerator: Weathermap.getMzUrlGenerator("wx_eu") },
+            { start: 0, step: 3, stop: 72, layer: 4, urlGenerator: Weathermap.getMzUrlGenerator("wx_eu") },
+            // Meteociel WRF 0.05° Niederschlag DE
+            { start: 1, step: 1, stop: 72, layer: 5, urlGenerator: Weathermap.getMeteocielUrlCenerator("wrfnmm", 1, "nmmde") },            
             // Meteociel WRF 0.05° Niederschlag Alpen
             { start: 1, step: 1, stop: 72, layer: 6, urlGenerator: Weathermap.getMeteocielUrlCenerator("wrfnmm", 1, "nmmsw") }
 
