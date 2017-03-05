@@ -80,6 +80,10 @@ html, body {
     margin-top:3em;
 }
 
+#log {
+    clear:both;
+}
+
 .error {
     color:red;
 }
