@@ -348,9 +348,8 @@ var Weathermap = {
         if (type === undefined) { type = "0"; }
         if (map === undefined) { map = "gfseu"; }
 
-        var runParam = Date.fromRunParam(6, 7).getUTCymdh();
         return function (time) {
-            var stepParam = "";
+            var stepParam = "", runParam = "";
             /* Die 3h Zwischenkarten haben ein Prefix, da sie nicht gespeichert werden. */
             if ((time + 3) % 6 === 0) {
                 stepParam = "-3h";
@@ -360,10 +359,20 @@ var Weathermap = {
                 /* http://modeles.meteociel.fr/modeles/gfs/run/gfseu-0-6.png */
                 return "http://modeles.meteociel.fr/modeles/gfs/run/" + map + "-" + type + "-" + time + stepParam + ".png";
             }
-            else {
+            if (model === "gens") {        // Diagramme (GfsEnsemble)
+                if (map === "gfseu") {
+                    return "http://modeles7.meteociel.fr/modeles/gens/graphe_ens"+type+".php?ext=1&lat=48&lon=16.5";
+                }
+                else {
+                    return "http://modeles7.meteociel.fr/modeles/gens/graphe_ens"+type+".php?" + map + "&ext=1&lat=48&lon=16.5";
+                }
+            }
+            if (model.substring(0, 3) === "wrf") {
+                runParam = Date.fromRunParam(6, 8).getUTCymdh();
                 /* http://modeles.meteociel.fr/modeles/wrfnmm/runs/2017030400/nmmde-1-44-0.png */
                 return "http://modeles.meteociel.fr/modeles/" + model + "/runs/" + runParam + "/" + map + "-" + type + "-" + time + "-0.png";
             }
+            return "";
         };
     },
 
@@ -423,8 +432,8 @@ var Weathermap = {
     }
 };
 
-Weathermap.initUi = function(container) {
-    this.container = $("#"+container);
+Weathermap.initUi = function (container) {
+    this.container = $("#" + container);
     this.container.show();
     $("#timeSlider").on("change", function (event, ui) {
         Weathermap.time = $("#timeSlider").val();
@@ -435,12 +444,21 @@ Weathermap.initUi = function(container) {
             { start: 0, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
             { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
 
-            { start: 0, step: 6, stop: 240, layer: 1,  urlGenerator: Weathermap.getWxcUrlGenerator("meanslp_anom") },
-            { start: 252, step: 12, stop: 384, layer: 1,  urlGenerator: Weathermap.getWxcUrlGenerator("meanslp_anom") },
-
+            { start: 0, step: 6, stop: 240, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("meanslp_anom") },
+            { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("meanslp_anom") },
+            // Hohe Warte Surroundings
             { start: Weathermap.maxTime, layer: 2, urlGenerator: function () { return "http://old.wetterzentrale.de/pics/11035.gif"; } },
-            { start: Weathermap.maxTime, layer: 3, urlGenerator: function () { return "http://old.wetterzentrale.de/pics/MT8_Wien_ens.png"; } },
-            { start: Weathermap.maxTime, layer: 4, urlGenerator: function () { return "http://www.wetterzentrale.de/maps/GFSENS00_48_16_206.png"; } }
+            // Meteiciel SLP GEFS Diagramm
+            { start: Weathermap.maxTime, layer: 3, urlGenerator: Weathermap.getMeteocielUrlCenerator("gens", 4) },
+            // Meteiciel Z500 GEFS Diagramm
+            { start: Weathermap.maxTime, layer: 4, urlGenerator: Weathermap.getMeteocielUrlCenerator("gens", 4, "temp=2") },
+            // Meteiciel T850 und T500 GEFS Diagramm            
+            { start: Weathermap.maxTime, layer: 5, urlGenerator: Weathermap.getMeteocielUrlCenerator("gens", 3, "clim=1") },
+            // Meteiciel ThetaE 850 GEFS Diagramm            
+            { start: Weathermap.maxTime, layer: 6, urlGenerator: Weathermap.getMeteocielUrlCenerator("gens", 5) },
+            // Meteiciel 10m Wind GEFS Diagramm                 
+            { start: Weathermap.maxTime, layer: 7, urlGenerator: Weathermap.getMeteocielUrlCenerator("gens", 7) }
+
         ],
         /* wxcharts 500 hpa geopot height (europa von wxcharts und wetterzentrale, wxcharts polaransicht) */
         [
@@ -508,20 +526,34 @@ Weathermap.initUi = function(container) {
         ],
         /* wrf 4km karten, akkumulierter niederschlag */
         [
+            // significant weather
+            { start: 0, step: 3, stop: 72, layer: 0, preload:true, urlGenerator: Weathermap.getMzUrlGenerator("wx_eu") },
+            // Meteociel WRF 0.05° Resume DE
+            { start: 1, step: 1, stop: 72, layer: 1, urlGenerator: Weathermap.getMeteocielUrlCenerator("wrfnmm", 24, "nmmde") },            
+            // WRF 4km Temperatur und Wind
+            { start: 3, step: 1, stop: 72, layer: 2, urlGenerator: Weathermap.getMzUrlGenerator("T2m_eu2") },
+            // WRF 4km Modellzentrale Clouds
+            { start: 3, step: 1, stop: 72, layer: 3, urlGenerator: Weathermap.getMzUrlGenerator("clouds_comp2b") },            
+            // Meteociel WRF 0.05° Rafales 1h
+            { start: 1, step: 1, stop: 72, layer: 4, urlGenerator: Weathermap.getMeteocielUrlCenerator("wrfnmm", 11, "nmmde") },
+            // Meteociel WRF 0.05° Accu Precip
+            { start: 1, step: 1, stop: 72, layer: 5, urlGenerator: Weathermap.getMeteocielUrlCenerator("wrfnmm", 25, "nmmde") }
+            /*
             // WRF 4km Modellzentrale Niederschlag bis 72h 
             { start: 3, step: 1, stop: 72, layer: 0, preload: true, urlGenerator: Weathermap.getMzUrlGenerator("RR1h_eu") },
             // WRF 4km Modellzentrale Low Clouds
-            { start: 3, step: 1, stop: 72, layer: 1, urlGenerator: Weathermap.getMzUrlGenerator("clouds_comp2b") },
-            // WRF 4km Temperatur und Wind
-            { start: 3, step: 1, stop: 72, layer: 2, urlGenerator: Weathermap.getMzUrlGenerator("T2m_eu2") },
+            { start: 0, step: 3, stop: 72, layer: 1, urlGenerator: Weathermap.getMzUrlGenerator("cloudslow_eu") },
             // WRF Wind
             { start: 0, step: 3, stop: 72, layer: 3, urlGenerator: Weathermap.getMzUrlGenerator("vectors10m_eu2") },
-            // significant weather
-            { start: 0, step: 3, stop: 72, layer: 4, urlGenerator: Weathermap.getMzUrlGenerator("wx_eu") },
+
+
+            // Meteociel WRF 0.05° 2m Temp
+            { start: 1, step: 1, stop: 72, layer: 2, urlGenerator: Weathermap.getMeteocielUrlCenerator("wrfnmm", 0, "nmmde") },
             // Meteociel WRF 0.05° Niederschlag DE
-            { start: 1, step: 1, stop: 72, layer: 5, urlGenerator: Weathermap.getMeteocielUrlCenerator("wrfnmm", 1, "nmmde") },            
+            { start: 1, step: 1, stop: 72, layer: 5, urlGenerator: Weathermap.getMeteocielUrlCenerator("wrfnmm", 1, "nmmde") },
             // Meteociel WRF 0.05° Niederschlag Alpen
             { start: 1, step: 1, stop: 72, layer: 6, urlGenerator: Weathermap.getMeteocielUrlCenerator("wrfnmm", 1, "nmmsw") }
+           */
 
         ],
         /* wz 850hpa wind (mitteleuropa und europa) und theta e */
@@ -536,25 +568,20 @@ Weathermap.initUi = function(container) {
             { start: 93, step: 6, stop: 102, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3, "ARPOPEU") },
             { start: 105, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPEU") },
             { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPEU") },
-            
-            // meteociel 950hpa Wind, w3/wz 10m wind gust
-            { start: 1, step: 1, stop: 72, layer: 2, urlGenerator: Weathermap.getMeteocielUrlCenerator("wrfnmm", 33, "nmmde") },
-            
-            { start: 3, step: 3, stop: 72, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
-            { start: 78, step: 6, stop: 102, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
-            { start: 105, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(19) },
-            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(19) },
+
+            { start: 3, step: 3, stop: 72, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
+            { start: 78, step: 6, stop: 102, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
+            { start: 105, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(19) },
+            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(19) },
             // wz theta 3
-            { start: 0, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(7) },
-            { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(7) },
-            // Meteoviel ThetaE WRF 0.05°
-            { start: 1, step: 1, stop: 72, layer: 5, urlGenerator: Weathermap.getMeteocielUrlCenerator("wrfnmm", 5, "nmmde") }
+            { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7) },
+            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(7) }
         ]
     ]);
     Weathermap.time = 0;  // Panels zum Zeitpunkt t=0 anzeigen.
 };
 
-Weathermap.destroyUi = function() {
+Weathermap.destroyUi = function () {
     this.container.hide();
 };
 
