@@ -78,8 +78,9 @@ var ModelChooserViewModel = {
 };
 
 ModelChooserViewModel.initUi = function (container) {
-    this.container = $("#"+container);
+    this.container = $("#" + container);
     this.container.show();
+    $("#diagramPage").show();
     this.previewImages = {
         model: "gfs", images: [
             { runHour: 0, url: "http://wxcharts.eu/charts/gfs/germany/00/overview_384.jpg" },
@@ -100,5 +101,6 @@ ModelChooserViewModel.initUi = function (container) {
 };
 
 ModelChooserViewModel.destroyUi = function () {
+    $("#diagramPage").hide();
     this.container.hide();
 };
