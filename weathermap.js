@@ -504,12 +504,14 @@ Weathermap.initUi = function (container) {
             { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("850temp") },
 
             // 850 hpa temp me
+            /*
             { start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("t850", "centroeuropa") },
             { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("t850", "centroeuropa") },
-            /*
+            */
+
             { start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPME") },
             { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPME") },
-            */
+
             // WXC 850hpa Anomalie
             { start: 0, step: 6, stop: 240, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("850temp_anom") },
             { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("850temp_anom") }
