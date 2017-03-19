@@ -529,23 +529,22 @@ Weathermap.initUi = function (container) {
             { start: 103, step: 1, stop: 120, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
             { start: 123, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
             { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
-            // w3 6h niederschlag
-            { start: 6, step: 6, stop: 102, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(4, "ARPEGE") },
-            { start: 105, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(28, "GFS") },
-
-            // Gesamtbewölkung
-            { start: 3, step: 3, stop: 72, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
-            { start: 78, step: 6, stop: 102, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
-            { start: 105, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(18, "GFS") },
-
             // W3 6h Max/Min 2m Temperatur
-            { start: 6, step: 6, stop: 102, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(9, "ARPEGE") },
-            { start: 108, step: 6, stop: 240, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(9, "GFS") },
-
+            { start: 6, step: 6, stop: 102, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(9, "ARPEGE") },
+            { start: 108, step: 6, stop: 240, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(9, "GFS") },
+             // w3 6h niederschlag
+            { start: 6, step: 6, stop: 102, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(4, "ARPEGE") },
+            { start: 105, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(28, "GFS") },
+            // Gesamtbewölkung
+            { start: 3, step: 3, stop: 72, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
+            { start: 78, step: 6, stop: 102, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
+            { start: 105, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(18, "GFS") },
+            // W3 700 hpa Feuchtigkeit
+            { start: 3, step: 3, stop: 240, layer: 5, urlGenerator: Weathermap.getW3UrlGenerator(2, "GFS") },
             // Akkumulierter Niederschlag
-            { start: 6, step: 6, stop: 102, layer: 5, urlGenerator: Weathermap.getW3UrlGenerator(26, "ARPEGE") },
-            { start: 108, step: 6, stop: 240, layer: 5, urlGenerator: Weathermap.getW3UrlGenerator(26, "GFS") },
-            { start: 252, step: 12, stop: 384, layer: 5, urlGenerator: Weathermap.getWzUrlGenerator(49, "GFSOPME") }
+            { start: 6, step: 6, stop: 102, layer: 6, urlGenerator: Weathermap.getW3UrlGenerator(26, "ARPEGE") },
+            { start: 108, step: 6, stop: 240, layer: 6, urlGenerator: Weathermap.getW3UrlGenerator(26, "GFS") },
+            { start: 252, step: 12, stop: 384, layer: 6, urlGenerator: Weathermap.getWzUrlGenerator(49, "GFSOPME") }
         ],
         /* wrf 4km karten, akkumulierter niederschlag */
         [
