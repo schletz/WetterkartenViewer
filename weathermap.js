@@ -460,18 +460,7 @@ Weathermap.initUi = function (container) {
             { start: 0, step: 6, stop: 240, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("meanslp_anom") },
             { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("meanslp_anom") },
             // Hohe Warte Surroundings
-            { start: Weathermap.maxTime, layer: 2, urlGenerator: function () { return "http://old.wetterzentrale.de/pics/11035.gif"; } },
-            // Meteiciel SLP GEFS Diagramm
-            { start: Weathermap.maxTime, layer: 3, urlGenerator: Weathermap.getMeteocielUrlCenerator("gens", 4) },
-            // Meteiciel Z500 GEFS Diagramm
-            { start: Weathermap.maxTime, layer: 4, urlGenerator: Weathermap.getMeteocielUrlCenerator("gens", 4, "temp=2") },
-            // Meteiciel T850 und T500 GEFS Diagramm            
-            { start: Weathermap.maxTime, layer: 5, urlGenerator: Weathermap.getMeteocielUrlCenerator("gens", 3, "clim=1") },
-            // Meteiciel ThetaE 850 GEFS Diagramm            
-            { start: Weathermap.maxTime, layer: 6, urlGenerator: Weathermap.getMeteocielUrlCenerator("gens", 5) },
-            // Meteiciel 10m Wind GEFS Diagramm                 
-            { start: Weathermap.maxTime, layer: 7, urlGenerator: Weathermap.getMeteocielUrlCenerator("gens", 7) }
-
+            { start: Weathermap.maxTime, layer: 2, urlGenerator: function () { return "http://old.wetterzentrale.de/pics/11035.gif"; } }
         ],
         /* wxcharts 500 hpa geopot height (europa von wxcharts und wetterzentrale, wxcharts polaransicht) */
         [
@@ -584,19 +573,22 @@ Weathermap.initUi = function (container) {
             // wz theta 3
             { start: 0, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(7) },
             { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWzUrlGenerator(7) },
-            // 0° Grenze
-            { start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "0ch", "centroeuropa") },
-            { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "0ch", "centroeuropa") },
+            // 500 hpa Temp
+            { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "centroeuropa") },
+            { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "centroeuropa") },      
+
+            { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "euroatlantico") },
+            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "euroatlantico") }, 
 
             // wz 850 hpa gfs stromlinien (mitteleuropa)
-            { start: 3, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPME") },
-            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPME") },
+            { start: 3, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPME") },
+            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPME") },
 
             // Wind Gust
-            { start: 3, step: 3, stop: 72, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
-            { start: 78, step: 6, stop: 102, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
-            { start: 105, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(19) },
-            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(19) }
+            { start: 3, step: 3, stop: 72, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
+            { start: 78, step: 6, stop: 102, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
+            { start: 105, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(19) },
+            { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(19) }
         ]
     ]);
     Weathermap.time = 0;  // Panels zum Zeitpunkt t=0 anzeigen.
