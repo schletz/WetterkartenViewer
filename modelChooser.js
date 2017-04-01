@@ -73,12 +73,34 @@ var ModelChooserViewModel = {
         }).fail(function (xhr, textStatus, errorThrown) {
             self.logContainer.append('<p class="error">Request von <a href="' + url + '">' + url + '</a>" nicht möglich.</p>');
         });
+    },
+
+    loadDiagrams: function() {
+        /* Hängt für jedes img Element, welches data-src besitzt, eine Zufallszahl an.
+         * So wird der Cache umgangen. */
+        $("img[data-src]").each(function(item) {
+            var src = "", filename = "", ext = "", newSrc = "";
+            src = $(this).data("src");
+            /* Keine GET Parameter? Dann ist das eine normales Bild URL mit filename.ext */
+            if (src.indexOf("?") === -1)
+            {
+                filename = src.substring(0, src.lastIndexOf("."));
+                ext = src.substring(src.lastIndexOf("."));
+                newSrc = filename + Date.now() + ext;
+            }
+            /* Bei GET Parametern den Parameter rand mit der Zeit in ms anhängen- */
+            else {
+                newSrc = src + "&rand=" + Date.now();
+            }
+            $(this).attr("src", newSrc);            
+        });
     }
 
 };
 
 ModelChooserViewModel.initUi = function (container) {
     this.container = $("#" + container);
+    this.loadDiagrams();
     this.container.show();
     $("#diagramPage").show();
     this.previewImages = {
