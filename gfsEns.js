@@ -159,6 +159,7 @@ var GfsEns = {
      * @param {any} val Der Messwert.
      */
     appendData: function (param, run, time, val) {
+        if (val === undefined || val === null || val === "null") { return false; }
         if (this.parsedData[param] === undefined) { this.parsedData[param] = []; }
         if (this.parsedData[param][time] === undefined) {
             this.parsedData[param][time] = {
@@ -189,6 +190,7 @@ var GfsEns = {
         parsedDataTime.minVal = Math.min(parsedDataTime.minVal, val);
         parsedDataTime.maxVal = Math.max(parsedDataTime.maxVal, val);
         parsedDataTime.count++;
+        return true;
     },
 
 
