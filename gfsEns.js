@@ -82,28 +82,36 @@ var GfsEns = {
      */
     parseData: function (data) {
         var self = this;
-        /* Gelesenen GFS Hauptlauf verarbeiten. Das ist der 23. (Index 22) im JSON Array. */
-        var run = 1 * data[22][0]["UNIX_TIMESTAMP(vt)"];
-        var lastTime = 0;                                         // Der letzte Vorhersagezeitpunkt.
-        /* Der GFS Hauptlauf ist in ein Array von Vorhersagezeitpunkten unterteilt, die alle
-         * Modellparameter beinhalten. */
-        data[22].forEach(function (timeData) {
-            var time = 1 * timeData["UNIX_TIMESTAMP(vt)"];
-            lastTime = Math.max(lastTime, time);
-            /* Alle Parameter durchgehen und diesen Wert in unser parsedData Objekt einhängen. */
-            for (var param in timeData) {
-                self.appendData(param, run, time, timeData[param]);
-            }
-        });
+        try {
+            /* Gelesenen GFS Hauptlauf verarbeiten. Das ist der 23. (Index 22) im JSON Array. */
+            var run = 1 * data[22][0]["UNIX_TIMESTAMP(vt)"];
+            var lastTime = 0;                                         // Der letzte Vorhersagezeitpunkt.
+            /* Der GFS Hauptlauf ist in ein Array von Vorhersagezeitpunkten unterteilt, die alle
+             * Modellparameter beinhalten. */
+            data[22].forEach(function (timeData) {
+                var time = 1 * timeData["UNIX_TIMESTAMP(vt)"];
+                lastTime = Math.max(lastTime, time);
+                /* Alle Parameter durchgehen und diesen Wert in unser parsedData Objekt einhängen. */
+                for (var param in timeData) {
+                    self.appendData(param, run, time, timeData[param]);
+                }
+            });
 
-        /* Die 30 Jahres Mittelwerte von Index 23 lesen. */
-        data[23].forEach(function (timeData) {
-            var time = 1 * timeData["UNIX_TIMESTAMP(vt)"];
-            for (var param in timeData) {
-                self.appendData(param+"_30YR", run, time, timeData[param]);                
-            }
-        });
-        self.onLoaded(self, "Wxcharts", Date.fromUnixTimestamp(run), data[22].length, Date.fromUnixTimestamp(lastTime));
+            /* Die 30 Jahres Mittelwerte von Index 23 lesen. */
+            data[23].forEach(function (timeData) {
+                var time = 1 * timeData["UNIX_TIMESTAMP(vt)"];
+                for (var param in timeData) {
+                    self.appendData(param + "_30YR", run, time, timeData[param]);
+                }
+            });
+            self.onLoaded(self, "Wxcharts", Date.fromUnixTimestamp(run), data[22].length, Date.fromUnixTimestamp(lastTime));
+        }
+        catch (e) {
+            self.onError(self, "WXPARSE_FAILED");
+            return false;
+        }
+        return true;
+
     },
 
     /**
@@ -115,36 +123,43 @@ var GfsEns = {
      * @returns 
      */
     parseMeteocielData: function (data, param) {
-        /* RegExp für die einzelne Datenzeile. Sie beginnt mit dem Datum, die letzte Zelle ist
-         * der Wert des GFS Hauptlaufes. Davor sind die Ensembles. */
-        var colRe = /<tr><td.*?>(Date|(\d+)-(\d+)-(\d+) (\d+)Z)<\/td>.*?<td.*?>([0-9\-\+\.]+|GFS)(<\/font>)?<\/td><\/tr>/ig;
-        var col = null;
-        var headerOk = false;
-        var time = null;
-        var run = 0;
-        var count = 0;
+        try {
+            /* RegExp für die einzelne Datenzeile. Sie beginnt mit dem Datum, die letzte Zelle ist
+             * der Wert des GFS Hauptlaufes. Davor sind die Ensembles. */
+            var colRe = /<tr><td.*?>(Date|(\d+)-(\d+)-(\d+) (\d+)Z)<\/td>.*?<td.*?>([0-9\-\+\.]+|GFS)(<\/font>)?<\/td><\/tr>/ig;
+            var col = null;
+            var headerOk = false;
+            var time = null;
+            var run = 0;
+            var count = 0;
 
-        /* Die Datentabelle raussuchen. */
-        var table = /<table class='gefs'>(.*?)<\/table>/i.exec(data);
-        if (table === null) { return; }
-        /* Durch jede Datenzeile durchgehen. */
-        while ((col = colRe.exec(table[1])) !== null) {
-            /* Nur wenn in der Kopfzeile das Wort Date und GFS steht, dann ist der Tabellenaufbau
-             * wie erwartet. Sonst werden u. U. Ensembles mit dem Hauptlauf verwechselt! */
-            if (col[1] == "Date" && col[6] == "GFS") {
-                headerOk = true;
-            }
-            else {
-                if (headerOk) {
-                    time = new Date(Date.UTC(col[2], col[3] - 1, col[4], col[5], 0, 0)).getUnixTimestamp();
-                    /* Der 1. Datensatz bestimmt den Lauf. */
-                    if (run === 0) { run = time; }
-                    this.appendData(param, run, time, col[6]);
-                    count++;
+            /* Die Datentabelle raussuchen. */
+            var table = /<table class='gefs'>(.*?)<\/table>/i.exec(data);
+            if (table === null) { return; }
+            /* Durch jede Datenzeile durchgehen. */
+            while ((col = colRe.exec(table[1])) !== null) {
+                /* Nur wenn in der Kopfzeile das Wort Date und GFS steht, dann ist der Tabellenaufbau
+                 * wie erwartet. Sonst werden u. U. Ensembles mit dem Hauptlauf verwechselt! */
+                if (col[1] == "Date" && col[6] == "GFS") {
+                    headerOk = true;
+                }
+                else {
+                    if (headerOk) {
+                        time = new Date(Date.UTC(col[2], col[3] - 1, col[4], col[5], 0, 0)).getUnixTimestamp();
+                        /* Der 1. Datensatz bestimmt den Lauf. */
+                        if (run === 0) { run = time; }
+                        this.appendData(param, run, time, col[6]);
+                        count++;
+                    }
                 }
             }
+            this.onLoaded(this, "Meteociel", Date.fromUnixTimestamp(run), count, Date.fromUnixTimestamp(time));
         }
-        this.onLoaded(this, "Meteociel", Date.fromUnixTimestamp(run), count, Date.fromUnixTimestamp(time));
+        catch (e) {
+            this.onError(this, "METEOCIELPARSE_FAILED");            
+            return false;
+        }
+        return true;
     },
 
     /**
@@ -160,36 +175,42 @@ var GfsEns = {
      */
     appendData: function (param, run, time, val) {
         if (val === undefined || val === null || val === "null") { return false; }
-        if (this.parsedData[param] === undefined) { this.parsedData[param] = []; }
-        if (this.parsedData[param][time] === undefined) {
-            this.parsedData[param][time] = {
-                /* Die Grundstruktur anlegen. */
-                /* Zeitpunkt des letzten (neuesten) Laufes, dieser Lauf wird in val geschriebem. */
-                lastRun: Date.fromUnixTimestamp(0),
-                /* Der vorhergesagte Zeitpunkt. */
-                time: Date.fromUnixTimestamp(time),
-                /* Der Messwert. */
-                val: -999,
-                /* Der kleinste Wert, der bei allen bearbeiteten Läufen für diesen Zeitpunkt auf-
-                 * getreten ist. */
-                minVal: Number.MAX_VALUE,
-                maxVal: -1 * Number.MAX_VALUE,
-                /* Die Anzahl der Läufe, die diesen Wert berechneten. */
-                count: 0
-            };
-        }
-        var parsedDataTime = this.parsedData[param][time];
-        if (!isNaN(val))
-            val *= 1;
+        try {
+            if (this.parsedData[param] === undefined) { this.parsedData[param] = []; }
+            if (this.parsedData[param][time] === undefined) {
+                this.parsedData[param][time] = {
+                    /* Die Grundstruktur anlegen. */
+                    /* Zeitpunkt des letzten (neuesten) Laufes, dieser Lauf wird in val geschriebem. */
+                    lastRun: Date.fromUnixTimestamp(0),
+                    /* Der vorhergesagte Zeitpunkt. */
+                    time: Date.fromUnixTimestamp(time),
+                    /* Der Messwert. */
+                    val: -999,
+                    /* Der kleinste Wert, der bei allen bearbeiteten Läufen für diesen Zeitpunkt auf-
+                     * getreten ist. */
+                    minVal: Number.MAX_VALUE,
+                    maxVal: -1 * Number.MAX_VALUE,
+                    /* Die Anzahl der Läufe, die diesen Wert berechneten. */
+                    count: 0
+                };
+            }
+            var parsedDataTime = this.parsedData[param][time];
+            if (!isNaN(val))
+                val *= 1;
 
-        /* Wenn der Lauf neuer ist, ist dies der neue aktuelle Wert. */
-        if (parsedDataTime.lastRun.getUnixTimestamp() < run) {
-            parsedDataTime.val = val;
-            parsedDataTime.lastRun = Date.fromUnixTimestamp(run);
+            /* Wenn der Lauf neuer ist, ist dies der neue aktuelle Wert. */
+            if (parsedDataTime.lastRun.getUnixTimestamp() < run) {
+                parsedDataTime.val = val;
+                parsedDataTime.lastRun = Date.fromUnixTimestamp(run);
+            }
+            parsedDataTime.minVal = Math.min(parsedDataTime.minVal, val);
+            parsedDataTime.maxVal = Math.max(parsedDataTime.maxVal, val);
+            parsedDataTime.count++;
         }
-        parsedDataTime.minVal = Math.min(parsedDataTime.minVal, val);
-        parsedDataTime.maxVal = Math.max(parsedDataTime.maxVal, val);
-        parsedDataTime.count++;
+        catch (e) {
+            this.onError(this, "DATA_APPEND_FAILED");            
+            return false;
+        }
         return true;
     },
 

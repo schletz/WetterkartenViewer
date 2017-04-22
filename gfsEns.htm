@@ -50,6 +50,7 @@
     };
 
     GfsEns.onError = function (source, message, url) {
+        if (url === undefined) { url = ""; }
         $("#log").append($("<p>").addClass("error").text("Fehler beim Laden von " + url + " " + message));
         window.setTimeout(function () { location.reload(); }, 2000);
     };
