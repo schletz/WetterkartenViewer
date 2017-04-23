@@ -28,6 +28,9 @@ Date.prototype.getIsoDate = function () {
 
 var GfsEns = {
     parsedData: {},
+    /* Der Startzeitpunkt der Diagrammausgabe ist die letzte volle 6. Stunde, die aber mindestens 
+     * 6 Stunden her ist. Wird in den getData Methoden verwendet. */
+    startDate: new Date(Math.floor((Date.now() - 6 * 3600e3) / 6 / 3600e3) * 6 * 3600e3).getTime(),
     runsLoaded: 0,    // Für die Bestimmung, dann alle Ajax Requests fertig sind.
     windColors: [[0, '#CCCCCC'], [10, '#6E79FA'], [20, '#1AFF00'], [30, '#FFE900'], [40, '#FF0000'], [50, '#CC0074']],
     onReady: function (source) { return; },
@@ -156,7 +159,7 @@ var GfsEns = {
             this.onLoaded(this, "Meteociel", Date.fromUnixTimestamp(run), count, Date.fromUnixTimestamp(time));
         }
         catch (e) {
-            this.onError(this, "METEOCIELPARSE_FAILED");            
+            this.onError(this, "METEOCIELPARSE_FAILED");
             return false;
         }
         return true;
@@ -208,7 +211,7 @@ var GfsEns = {
             parsedDataTime.count++;
         }
         catch (e) {
-            this.onError(this, "DATA_APPEND_FAILED");            
+            this.onError(this, "DATA_APPEND_FAILED");
             return false;
         }
         return true;
@@ -238,7 +241,7 @@ var GfsEns = {
             /* Nur wenn der Zeitpunkt im Intervall [jetzt-6h, letzterLauf + 240h] liegt, wird der
              * Datenpunkt zurückgegeben. Prognosen > 240h sind für das Diagramm uninteressant, da 
              * hier nur mit einer Auflösung von 6h gerechnet wird. */
-            if (timeData.time.getTime() > Date.now() - 6 * 3600e3 && timeData.time.getTime() - timeData.lastRun.getTime() <= 240 * 3600e3) {
+            if (timeData.time.getTime() >= this.startDate && timeData.time.getTime() - timeData.lastRun.getTime() <= 240 * 3600e3) {
                 result.values.push([timeData.time.getTime() - 60e3 * timeData.time.getTimezoneOffset(), timeData.val]);
                 /* Nur wenn mindestens 3 Läufe einen Wert berechnet haben, geben wir min und max
                  * zurück. */
@@ -274,7 +277,7 @@ var GfsEns = {
             /* Nur wenn der Zeitpunkt im Intervall [jetzt-6h, letzterLauf + 240h] liegt, wird der
              * Datenpunkt zurückgegeben. Prognosen > 240h sind für das Diagramm uninteressant, da 
              * hier nur mit einer Auflösung von 6h gerechnet wird. */
-            if (timeUData.time.getTime() > Date.now() - 6 * 3600e3 && timeUData.time.getTime() - timeUData.lastRun.getTime() <= 240 * 3600e3) {
+            if (timeUData.time.getTime() >= this.startDate && timeUData.time.getTime() - timeUData.lastRun.getTime() <= 240 * 3600e3) {
                 windSpeed = 3.6 * Math.sqrt(timeUData.val * timeUData.val + timeVData.val * timeVData.val);
                 /* Formel siehe https://www.eol.ucar.edu/content/wind-direction-quick-reference */
                 windDir = 270 - Math.atan2(timeVData.val, timeUData.val) * 180 / Math.PI;
