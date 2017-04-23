@@ -48,7 +48,7 @@ var GfsEns = {
         var self = this;
         /* WXCHARTS Daten (JSON) laden. */
         ["00", "06", "12", "18"].forEach(function (runParam) {
-            var url = "https://crossorigin.me/http://wxcharts.eu/php/get_gefs.php?lat=48.0&lon=16.5&database=" + runParam;
+            var url = "http://crossorigin.me/http://wxcharts.eu/php/get_gefs.php?lat=48.0&lon=16.5&database=" + runParam;
             $.ajax({ url: url, dataType: "json" }).done(function (data) {
                 self.runsLoaded++;
                 self.parseData(data);
@@ -62,7 +62,7 @@ var GfsEns = {
         });
         /* Meteociel Tabelle laden (HTML) */
         ["0", "6", "12", "18"].forEach(function (runParam) {
-            var url = "https://crossorigin.me/http://www.meteociel.fr/modeles/gefs_table.php?lat=48&lon=16.5&run=" + runParam + "&mode=1";
+            var url = "http://crossorigin.me/http://www.meteociel.fr/modeles/gefs_table.php?lat=48&lon=16.5&run=" + runParam + "&mode=1";
             $.ajax({ url: url, dataType: "html" }).done(function (data) {
                 self.runsLoaded++;
                 self.parseMeteocielData(data, "TMP_500");
