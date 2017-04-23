@@ -33,6 +33,7 @@ var GfsEns = {
     startDate: new Date(Math.floor((Date.now() - 6 * 3600e3) / 6 / 3600e3) * 6 * 3600e3).getTime(),
     runsLoaded: 0,    // Für die Bestimmung, dann alle Ajax Requests fertig sind.
     windColors: [[0, '#CCCCCC'], [10, '#6E79FA'], [20, '#1AFF00'], [30, '#FFE900'], [40, '#FF0000'], [50, '#CC0074']],
+    windSectors: ["N", "NO", "O", "SO", "S", "SW", "W", "NW", "N"],
     onReady: function (source) { return; },
     onError: function (source, message) { return; },
     onLoaded: function (source, site, run, count, lastTime) { return; },
@@ -270,6 +271,7 @@ var GfsEns = {
         var timeUData = null, timeVData = null;
         var windSpeed = 0, windDir = 0;
         var result = [];
+        var sector = "";
 
         for (var time in uData) {
             timeUData = uData[time];
@@ -283,7 +285,13 @@ var GfsEns = {
                 windDir = 270 - Math.atan2(timeVData.val, timeUData.val) * 180 / Math.PI;
                 if (windDir < 0) { windDir += 360; }
                 if (windDir >= 360) { windDir -= 360; }
-                result.push({ x: timeUData.time.getTime() - 60e3 * timeUData.time.getTimezoneOffset(), y: windDir, speed: Math.round(windSpeed), color: this.getWindColor(windSpeed) });
+                result.push({
+                    x: timeUData.time.getTime() - 60e3 * timeUData.time.getTimezoneOffset(),
+                    y: windDir,
+                    speed: Math.round(windSpeed),
+                    sector: this.windSectors[Math.floor((windDir + 45 / 2) / 45)],
+                    color: this.getWindColor(windSpeed)
+                });
             }
         }
         return result;
