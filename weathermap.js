@@ -477,6 +477,10 @@ Weathermap.initUi = function (container) {
             { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "z500", "euroatlantico") },
 
             { start: 0, step: 24, stop: 240, layer: 3, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("ecmwf", "z500", "euroatlantico") },
+
+            { start: 3, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getMeteocielUrlCenerator("gfs", 0, "gfseu") },
+            { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getMeteocielUrlCenerator("gfs", 0, "gfseu") },
+
             /*
             { start: 0, step: 6, stop: 240, layer: 4, urlGenerator: Weathermap.getWxcUrlGenerator("gph500_anom") },
             { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getWxcUrlGenerator("gph500_anom") },
@@ -486,8 +490,8 @@ Weathermap.initUi = function (container) {
             { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPEU") },
             */
 
-            { start: 0, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") },
-            { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") }
+            { start: 0, step: 3, stop: 240, layer: 5, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") },
+            { start: 252, step: 12, stop: 384, layer: 5, urlGenerator: Weathermap.getWxcUrlGenerator("gh500", "polar") }
         ],
         /* wxcharts 850 hpa temp, 850 hpa temp anomaly */
         [

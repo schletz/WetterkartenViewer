@@ -1,0 +1,41 @@
+http://data.planetos.com/datasets/noaa_gfs_pgrb2_global_forecast_recompute_0.25degree
+
+// Variablen ermitteln:
+https://api.planetos.com/v1/datasets/noaa_gfs_pgrb2_global_forecast_recompute_0.25degree?apikey=a7017583aeb944d2b8bfec81ff9a2363
+
+// Reference Times, um das Datum des letzten Laufes zu bestimmen. Die Variablen haben u. U. verschiedene Referenzzeiten, wenn ein Lauf in Bearbeitung ist.
+// Hier ist das Minimum aller gefundenen reference_time Werte zu nehmen
+https://api.planetos.com/v1/datasets/noaa_gfs_pgrb2_global_forecast_recompute_0.25degree/point?var=reftime&lat=48&lon=16.5&count=1&apikey=a7017583aeb944d2b8bfec81ff9a2363
+
+
+
+
+// Geopot Höhen (reftime ist nach dem ermittelten letzten Lauf einzustellen)
+https://api.planetos.com/v1/datasets/noaa_gfs_pgrb2_global_forecast_recompute_0.25degree/point?var=hgtprs&z=all&lat=48&lon=16.5&count=1000000&reftime_start=2017-04-22T11:00:00Z&reftime_end=2017-04-23T11:00:00Z&apikey=a7017583aeb944d2b8bfec81ff9a2363&csv=true
+
+// Temperaturen, isobaric surface
+https://api.planetos.com/v1/datasets/noaa_gfs_pgrb2_global_forecast_recompute_0.25degree/point?var=tmpprs&z=all&lat=48&lon=16.5&count=1000000&reftime_start=2017-04-22T11:00:00Z&reftime_end=2017-04-23T11:00:00Z&apikey=a7017583aeb944d2b8bfec81ff9a2363&csv=true
+
+// 2m Temperatur
+https://api.planetos.com/v1/datasets/noaa_gfs_pgrb2_global_forecast_recompute_0.25degree/point?var=tmp_m&z=first&lat=48&lon=16.5&count=1000000&reftime_start=2017-04-22T11:00:00Z&reftime_end=2017-04-23T11:00:00Z&apikey=a7017583aeb944d2b8bfec81ff9a2363&csv=true
+
+Dataset noaa_gfs_global_sflux_0, 0.12°, aber nur 3h Zeitauflösung
+https://api.planetos.com/v1/datasets/noaa_gfs_global_sflux_0.12d/point?var=Temperature_height_above_ground&z=first&lat=48&lon=16.5&count=1000000&apikey=a7017583aeb944d2b8bfec81ff9a2363&csv=true
+
+
+
+// Wind. u und v Komponente
+https://api.planetos.com/v1/datasets/noaa_gfs_pgrb2_global_forecast_recompute_0.25degree/point?var=vgrd_m&z=first&lat=48&lon=16.5&count=1000000&reftime_start=2017-04-22T11:00:00Z&reftime_end=2017-04-23T11:00:00Z&apikey=a7017583aeb944d2b8bfec81ff9a2363&csv=true
+https://api.planetos.com/v1/datasets/noaa_gfs_pgrb2_global_forecast_recompute_0.25degree/point?var=ugrd_m&z=first&lat=48&lon=16.5&count=1000000&reftime_start=2017-04-22T11:00:00Z&reftime_end=2017-04-23T11:00:00Z&apikey=a7017583aeb944d2b8bfec81ff9a2363&csv=true
+
+// 3h Niderschlag
+https://api.planetos.com/v1/datasets/noaa_gfs_pgrb2_global_forecast_recompute_0.25degree/point?var=apcpsfc_3_Hour_Accumulation&z=first&lat=48&lon=16.5&count=1000000&reftime_start=2017-04-22T11:00:00Z&reftime_end=2017-04-23T11:00:00Z&apikey=a7017583aeb944d2b8bfec81ff9a2363&csv=true
+// Rel. Feuchte
+https://api.planetos.com/v1/datasets/noaa_gfs_pgrb2_global_forecast_recompute_0.25degree/point?var=rhprs&z=all&lat=48&lon=16.5&count=1000000&reftime_start=2017-04-22T11:00:00Z&reftime_end=2017-04-23T11:00:00Z&apikey=a7017583aeb944d2b8bfec81ff9a2363&csv=true
+
+
+
+
+http://planet-os.github.io/demos/point_api/: a7017583aeb944d2b8bfec81ff9a2363
+planet os selbst: 0f58fe2540fa4cf19a4aa68f290fd148
+Eigener Key: d0adb4017bb7498b9234a435dab5a7d1
