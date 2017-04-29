@@ -36,14 +36,16 @@ var GfsEns = {
      * PlanetOs angefordert werden. Alle Werte werden mit der Transform-Funktion, wenn angegeben,
      * umgewandelt. */
     requests: [
-        /* Temperatur auf Druckflächen (850hpa, ...) */
-        { param: "tmpprs", z: "all", transform: function (val) { return val - 273.15; }, loadHistory: true },
+        /* Temperatur auf 850hpa */
+        { param: "tmpprs", zIndex: 25, transform: function (val) { return val - 273.15; }, loadHistory: true },
+        /* Temperatur auf 500hpa */
+        { param: "tmpprs", zIndex: 18, transform: function (val) { return val - 273.15; }, loadHistory: true },        
         /* Temperatur in Höhen über dem Boden. Wir brauchen nur 2m (z: fist) */
-        { param: "tmp_m", z: "first", transform: function (val) { return val - 273.15; }, loadHistory: true },
+        { param: "tmp_m", zIndex: "first", transform: function (val) { return val - 273.15; }, loadHistory: true },
         /* Druck reduziert auf Meeresniveau. */
-        { param: "prmslmsl", z: "first", transform: function (val) { return val / 100.0; } },
-        /* Relative Feuchte auf Druckflächen (700hpa, ...) */
-        { param: "rhprs", z: "all" },
+        { param: "prmslmsl", zIndex: "first", transform: function (val) { return val / 100.0; } },
+        /* Relative Feuchte auf 700hpa */
+        { param: "rhprs", zIndex: 22 },
         /* 3h Niederschlag */
         { param: "apcpsfc_3_Hour_Accumulation" },
         /* U und V Komponente des 10m Windws (z: first wird als Standard gesetzt) */
@@ -68,20 +70,20 @@ var GfsEns = {
     getRequestUrl: function (requestData) {
         var count = 1000000;
         if (requestData.param === undefined) { return ""; }
-        if (requestData.z === undefined) { requestData.z = "first"; }
+        if (requestData.zIndex === undefined) { requestData.zIndex = "first"; }
         if (requestData.firstRun === undefined) { requestData.firstRun = new Date(); }
         if (requestData.lastRun === undefined) { requestData.lastRun = new Date(); }
 
         var url = this.planetOsUrl;
 
         if (requestData.param == "reftime") {
-            count = 1; requestData.z = "first";
+            count = 1; requestData.zIndex = "first";
             url = url.replace("reftime_start={firstRun}&reftime_end={lastRun}", "context=reftime_time1_isobaric3_lat_lon");
         }
         return url.replace("{lat}", this.lat).
             replace("{lon}", this.lon).
             replace("{param}", requestData.param).
-            replace("{z}", requestData.z).
+            replace("{z}", requestData.zIndex).
             replace("{count}", count).
             replace("{firstRun}", requestData.firstRun.getIsoDate()).
             replace("{lastRun}", requestData.lastRun.getIsoDate());
