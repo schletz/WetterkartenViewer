@@ -11,10 +11,10 @@ https://api.planetos.com/v1/datasets/noaa_gfs_pgrb2_global_forecast_recompute_0.
 
 
 // Geopot Höhen (reftime ist nach dem ermittelten letzten Lauf einzustellen)
-https://api.planetos.com/v1/datasets/noaa_gfs_pgrb2_global_forecast_recompute_0.25degree/point?var=hgtprs&z=all&lat=48&lon=16.5&count=1000000&reftime_start=2017-04-22T11:00:00Z&reftime_end=2017-04-23T11:00:00Z&apikey=a7017583aeb944d2b8bfec81ff9a2363&csv=true
+https://api.planetos.com/v1/datasets/noaa_gfs_pgrb2_global_forecast_recompute_0.25degree/point?var=hgtprs&z=all&lat=48&lon=16.5&count=1000000&reftime_start=2017-04-27T11:00:00Z&reftime_end=2017-04-28T11:00:00Z&apikey=a7017583aeb944d2b8bfec81ff9a2363&csv=true
 
 // Temperaturen, isobaric surface
-https://api.planetos.com/v1/datasets/noaa_gfs_pgrb2_global_forecast_recompute_0.25degree/point?var=tmpprs&z=all&lat=48&lon=16.5&count=1000000&reftime_start=2017-04-22T11:00:00Z&reftime_end=2017-04-23T11:00:00Z&apikey=a7017583aeb944d2b8bfec81ff9a2363&csv=true
+https://api.planetos.com/v1/datasets/noaa_gfs_pgrb2_global_forecast_recompute_0.25degree/point?var=tmpprs&z=all&lat=48&lon=16.5&count=1000000&reftime_start=2017-04-27T12:01:00Z&reftime_end=2017-04-28T12:00:00Z&offset=-273.16&apikey=a7017583aeb944d2b8bfec81ff9a2363&csv=true
 
 // 2m Temperatur
 https://api.planetos.com/v1/datasets/noaa_gfs_pgrb2_global_forecast_recompute_0.25degree/point?var=tmp_m&z=first&lat=48&lon=16.5&count=1000000&reftime_start=2017-04-22T11:00:00Z&reftime_end=2017-04-23T11:00:00Z&apikey=a7017583aeb944d2b8bfec81ff9a2363&csv=true

@@ -7,8 +7,6 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
-    <script src="https://code.highcharts.com/highcharts-more.js"></script>
-    <script src="tmpprs.js"></script>
     <script src="gfsEns.js"></script>
     <style type="text/css">
         html,
@@ -41,27 +39,24 @@
 <script type="text/javascript">
     Highcharts.setOptions({
         lang: {
-            shortMonths: ['Jan', 'Feb', 'März', 'Apr', 'Mai', 'Juni', 'Juli', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
             months: ['Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
             shortWeekdays: ['SO', 'MO', 'DI', 'MI', 'DO', 'FR', 'SA'],
             weekdays: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag']
         }
     });
 
-    GfsEns.onLoaded = function (source, message, details) {
-        if (details === undefined) { details = ""; }
-        else { details = " (" + details + ")"; }
-        $("#log").append($("<p>").text(message + details));
+    GfsEns.onLoaded = function (source, site, run, count, lastTime) {
+        $("#log").append($("<p>").text("Lauf " + run.getIsoDate() + " von " + site + " geladen: " + count + " Datensätze bis " + lastTime.getIsoDate()));
     };
 
-    GfsEns.onError = function (source, message, details) {
-        if (details === undefined) { details = ""; }
-        else { details = " (" + details + ")"; }
-        $("#log").append($("<p>").addClass("error").text(message + details));
-        //window.setTimeout(function () { location.reload(); }, 2000);
+    GfsEns.onError = function (source, message, url) {
+        if (url === undefined) { url = ""; }
+        $("#log").append($("<p>").addClass("error").text("Fehler beim Laden von " + url + " " + message));
+        window.setTimeout(function () { location.reload(); }, 2000);
     };
 
     GfsEns.onReady = function (source) {
+        console.log(source.parsedData);
         Highcharts.chart('diagram', {
             chart: { height: "50%" },
             title: { text: 'GFS 4 runs overview 48° NB, 16.5° ÖL' },
@@ -101,11 +96,7 @@
                 {
                     labels: { format: '{value}°C' }, title: { text: null }, gridLineWidth: 0,
                     tickPositions: [-45, -40, -35, -30, -25, -20, -15, -10, -5, 0, 5, 10, 15]
-                },
-                {
-                    labels: { format: '{value}%' }, title: { text: null }, gridLineWidth: 0, opposite: true,
-                    tickPositions: [0, 25, 50, 75, 100, 300]
-                },
+                }
             ],
             tooltip: { crosshairs: true, shared: true },
             legend: {},
@@ -114,23 +105,22 @@
                     name: '2m Temperatur',
                     type: 'line',
                     marker: { enabled: false },
-                    data: source.getData("tmp_m", 2).values,
+                    data: source.getData("TMP_2").values,
                     tooltip: { valueSuffix: '°C', valueDecimals: 0 },
                     color: "#920000",
                     zIndex: 10
                 },
                 {
                     name: '2m Temperatur (letzte 4 Läufe)',
-                    data: source.getData("tmp_m", 2).ranges,
+                    data: source.getData("TMP_2").ranges,
                     enableMouseTracking: false,
                     type: 'arearange',
                     lineWidth: 0,
-                    fillOpacity: 0.2,
                     linkedTo: ':previous',
                     color: "#920000",
+                    fillOpacity: 0.3,
                     zIndex: 5
                 },
-                /*
                 {
                     name: '850hpa Temperatur CFSR Mean (1981-2010)',
                     type: 'spline',
@@ -143,25 +133,25 @@
                     color: "#000000",
                     zIndex: 20
                 },
-                */
                 {
                     name: '850hpa Temperatur',
                     type: 'line',
                     marker: { enabled: false },
                     tooltip: { valueSuffix: '°C', valueDecimals: 0 },
-                    data: source.getData("tmpprs", 85000).values,
+                    data: source.getData("TMP_850").values,
                     color: "#000000",
                     zIndex: 20
                 },
                 {
                     name: '850hpa Temperatur (letzte 4 Läufe)',
                     enableMouseTracking: false,
-                    data: source.getData("tmpprs", 85000).ranges,
+                    data: source.getData("TMP_850").ranges,
                     type: 'arearange',
+                    tooltip: { enabled: false },
                     lineWidth: 0,
-                    fillOpacity: 0.2,
                     linkedTo: ':previous',
                     color: "#000000",
+                    fillOpacity: 0.3,
                     zIndex: 5
                 },
                 {
@@ -169,7 +159,7 @@
                     type: 'line',
                     marker: { enabled: false },
                     tooltip: { valueSuffix: '°C', valueDecimals: 0 },
-                    data: source.getData("tmpprs", 50000).values,
+                    data: source.getData("TMP_500").values,
                     color: "#5C2E00",
                     zIndex: 30,
                     yAxis: 4
@@ -177,29 +167,28 @@
                 {
                     name: '500hpa Temperatur (letzte 4 Läufe)',
                     enableMouseTracking: false,
-                    data: source.getData("tmpprs", 50000).ranges,
+                    data: source.getData("TMP_500").ranges,
                     type: 'arearange',
+                    tooltip: { enabled: false },
                     lineWidth: 0,
-                    fillOpacity: 0.2,
                     linkedTo: ':previous',
                     color: "#5C2E00",
+                    fillOpacity: 0.3,
                     zIndex: 5,
-                    animation: false,
                     yAxis: 4
                 },
                 {
                     name: 'Luftdruck (MSL)',
                     marker: { enabled: false },
                     tooltip: { valueSuffix: 'hPa', valueDecimals: 0 },
-                    data: source.getData("prmslmsl").values,
+                    data: source.getData("PRMSL_0").values,
                     color: "#009612",
                     zIndex: 40,
                     yAxis: 1,
                 },
-                /*
                 {
                     name: 'Luftdruck (MSL) (letzte 4 Läufe)',
-                    data: source.getData("prmslmsl").ranges,
+                    data: source.getData("PRMSL_0").ranges,
                     enableMouseTracking: false,
                     type: 'arearange',
                     lineWidth: 0,
@@ -209,30 +198,29 @@
                     zIndex: 5,
                     yAxis: 1
                 },
-                */
                 {
                     name: 'Niederschlag',
-                    data: source.getData("apcpsfc_3_Hour_Accumulation").values,
+                    data: source.getData("APCP_0").values,
                     type: "column",
                     color: "#001ed6",
                     zIndex: 1,
                     yAxis: 2,
                     tooltip: { valueSuffix: 'mm', valueDecimals: 0 },
-                },
+                },/*
                 {
-                    name: '700hpa Feuchte',
-                    type: 'line',
-                    marker: { enabled: false },
-                    tooltip: { valueSuffix: '%', valueDecimals: 0 },
-                    data: source.getData("rhprs", 70000).values,
-                    color: "#001ed6",
-                    yAxis: 5,
-                    zIndex: 40
-                },
+                    name: 'Niederschlag (letzte 4 Läufe)',
+                    data: source.getData("APCP_0").ranges,
+                    enableMouseTracking: false,
+                    type: 'errorbar',
+                    linkedTo: ':previous',
+                    color: "#929cd6",
+                    zIndex: 0,
+                    yAxis: 2
+                },*/
                 {
                     name: '10m Wind',
                     type: "scatter",
-                    data: source.getWindData(10),
+                    data: source.getWindData("VGRD_10"),
                     marker: { radius: 4, symbol: "square" },
                     zIndex: 40,
                     yAxis: 3,
