@@ -24,6 +24,7 @@ Date.prototype.getIsoDate = function () {
  */
 
 var GfsEns = {
+    version: "201724129_2",
     parsedData: [],
     /* Der Startzeitpunkt der Diagrammausgabe ist die letzte volle 6. Stunde, die aber mindestens 
      * 6 Stunden her ist. Wird in den getData Methoden verwendet. */
@@ -39,7 +40,15 @@ var GfsEns = {
         /* Temperatur auf 850hpa */
         { param: "tmpprs", zIndex: 25, transform: function (val) { return val - 273.15; }, loadHistory: true },
         /* Temperatur auf 500hpa */
-        { param: "tmpprs", zIndex: 18, transform: function (val) { return val - 273.15; }, loadHistory: true },        
+        { param: "tmpprs", zIndex: 18, transform: function (val) { return val - 273.15; }, loadHistory: true },
+
+        /* Geopot Höhe 500hpa, die Transformation erzeugt die Abweichung vom Mittel in dam. */
+        { param: "hgtprs", zIndex: 18, transform: function (val) { return (val - 5570) / 10.0; } },
+        /* Geopot Höhe 1000hpa, die Transformation erzeugt die Abweichung vom Mittel in dam. */
+        { param: "hgtprs", zIndex: 30, transform: function (val) { return (val - 111) / 10.0; } },
+
+        /* Temperatur auf 500hpa */
+        { param: "tmpprs", zIndex: 18, transform: function (val) { return val - 273.15; }, loadHistory: true },
         /* Temperatur in Höhen über dem Boden. Wir brauchen nur 2m (z: fist) */
         { param: "tmp_m", zIndex: "first", transform: function (val) { return val - 273.15; }, loadHistory: true },
         /* Druck reduziert auf Meeresniveau. */
@@ -124,7 +133,8 @@ var GfsEns = {
 
         /* Wurde dieser Lauf schon einmal im localStorage gespeichert? Dann lesen wir nicht neu,
          * sondern setzen parsedData auf die gespeicherten Daten. */
-        if (localStorage.getItem("lastRun") == lastRun && localStorage.getItem("parsedData") !== null) {
+        if (localStorage.getItem("version") == self.version &&
+            localStorage.getItem("lastRun") == lastRun && localStorage.getItem("parsedData") !== null) {
             self.onLoaded(self, "Daten im Local Storage aktuell.");
             self.parsedData = JSON.parse(localStorage.getItem("parsedData"));
             self.onReady(self);
@@ -150,9 +160,11 @@ var GfsEns = {
                         item.param);
                     /* Alles geladen? Dann in den localStorage schreiben und onReady aufrufen. */
                     if (self.requestsLoaded == self.requests.length) {
+                        self.postprocessData();
                         self.onReady(self);
                         localStorage.setItem("parsedData", JSON.stringify(self.parsedData));
                         localStorage.setItem("lastRun", lastRun);
+                        localStorage.setItem("version", self.version);
                         return true;
                     }
                 }).fail(function () {
@@ -214,13 +226,49 @@ var GfsEns = {
                 currentItem.maxVal = Math.max(currentItem.maxVal, val);
             }
         });
-        /* Highcharts benötigt nach der Zeit sortierte Daten. */
-        self.parsedData.sort(function (a, b) { return a.time - b.time; });
         return true;
     },
 
+    /**
+     * Erstellt Parameter, die sich durch Berechnung aus anderen Parametern ergeben. Aktuell
+     * wird nur die Relative Topografie berechnet, also die Differenz zwischen der Höhe der 
+     * 500 und 1000 hPa Druckschickt.
+     * 
+     * @returns 
+     */
+    postprocessData: function () {
+        var self = this;
+        var gpt500 = { time: 0, val: 0 };
+        var gpt1000 = { time: 0, val: 0 };
 
+        /* Highcharts und die nachfolgende Bearbeitung benötigen nach der Zeit sortierte Daten. */
+        self.parsedData.sort(function (a, b) { return a.time - b.time; });
 
+        self.parsedData.forEach(function (item) {
+            var time = item.time;
+            if (item.param == "hgtprs" && item.z == 100000) {
+                gpt1000.time = time; gpt1000.val = item.val;
+            }
+            if (item.param == "hgtprs" && item.z == 50000) {
+                gpt500.time = time; gpt500.val = item.val;
+            }
+            if (gpt500.time == time && gpt1000.time == time) {
+                self.parsedData.push({
+                    param: "retop",
+                    z: 50000,
+                    time: time,
+                    val: gpt500.val - gpt1000.val,
+                    count: 1,
+                    minVal: gpt500.val - gpt1000.val,
+                    maxVal: gpt500.val - gpt1000.val,
+                    lastRun: item.lastRun
+                });
+                gpt500.time = 0; gpt1000.time = 0;
+            }
+        });
+
+        return true;
+    },
 
 
     /**

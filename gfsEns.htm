@@ -74,37 +74,45 @@
             },
             yAxis: [
                 {
-                    labels: { format: '{value}°C' }, title: { text: null },
+                    id: "temp", labels: { format: '{value}°C' }, title: { text: null },
                     tickPositions: [-20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30, 35, 40],
-                    minorTickInterval: 1, minorGridLineColor: "#cccccc", gridLineColor: "#999999"
+                    minorTickInterval: 1, minorGridLineColor: "#cccccc", gridLineColor: "#999999",
+                    offset: -10
                 },
                 {
-                    labels: { format: '{value}hPa' }, title: { text: null }, gridLineWidth: 0, opposite: true,
-                    tickPositions: [920, 985, 990, 995, 1000, 1005, 1010, 1015, 1020, 1025, 1030, 1035, 1040],
+                    id: "prec", labels: { format: '{value}mm' }, title: { text: null }, gridLineWidth: 0, offset: 20,
+                    tickPositions: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24]
+                },
+                {
+                    id: "temp500", labels: { format: '{value}°C' }, title: { text: null }, gridLineWidth: 0, offset: 60,
+                    tickPositions: [-45, -40, -35, -30, -25, -20, -15, -10, -5, 0, 5, 10, 15]
+                },
+
+                {
+                    id: "winddir", labels: { format: '{value}°' }, title: { text: null }, gridLineWidth: 0, opposite: true, offset: -10,
+                    tickPositions: [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360]
+                },                
+                {
+                    id: "rh", labels: { format: '{value}%' }, title: { text: null }, gridLineWidth: 0, opposite: true, offset: 20,
+                    tickPositions: [0, 25, 50, 75, 100, 300]
+                },
+                /*
+                {
+                    id: "slp", labels: { format: '{value}hPa' }, title: { text: null }, gridLineWidth: 0, opposite: true, offset: 40,
+                    tickPositions: [-40, 0, 5, 10, 15, 20],
                     plotLines: [{
                         color: '#009612',
                         dashStyle: 'ShortDash',
                         width: 1.5,
-                        value: 1013,
+                        value: 11,
                         zIndex: 99
                     }]
                 },
+                */
                 {
-                    labels: { format: '{value}mm' }, title: { text: null }, gridLineWidth: 0,
-                    tickPositions: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24]
-                },
-                {
-                    labels: { format: '{value}°' }, title: { text: null }, gridLineWidth: 0, opposite: true,
-                    tickPositions: [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360]
-                },
-                {
-                    labels: { format: '{value}°C' }, title: { text: null }, gridLineWidth: 0,
-                    tickPositions: [-45, -40, -35, -30, -25, -20, -15, -10, -5, 0, 5, 10, 15]
-                },
-                {
-                    labels: { format: '{value}%' }, title: { text: null }, gridLineWidth: 0, opposite: true,
-                    tickPositions: [0, 25, 50, 75, 100, 300]
-                },
+                    id: "gpt", labels: { format: '{value}dam' }, title: { text: null }, gridLineWidth: 0, opposite: true, offset:90,
+                    tickPositions: [-100, -20, -10, 0, 10, 20]
+                }
             ],
             tooltip: { crosshairs: true, shared: true },
             legend: {},
@@ -116,7 +124,8 @@
                     data: source.getData("tmp_m", 2).values,
                     tooltip: { valueSuffix: '°C', valueDecimals: 0 },
                     color: "#920000",
-                    zIndex: 10
+                    zIndex: 10,
+                    yAxis: "temp"
                 },
                 {
                     name: '2m Temperatur (letzte 4 Läufe)',
@@ -127,7 +136,8 @@
                     fillOpacity: 0.2,
                     linkedTo: ':previous',
                     color: "#920000",
-                    zIndex: 5
+                    zIndex: 5,
+                    yAxis: "temp"                    
                 },
                 /*
                 {
@@ -150,7 +160,8 @@
                     tooltip: { valueSuffix: '°C', valueDecimals: 0 },
                     data: source.getData("tmpprs", 85000).values,
                     color: "#000000",
-                    zIndex: 20
+                    zIndex: 20,
+                    yAxis: "temp"                    
                 },
                 {
                     name: '850hpa Temperatur (letzte 4 Läufe)',
@@ -161,7 +172,8 @@
                     fillOpacity: 0.2,
                     linkedTo: ':previous',
                     color: "#000000",
-                    zIndex: 5
+                    zIndex: 5,
+                    yAxis: "temp"                    
                 },
                 {
                     name: '500hpa Temperatur',
@@ -171,7 +183,7 @@
                     data: source.getData("tmpprs", 50000).values,
                     color: "#5C2E00",
                     zIndex: 30,
-                    yAxis: 4
+                    yAxis: "temp500"
                 },
                 {
                     name: '500hpa Temperatur (letzte 4 Läufe)',
@@ -183,18 +195,26 @@
                     linkedTo: ':previous',
                     color: "#5C2E00",
                     zIndex: 5,
-                    animation: false,
-                    yAxis: 4
+                    yAxis: "temp500"
                 },
                 {
-                    name: 'Luftdruck (MSL)',
+                    name: '1000hpa Geopot. (Abw.)',
                     marker: { enabled: false },
-                    tooltip: { valueSuffix: 'hPa', valueDecimals: 0 },
-                    data: source.getData("prmslmsl").values,
+                    tooltip: { valueSuffix: 'dam', valueDecimals: 0 },
+                    data: source.getData("hgtprs", 100000).values,
                     color: "#009612",
                     zIndex: 40,
-                    yAxis: 1,
+                    yAxis: "gpt",
                 },
+                {
+                    name: 'ReTop 500-1000hPa (Abw.)',
+                    marker: { enabled: false },
+                    tooltip: { valueSuffix: 'dam', valueDecimals: 0 },
+                    data: source.getData("retop", 50000).values,
+                    color: "#8AE6B8",
+                    zIndex: 40,
+                    yAxis: "gpt",
+                },                
                 /*
                 {
                     name: 'Luftdruck (MSL) (letzte 4 Läufe)',
@@ -215,7 +235,7 @@
                     type: "column",
                     color: "#001ed6",
                     zIndex: 1,
-                    yAxis: 2,
+                    yAxis: "prec",
                     tooltip: { valueSuffix: 'mm', valueDecimals: 0 },
                 },
                 {
@@ -225,7 +245,7 @@
                     tooltip: { valueSuffix: '%', valueDecimals: 0 },
                     data: source.getData("rhprs", 70000).values,
                     color: "#001ed6",
-                    yAxis: 5,
+                    yAxis: "rh",
                     zIndex: 40
                 },
                 {
@@ -234,7 +254,7 @@
                     data: source.getWindData(10),
                     marker: { radius: 4, symbol: "square" },
                     zIndex: 40,
-                    yAxis: 3,
+                    yAxis: "winddir",
                     findNearestPointBy: 'x',
                     tooltip: {
                         enabled: true,
