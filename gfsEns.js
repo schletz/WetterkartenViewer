@@ -24,7 +24,7 @@ Date.prototype.getIsoDate = function () {
  */
 
 var GfsEns = {
-    version: "201724129_2",
+    version: "201724129_3",
     parsedData: [],
     /* Der Startzeitpunkt der Diagrammausgabe ist die letzte volle 6. Stunde, die aber mindestens 
      * 6 Stunden her ist. Wird in den getData Methoden verwendet. */
@@ -52,7 +52,7 @@ var GfsEns = {
         /* Temperatur in Höhen über dem Boden. Wir brauchen nur 2m (z: fist) */
         { param: "tmp_m", zIndex: "first", transform: function (val) { return val - 273.15; }, loadHistory: true },
         /* Druck reduziert auf Meeresniveau. */
-        { param: "prmslmsl", zIndex: "first", transform: function (val) { return val / 100.0; } },
+        //{ param: "prmslmsl", zIndex: "first", transform: function (val) { return val / 100.0; } },
         /* Relative Feuchte auf 700hpa */
         { param: "rhprs", zIndex: 22 },
         /* 3h Niederschlag */
