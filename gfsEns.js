@@ -36,6 +36,10 @@ var GfsEns = {
     "&z={z}&lat={lat}&lon={lon}&count={count}&reftime_start={firstRun}&reftime_end={lastRun}&apikey=a7017583aeb944d2b8bfec81ff9a2363",
     lat: 0,
     lon: 0,
+    get gfsLat() { return Math.round(this.lat / 0.25) * 0.25; },
+    get gfsLon() { return Math.round(this.lon / 0.25) * 0.25; },
+    get cfsrLat() { return Math.round(this.lat); },
+    get cfsrLon() { return Math.round(this.lon); },
     /* Alle abzufragenden Daten. Jeder Eintrag ist ein Ajax Request, bei dem die Daten von
      * PlanetOs angefordert werden. Alle Werte werden mit der Transform-Funktion, wenn angegeben,
      * umgewandelt. */
@@ -92,8 +96,8 @@ var GfsEns = {
         }
         /* Die Auflösung der GFS Daten beträgt 0.25°, daher runden wir auf das nächste volle
          * Viertel. */
-        return url.replace("{lat}", Math.round(this.lat / 0.25) * 0.25).
-            replace("{lon}", Math.round(this.lon / 0.25) * 0.25).
+        return url.replace("{lat}", this.gfsLat).
+            replace("{lon}", this.gfsLon).
             replace("{param}", requestData.param).
             replace("{z}", requestData.zIndex).
             replace("{count}", count).
@@ -102,7 +106,7 @@ var GfsEns = {
 
     },
 
-    init: function(param) {
+    init: function (param) {
         var self = this;
 
         self.lat = param.lat || 48;
@@ -145,7 +149,10 @@ var GfsEns = {
         /* Wurde dieser Lauf schon einmal im localStorage gespeichert? Dann lesen wir nicht neu,
          * sondern setzen parsedData auf die gespeicherten Daten. */
         if (localStorage.getItem("version") == self.version &&
-            localStorage.getItem("lastRun") == lastRun && localStorage.getItem("parsedData") !== null) {
+            localStorage.getItem("lastRun") == lastRun &&
+            localStorage.getItem("gfsLat") == self.gfsLat &&
+            localStorage.getItem("gfsLon") == self.gfsLon &&
+            localStorage.getItem("parsedData") !== null) {
             self.onLoaded(self, "Daten im Local Storage aktuell.");
             self.parsedData = JSON.parse(localStorage.getItem("parsedData"));
             self.onReady(self);
@@ -175,6 +182,8 @@ var GfsEns = {
                         self.onReady(self);
                         localStorage.setItem("parsedData", JSON.stringify(self.parsedData));
                         localStorage.setItem("lastRun", lastRun);
+                        localStorage.setItem("gfsLat", self.gfsLat);
+                        localStorage.setItem("gfsLon", self.gfsLon);
                         localStorage.setItem("version", self.version);
                         return true;
                     }
@@ -200,8 +209,8 @@ var GfsEns = {
         var self = this;
         var indexes = [];
         /* Die CFSR Daten 1981 - 2010 haben eine Auflösung von 1°. */
-        var meanLat = Math.round(self.lat);
-        var meanLon = Math.round(self.lon);
+        var meanLat = self.cfsrLat;
+        var meanLon = self.cfsrLon;
 
         data.entries.forEach(function (item) {
             var run = new Date(item.axes.reftime).getTime();

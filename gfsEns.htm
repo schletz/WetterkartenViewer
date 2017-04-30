@@ -113,7 +113,7 @@
                 */
                 {
                     id: "gpt", labels: { format: '{value}dam' }, title: { text: null }, gridLineWidth: 0, opposite: true, offset: 50,
-                    tickPositions: [-100, -20, -10, 0, 10, 20]
+                    tickPositions: [-90, -20, -10, 0, 10, 20, 30]
                 }
             ],
             tooltip: { crosshairs: true, shared: true },
@@ -274,5 +274,6 @@
     }
     $("#log").append($("<p>").text("Lade Läufe..."));
     GfsEns.init({ lat: 48, lon: 16.4 });
+    //GfsEns.init({ lat: 37.991602, lon: 22.725249 });
 
 </script>
