@@ -27,7 +27,7 @@ var Converter = {
  */
 
 var GfsEns = {
-    version: "201724130_2",
+    version: "201724130_4",
     parsedData: [],
     /* Der Startzeitpunkt der Diagrammausgabe ist die letzte volle 6. Stunde, die aber mindestens 
      * 6 Stunden her ist. Wird in den getData Methoden verwendet. */
@@ -58,8 +58,13 @@ var GfsEns = {
 
         /* Druck reduziert auf Meeresniveau. */
         //{ param: "prmslmsl", zIndex: "first", transform: function (val) { return val / 100.0; } },
+
+        /* Vertical velocity (pressure) @700hpa" */
+        { param: "vvelprs", zIndex: 12 },
+
         /* Relative Feuchte auf 700hpa */
-        { param: "rhprs", zIndex: 22 },
+        { param: "rhprs", zIndex: 22 },        
+
         /* 3h Niederschlag */
         { param: "apcpsfc_3_Hour_Accumulation" },
         /* U und V Komponente des 10m Windws (z: first wird als Standard gesetzt) */
