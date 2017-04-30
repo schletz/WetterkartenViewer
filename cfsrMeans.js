@@ -1,4399 +1,4402 @@
+/* jshint -W069 */
+
 /* CFSR Mittel von 19084 - 2010. Alle Zeitwerte sind für das Jahr 1984, es ist aber nur Monat,
  * Tag und Stunde relevant. Quelle: http://cfs.ncep.noaa.gov/cfsv2/downloads.html, 
  * Calibration Climatologies of CFSR Timeseries 
- * Einheit für tmpprs: °C, für hgtprs: dam
+ * Einheit für tmpprs: K, für hgtprs: m
+ * Aufbau: cfsrMeans[Longitude][Latitude][Param][Z][Timestamp] = value
  */
-var cfsrMeans = [
-{param: 'tmpprs', z: 85000, time: 441763200000, lon: 16, lat: 48, val: -2.36},
-{param: 'tmpprs', z: 85000, time: 441784800000, lon: 16, lat: 48, val: -2.65},
-{param: 'tmpprs', z: 85000, time: 441806400000, lon: 16, lat: 48, val: -2.44},
-{param: 'tmpprs', z: 85000, time: 441828000000, lon: 16, lat: 48, val: -2.47},
-{param: 'tmpprs', z: 85000, time: 441849600000, lon: 16, lat: 48, val: -2.38},
-{param: 'tmpprs', z: 85000, time: 441871200000, lon: 16, lat: 48, val: -2.67},
-{param: 'tmpprs', z: 85000, time: 441892800000, lon: 16, lat: 48, val: -2.46},
-{param: 'tmpprs', z: 85000, time: 441914400000, lon: 16, lat: 48, val: -2.49},
-{param: 'tmpprs', z: 85000, time: 441936000000, lon: 16, lat: 48, val: -2.4},
-{param: 'tmpprs', z: 85000, time: 441957600000, lon: 16, lat: 48, val: -2.69},
-{param: 'tmpprs', z: 85000, time: 441979200000, lon: 16, lat: 48, val: -2.48},
-{param: 'tmpprs', z: 85000, time: 442000800000, lon: 16, lat: 48, val: -2.5},
-{param: 'tmpprs', z: 85000, time: 442022400000, lon: 16, lat: 48, val: -2.41},
-{param: 'tmpprs', z: 85000, time: 442044000000, lon: 16, lat: 48, val: -2.7},
-{param: 'tmpprs', z: 85000, time: 442065600000, lon: 16, lat: 48, val: -2.5},
-{param: 'tmpprs', z: 85000, time: 442087200000, lon: 16, lat: 48, val: -2.52},
-{param: 'tmpprs', z: 85000, time: 442108800000, lon: 16, lat: 48, val: -2.43},
-{param: 'tmpprs', z: 85000, time: 442130400000, lon: 16, lat: 48, val: -2.72},
-{param: 'tmpprs', z: 85000, time: 442152000000, lon: 16, lat: 48, val: -2.51},
-{param: 'tmpprs', z: 85000, time: 442173600000, lon: 16, lat: 48, val: -2.53},
-{param: 'tmpprs', z: 85000, time: 442195200000, lon: 16, lat: 48, val: -2.44},
-{param: 'tmpprs', z: 85000, time: 442216800000, lon: 16, lat: 48, val: -2.73},
-{param: 'tmpprs', z: 85000, time: 442238400000, lon: 16, lat: 48, val: -2.52},
-{param: 'tmpprs', z: 85000, time: 442260000000, lon: 16, lat: 48, val: -2.54},
-{param: 'tmpprs', z: 85000, time: 442281600000, lon: 16, lat: 48, val: -2.45},
-{param: 'tmpprs', z: 85000, time: 442303200000, lon: 16, lat: 48, val: -2.75},
-{param: 'tmpprs', z: 85000, time: 442324800000, lon: 16, lat: 48, val: -2.54},
-{param: 'tmpprs', z: 85000, time: 442346400000, lon: 16, lat: 48, val: -2.55},
-{param: 'tmpprs', z: 85000, time: 442368000000, lon: 16, lat: 48, val: -2.46},
-{param: 'tmpprs', z: 85000, time: 442389600000, lon: 16, lat: 48, val: -2.76},
-{param: 'tmpprs', z: 85000, time: 442411200000, lon: 16, lat: 48, val: -2.55},
-{param: 'tmpprs', z: 85000, time: 442432800000, lon: 16, lat: 48, val: -2.56},
-{param: 'tmpprs', z: 85000, time: 442454400000, lon: 16, lat: 48, val: -2.48},
-{param: 'tmpprs', z: 85000, time: 442476000000, lon: 16, lat: 48, val: -2.77},
-{param: 'tmpprs', z: 85000, time: 442497600000, lon: 16, lat: 48, val: -2.56},
-{param: 'tmpprs', z: 85000, time: 442519200000, lon: 16, lat: 48, val: -2.57},
-{param: 'tmpprs', z: 85000, time: 442540800000, lon: 16, lat: 48, val: -2.49},
-{param: 'tmpprs', z: 85000, time: 442562400000, lon: 16, lat: 48, val: -2.78},
-{param: 'tmpprs', z: 85000, time: 442584000000, lon: 16, lat: 48, val: -2.57},
-{param: 'tmpprs', z: 85000, time: 442605600000, lon: 16, lat: 48, val: -2.59},
-{param: 'tmpprs', z: 85000, time: 442627200000, lon: 16, lat: 48, val: -2.5},
-{param: 'tmpprs', z: 85000, time: 442648800000, lon: 16, lat: 48, val: -2.8},
-{param: 'tmpprs', z: 85000, time: 442670400000, lon: 16, lat: 48, val: -2.59},
-{param: 'tmpprs', z: 85000, time: 442692000000, lon: 16, lat: 48, val: -2.6},
-{param: 'tmpprs', z: 85000, time: 442713600000, lon: 16, lat: 48, val: -2.51},
-{param: 'tmpprs', z: 85000, time: 442735200000, lon: 16, lat: 48, val: -2.81},
-{param: 'tmpprs', z: 85000, time: 442756800000, lon: 16, lat: 48, val: -2.6},
-{param: 'tmpprs', z: 85000, time: 442778400000, lon: 16, lat: 48, val: -2.61},
-{param: 'tmpprs', z: 85000, time: 442800000000, lon: 16, lat: 48, val: -2.52},
-{param: 'tmpprs', z: 85000, time: 442821600000, lon: 16, lat: 48, val: -2.82},
-{param: 'tmpprs', z: 85000, time: 442843200000, lon: 16, lat: 48, val: -2.61},
-{param: 'tmpprs', z: 85000, time: 442864800000, lon: 16, lat: 48, val: -2.62},
-{param: 'tmpprs', z: 85000, time: 442886400000, lon: 16, lat: 48, val: -2.54},
-{param: 'tmpprs', z: 85000, time: 442908000000, lon: 16, lat: 48, val: -2.83},
-{param: 'tmpprs', z: 85000, time: 442929600000, lon: 16, lat: 48, val: -2.62},
-{param: 'tmpprs', z: 85000, time: 442951200000, lon: 16, lat: 48, val: -2.63},
-{param: 'tmpprs', z: 85000, time: 442972800000, lon: 16, lat: 48, val: -2.55},
-{param: 'tmpprs', z: 85000, time: 442994400000, lon: 16, lat: 48, val: -2.85},
-{param: 'tmpprs', z: 85000, time: 443016000000, lon: 16, lat: 48, val: -2.63},
-{param: 'tmpprs', z: 85000, time: 443037600000, lon: 16, lat: 48, val: -2.64},
-{param: 'tmpprs', z: 85000, time: 443059200000, lon: 16, lat: 48, val: -2.56},
-{param: 'tmpprs', z: 85000, time: 443080800000, lon: 16, lat: 48, val: -2.86},
-{param: 'tmpprs', z: 85000, time: 443102400000, lon: 16, lat: 48, val: -2.64},
-{param: 'tmpprs', z: 85000, time: 443124000000, lon: 16, lat: 48, val: -2.65},
-{param: 'tmpprs', z: 85000, time: 443145600000, lon: 16, lat: 48, val: -2.58},
-{param: 'tmpprs', z: 85000, time: 443167200000, lon: 16, lat: 48, val: -2.87},
-{param: 'tmpprs', z: 85000, time: 443188800000, lon: 16, lat: 48, val: -2.66},
-{param: 'tmpprs', z: 85000, time: 443210400000, lon: 16, lat: 48, val: -2.66},
-{param: 'tmpprs', z: 85000, time: 443232000000, lon: 16, lat: 48, val: -2.59},
-{param: 'tmpprs', z: 85000, time: 443253600000, lon: 16, lat: 48, val: -2.89},
-{param: 'tmpprs', z: 85000, time: 443275200000, lon: 16, lat: 48, val: -2.67},
-{param: 'tmpprs', z: 85000, time: 443296800000, lon: 16, lat: 48, val: -2.68},
-{param: 'tmpprs', z: 85000, time: 443318400000, lon: 16, lat: 48, val: -2.61},
-{param: 'tmpprs', z: 85000, time: 443340000000, lon: 16, lat: 48, val: -2.9},
-{param: 'tmpprs', z: 85000, time: 443361600000, lon: 16, lat: 48, val: -2.68},
-{param: 'tmpprs', z: 85000, time: 443383200000, lon: 16, lat: 48, val: -2.69},
-{param: 'tmpprs', z: 85000, time: 443404800000, lon: 16, lat: 48, val: -2.62},
-{param: 'tmpprs', z: 85000, time: 443426400000, lon: 16, lat: 48, val: -2.92},
-{param: 'tmpprs', z: 85000, time: 443448000000, lon: 16, lat: 48, val: -2.7},
-{param: 'tmpprs', z: 85000, time: 443469600000, lon: 16, lat: 48, val: -2.7},
-{param: 'tmpprs', z: 85000, time: 443491200000, lon: 16, lat: 48, val: -2.64},
-{param: 'tmpprs', z: 85000, time: 443512800000, lon: 16, lat: 48, val: -2.93},
-{param: 'tmpprs', z: 85000, time: 443534400000, lon: 16, lat: 48, val: -2.71},
-{param: 'tmpprs', z: 85000, time: 443556000000, lon: 16, lat: 48, val: -2.72},
-{param: 'tmpprs', z: 85000, time: 443577600000, lon: 16, lat: 48, val: -2.66},
-{param: 'tmpprs', z: 85000, time: 443599200000, lon: 16, lat: 48, val: -2.95},
-{param: 'tmpprs', z: 85000, time: 443620800000, lon: 16, lat: 48, val: -2.73},
-{param: 'tmpprs', z: 85000, time: 443642400000, lon: 16, lat: 48, val: -2.73},
-{param: 'tmpprs', z: 85000, time: 443664000000, lon: 16, lat: 48, val: -2.68},
-{param: 'tmpprs', z: 85000, time: 443685600000, lon: 16, lat: 48, val: -2.97},
-{param: 'tmpprs', z: 85000, time: 443707200000, lon: 16, lat: 48, val: -2.74},
-{param: 'tmpprs', z: 85000, time: 443728800000, lon: 16, lat: 48, val: -2.75},
-{param: 'tmpprs', z: 85000, time: 443750400000, lon: 16, lat: 48, val: -2.7},
-{param: 'tmpprs', z: 85000, time: 443772000000, lon: 16, lat: 48, val: -2.99},
-{param: 'tmpprs', z: 85000, time: 443793600000, lon: 16, lat: 48, val: -2.76},
-{param: 'tmpprs', z: 85000, time: 443815200000, lon: 16, lat: 48, val: -2.76},
-{param: 'tmpprs', z: 85000, time: 443836800000, lon: 16, lat: 48, val: -2.71},
-{param: 'tmpprs', z: 85000, time: 443858400000, lon: 16, lat: 48, val: -3.01},
-{param: 'tmpprs', z: 85000, time: 443880000000, lon: 16, lat: 48, val: -2.78},
-{param: 'tmpprs', z: 85000, time: 443901600000, lon: 16, lat: 48, val: -2.78},
-{param: 'tmpprs', z: 85000, time: 443923200000, lon: 16, lat: 48, val: -2.73},
-{param: 'tmpprs', z: 85000, time: 443944800000, lon: 16, lat: 48, val: -3.03},
-{param: 'tmpprs', z: 85000, time: 443966400000, lon: 16, lat: 48, val: -2.79},
-{param: 'tmpprs', z: 85000, time: 443988000000, lon: 16, lat: 48, val: -2.8},
-{param: 'tmpprs', z: 85000, time: 444009600000, lon: 16, lat: 48, val: -2.76},
-{param: 'tmpprs', z: 85000, time: 444031200000, lon: 16, lat: 48, val: -3.05},
-{param: 'tmpprs', z: 85000, time: 444052800000, lon: 16, lat: 48, val: -2.81},
-{param: 'tmpprs', z: 85000, time: 444074400000, lon: 16, lat: 48, val: -2.82},
-{param: 'tmpprs', z: 85000, time: 444096000000, lon: 16, lat: 48, val: -2.78},
-{param: 'tmpprs', z: 85000, time: 444117600000, lon: 16, lat: 48, val: -3.07},
-{param: 'tmpprs', z: 85000, time: 444139200000, lon: 16, lat: 48, val: -2.83},
-{param: 'tmpprs', z: 85000, time: 444160800000, lon: 16, lat: 48, val: -2.83},
-{param: 'tmpprs', z: 85000, time: 444182400000, lon: 16, lat: 48, val: -2.8},
-{param: 'tmpprs', z: 85000, time: 444204000000, lon: 16, lat: 48, val: -3.09},
-{param: 'tmpprs', z: 85000, time: 444225600000, lon: 16, lat: 48, val: -2.85},
-{param: 'tmpprs', z: 85000, time: 444247200000, lon: 16, lat: 48, val: -2.85},
-{param: 'tmpprs', z: 85000, time: 444268800000, lon: 16, lat: 48, val: -2.82},
-{param: 'tmpprs', z: 85000, time: 444290400000, lon: 16, lat: 48, val: -3.11},
-{param: 'tmpprs', z: 85000, time: 444312000000, lon: 16, lat: 48, val: -2.87},
-{param: 'tmpprs', z: 85000, time: 444333600000, lon: 16, lat: 48, val: -2.87},
-{param: 'tmpprs', z: 85000, time: 444355200000, lon: 16, lat: 48, val: -2.84},
-{param: 'tmpprs', z: 85000, time: 444376800000, lon: 16, lat: 48, val: -3.14},
-{param: 'tmpprs', z: 85000, time: 444398400000, lon: 16, lat: 48, val: -2.89},
-{param: 'tmpprs', z: 85000, time: 444420000000, lon: 16, lat: 48, val: -2.89},
-{param: 'tmpprs', z: 85000, time: 444441600000, lon: 16, lat: 48, val: -2.87},
-{param: 'tmpprs', z: 85000, time: 444463200000, lon: 16, lat: 48, val: -3.16},
-{param: 'tmpprs', z: 85000, time: 444484800000, lon: 16, lat: 48, val: -2.91},
-{param: 'tmpprs', z: 85000, time: 444506400000, lon: 16, lat: 48, val: -2.91},
-{param: 'tmpprs', z: 85000, time: 444528000000, lon: 16, lat: 48, val: -2.89},
-{param: 'tmpprs', z: 85000, time: 444549600000, lon: 16, lat: 48, val: -3.18},
-{param: 'tmpprs', z: 85000, time: 444571200000, lon: 16, lat: 48, val: -2.93},
-{param: 'tmpprs', z: 85000, time: 444592800000, lon: 16, lat: 48, val: -2.93},
-{param: 'tmpprs', z: 85000, time: 444614400000, lon: 16, lat: 48, val: -2.91},
-{param: 'tmpprs', z: 85000, time: 444636000000, lon: 16, lat: 48, val: -3.21},
-{param: 'tmpprs', z: 85000, time: 444657600000, lon: 16, lat: 48, val: -2.95},
-{param: 'tmpprs', z: 85000, time: 444679200000, lon: 16, lat: 48, val: -2.95},
-{param: 'tmpprs', z: 85000, time: 444700800000, lon: 16, lat: 48, val: -2.94},
-{param: 'tmpprs', z: 85000, time: 444722400000, lon: 16, lat: 48, val: -3.23},
-{param: 'tmpprs', z: 85000, time: 444744000000, lon: 16, lat: 48, val: -2.97},
-{param: 'tmpprs', z: 85000, time: 444765600000, lon: 16, lat: 48, val: -2.97},
-{param: 'tmpprs', z: 85000, time: 444787200000, lon: 16, lat: 48, val: -2.96},
-{param: 'tmpprs', z: 85000, time: 444808800000, lon: 16, lat: 48, val: -3.26},
-{param: 'tmpprs', z: 85000, time: 444830400000, lon: 16, lat: 48, val: -2.99},
-{param: 'tmpprs', z: 85000, time: 444852000000, lon: 16, lat: 48, val: -2.99},
-{param: 'tmpprs', z: 85000, time: 444873600000, lon: 16, lat: 48, val: -2.98},
-{param: 'tmpprs', z: 85000, time: 444895200000, lon: 16, lat: 48, val: -3.28},
-{param: 'tmpprs', z: 85000, time: 444916800000, lon: 16, lat: 48, val: -3.02},
-{param: 'tmpprs', z: 85000, time: 444938400000, lon: 16, lat: 48, val: -3.01},
-{param: 'tmpprs', z: 85000, time: 444960000000, lon: 16, lat: 48, val: -3},
-{param: 'tmpprs', z: 85000, time: 444981600000, lon: 16, lat: 48, val: -3.3},
-{param: 'tmpprs', z: 85000, time: 445003200000, lon: 16, lat: 48, val: -3.03},
-{param: 'tmpprs', z: 85000, time: 445024800000, lon: 16, lat: 48, val: -3.02},
-{param: 'tmpprs', z: 85000, time: 445046400000, lon: 16, lat: 48, val: -3.03},
-{param: 'tmpprs', z: 85000, time: 445068000000, lon: 16, lat: 48, val: -3.32},
-{param: 'tmpprs', z: 85000, time: 445089600000, lon: 16, lat: 48, val: -3.05},
-{param: 'tmpprs', z: 85000, time: 445111200000, lon: 16, lat: 48, val: -3.04},
-{param: 'tmpprs', z: 85000, time: 445132800000, lon: 16, lat: 48, val: -3.05},
-{param: 'tmpprs', z: 85000, time: 445154400000, lon: 16, lat: 48, val: -3.35},
-{param: 'tmpprs', z: 85000, time: 445176000000, lon: 16, lat: 48, val: -3.07},
-{param: 'tmpprs', z: 85000, time: 445197600000, lon: 16, lat: 48, val: -3.05},
-{param: 'tmpprs', z: 85000, time: 445219200000, lon: 16, lat: 48, val: -3.06},
-{param: 'tmpprs', z: 85000, time: 445240800000, lon: 16, lat: 48, val: -3.37},
-{param: 'tmpprs', z: 85000, time: 445262400000, lon: 16, lat: 48, val: -3.09},
-{param: 'tmpprs', z: 85000, time: 445284000000, lon: 16, lat: 48, val: -3.07},
-{param: 'tmpprs', z: 85000, time: 445305600000, lon: 16, lat: 48, val: -3.08},
-{param: 'tmpprs', z: 85000, time: 445327200000, lon: 16, lat: 48, val: -3.39},
-{param: 'tmpprs', z: 85000, time: 445348800000, lon: 16, lat: 48, val: -3.11},
-{param: 'tmpprs', z: 85000, time: 445370400000, lon: 16, lat: 48, val: -3.08},
-{param: 'tmpprs', z: 85000, time: 445392000000, lon: 16, lat: 48, val: -3.1},
-{param: 'tmpprs', z: 85000, time: 445413600000, lon: 16, lat: 48, val: -3.41},
-{param: 'tmpprs', z: 85000, time: 445435200000, lon: 16, lat: 48, val: -3.12},
-{param: 'tmpprs', z: 85000, time: 445456800000, lon: 16, lat: 48, val: -3.09},
-{param: 'tmpprs', z: 85000, time: 445478400000, lon: 16, lat: 48, val: -3.11},
-{param: 'tmpprs', z: 85000, time: 445500000000, lon: 16, lat: 48, val: -3.42},
-{param: 'tmpprs', z: 85000, time: 445521600000, lon: 16, lat: 48, val: -3.14},
-{param: 'tmpprs', z: 85000, time: 445543200000, lon: 16, lat: 48, val: -3.1},
-{param: 'tmpprs', z: 85000, time: 445564800000, lon: 16, lat: 48, val: -3.13},
-{param: 'tmpprs', z: 85000, time: 445586400000, lon: 16, lat: 48, val: -3.44},
-{param: 'tmpprs', z: 85000, time: 445608000000, lon: 16, lat: 48, val: -3.15},
-{param: 'tmpprs', z: 85000, time: 445629600000, lon: 16, lat: 48, val: -3.11},
-{param: 'tmpprs', z: 85000, time: 445651200000, lon: 16, lat: 48, val: -3.14},
-{param: 'tmpprs', z: 85000, time: 445672800000, lon: 16, lat: 48, val: -3.45},
-{param: 'tmpprs', z: 85000, time: 445694400000, lon: 16, lat: 48, val: -3.16},
-{param: 'tmpprs', z: 85000, time: 445716000000, lon: 16, lat: 48, val: -3.11},
-{param: 'tmpprs', z: 85000, time: 445737600000, lon: 16, lat: 48, val: -3.15},
-{param: 'tmpprs', z: 85000, time: 445759200000, lon: 16, lat: 48, val: -3.47},
-{param: 'tmpprs', z: 85000, time: 445780800000, lon: 16, lat: 48, val: -3.17},
-{param: 'tmpprs', z: 85000, time: 445802400000, lon: 16, lat: 48, val: -3.12},
-{param: 'tmpprs', z: 85000, time: 445824000000, lon: 16, lat: 48, val: -3.15},
-{param: 'tmpprs', z: 85000, time: 445845600000, lon: 16, lat: 48, val: -3.48},
-{param: 'tmpprs', z: 85000, time: 445867200000, lon: 16, lat: 48, val: -3.17},
-{param: 'tmpprs', z: 85000, time: 445888800000, lon: 16, lat: 48, val: -3.12},
-{param: 'tmpprs', z: 85000, time: 445910400000, lon: 16, lat: 48, val: -3.15},
-{param: 'tmpprs', z: 85000, time: 445932000000, lon: 16, lat: 48, val: -3.48},
-{param: 'tmpprs', z: 85000, time: 445953600000, lon: 16, lat: 48, val: -3.18},
-{param: 'tmpprs', z: 85000, time: 445975200000, lon: 16, lat: 48, val: -3.11},
-{param: 'tmpprs', z: 85000, time: 445996800000, lon: 16, lat: 48, val: -3.16},
-{param: 'tmpprs', z: 85000, time: 446018400000, lon: 16, lat: 48, val: -3.49},
-{param: 'tmpprs', z: 85000, time: 446040000000, lon: 16, lat: 48, val: -3.18},
-{param: 'tmpprs', z: 85000, time: 446061600000, lon: 16, lat: 48, val: -3.11},
-{param: 'tmpprs', z: 85000, time: 446083200000, lon: 16, lat: 48, val: -3.15},
-{param: 'tmpprs', z: 85000, time: 446104800000, lon: 16, lat: 48, val: -3.49},
-{param: 'tmpprs', z: 85000, time: 446126400000, lon: 16, lat: 48, val: -3.18},
-{param: 'tmpprs', z: 85000, time: 446148000000, lon: 16, lat: 48, val: -3.1},
-{param: 'tmpprs', z: 85000, time: 446169600000, lon: 16, lat: 48, val: -3.15},
-{param: 'tmpprs', z: 85000, time: 446191200000, lon: 16, lat: 48, val: -3.49},
-{param: 'tmpprs', z: 85000, time: 446212800000, lon: 16, lat: 48, val: -3.17},
-{param: 'tmpprs', z: 85000, time: 446234400000, lon: 16, lat: 48, val: -3.08},
-{param: 'tmpprs', z: 85000, time: 446256000000, lon: 16, lat: 48, val: -3.14},
-{param: 'tmpprs', z: 85000, time: 446277600000, lon: 16, lat: 48, val: -3.49},
-{param: 'tmpprs', z: 85000, time: 446299200000, lon: 16, lat: 48, val: -3.16},
-{param: 'tmpprs', z: 85000, time: 446320800000, lon: 16, lat: 48, val: -3.07},
-{param: 'tmpprs', z: 85000, time: 446342400000, lon: 16, lat: 48, val: -3.13},
-{param: 'tmpprs', z: 85000, time: 446364000000, lon: 16, lat: 48, val: -3.48},
-{param: 'tmpprs', z: 85000, time: 446385600000, lon: 16, lat: 48, val: -3.15},
-{param: 'tmpprs', z: 85000, time: 446407200000, lon: 16, lat: 48, val: -3.05},
-{param: 'tmpprs', z: 85000, time: 446428800000, lon: 16, lat: 48, val: -3.11},
-{param: 'tmpprs', z: 85000, time: 446450400000, lon: 16, lat: 48, val: -3.47},
-{param: 'tmpprs', z: 85000, time: 446472000000, lon: 16, lat: 48, val: -3.14},
-{param: 'tmpprs', z: 85000, time: 446493600000, lon: 16, lat: 48, val: -3.02},
-{param: 'tmpprs', z: 85000, time: 446515200000, lon: 16, lat: 48, val: -3.09},
-{param: 'tmpprs', z: 85000, time: 446536800000, lon: 16, lat: 48, val: -3.46},
-{param: 'tmpprs', z: 85000, time: 446558400000, lon: 16, lat: 48, val: -3.12},
-{param: 'tmpprs', z: 85000, time: 446580000000, lon: 16, lat: 48, val: -3},
-{param: 'tmpprs', z: 85000, time: 446601600000, lon: 16, lat: 48, val: -3.07},
-{param: 'tmpprs', z: 85000, time: 446623200000, lon: 16, lat: 48, val: -3.44},
-{param: 'tmpprs', z: 85000, time: 446644800000, lon: 16, lat: 48, val: -3.1},
-{param: 'tmpprs', z: 85000, time: 446666400000, lon: 16, lat: 48, val: -2.96},
-{param: 'tmpprs', z: 85000, time: 446688000000, lon: 16, lat: 48, val: -3.04},
-{param: 'tmpprs', z: 85000, time: 446709600000, lon: 16, lat: 48, val: -3.42},
-{param: 'tmpprs', z: 85000, time: 446731200000, lon: 16, lat: 48, val: -3.07},
-{param: 'tmpprs', z: 85000, time: 446752800000, lon: 16, lat: 48, val: -2.93},
-{param: 'tmpprs', z: 85000, time: 446774400000, lon: 16, lat: 48, val: -3.01},
-{param: 'tmpprs', z: 85000, time: 446796000000, lon: 16, lat: 48, val: -3.4},
-{param: 'tmpprs', z: 85000, time: 446817600000, lon: 16, lat: 48, val: -3.04},
-{param: 'tmpprs', z: 85000, time: 446839200000, lon: 16, lat: 48, val: -2.89},
-{param: 'tmpprs', z: 85000, time: 446860800000, lon: 16, lat: 48, val: -2.99},
-{param: 'tmpprs', z: 85000, time: 446882400000, lon: 16, lat: 48, val: -3.38},
-{param: 'tmpprs', z: 85000, time: 446904000000, lon: 16, lat: 48, val: -3.02},
-{param: 'tmpprs', z: 85000, time: 446925600000, lon: 16, lat: 48, val: -2.86},
-{param: 'tmpprs', z: 85000, time: 446947200000, lon: 16, lat: 48, val: -2.97},
-{param: 'tmpprs', z: 85000, time: 446968800000, lon: 16, lat: 48, val: -3.37},
-{param: 'tmpprs', z: 85000, time: 446990400000, lon: 16, lat: 48, val: -3.01},
-{param: 'tmpprs', z: 85000, time: 447012000000, lon: 16, lat: 48, val: -2.84},
-{param: 'tmpprs', z: 85000, time: 447033600000, lon: 16, lat: 48, val: -2.93},
-{param: 'tmpprs', z: 85000, time: 447055200000, lon: 16, lat: 48, val: -3.33},
-{param: 'tmpprs', z: 85000, time: 447076800000, lon: 16, lat: 48, val: -2.97},
-{param: 'tmpprs', z: 85000, time: 447098400000, lon: 16, lat: 48, val: -2.79},
-{param: 'tmpprs', z: 85000, time: 447120000000, lon: 16, lat: 48, val: -2.88},
-{param: 'tmpprs', z: 85000, time: 447141600000, lon: 16, lat: 48, val: -3.29},
-{param: 'tmpprs', z: 85000, time: 447163200000, lon: 16, lat: 48, val: -2.93},
-{param: 'tmpprs', z: 85000, time: 447184800000, lon: 16, lat: 48, val: -2.74},
-{param: 'tmpprs', z: 85000, time: 447206400000, lon: 16, lat: 48, val: -2.83},
-{param: 'tmpprs', z: 85000, time: 447228000000, lon: 16, lat: 48, val: -3.25},
-{param: 'tmpprs', z: 85000, time: 447249600000, lon: 16, lat: 48, val: -2.88},
-{param: 'tmpprs', z: 85000, time: 447271200000, lon: 16, lat: 48, val: -2.68},
-{param: 'tmpprs', z: 85000, time: 447292800000, lon: 16, lat: 48, val: -2.77},
-{param: 'tmpprs', z: 85000, time: 447314400000, lon: 16, lat: 48, val: -3.21},
-{param: 'tmpprs', z: 85000, time: 447336000000, lon: 16, lat: 48, val: -2.82},
-{param: 'tmpprs', z: 85000, time: 447357600000, lon: 16, lat: 48, val: -2.61},
-{param: 'tmpprs', z: 85000, time: 447379200000, lon: 16, lat: 48, val: -2.71},
-{param: 'tmpprs', z: 85000, time: 447400800000, lon: 16, lat: 48, val: -3.15},
-{param: 'tmpprs', z: 85000, time: 447422400000, lon: 16, lat: 48, val: -2.77},
-{param: 'tmpprs', z: 85000, time: 447444000000, lon: 16, lat: 48, val: -2.54},
-{param: 'tmpprs', z: 85000, time: 447465600000, lon: 16, lat: 48, val: -2.65},
-{param: 'tmpprs', z: 85000, time: 447487200000, lon: 16, lat: 48, val: -3.1},
-{param: 'tmpprs', z: 85000, time: 447508800000, lon: 16, lat: 48, val: -2.71},
-{param: 'tmpprs', z: 85000, time: 447530400000, lon: 16, lat: 48, val: -2.46},
-{param: 'tmpprs', z: 85000, time: 447552000000, lon: 16, lat: 48, val: -2.58},
-{param: 'tmpprs', z: 85000, time: 447573600000, lon: 16, lat: 48, val: -3.04},
-{param: 'tmpprs', z: 85000, time: 447595200000, lon: 16, lat: 48, val: -2.64},
-{param: 'tmpprs', z: 85000, time: 447616800000, lon: 16, lat: 48, val: -2.38},
-{param: 'tmpprs', z: 85000, time: 447638400000, lon: 16, lat: 48, val: -2.5},
-{param: 'tmpprs', z: 85000, time: 447660000000, lon: 16, lat: 48, val: -2.97},
-{param: 'tmpprs', z: 85000, time: 447681600000, lon: 16, lat: 48, val: -2.57},
-{param: 'tmpprs', z: 85000, time: 447703200000, lon: 16, lat: 48, val: -2.3},
-{param: 'tmpprs', z: 85000, time: 447724800000, lon: 16, lat: 48, val: -2.42},
-{param: 'tmpprs', z: 85000, time: 447746400000, lon: 16, lat: 48, val: -2.9},
-{param: 'tmpprs', z: 85000, time: 447768000000, lon: 16, lat: 48, val: -2.49},
-{param: 'tmpprs', z: 85000, time: 447789600000, lon: 16, lat: 48, val: -2.21},
-{param: 'tmpprs', z: 85000, time: 447811200000, lon: 16, lat: 48, val: -2.33},
-{param: 'tmpprs', z: 85000, time: 447832800000, lon: 16, lat: 48, val: -2.82},
-{param: 'tmpprs', z: 85000, time: 447854400000, lon: 16, lat: 48, val: -2.41},
-{param: 'tmpprs', z: 85000, time: 447876000000, lon: 16, lat: 48, val: -2.11},
-{param: 'tmpprs', z: 85000, time: 447897600000, lon: 16, lat: 48, val: -2.24},
-{param: 'tmpprs', z: 85000, time: 447919200000, lon: 16, lat: 48, val: -2.74},
-{param: 'tmpprs', z: 85000, time: 447940800000, lon: 16, lat: 48, val: -2.32},
-{param: 'tmpprs', z: 85000, time: 447962400000, lon: 16, lat: 48, val: -2.01},
-{param: 'tmpprs', z: 85000, time: 447984000000, lon: 16, lat: 48, val: -2.15},
-{param: 'tmpprs', z: 85000, time: 448005600000, lon: 16, lat: 48, val: -2.65},
-{param: 'tmpprs', z: 85000, time: 448027200000, lon: 16, lat: 48, val: -2.23},
-{param: 'tmpprs', z: 85000, time: 448048800000, lon: 16, lat: 48, val: -1.9},
-{param: 'tmpprs', z: 85000, time: 448070400000, lon: 16, lat: 48, val: -2.04},
-{param: 'tmpprs', z: 85000, time: 448092000000, lon: 16, lat: 48, val: -2.56},
-{param: 'tmpprs', z: 85000, time: 448113600000, lon: 16, lat: 48, val: -2.13},
-{param: 'tmpprs', z: 85000, time: 448135200000, lon: 16, lat: 48, val: -1.79},
-{param: 'tmpprs', z: 85000, time: 448156800000, lon: 16, lat: 48, val: -1.94},
-{param: 'tmpprs', z: 85000, time: 448178400000, lon: 16, lat: 48, val: -2.47},
-{param: 'tmpprs', z: 85000, time: 448200000000, lon: 16, lat: 48, val: -2.03},
-{param: 'tmpprs', z: 85000, time: 448221600000, lon: 16, lat: 48, val: -1.67},
-{param: 'tmpprs', z: 85000, time: 448243200000, lon: 16, lat: 48, val: -1.83},
-{param: 'tmpprs', z: 85000, time: 448264800000, lon: 16, lat: 48, val: -2.37},
-{param: 'tmpprs', z: 85000, time: 448286400000, lon: 16, lat: 48, val: -1.92},
-{param: 'tmpprs', z: 85000, time: 448308000000, lon: 16, lat: 48, val: -1.55},
-{param: 'tmpprs', z: 85000, time: 448329600000, lon: 16, lat: 48, val: -1.71},
-{param: 'tmpprs', z: 85000, time: 448351200000, lon: 16, lat: 48, val: -2.26},
-{param: 'tmpprs', z: 85000, time: 448372800000, lon: 16, lat: 48, val: -1.81},
-{param: 'tmpprs', z: 85000, time: 448394400000, lon: 16, lat: 48, val: -1.43},
-{param: 'tmpprs', z: 85000, time: 448416000000, lon: 16, lat: 48, val: -1.59},
-{param: 'tmpprs', z: 85000, time: 448437600000, lon: 16, lat: 48, val: -2.15},
-{param: 'tmpprs', z: 85000, time: 448459200000, lon: 16, lat: 48, val: -1.69},
-{param: 'tmpprs', z: 85000, time: 448480800000, lon: 16, lat: 48, val: -1.3},
-{param: 'tmpprs', z: 85000, time: 448502400000, lon: 16, lat: 48, val: -1.46},
-{param: 'tmpprs', z: 85000, time: 448524000000, lon: 16, lat: 48, val: -2.04},
-{param: 'tmpprs', z: 85000, time: 448545600000, lon: 16, lat: 48, val: -1.57},
-{param: 'tmpprs', z: 85000, time: 448567200000, lon: 16, lat: 48, val: -1.16},
-{param: 'tmpprs', z: 85000, time: 448588800000, lon: 16, lat: 48, val: -1.33},
-{param: 'tmpprs', z: 85000, time: 448610400000, lon: 16, lat: 48, val: -1.92},
-{param: 'tmpprs', z: 85000, time: 448632000000, lon: 16, lat: 48, val: -1.44},
-{param: 'tmpprs', z: 85000, time: 448653600000, lon: 16, lat: 48, val: -1.02},
-{param: 'tmpprs', z: 85000, time: 448675200000, lon: 16, lat: 48, val: -1.2},
-{param: 'tmpprs', z: 85000, time: 448696800000, lon: 16, lat: 48, val: -1.8},
-{param: 'tmpprs', z: 85000, time: 448718400000, lon: 16, lat: 48, val: -1.31},
-{param: 'tmpprs', z: 85000, time: 448740000000, lon: 16, lat: 48, val: -0.87},
-{param: 'tmpprs', z: 85000, time: 448761600000, lon: 16, lat: 48, val: -1.06},
-{param: 'tmpprs', z: 85000, time: 448783200000, lon: 16, lat: 48, val: -1.67},
-{param: 'tmpprs', z: 85000, time: 448804800000, lon: 16, lat: 48, val: -1.17},
-{param: 'tmpprs', z: 85000, time: 448826400000, lon: 16, lat: 48, val: -0.73},
-{param: 'tmpprs', z: 85000, time: 448848000000, lon: 16, lat: 48, val: -0.92},
-{param: 'tmpprs', z: 85000, time: 448869600000, lon: 16, lat: 48, val: -1.54},
-{param: 'tmpprs', z: 85000, time: 448891200000, lon: 16, lat: 48, val: -1.04},
-{param: 'tmpprs', z: 85000, time: 448912800000, lon: 16, lat: 48, val: -0.57},
-{param: 'tmpprs', z: 85000, time: 448934400000, lon: 16, lat: 48, val: -0.77},
-{param: 'tmpprs', z: 85000, time: 448956000000, lon: 16, lat: 48, val: -1.4},
-{param: 'tmpprs', z: 85000, time: 448977600000, lon: 16, lat: 48, val: -0.89},
-{param: 'tmpprs', z: 85000, time: 448999200000, lon: 16, lat: 48, val: -0.42},
-{param: 'tmpprs', z: 85000, time: 449020800000, lon: 16, lat: 48, val: -0.62},
-{param: 'tmpprs', z: 85000, time: 449042400000, lon: 16, lat: 48, val: -1.26},
-{param: 'tmpprs', z: 85000, time: 449064000000, lon: 16, lat: 48, val: -0.74},
-{param: 'tmpprs', z: 85000, time: 449085600000, lon: 16, lat: 48, val: -0.26},
-{param: 'tmpprs', z: 85000, time: 449107200000, lon: 16, lat: 48, val: -0.47},
-{param: 'tmpprs', z: 85000, time: 449128800000, lon: 16, lat: 48, val: -1.12},
-{param: 'tmpprs', z: 85000, time: 449150400000, lon: 16, lat: 48, val: -0.59},
-{param: 'tmpprs', z: 85000, time: 449172000000, lon: 16, lat: 48, val: -0.09},
-{param: 'tmpprs', z: 85000, time: 449193600000, lon: 16, lat: 48, val: -0.31},
-{param: 'tmpprs', z: 85000, time: 449215200000, lon: 16, lat: 48, val: -0.97},
-{param: 'tmpprs', z: 85000, time: 449236800000, lon: 16, lat: 48, val: -0.44},
-{param: 'tmpprs', z: 85000, time: 449258400000, lon: 16, lat: 48, val: 0.07},
-{param: 'tmpprs', z: 85000, time: 449280000000, lon: 16, lat: 48, val: -0.15},
-{param: 'tmpprs', z: 85000, time: 449301600000, lon: 16, lat: 48, val: -0.82},
-{param: 'tmpprs', z: 85000, time: 449323200000, lon: 16, lat: 48, val: -0.28},
-{param: 'tmpprs', z: 85000, time: 449344800000, lon: 16, lat: 48, val: 0.24},
-{param: 'tmpprs', z: 85000, time: 449366400000, lon: 16, lat: 48, val: 0.01},
-{param: 'tmpprs', z: 85000, time: 449388000000, lon: 16, lat: 48, val: -0.67},
-{param: 'tmpprs', z: 85000, time: 449409600000, lon: 16, lat: 48, val: -0.12},
-{param: 'tmpprs', z: 85000, time: 449431200000, lon: 16, lat: 48, val: 0.42},
-{param: 'tmpprs', z: 85000, time: 449452800000, lon: 16, lat: 48, val: 0.18},
-{param: 'tmpprs', z: 85000, time: 449474400000, lon: 16, lat: 48, val: -0.52},
-{param: 'tmpprs', z: 85000, time: 449496000000, lon: 16, lat: 48, val: 0.05},
-{param: 'tmpprs', z: 85000, time: 449517600000, lon: 16, lat: 48, val: 0.59},
-{param: 'tmpprs', z: 85000, time: 449539200000, lon: 16, lat: 48, val: 0.35},
-{param: 'tmpprs', z: 85000, time: 449560800000, lon: 16, lat: 48, val: -0.36},
-{param: 'tmpprs', z: 85000, time: 449582400000, lon: 16, lat: 48, val: 0.21},
-{param: 'tmpprs', z: 85000, time: 449604000000, lon: 16, lat: 48, val: 0.77},
-{param: 'tmpprs', z: 85000, time: 449625600000, lon: 16, lat: 48, val: 0.52},
-{param: 'tmpprs', z: 85000, time: 449647200000, lon: 16, lat: 48, val: -0.2},
-{param: 'tmpprs', z: 85000, time: 449668800000, lon: 16, lat: 48, val: 0.38},
-{param: 'tmpprs', z: 85000, time: 449690400000, lon: 16, lat: 48, val: 0.95},
-{param: 'tmpprs', z: 85000, time: 449712000000, lon: 16, lat: 48, val: 0.69},
-{param: 'tmpprs', z: 85000, time: 449733600000, lon: 16, lat: 48, val: -0.03},
-{param: 'tmpprs', z: 85000, time: 449755200000, lon: 16, lat: 48, val: 0.56},
-{param: 'tmpprs', z: 85000, time: 449776800000, lon: 16, lat: 48, val: 1.13},
-{param: 'tmpprs', z: 85000, time: 449798400000, lon: 16, lat: 48, val: 0.86},
-{param: 'tmpprs', z: 85000, time: 449820000000, lon: 16, lat: 48, val: 0.13},
-{param: 'tmpprs', z: 85000, time: 449841600000, lon: 16, lat: 48, val: 0.73},
-{param: 'tmpprs', z: 85000, time: 449863200000, lon: 16, lat: 48, val: 1.31},
-{param: 'tmpprs', z: 85000, time: 449884800000, lon: 16, lat: 48, val: 1.04},
-{param: 'tmpprs', z: 85000, time: 449906400000, lon: 16, lat: 48, val: 0.3},
-{param: 'tmpprs', z: 85000, time: 449928000000, lon: 16, lat: 48, val: 0.91},
-{param: 'tmpprs', z: 85000, time: 449949600000, lon: 16, lat: 48, val: 1.5},
-{param: 'tmpprs', z: 85000, time: 449971200000, lon: 16, lat: 48, val: 1.21},
-{param: 'tmpprs', z: 85000, time: 449992800000, lon: 16, lat: 48, val: 0.47},
-{param: 'tmpprs', z: 85000, time: 450014400000, lon: 16, lat: 48, val: 1.08},
-{param: 'tmpprs', z: 85000, time: 450036000000, lon: 16, lat: 48, val: 1.68},
-{param: 'tmpprs', z: 85000, time: 450057600000, lon: 16, lat: 48, val: 1.39},
-{param: 'tmpprs', z: 85000, time: 450079200000, lon: 16, lat: 48, val: 0.64},
-{param: 'tmpprs', z: 85000, time: 450100800000, lon: 16, lat: 48, val: 1.26},
-{param: 'tmpprs', z: 85000, time: 450122400000, lon: 16, lat: 48, val: 1.87},
-{param: 'tmpprs', z: 85000, time: 450144000000, lon: 16, lat: 48, val: 1.57},
-{param: 'tmpprs', z: 85000, time: 450165600000, lon: 16, lat: 48, val: 0.81},
-{param: 'tmpprs', z: 85000, time: 450187200000, lon: 16, lat: 48, val: 1.44},
-{param: 'tmpprs', z: 85000, time: 450208800000, lon: 16, lat: 48, val: 2.06},
-{param: 'tmpprs', z: 85000, time: 450230400000, lon: 16, lat: 48, val: 1.75},
-{param: 'tmpprs', z: 85000, time: 450252000000, lon: 16, lat: 48, val: 0.98},
-{param: 'tmpprs', z: 85000, time: 450273600000, lon: 16, lat: 48, val: 1.62},
-{param: 'tmpprs', z: 85000, time: 450295200000, lon: 16, lat: 48, val: 2.24},
-{param: 'tmpprs', z: 85000, time: 450316800000, lon: 16, lat: 48, val: 1.93},
-{param: 'tmpprs', z: 85000, time: 450338400000, lon: 16, lat: 48, val: 1.15},
-{param: 'tmpprs', z: 85000, time: 450360000000, lon: 16, lat: 48, val: 1.8},
-{param: 'tmpprs', z: 85000, time: 450381600000, lon: 16, lat: 48, val: 2.43},
-{param: 'tmpprs', z: 85000, time: 450403200000, lon: 16, lat: 48, val: 2.11},
-{param: 'tmpprs', z: 85000, time: 450424800000, lon: 16, lat: 48, val: 1.32},
-{param: 'tmpprs', z: 85000, time: 450446400000, lon: 16, lat: 48, val: 1.99},
-{param: 'tmpprs', z: 85000, time: 450468000000, lon: 16, lat: 48, val: 2.62},
-{param: 'tmpprs', z: 85000, time: 450489600000, lon: 16, lat: 48, val: 2.29},
-{param: 'tmpprs', z: 85000, time: 450511200000, lon: 16, lat: 48, val: 1.49},
-{param: 'tmpprs', z: 85000, time: 450532800000, lon: 16, lat: 48, val: 2.17},
-{param: 'tmpprs', z: 85000, time: 450554400000, lon: 16, lat: 48, val: 2.8},
-{param: 'tmpprs', z: 85000, time: 450576000000, lon: 16, lat: 48, val: 2.47},
-{param: 'tmpprs', z: 85000, time: 450597600000, lon: 16, lat: 48, val: 1.67},
-{param: 'tmpprs', z: 85000, time: 450619200000, lon: 16, lat: 48, val: 2.35},
-{param: 'tmpprs', z: 85000, time: 450640800000, lon: 16, lat: 48, val: 2.99},
-{param: 'tmpprs', z: 85000, time: 450662400000, lon: 16, lat: 48, val: 2.65},
-{param: 'tmpprs', z: 85000, time: 450684000000, lon: 16, lat: 48, val: 1.84},
-{param: 'tmpprs', z: 85000, time: 450705600000, lon: 16, lat: 48, val: 2.53},
-{param: 'tmpprs', z: 85000, time: 450727200000, lon: 16, lat: 48, val: 3.17},
-{param: 'tmpprs', z: 85000, time: 450748800000, lon: 16, lat: 48, val: 2.82},
-{param: 'tmpprs', z: 85000, time: 450770400000, lon: 16, lat: 48, val: 2.01},
-{param: 'tmpprs', z: 85000, time: 450792000000, lon: 16, lat: 48, val: 2.71},
-{param: 'tmpprs', z: 85000, time: 450813600000, lon: 16, lat: 48, val: 3.36},
-{param: 'tmpprs', z: 85000, time: 450835200000, lon: 16, lat: 48, val: 3},
-{param: 'tmpprs', z: 85000, time: 450856800000, lon: 16, lat: 48, val: 2.18},
-{param: 'tmpprs', z: 85000, time: 450878400000, lon: 16, lat: 48, val: 2.89},
-{param: 'tmpprs', z: 85000, time: 450900000000, lon: 16, lat: 48, val: 3.54},
-{param: 'tmpprs', z: 85000, time: 450921600000, lon: 16, lat: 48, val: 3.18},
-{param: 'tmpprs', z: 85000, time: 450943200000, lon: 16, lat: 48, val: 2.35},
-{param: 'tmpprs', z: 85000, time: 450964800000, lon: 16, lat: 48, val: 3.07},
-{param: 'tmpprs', z: 85000, time: 450986400000, lon: 16, lat: 48, val: 3.72},
-{param: 'tmpprs', z: 85000, time: 451008000000, lon: 16, lat: 48, val: 3.35},
-{param: 'tmpprs', z: 85000, time: 451029600000, lon: 16, lat: 48, val: 2.52},
-{param: 'tmpprs', z: 85000, time: 451051200000, lon: 16, lat: 48, val: 3.25},
-{param: 'tmpprs', z: 85000, time: 451072800000, lon: 16, lat: 48, val: 3.9},
-{param: 'tmpprs', z: 85000, time: 451094400000, lon: 16, lat: 48, val: 3.52},
-{param: 'tmpprs', z: 85000, time: 451116000000, lon: 16, lat: 48, val: 2.68},
-{param: 'tmpprs', z: 85000, time: 451137600000, lon: 16, lat: 48, val: 3.43},
-{param: 'tmpprs', z: 85000, time: 451159200000, lon: 16, lat: 48, val: 4.07},
-{param: 'tmpprs', z: 85000, time: 451180800000, lon: 16, lat: 48, val: 3.69},
-{param: 'tmpprs', z: 85000, time: 451202400000, lon: 16, lat: 48, val: 2.85},
-{param: 'tmpprs', z: 85000, time: 451224000000, lon: 16, lat: 48, val: 3.6},
-{param: 'tmpprs', z: 85000, time: 451245600000, lon: 16, lat: 48, val: 4.25},
-{param: 'tmpprs', z: 85000, time: 451267200000, lon: 16, lat: 48, val: 3.86},
-{param: 'tmpprs', z: 85000, time: 451288800000, lon: 16, lat: 48, val: 3.01},
-{param: 'tmpprs', z: 85000, time: 451310400000, lon: 16, lat: 48, val: 3.77},
-{param: 'tmpprs', z: 85000, time: 451332000000, lon: 16, lat: 48, val: 4.42},
-{param: 'tmpprs', z: 85000, time: 451353600000, lon: 16, lat: 48, val: 4.02},
-{param: 'tmpprs', z: 85000, time: 451375200000, lon: 16, lat: 48, val: 3.18},
-{param: 'tmpprs', z: 85000, time: 451396800000, lon: 16, lat: 48, val: 3.95},
-{param: 'tmpprs', z: 85000, time: 451418400000, lon: 16, lat: 48, val: 4.59},
-{param: 'tmpprs', z: 85000, time: 451440000000, lon: 16, lat: 48, val: 4.19},
-{param: 'tmpprs', z: 85000, time: 451461600000, lon: 16, lat: 48, val: 3.34},
-{param: 'tmpprs', z: 85000, time: 451483200000, lon: 16, lat: 48, val: 4.11},
-{param: 'tmpprs', z: 85000, time: 451504800000, lon: 16, lat: 48, val: 4.76},
-{param: 'tmpprs', z: 85000, time: 451526400000, lon: 16, lat: 48, val: 4.35},
-{param: 'tmpprs', z: 85000, time: 451548000000, lon: 16, lat: 48, val: 3.49},
-{param: 'tmpprs', z: 85000, time: 451569600000, lon: 16, lat: 48, val: 4.28},
-{param: 'tmpprs', z: 85000, time: 451591200000, lon: 16, lat: 48, val: 4.92},
-{param: 'tmpprs', z: 85000, time: 451612800000, lon: 16, lat: 48, val: 4.51},
-{param: 'tmpprs', z: 85000, time: 451634400000, lon: 16, lat: 48, val: 3.65},
-{param: 'tmpprs', z: 85000, time: 451656000000, lon: 16, lat: 48, val: 4.45},
-{param: 'tmpprs', z: 85000, time: 451677600000, lon: 16, lat: 48, val: 5.08},
-{param: 'tmpprs', z: 85000, time: 451699200000, lon: 16, lat: 48, val: 4.66},
-{param: 'tmpprs', z: 85000, time: 451720800000, lon: 16, lat: 48, val: 3.8},
-{param: 'tmpprs', z: 85000, time: 451742400000, lon: 16, lat: 48, val: 4.61},
-{param: 'tmpprs', z: 85000, time: 451764000000, lon: 16, lat: 48, val: 5.24},
-{param: 'tmpprs', z: 85000, time: 451785600000, lon: 16, lat: 48, val: 4.82},
-{param: 'tmpprs', z: 85000, time: 451807200000, lon: 16, lat: 48, val: 3.95},
-{param: 'tmpprs', z: 85000, time: 451828800000, lon: 16, lat: 48, val: 4.77},
-{param: 'tmpprs', z: 85000, time: 451850400000, lon: 16, lat: 48, val: 5.4},
-{param: 'tmpprs', z: 85000, time: 451872000000, lon: 16, lat: 48, val: 4.97},
-{param: 'tmpprs', z: 85000, time: 451893600000, lon: 16, lat: 48, val: 4.1},
-{param: 'tmpprs', z: 85000, time: 451915200000, lon: 16, lat: 48, val: 4.92},
-{param: 'tmpprs', z: 85000, time: 451936800000, lon: 16, lat: 48, val: 5.55},
-{param: 'tmpprs', z: 85000, time: 451958400000, lon: 16, lat: 48, val: 5.11},
-{param: 'tmpprs', z: 85000, time: 451980000000, lon: 16, lat: 48, val: 4.25},
-{param: 'tmpprs', z: 85000, time: 452001600000, lon: 16, lat: 48, val: 5.08},
-{param: 'tmpprs', z: 85000, time: 452023200000, lon: 16, lat: 48, val: 5.7},
-{param: 'tmpprs', z: 85000, time: 452044800000, lon: 16, lat: 48, val: 5.26},
-{param: 'tmpprs', z: 85000, time: 452066400000, lon: 16, lat: 48, val: 4.39},
-{param: 'tmpprs', z: 85000, time: 452088000000, lon: 16, lat: 48, val: 5.23},
-{param: 'tmpprs', z: 85000, time: 452109600000, lon: 16, lat: 48, val: 5.85},
-{param: 'tmpprs', z: 85000, time: 452131200000, lon: 16, lat: 48, val: 5.4},
-{param: 'tmpprs', z: 85000, time: 452152800000, lon: 16, lat: 48, val: 4.53},
-{param: 'tmpprs', z: 85000, time: 452174400000, lon: 16, lat: 48, val: 5.38},
-{param: 'tmpprs', z: 85000, time: 452196000000, lon: 16, lat: 48, val: 5.99},
-{param: 'tmpprs', z: 85000, time: 452217600000, lon: 16, lat: 48, val: 5.54},
-{param: 'tmpprs', z: 85000, time: 452239200000, lon: 16, lat: 48, val: 4.67},
-{param: 'tmpprs', z: 85000, time: 452260800000, lon: 16, lat: 48, val: 5.52},
-{param: 'tmpprs', z: 85000, time: 452282400000, lon: 16, lat: 48, val: 6.13},
-{param: 'tmpprs', z: 85000, time: 452304000000, lon: 16, lat: 48, val: 5.67},
-{param: 'tmpprs', z: 85000, time: 452325600000, lon: 16, lat: 48, val: 4.8},
-{param: 'tmpprs', z: 85000, time: 452347200000, lon: 16, lat: 48, val: 5.67},
-{param: 'tmpprs', z: 85000, time: 452368800000, lon: 16, lat: 48, val: 6.26},
-{param: 'tmpprs', z: 85000, time: 452390400000, lon: 16, lat: 48, val: 5.8},
-{param: 'tmpprs', z: 85000, time: 452412000000, lon: 16, lat: 48, val: 4.94},
-{param: 'tmpprs', z: 85000, time: 452433600000, lon: 16, lat: 48, val: 5.8},
-{param: 'tmpprs', z: 85000, time: 452455200000, lon: 16, lat: 48, val: 6.4},
-{param: 'tmpprs', z: 85000, time: 452476800000, lon: 16, lat: 48, val: 5.93},
-{param: 'tmpprs', z: 85000, time: 452498400000, lon: 16, lat: 48, val: 5.06},
-{param: 'tmpprs', z: 85000, time: 452520000000, lon: 16, lat: 48, val: 5.94},
-{param: 'tmpprs', z: 85000, time: 452541600000, lon: 16, lat: 48, val: 6.53},
-{param: 'tmpprs', z: 85000, time: 452563200000, lon: 16, lat: 48, val: 6.06},
-{param: 'tmpprs', z: 85000, time: 452584800000, lon: 16, lat: 48, val: 5.19},
-{param: 'tmpprs', z: 85000, time: 452606400000, lon: 16, lat: 48, val: 6.07},
-{param: 'tmpprs', z: 85000, time: 452628000000, lon: 16, lat: 48, val: 6.65},
-{param: 'tmpprs', z: 85000, time: 452649600000, lon: 16, lat: 48, val: 6.18},
-{param: 'tmpprs', z: 85000, time: 452671200000, lon: 16, lat: 48, val: 5.31},
-{param: 'tmpprs', z: 85000, time: 452692800000, lon: 16, lat: 48, val: 6.2},
-{param: 'tmpprs', z: 85000, time: 452714400000, lon: 16, lat: 48, val: 6.78},
-{param: 'tmpprs', z: 85000, time: 452736000000, lon: 16, lat: 48, val: 6.3},
-{param: 'tmpprs', z: 85000, time: 452757600000, lon: 16, lat: 48, val: 5.43},
-{param: 'tmpprs', z: 85000, time: 452779200000, lon: 16, lat: 48, val: 6.33},
-{param: 'tmpprs', z: 85000, time: 452800800000, lon: 16, lat: 48, val: 6.9},
-{param: 'tmpprs', z: 85000, time: 452822400000, lon: 16, lat: 48, val: 6.41},
-{param: 'tmpprs', z: 85000, time: 452844000000, lon: 16, lat: 48, val: 5.55},
-{param: 'tmpprs', z: 85000, time: 452865600000, lon: 16, lat: 48, val: 6.45},
-{param: 'tmpprs', z: 85000, time: 452887200000, lon: 16, lat: 48, val: 7.01},
-{param: 'tmpprs', z: 85000, time: 452908800000, lon: 16, lat: 48, val: 6.53},
-{param: 'tmpprs', z: 85000, time: 452930400000, lon: 16, lat: 48, val: 5.67},
-{param: 'tmpprs', z: 85000, time: 452952000000, lon: 16, lat: 48, val: 6.58},
-{param: 'tmpprs', z: 85000, time: 452973600000, lon: 16, lat: 48, val: 7.13},
-{param: 'tmpprs', z: 85000, time: 452995200000, lon: 16, lat: 48, val: 6.64},
-{param: 'tmpprs', z: 85000, time: 453016800000, lon: 16, lat: 48, val: 5.78},
-{param: 'tmpprs', z: 85000, time: 453038400000, lon: 16, lat: 48, val: 6.69},
-{param: 'tmpprs', z: 85000, time: 453060000000, lon: 16, lat: 48, val: 7.24},
-{param: 'tmpprs', z: 85000, time: 453081600000, lon: 16, lat: 48, val: 6.75},
-{param: 'tmpprs', z: 85000, time: 453103200000, lon: 16, lat: 48, val: 5.89},
-{param: 'tmpprs', z: 85000, time: 453124800000, lon: 16, lat: 48, val: 6.81},
-{param: 'tmpprs', z: 85000, time: 453146400000, lon: 16, lat: 48, val: 7.35},
-{param: 'tmpprs', z: 85000, time: 453168000000, lon: 16, lat: 48, val: 6.85},
-{param: 'tmpprs', z: 85000, time: 453189600000, lon: 16, lat: 48, val: 6},
-{param: 'tmpprs', z: 85000, time: 453211200000, lon: 16, lat: 48, val: 6.92},
-{param: 'tmpprs', z: 85000, time: 453232800000, lon: 16, lat: 48, val: 7.45},
-{param: 'tmpprs', z: 85000, time: 453254400000, lon: 16, lat: 48, val: 6.95},
-{param: 'tmpprs', z: 85000, time: 453276000000, lon: 16, lat: 48, val: 6.1},
-{param: 'tmpprs', z: 85000, time: 453297600000, lon: 16, lat: 48, val: 7.03},
-{param: 'tmpprs', z: 85000, time: 453319200000, lon: 16, lat: 48, val: 7.55},
-{param: 'tmpprs', z: 85000, time: 453340800000, lon: 16, lat: 48, val: 7.05},
-{param: 'tmpprs', z: 85000, time: 453362400000, lon: 16, lat: 48, val: 6.2},
-{param: 'tmpprs', z: 85000, time: 453384000000, lon: 16, lat: 48, val: 7.14},
-{param: 'tmpprs', z: 85000, time: 453405600000, lon: 16, lat: 48, val: 7.65},
-{param: 'tmpprs', z: 85000, time: 453427200000, lon: 16, lat: 48, val: 7.15},
-{param: 'tmpprs', z: 85000, time: 453448800000, lon: 16, lat: 48, val: 6.3},
-{param: 'tmpprs', z: 85000, time: 453470400000, lon: 16, lat: 48, val: 7.24},
-{param: 'tmpprs', z: 85000, time: 453492000000, lon: 16, lat: 48, val: 7.75},
-{param: 'tmpprs', z: 85000, time: 453513600000, lon: 16, lat: 48, val: 7.25},
-{param: 'tmpprs', z: 85000, time: 453535200000, lon: 16, lat: 48, val: 6.4},
-{param: 'tmpprs', z: 85000, time: 453556800000, lon: 16, lat: 48, val: 7.35},
-{param: 'tmpprs', z: 85000, time: 453578400000, lon: 16, lat: 48, val: 7.85},
-{param: 'tmpprs', z: 85000, time: 453600000000, lon: 16, lat: 48, val: 7.34},
-{param: 'tmpprs', z: 85000, time: 453621600000, lon: 16, lat: 48, val: 6.5},
-{param: 'tmpprs', z: 85000, time: 453643200000, lon: 16, lat: 48, val: 7.45},
-{param: 'tmpprs', z: 85000, time: 453664800000, lon: 16, lat: 48, val: 7.94},
-{param: 'tmpprs', z: 85000, time: 453686400000, lon: 16, lat: 48, val: 7.43},
-{param: 'tmpprs', z: 85000, time: 453708000000, lon: 16, lat: 48, val: 6.59},
-{param: 'tmpprs', z: 85000, time: 453729600000, lon: 16, lat: 48, val: 7.55},
-{param: 'tmpprs', z: 85000, time: 453751200000, lon: 16, lat: 48, val: 8.03},
-{param: 'tmpprs', z: 85000, time: 453772800000, lon: 16, lat: 48, val: 7.52},
-{param: 'tmpprs', z: 85000, time: 453794400000, lon: 16, lat: 48, val: 6.68},
-{param: 'tmpprs', z: 85000, time: 453816000000, lon: 16, lat: 48, val: 7.64},
-{param: 'tmpprs', z: 85000, time: 453837600000, lon: 16, lat: 48, val: 8.12},
-{param: 'tmpprs', z: 85000, time: 453859200000, lon: 16, lat: 48, val: 7.61},
-{param: 'tmpprs', z: 85000, time: 453880800000, lon: 16, lat: 48, val: 6.78},
-{param: 'tmpprs', z: 85000, time: 453902400000, lon: 16, lat: 48, val: 7.74},
-{param: 'tmpprs', z: 85000, time: 453924000000, lon: 16, lat: 48, val: 8.21},
-{param: 'tmpprs', z: 85000, time: 453945600000, lon: 16, lat: 48, val: 7.7},
-{param: 'tmpprs', z: 85000, time: 453967200000, lon: 16, lat: 48, val: 6.86},
-{param: 'tmpprs', z: 85000, time: 453988800000, lon: 16, lat: 48, val: 7.83},
-{param: 'tmpprs', z: 85000, time: 454010400000, lon: 16, lat: 48, val: 8.3},
-{param: 'tmpprs', z: 85000, time: 454032000000, lon: 16, lat: 48, val: 7.78},
-{param: 'tmpprs', z: 85000, time: 454053600000, lon: 16, lat: 48, val: 6.95},
-{param: 'tmpprs', z: 85000, time: 454075200000, lon: 16, lat: 48, val: 7.92},
-{param: 'tmpprs', z: 85000, time: 454096800000, lon: 16, lat: 48, val: 8.39},
-{param: 'tmpprs', z: 85000, time: 454118400000, lon: 16, lat: 48, val: 7.87},
-{param: 'tmpprs', z: 85000, time: 454140000000, lon: 16, lat: 48, val: 7.04},
-{param: 'tmpprs', z: 85000, time: 454161600000, lon: 16, lat: 48, val: 8.01},
-{param: 'tmpprs', z: 85000, time: 454183200000, lon: 16, lat: 48, val: 8.47},
-{param: 'tmpprs', z: 85000, time: 454204800000, lon: 16, lat: 48, val: 7.95},
-{param: 'tmpprs', z: 85000, time: 454226400000, lon: 16, lat: 48, val: 7.13},
-{param: 'tmpprs', z: 85000, time: 454248000000, lon: 16, lat: 48, val: 8.1},
-{param: 'tmpprs', z: 85000, time: 454269600000, lon: 16, lat: 48, val: 8.56},
-{param: 'tmpprs', z: 85000, time: 454291200000, lon: 16, lat: 48, val: 8.04},
-{param: 'tmpprs', z: 85000, time: 454312800000, lon: 16, lat: 48, val: 7.21},
-{param: 'tmpprs', z: 85000, time: 454334400000, lon: 16, lat: 48, val: 8.19},
-{param: 'tmpprs', z: 85000, time: 454356000000, lon: 16, lat: 48, val: 8.64},
-{param: 'tmpprs', z: 85000, time: 454377600000, lon: 16, lat: 48, val: 8.12},
-{param: 'tmpprs', z: 85000, time: 454399200000, lon: 16, lat: 48, val: 7.3},
-{param: 'tmpprs', z: 85000, time: 454420800000, lon: 16, lat: 48, val: 8.27},
-{param: 'tmpprs', z: 85000, time: 454442400000, lon: 16, lat: 48, val: 8.72},
-{param: 'tmpprs', z: 85000, time: 454464000000, lon: 16, lat: 48, val: 8.2},
-{param: 'tmpprs', z: 85000, time: 454485600000, lon: 16, lat: 48, val: 7.38},
-{param: 'tmpprs', z: 85000, time: 454507200000, lon: 16, lat: 48, val: 8.36},
-{param: 'tmpprs', z: 85000, time: 454528800000, lon: 16, lat: 48, val: 8.81},
-{param: 'tmpprs', z: 85000, time: 454550400000, lon: 16, lat: 48, val: 8.28},
-{param: 'tmpprs', z: 85000, time: 454572000000, lon: 16, lat: 48, val: 7.46},
-{param: 'tmpprs', z: 85000, time: 454593600000, lon: 16, lat: 48, val: 8.45},
-{param: 'tmpprs', z: 85000, time: 454615200000, lon: 16, lat: 48, val: 8.89},
-{param: 'tmpprs', z: 85000, time: 454636800000, lon: 16, lat: 48, val: 8.36},
-{param: 'tmpprs', z: 85000, time: 454658400000, lon: 16, lat: 48, val: 7.54},
-{param: 'tmpprs', z: 85000, time: 454680000000, lon: 16, lat: 48, val: 8.53},
-{param: 'tmpprs', z: 85000, time: 454701600000, lon: 16, lat: 48, val: 8.97},
-{param: 'tmpprs', z: 85000, time: 454723200000, lon: 16, lat: 48, val: 8.44},
-{param: 'tmpprs', z: 85000, time: 454744800000, lon: 16, lat: 48, val: 7.63},
-{param: 'tmpprs', z: 85000, time: 454766400000, lon: 16, lat: 48, val: 8.61},
-{param: 'tmpprs', z: 85000, time: 454788000000, lon: 16, lat: 48, val: 9.05},
-{param: 'tmpprs', z: 85000, time: 454809600000, lon: 16, lat: 48, val: 8.52},
-{param: 'tmpprs', z: 85000, time: 454831200000, lon: 16, lat: 48, val: 7.71},
-{param: 'tmpprs', z: 85000, time: 454852800000, lon: 16, lat: 48, val: 8.7},
-{param: 'tmpprs', z: 85000, time: 454874400000, lon: 16, lat: 48, val: 9.13},
-{param: 'tmpprs', z: 85000, time: 454896000000, lon: 16, lat: 48, val: 8.6},
-{param: 'tmpprs', z: 85000, time: 454917600000, lon: 16, lat: 48, val: 7.79},
-{param: 'tmpprs', z: 85000, time: 454939200000, lon: 16, lat: 48, val: 8.78},
-{param: 'tmpprs', z: 85000, time: 454960800000, lon: 16, lat: 48, val: 9.22},
-{param: 'tmpprs', z: 85000, time: 454982400000, lon: 16, lat: 48, val: 8.68},
-{param: 'tmpprs', z: 85000, time: 455004000000, lon: 16, lat: 48, val: 7.87},
-{param: 'tmpprs', z: 85000, time: 455025600000, lon: 16, lat: 48, val: 8.86},
-{param: 'tmpprs', z: 85000, time: 455047200000, lon: 16, lat: 48, val: 9.3},
-{param: 'tmpprs', z: 85000, time: 455068800000, lon: 16, lat: 48, val: 8.76},
-{param: 'tmpprs', z: 85000, time: 455090400000, lon: 16, lat: 48, val: 7.96},
-{param: 'tmpprs', z: 85000, time: 455112000000, lon: 16, lat: 48, val: 8.95},
-{param: 'tmpprs', z: 85000, time: 455133600000, lon: 16, lat: 48, val: 9.38},
-{param: 'tmpprs', z: 85000, time: 455155200000, lon: 16, lat: 48, val: 8.84},
-{param: 'tmpprs', z: 85000, time: 455176800000, lon: 16, lat: 48, val: 8.04},
-{param: 'tmpprs', z: 85000, time: 455198400000, lon: 16, lat: 48, val: 9.03},
-{param: 'tmpprs', z: 85000, time: 455220000000, lon: 16, lat: 48, val: 9.47},
-{param: 'tmpprs', z: 85000, time: 455241600000, lon: 16, lat: 48, val: 8.93},
-{param: 'tmpprs', z: 85000, time: 455263200000, lon: 16, lat: 48, val: 8.12},
-{param: 'tmpprs', z: 85000, time: 455284800000, lon: 16, lat: 48, val: 9.12},
-{param: 'tmpprs', z: 85000, time: 455306400000, lon: 16, lat: 48, val: 9.55},
-{param: 'tmpprs', z: 85000, time: 455328000000, lon: 16, lat: 48, val: 9.01},
-{param: 'tmpprs', z: 85000, time: 455349600000, lon: 16, lat: 48, val: 8.21},
-{param: 'tmpprs', z: 85000, time: 455371200000, lon: 16, lat: 48, val: 9.2},
-{param: 'tmpprs', z: 85000, time: 455392800000, lon: 16, lat: 48, val: 9.64},
-{param: 'tmpprs', z: 85000, time: 455414400000, lon: 16, lat: 48, val: 9.09},
-{param: 'tmpprs', z: 85000, time: 455436000000, lon: 16, lat: 48, val: 8.29},
-{param: 'tmpprs', z: 85000, time: 455457600000, lon: 16, lat: 48, val: 9.29},
-{param: 'tmpprs', z: 85000, time: 455479200000, lon: 16, lat: 48, val: 9.72},
-{param: 'tmpprs', z: 85000, time: 455500800000, lon: 16, lat: 48, val: 9.17},
-{param: 'tmpprs', z: 85000, time: 455522400000, lon: 16, lat: 48, val: 8.37},
-{param: 'tmpprs', z: 85000, time: 455544000000, lon: 16, lat: 48, val: 9.37},
-{param: 'tmpprs', z: 85000, time: 455565600000, lon: 16, lat: 48, val: 9.81},
-{param: 'tmpprs', z: 85000, time: 455587200000, lon: 16, lat: 48, val: 9.26},
-{param: 'tmpprs', z: 85000, time: 455608800000, lon: 16, lat: 48, val: 8.46},
-{param: 'tmpprs', z: 85000, time: 455630400000, lon: 16, lat: 48, val: 9.46},
-{param: 'tmpprs', z: 85000, time: 455652000000, lon: 16, lat: 48, val: 9.9},
-{param: 'tmpprs', z: 85000, time: 455673600000, lon: 16, lat: 48, val: 9.34},
-{param: 'tmpprs', z: 85000, time: 455695200000, lon: 16, lat: 48, val: 8.55},
-{param: 'tmpprs', z: 85000, time: 455716800000, lon: 16, lat: 48, val: 9.54},
-{param: 'tmpprs', z: 85000, time: 455738400000, lon: 16, lat: 48, val: 9.99},
-{param: 'tmpprs', z: 85000, time: 455760000000, lon: 16, lat: 48, val: 9.43},
-{param: 'tmpprs', z: 85000, time: 455781600000, lon: 16, lat: 48, val: 8.63},
-{param: 'tmpprs', z: 85000, time: 455803200000, lon: 16, lat: 48, val: 9.63},
-{param: 'tmpprs', z: 85000, time: 455824800000, lon: 16, lat: 48, val: 10.08},
-{param: 'tmpprs', z: 85000, time: 455846400000, lon: 16, lat: 48, val: 9.52},
-{param: 'tmpprs', z: 85000, time: 455868000000, lon: 16, lat: 48, val: 8.72},
-{param: 'tmpprs', z: 85000, time: 455889600000, lon: 16, lat: 48, val: 9.72},
-{param: 'tmpprs', z: 85000, time: 455911200000, lon: 16, lat: 48, val: 10.17},
-{param: 'tmpprs', z: 85000, time: 455932800000, lon: 16, lat: 48, val: 9.61},
-{param: 'tmpprs', z: 85000, time: 455954400000, lon: 16, lat: 48, val: 8.81},
-{param: 'tmpprs', z: 85000, time: 455976000000, lon: 16, lat: 48, val: 9.8},
-{param: 'tmpprs', z: 85000, time: 455997600000, lon: 16, lat: 48, val: 10.26},
-{param: 'tmpprs', z: 85000, time: 456019200000, lon: 16, lat: 48, val: 9.69},
-{param: 'tmpprs', z: 85000, time: 456040800000, lon: 16, lat: 48, val: 8.9},
-{param: 'tmpprs', z: 85000, time: 456062400000, lon: 16, lat: 48, val: 9.89},
-{param: 'tmpprs', z: 85000, time: 456084000000, lon: 16, lat: 48, val: 10.35},
-{param: 'tmpprs', z: 85000, time: 456105600000, lon: 16, lat: 48, val: 9.78},
-{param: 'tmpprs', z: 85000, time: 456127200000, lon: 16, lat: 48, val: 8.99},
-{param: 'tmpprs', z: 85000, time: 456148800000, lon: 16, lat: 48, val: 9.98},
-{param: 'tmpprs', z: 85000, time: 456170400000, lon: 16, lat: 48, val: 10.45},
-{param: 'tmpprs', z: 85000, time: 456192000000, lon: 16, lat: 48, val: 9.87},
-{param: 'tmpprs', z: 85000, time: 456213600000, lon: 16, lat: 48, val: 9.08},
-{param: 'tmpprs', z: 85000, time: 456235200000, lon: 16, lat: 48, val: 10.07},
-{param: 'tmpprs', z: 85000, time: 456256800000, lon: 16, lat: 48, val: 10.54},
-{param: 'tmpprs', z: 85000, time: 456278400000, lon: 16, lat: 48, val: 9.97},
-{param: 'tmpprs', z: 85000, time: 456300000000, lon: 16, lat: 48, val: 9.17},
-{param: 'tmpprs', z: 85000, time: 456321600000, lon: 16, lat: 48, val: 10.16},
-{param: 'tmpprs', z: 85000, time: 456343200000, lon: 16, lat: 48, val: 10.64},
-{param: 'tmpprs', z: 85000, time: 456364800000, lon: 16, lat: 48, val: 10.06},
-{param: 'tmpprs', z: 85000, time: 456386400000, lon: 16, lat: 48, val: 9.26},
-{param: 'tmpprs', z: 85000, time: 456408000000, lon: 16, lat: 48, val: 10.25},
-{param: 'tmpprs', z: 85000, time: 456429600000, lon: 16, lat: 48, val: 10.74},
-{param: 'tmpprs', z: 85000, time: 456451200000, lon: 16, lat: 48, val: 10.15},
-{param: 'tmpprs', z: 85000, time: 456472800000, lon: 16, lat: 48, val: 9.35},
-{param: 'tmpprs', z: 85000, time: 456494400000, lon: 16, lat: 48, val: 10.35},
-{param: 'tmpprs', z: 85000, time: 456516000000, lon: 16, lat: 48, val: 10.83},
-{param: 'tmpprs', z: 85000, time: 456537600000, lon: 16, lat: 48, val: 10.24},
-{param: 'tmpprs', z: 85000, time: 456559200000, lon: 16, lat: 48, val: 9.44},
-{param: 'tmpprs', z: 85000, time: 456580800000, lon: 16, lat: 48, val: 10.44},
-{param: 'tmpprs', z: 85000, time: 456602400000, lon: 16, lat: 48, val: 10.93},
-{param: 'tmpprs', z: 85000, time: 456624000000, lon: 16, lat: 48, val: 10.34},
-{param: 'tmpprs', z: 85000, time: 456645600000, lon: 16, lat: 48, val: 9.54},
-{param: 'tmpprs', z: 85000, time: 456667200000, lon: 16, lat: 48, val: 10.53},
-{param: 'tmpprs', z: 85000, time: 456688800000, lon: 16, lat: 48, val: 11.03},
-{param: 'tmpprs', z: 85000, time: 456710400000, lon: 16, lat: 48, val: 10.43},
-{param: 'tmpprs', z: 85000, time: 456732000000, lon: 16, lat: 48, val: 9.63},
-{param: 'tmpprs', z: 85000, time: 456753600000, lon: 16, lat: 48, val: 10.62},
-{param: 'tmpprs', z: 85000, time: 456775200000, lon: 16, lat: 48, val: 11.13},
-{param: 'tmpprs', z: 85000, time: 456796800000, lon: 16, lat: 48, val: 10.52},
-{param: 'tmpprs', z: 85000, time: 456818400000, lon: 16, lat: 48, val: 9.72},
-{param: 'tmpprs', z: 85000, time: 456840000000, lon: 16, lat: 48, val: 10.72},
-{param: 'tmpprs', z: 85000, time: 456861600000, lon: 16, lat: 48, val: 11.23},
-{param: 'tmpprs', z: 85000, time: 456883200000, lon: 16, lat: 48, val: 10.62},
-{param: 'tmpprs', z: 85000, time: 456904800000, lon: 16, lat: 48, val: 9.82},
-{param: 'tmpprs', z: 85000, time: 456926400000, lon: 16, lat: 48, val: 10.81},
-{param: 'tmpprs', z: 85000, time: 456948000000, lon: 16, lat: 48, val: 11.33},
-{param: 'tmpprs', z: 85000, time: 456969600000, lon: 16, lat: 48, val: 10.71},
-{param: 'tmpprs', z: 85000, time: 456991200000, lon: 16, lat: 48, val: 9.91},
-{param: 'tmpprs', z: 85000, time: 457012800000, lon: 16, lat: 48, val: 10.9},
-{param: 'tmpprs', z: 85000, time: 457034400000, lon: 16, lat: 48, val: 11.43},
-{param: 'tmpprs', z: 85000, time: 457056000000, lon: 16, lat: 48, val: 10.81},
-{param: 'tmpprs', z: 85000, time: 457077600000, lon: 16, lat: 48, val: 10},
-{param: 'tmpprs', z: 85000, time: 457099200000, lon: 16, lat: 48, val: 10.99},
-{param: 'tmpprs', z: 85000, time: 457120800000, lon: 16, lat: 48, val: 11.53},
-{param: 'tmpprs', z: 85000, time: 457142400000, lon: 16, lat: 48, val: 10.9},
-{param: 'tmpprs', z: 85000, time: 457164000000, lon: 16, lat: 48, val: 10.1},
-{param: 'tmpprs', z: 85000, time: 457185600000, lon: 16, lat: 48, val: 11.09},
-{param: 'tmpprs', z: 85000, time: 457207200000, lon: 16, lat: 48, val: 11.63},
-{param: 'tmpprs', z: 85000, time: 457228800000, lon: 16, lat: 48, val: 11},
-{param: 'tmpprs', z: 85000, time: 457250400000, lon: 16, lat: 48, val: 10.19},
-{param: 'tmpprs', z: 85000, time: 457272000000, lon: 16, lat: 48, val: 11.18},
-{param: 'tmpprs', z: 85000, time: 457293600000, lon: 16, lat: 48, val: 11.73},
-{param: 'tmpprs', z: 85000, time: 457315200000, lon: 16, lat: 48, val: 11.09},
-{param: 'tmpprs', z: 85000, time: 457336800000, lon: 16, lat: 48, val: 10.28},
-{param: 'tmpprs', z: 85000, time: 457358400000, lon: 16, lat: 48, val: 11.27},
-{param: 'tmpprs', z: 85000, time: 457380000000, lon: 16, lat: 48, val: 11.82},
-{param: 'tmpprs', z: 85000, time: 457401600000, lon: 16, lat: 48, val: 11.18},
-{param: 'tmpprs', z: 85000, time: 457423200000, lon: 16, lat: 48, val: 10.37},
-{param: 'tmpprs', z: 85000, time: 457444800000, lon: 16, lat: 48, val: 11.36},
-{param: 'tmpprs', z: 85000, time: 457466400000, lon: 16, lat: 48, val: 11.92},
-{param: 'tmpprs', z: 85000, time: 457488000000, lon: 16, lat: 48, val: 11.28},
-{param: 'tmpprs', z: 85000, time: 457509600000, lon: 16, lat: 48, val: 10.46},
-{param: 'tmpprs', z: 85000, time: 457531200000, lon: 16, lat: 48, val: 11.45},
-{param: 'tmpprs', z: 85000, time: 457552800000, lon: 16, lat: 48, val: 12.02},
-{param: 'tmpprs', z: 85000, time: 457574400000, lon: 16, lat: 48, val: 11.37},
-{param: 'tmpprs', z: 85000, time: 457596000000, lon: 16, lat: 48, val: 10.55},
-{param: 'tmpprs', z: 85000, time: 457617600000, lon: 16, lat: 48, val: 11.54},
-{param: 'tmpprs', z: 85000, time: 457639200000, lon: 16, lat: 48, val: 12.11},
-{param: 'tmpprs', z: 85000, time: 457660800000, lon: 16, lat: 48, val: 11.46},
-{param: 'tmpprs', z: 85000, time: 457682400000, lon: 16, lat: 48, val: 10.64},
-{param: 'tmpprs', z: 85000, time: 457704000000, lon: 16, lat: 48, val: 11.62},
-{param: 'tmpprs', z: 85000, time: 457725600000, lon: 16, lat: 48, val: 12.21},
-{param: 'tmpprs', z: 85000, time: 457747200000, lon: 16, lat: 48, val: 11.55},
-{param: 'tmpprs', z: 85000, time: 457768800000, lon: 16, lat: 48, val: 10.73},
-{param: 'tmpprs', z: 85000, time: 457790400000, lon: 16, lat: 48, val: 11.71},
-{param: 'tmpprs', z: 85000, time: 457812000000, lon: 16, lat: 48, val: 12.3},
-{param: 'tmpprs', z: 85000, time: 457833600000, lon: 16, lat: 48, val: 11.63},
-{param: 'tmpprs', z: 85000, time: 457855200000, lon: 16, lat: 48, val: 10.81},
-{param: 'tmpprs', z: 85000, time: 457876800000, lon: 16, lat: 48, val: 11.79},
-{param: 'tmpprs', z: 85000, time: 457898400000, lon: 16, lat: 48, val: 12.39},
-{param: 'tmpprs', z: 85000, time: 457920000000, lon: 16, lat: 48, val: 11.72},
-{param: 'tmpprs', z: 85000, time: 457941600000, lon: 16, lat: 48, val: 10.9},
-{param: 'tmpprs', z: 85000, time: 457963200000, lon: 16, lat: 48, val: 11.88},
-{param: 'tmpprs', z: 85000, time: 457984800000, lon: 16, lat: 48, val: 12.48},
-{param: 'tmpprs', z: 85000, time: 458006400000, lon: 16, lat: 48, val: 11.8},
-{param: 'tmpprs', z: 85000, time: 458028000000, lon: 16, lat: 48, val: 10.98},
-{param: 'tmpprs', z: 85000, time: 458049600000, lon: 16, lat: 48, val: 11.96},
-{param: 'tmpprs', z: 85000, time: 458071200000, lon: 16, lat: 48, val: 12.57},
-{param: 'tmpprs', z: 85000, time: 458092800000, lon: 16, lat: 48, val: 11.89},
-{param: 'tmpprs', z: 85000, time: 458114400000, lon: 16, lat: 48, val: 11.06},
-{param: 'tmpprs', z: 85000, time: 458136000000, lon: 16, lat: 48, val: 12.04},
-{param: 'tmpprs', z: 85000, time: 458157600000, lon: 16, lat: 48, val: 12.65},
-{param: 'tmpprs', z: 85000, time: 458179200000, lon: 16, lat: 48, val: 11.97},
-{param: 'tmpprs', z: 85000, time: 458200800000, lon: 16, lat: 48, val: 11.14},
-{param: 'tmpprs', z: 85000, time: 458222400000, lon: 16, lat: 48, val: 12.11},
-{param: 'tmpprs', z: 85000, time: 458244000000, lon: 16, lat: 48, val: 12.73},
-{param: 'tmpprs', z: 85000, time: 458265600000, lon: 16, lat: 48, val: 12.04},
-{param: 'tmpprs', z: 85000, time: 458287200000, lon: 16, lat: 48, val: 11.22},
-{param: 'tmpprs', z: 85000, time: 458308800000, lon: 16, lat: 48, val: 12.18},
-{param: 'tmpprs', z: 85000, time: 458330400000, lon: 16, lat: 48, val: 12.81},
-{param: 'tmpprs', z: 85000, time: 458352000000, lon: 16, lat: 48, val: 12.12},
-{param: 'tmpprs', z: 85000, time: 458373600000, lon: 16, lat: 48, val: 11.29},
-{param: 'tmpprs', z: 85000, time: 458395200000, lon: 16, lat: 48, val: 12.26},
-{param: 'tmpprs', z: 85000, time: 458416800000, lon: 16, lat: 48, val: 12.89},
-{param: 'tmpprs', z: 85000, time: 458438400000, lon: 16, lat: 48, val: 12.19},
-{param: 'tmpprs', z: 85000, time: 458460000000, lon: 16, lat: 48, val: 11.36},
-{param: 'tmpprs', z: 85000, time: 458481600000, lon: 16, lat: 48, val: 12.32},
-{param: 'tmpprs', z: 85000, time: 458503200000, lon: 16, lat: 48, val: 12.96},
-{param: 'tmpprs', z: 85000, time: 458524800000, lon: 16, lat: 48, val: 12.26},
-{param: 'tmpprs', z: 85000, time: 458546400000, lon: 16, lat: 48, val: 11.43},
-{param: 'tmpprs', z: 85000, time: 458568000000, lon: 16, lat: 48, val: 12.39},
-{param: 'tmpprs', z: 85000, time: 458589600000, lon: 16, lat: 48, val: 13.03},
-{param: 'tmpprs', z: 85000, time: 458611200000, lon: 16, lat: 48, val: 12.32},
-{param: 'tmpprs', z: 85000, time: 458632800000, lon: 16, lat: 48, val: 11.49},
-{param: 'tmpprs', z: 85000, time: 458654400000, lon: 16, lat: 48, val: 12.45},
-{param: 'tmpprs', z: 85000, time: 458676000000, lon: 16, lat: 48, val: 13.1},
-{param: 'tmpprs', z: 85000, time: 458697600000, lon: 16, lat: 48, val: 12.39},
-{param: 'tmpprs', z: 85000, time: 458719200000, lon: 16, lat: 48, val: 11.55},
-{param: 'tmpprs', z: 85000, time: 458740800000, lon: 16, lat: 48, val: 12.51},
-{param: 'tmpprs', z: 85000, time: 458762400000, lon: 16, lat: 48, val: 13.16},
-{param: 'tmpprs', z: 85000, time: 458784000000, lon: 16, lat: 48, val: 12.45},
-{param: 'tmpprs', z: 85000, time: 458805600000, lon: 16, lat: 48, val: 11.61},
-{param: 'tmpprs', z: 85000, time: 458827200000, lon: 16, lat: 48, val: 12.56},
-{param: 'tmpprs', z: 85000, time: 458848800000, lon: 16, lat: 48, val: 13.22},
-{param: 'tmpprs', z: 85000, time: 458870400000, lon: 16, lat: 48, val: 12.5},
-{param: 'tmpprs', z: 85000, time: 458892000000, lon: 16, lat: 48, val: 11.67},
-{param: 'tmpprs', z: 85000, time: 458913600000, lon: 16, lat: 48, val: 12.61},
-{param: 'tmpprs', z: 85000, time: 458935200000, lon: 16, lat: 48, val: 13.27},
-{param: 'tmpprs', z: 85000, time: 458956800000, lon: 16, lat: 48, val: 12.55},
-{param: 'tmpprs', z: 85000, time: 458978400000, lon: 16, lat: 48, val: 11.72},
-{param: 'tmpprs', z: 85000, time: 459000000000, lon: 16, lat: 48, val: 12.66},
-{param: 'tmpprs', z: 85000, time: 459021600000, lon: 16, lat: 48, val: 13.32},
-{param: 'tmpprs', z: 85000, time: 459043200000, lon: 16, lat: 48, val: 12.6},
-{param: 'tmpprs', z: 85000, time: 459064800000, lon: 16, lat: 48, val: 11.77},
-{param: 'tmpprs', z: 85000, time: 459086400000, lon: 16, lat: 48, val: 12.7},
-{param: 'tmpprs', z: 85000, time: 459108000000, lon: 16, lat: 48, val: 13.37},
-{param: 'tmpprs', z: 85000, time: 459129600000, lon: 16, lat: 48, val: 12.65},
-{param: 'tmpprs', z: 85000, time: 459151200000, lon: 16, lat: 48, val: 11.81},
-{param: 'tmpprs', z: 85000, time: 459172800000, lon: 16, lat: 48, val: 12.74},
-{param: 'tmpprs', z: 85000, time: 459194400000, lon: 16, lat: 48, val: 13.41},
-{param: 'tmpprs', z: 85000, time: 459216000000, lon: 16, lat: 48, val: 12.69},
-{param: 'tmpprs', z: 85000, time: 459237600000, lon: 16, lat: 48, val: 11.85},
-{param: 'tmpprs', z: 85000, time: 459259200000, lon: 16, lat: 48, val: 12.78},
-{param: 'tmpprs', z: 85000, time: 459280800000, lon: 16, lat: 48, val: 13.45},
-{param: 'tmpprs', z: 85000, time: 459302400000, lon: 16, lat: 48, val: 12.72},
-{param: 'tmpprs', z: 85000, time: 459324000000, lon: 16, lat: 48, val: 11.89},
-{param: 'tmpprs', z: 85000, time: 459345600000, lon: 16, lat: 48, val: 12.81},
-{param: 'tmpprs', z: 85000, time: 459367200000, lon: 16, lat: 48, val: 13.48},
-{param: 'tmpprs', z: 85000, time: 459388800000, lon: 16, lat: 48, val: 12.76},
-{param: 'tmpprs', z: 85000, time: 459410400000, lon: 16, lat: 48, val: 11.92},
-{param: 'tmpprs', z: 85000, time: 459432000000, lon: 16, lat: 48, val: 12.84},
-{param: 'tmpprs', z: 85000, time: 459453600000, lon: 16, lat: 48, val: 13.51},
-{param: 'tmpprs', z: 85000, time: 459475200000, lon: 16, lat: 48, val: 12.78},
-{param: 'tmpprs', z: 85000, time: 459496800000, lon: 16, lat: 48, val: 11.94},
-{param: 'tmpprs', z: 85000, time: 459518400000, lon: 16, lat: 48, val: 12.86},
-{param: 'tmpprs', z: 85000, time: 459540000000, lon: 16, lat: 48, val: 13.53},
-{param: 'tmpprs', z: 85000, time: 459561600000, lon: 16, lat: 48, val: 12.81},
-{param: 'tmpprs', z: 85000, time: 459583200000, lon: 16, lat: 48, val: 11.97},
-{param: 'tmpprs', z: 85000, time: 459604800000, lon: 16, lat: 48, val: 12.88},
-{param: 'tmpprs', z: 85000, time: 459626400000, lon: 16, lat: 48, val: 13.55},
-{param: 'tmpprs', z: 85000, time: 459648000000, lon: 16, lat: 48, val: 12.83},
-{param: 'tmpprs', z: 85000, time: 459669600000, lon: 16, lat: 48, val: 11.99},
-{param: 'tmpprs', z: 85000, time: 459691200000, lon: 16, lat: 48, val: 12.89},
-{param: 'tmpprs', z: 85000, time: 459712800000, lon: 16, lat: 48, val: 13.56},
-{param: 'tmpprs', z: 85000, time: 459734400000, lon: 16, lat: 48, val: 12.84},
-{param: 'tmpprs', z: 85000, time: 459756000000, lon: 16, lat: 48, val: 12},
-{param: 'tmpprs', z: 85000, time: 459777600000, lon: 16, lat: 48, val: 12.9},
-{param: 'tmpprs', z: 85000, time: 459799200000, lon: 16, lat: 48, val: 13.57},
-{param: 'tmpprs', z: 85000, time: 459820800000, lon: 16, lat: 48, val: 12.85},
-{param: 'tmpprs', z: 85000, time: 459842400000, lon: 16, lat: 48, val: 12.01},
-{param: 'tmpprs', z: 85000, time: 459864000000, lon: 16, lat: 48, val: 12.9},
-{param: 'tmpprs', z: 85000, time: 459885600000, lon: 16, lat: 48, val: 13.58},
-{param: 'tmpprs', z: 85000, time: 459907200000, lon: 16, lat: 48, val: 12.85},
-{param: 'tmpprs', z: 85000, time: 459928800000, lon: 16, lat: 48, val: 12.02},
-{param: 'tmpprs', z: 85000, time: 459950400000, lon: 16, lat: 48, val: 12.9},
-{param: 'tmpprs', z: 85000, time: 459972000000, lon: 16, lat: 48, val: 13.57},
-{param: 'tmpprs', z: 85000, time: 459993600000, lon: 16, lat: 48, val: 12.85},
-{param: 'tmpprs', z: 85000, time: 460015200000, lon: 16, lat: 48, val: 12.02},
-{param: 'tmpprs', z: 85000, time: 460036800000, lon: 16, lat: 48, val: 12.89},
-{param: 'tmpprs', z: 85000, time: 460058400000, lon: 16, lat: 48, val: 13.57},
-{param: 'tmpprs', z: 85000, time: 460080000000, lon: 16, lat: 48, val: 12.85},
-{param: 'tmpprs', z: 85000, time: 460101600000, lon: 16, lat: 48, val: 12.01},
-{param: 'tmpprs', z: 85000, time: 460123200000, lon: 16, lat: 48, val: 12.88},
-{param: 'tmpprs', z: 85000, time: 460144800000, lon: 16, lat: 48, val: 13.55},
-{param: 'tmpprs', z: 85000, time: 460166400000, lon: 16, lat: 48, val: 12.84},
-{param: 'tmpprs', z: 85000, time: 460188000000, lon: 16, lat: 48, val: 12.01},
-{param: 'tmpprs', z: 85000, time: 460209600000, lon: 16, lat: 48, val: 12.86},
-{param: 'tmpprs', z: 85000, time: 460231200000, lon: 16, lat: 48, val: 13.54},
-{param: 'tmpprs', z: 85000, time: 460252800000, lon: 16, lat: 48, val: 12.83},
-{param: 'tmpprs', z: 85000, time: 460274400000, lon: 16, lat: 48, val: 11.99},
-{param: 'tmpprs', z: 85000, time: 460296000000, lon: 16, lat: 48, val: 12.84},
-{param: 'tmpprs', z: 85000, time: 460317600000, lon: 16, lat: 48, val: 13.51},
-{param: 'tmpprs', z: 85000, time: 460339200000, lon: 16, lat: 48, val: 12.81},
-{param: 'tmpprs', z: 85000, time: 460360800000, lon: 16, lat: 48, val: 11.98},
-{param: 'tmpprs', z: 85000, time: 460382400000, lon: 16, lat: 48, val: 12.82},
-{param: 'tmpprs', z: 85000, time: 460404000000, lon: 16, lat: 48, val: 13.49},
-{param: 'tmpprs', z: 85000, time: 460425600000, lon: 16, lat: 48, val: 12.79},
-{param: 'tmpprs', z: 85000, time: 460447200000, lon: 16, lat: 48, val: 11.96},
-{param: 'tmpprs', z: 85000, time: 460468800000, lon: 16, lat: 48, val: 12.79},
-{param: 'tmpprs', z: 85000, time: 460490400000, lon: 16, lat: 48, val: 13.45},
-{param: 'tmpprs', z: 85000, time: 460512000000, lon: 16, lat: 48, val: 12.76},
-{param: 'tmpprs', z: 85000, time: 460533600000, lon: 16, lat: 48, val: 11.93},
-{param: 'tmpprs', z: 85000, time: 460555200000, lon: 16, lat: 48, val: 12.75},
-{param: 'tmpprs', z: 85000, time: 460576800000, lon: 16, lat: 48, val: 13.42},
-{param: 'tmpprs', z: 85000, time: 460598400000, lon: 16, lat: 48, val: 12.73},
-{param: 'tmpprs', z: 85000, time: 460620000000, lon: 16, lat: 48, val: 11.9},
-{param: 'tmpprs', z: 85000, time: 460641600000, lon: 16, lat: 48, val: 12.71},
-{param: 'tmpprs', z: 85000, time: 460663200000, lon: 16, lat: 48, val: 13.37},
-{param: 'tmpprs', z: 85000, time: 460684800000, lon: 16, lat: 48, val: 12.69},
-{param: 'tmpprs', z: 85000, time: 460706400000, lon: 16, lat: 48, val: 11.87},
-{param: 'tmpprs', z: 85000, time: 460728000000, lon: 16, lat: 48, val: 12.67},
-{param: 'tmpprs', z: 85000, time: 460749600000, lon: 16, lat: 48, val: 13.33},
-{param: 'tmpprs', z: 85000, time: 460771200000, lon: 16, lat: 48, val: 12.65},
-{param: 'tmpprs', z: 85000, time: 460792800000, lon: 16, lat: 48, val: 11.83},
-{param: 'tmpprs', z: 85000, time: 460814400000, lon: 16, lat: 48, val: 12.62},
-{param: 'tmpprs', z: 85000, time: 460836000000, lon: 16, lat: 48, val: 13.28},
-{param: 'tmpprs', z: 85000, time: 460857600000, lon: 16, lat: 48, val: 12.61},
-{param: 'tmpprs', z: 85000, time: 460879200000, lon: 16, lat: 48, val: 11.79},
-{param: 'tmpprs', z: 85000, time: 460900800000, lon: 16, lat: 48, val: 12.57},
-{param: 'tmpprs', z: 85000, time: 460922400000, lon: 16, lat: 48, val: 13.22},
-{param: 'tmpprs', z: 85000, time: 460944000000, lon: 16, lat: 48, val: 12.56},
-{param: 'tmpprs', z: 85000, time: 460965600000, lon: 16, lat: 48, val: 11.74},
-{param: 'tmpprs', z: 85000, time: 460987200000, lon: 16, lat: 48, val: 12.51},
-{param: 'tmpprs', z: 85000, time: 461008800000, lon: 16, lat: 48, val: 13.16},
-{param: 'tmpprs', z: 85000, time: 461030400000, lon: 16, lat: 48, val: 12.51},
-{param: 'tmpprs', z: 85000, time: 461052000000, lon: 16, lat: 48, val: 11.69},
-{param: 'tmpprs', z: 85000, time: 461073600000, lon: 16, lat: 48, val: 12.45},
-{param: 'tmpprs', z: 85000, time: 461095200000, lon: 16, lat: 48, val: 13.09},
-{param: 'tmpprs', z: 85000, time: 461116800000, lon: 16, lat: 48, val: 12.45},
-{param: 'tmpprs', z: 85000, time: 461138400000, lon: 16, lat: 48, val: 11.64},
-{param: 'tmpprs', z: 85000, time: 461160000000, lon: 16, lat: 48, val: 12.38},
-{param: 'tmpprs', z: 85000, time: 461181600000, lon: 16, lat: 48, val: 13.02},
-{param: 'tmpprs', z: 85000, time: 461203200000, lon: 16, lat: 48, val: 12.39},
-{param: 'tmpprs', z: 85000, time: 461224800000, lon: 16, lat: 48, val: 11.58},
-{param: 'tmpprs', z: 85000, time: 461246400000, lon: 16, lat: 48, val: 12.31},
-{param: 'tmpprs', z: 85000, time: 461268000000, lon: 16, lat: 48, val: 12.95},
-{param: 'tmpprs', z: 85000, time: 461289600000, lon: 16, lat: 48, val: 12.32},
-{param: 'tmpprs', z: 85000, time: 461311200000, lon: 16, lat: 48, val: 11.52},
-{param: 'tmpprs', z: 85000, time: 461332800000, lon: 16, lat: 48, val: 12.24},
-{param: 'tmpprs', z: 85000, time: 461354400000, lon: 16, lat: 48, val: 12.87},
-{param: 'tmpprs', z: 85000, time: 461376000000, lon: 16, lat: 48, val: 12.26},
-{param: 'tmpprs', z: 85000, time: 461397600000, lon: 16, lat: 48, val: 11.45},
-{param: 'tmpprs', z: 85000, time: 461419200000, lon: 16, lat: 48, val: 12.16},
-{param: 'tmpprs', z: 85000, time: 461440800000, lon: 16, lat: 48, val: 12.79},
-{param: 'tmpprs', z: 85000, time: 461462400000, lon: 16, lat: 48, val: 12.18},
-{param: 'tmpprs', z: 85000, time: 461484000000, lon: 16, lat: 48, val: 11.38},
-{param: 'tmpprs', z: 85000, time: 461505600000, lon: 16, lat: 48, val: 12.08},
-{param: 'tmpprs', z: 85000, time: 461527200000, lon: 16, lat: 48, val: 12.7},
-{param: 'tmpprs', z: 85000, time: 461548800000, lon: 16, lat: 48, val: 12.11},
-{param: 'tmpprs', z: 85000, time: 461570400000, lon: 16, lat: 48, val: 11.31},
-{param: 'tmpprs', z: 85000, time: 461592000000, lon: 16, lat: 48, val: 12},
-{param: 'tmpprs', z: 85000, time: 461613600000, lon: 16, lat: 48, val: 12.61},
-{param: 'tmpprs', z: 85000, time: 461635200000, lon: 16, lat: 48, val: 12.03},
-{param: 'tmpprs', z: 85000, time: 461656800000, lon: 16, lat: 48, val: 11.24},
-{param: 'tmpprs', z: 85000, time: 461678400000, lon: 16, lat: 48, val: 11.91},
-{param: 'tmpprs', z: 85000, time: 461700000000, lon: 16, lat: 48, val: 12.52},
-{param: 'tmpprs', z: 85000, time: 461721600000, lon: 16, lat: 48, val: 11.95},
-{param: 'tmpprs', z: 85000, time: 461743200000, lon: 16, lat: 48, val: 11.16},
-{param: 'tmpprs', z: 85000, time: 461764800000, lon: 16, lat: 48, val: 11.82},
-{param: 'tmpprs', z: 85000, time: 461786400000, lon: 16, lat: 48, val: 12.43},
-{param: 'tmpprs', z: 85000, time: 461808000000, lon: 16, lat: 48, val: 11.87},
-{param: 'tmpprs', z: 85000, time: 461829600000, lon: 16, lat: 48, val: 11.08},
-{param: 'tmpprs', z: 85000, time: 461851200000, lon: 16, lat: 48, val: 11.72},
-{param: 'tmpprs', z: 85000, time: 461872800000, lon: 16, lat: 48, val: 12.33},
-{param: 'tmpprs', z: 85000, time: 461894400000, lon: 16, lat: 48, val: 11.78},
-{param: 'tmpprs', z: 85000, time: 461916000000, lon: 16, lat: 48, val: 11},
-{param: 'tmpprs', z: 85000, time: 461937600000, lon: 16, lat: 48, val: 11.63},
-{param: 'tmpprs', z: 85000, time: 461959200000, lon: 16, lat: 48, val: 12.23},
-{param: 'tmpprs', z: 85000, time: 461980800000, lon: 16, lat: 48, val: 11.69},
-{param: 'tmpprs', z: 85000, time: 462002400000, lon: 16, lat: 48, val: 10.92},
-{param: 'tmpprs', z: 85000, time: 462024000000, lon: 16, lat: 48, val: 11.53},
-{param: 'tmpprs', z: 85000, time: 462045600000, lon: 16, lat: 48, val: 12.12},
-{param: 'tmpprs', z: 85000, time: 462067200000, lon: 16, lat: 48, val: 11.6},
-{param: 'tmpprs', z: 85000, time: 462088800000, lon: 16, lat: 48, val: 10.83},
-{param: 'tmpprs', z: 85000, time: 462110400000, lon: 16, lat: 48, val: 11.43},
-{param: 'tmpprs', z: 85000, time: 462132000000, lon: 16, lat: 48, val: 12.02},
-{param: 'tmpprs', z: 85000, time: 462153600000, lon: 16, lat: 48, val: 11.51},
-{param: 'tmpprs', z: 85000, time: 462175200000, lon: 16, lat: 48, val: 10.74},
-{param: 'tmpprs', z: 85000, time: 462196800000, lon: 16, lat: 48, val: 11.32},
-{param: 'tmpprs', z: 85000, time: 462218400000, lon: 16, lat: 48, val: 11.91},
-{param: 'tmpprs', z: 85000, time: 462240000000, lon: 16, lat: 48, val: 11.41},
-{param: 'tmpprs', z: 85000, time: 462261600000, lon: 16, lat: 48, val: 10.65},
-{param: 'tmpprs', z: 85000, time: 462283200000, lon: 16, lat: 48, val: 11.22},
-{param: 'tmpprs', z: 85000, time: 462304800000, lon: 16, lat: 48, val: 11.8},
-{param: 'tmpprs', z: 85000, time: 462326400000, lon: 16, lat: 48, val: 11.32},
-{param: 'tmpprs', z: 85000, time: 462348000000, lon: 16, lat: 48, val: 10.56},
-{param: 'tmpprs', z: 85000, time: 462369600000, lon: 16, lat: 48, val: 11.11},
-{param: 'tmpprs', z: 85000, time: 462391200000, lon: 16, lat: 48, val: 11.69},
-{param: 'tmpprs', z: 85000, time: 462412800000, lon: 16, lat: 48, val: 11.22},
-{param: 'tmpprs', z: 85000, time: 462434400000, lon: 16, lat: 48, val: 10.46},
-{param: 'tmpprs', z: 85000, time: 462456000000, lon: 16, lat: 48, val: 11},
-{param: 'tmpprs', z: 85000, time: 462477600000, lon: 16, lat: 48, val: 11.57},
-{param: 'tmpprs', z: 85000, time: 462499200000, lon: 16, lat: 48, val: 11.12},
-{param: 'tmpprs', z: 85000, time: 462520800000, lon: 16, lat: 48, val: 10.37},
-{param: 'tmpprs', z: 85000, time: 462542400000, lon: 16, lat: 48, val: 10.89},
-{param: 'tmpprs', z: 85000, time: 462564000000, lon: 16, lat: 48, val: 11.46},
-{param: 'tmpprs', z: 85000, time: 462585600000, lon: 16, lat: 48, val: 11.02},
-{param: 'tmpprs', z: 85000, time: 462607200000, lon: 16, lat: 48, val: 10.27},
-{param: 'tmpprs', z: 85000, time: 462628800000, lon: 16, lat: 48, val: 10.78},
-{param: 'tmpprs', z: 85000, time: 462650400000, lon: 16, lat: 48, val: 11.34},
-{param: 'tmpprs', z: 85000, time: 462672000000, lon: 16, lat: 48, val: 10.91},
-{param: 'tmpprs', z: 85000, time: 462693600000, lon: 16, lat: 48, val: 10.17},
-{param: 'tmpprs', z: 85000, time: 462715200000, lon: 16, lat: 48, val: 10.67},
-{param: 'tmpprs', z: 85000, time: 462736800000, lon: 16, lat: 48, val: 11.22},
-{param: 'tmpprs', z: 85000, time: 462758400000, lon: 16, lat: 48, val: 10.81},
-{param: 'tmpprs', z: 85000, time: 462780000000, lon: 16, lat: 48, val: 10.07},
-{param: 'tmpprs', z: 85000, time: 462801600000, lon: 16, lat: 48, val: 10.55},
-{param: 'tmpprs', z: 85000, time: 462823200000, lon: 16, lat: 48, val: 11.11},
-{param: 'tmpprs', z: 85000, time: 462844800000, lon: 16, lat: 48, val: 10.7},
-{param: 'tmpprs', z: 85000, time: 462866400000, lon: 16, lat: 48, val: 9.97},
-{param: 'tmpprs', z: 85000, time: 462888000000, lon: 16, lat: 48, val: 10.44},
-{param: 'tmpprs', z: 85000, time: 462909600000, lon: 16, lat: 48, val: 10.99},
-{param: 'tmpprs', z: 85000, time: 462931200000, lon: 16, lat: 48, val: 10.6},
-{param: 'tmpprs', z: 85000, time: 462952800000, lon: 16, lat: 48, val: 9.87},
-{param: 'tmpprs', z: 85000, time: 462974400000, lon: 16, lat: 48, val: 10.32},
-{param: 'tmpprs', z: 85000, time: 462996000000, lon: 16, lat: 48, val: 10.87},
-{param: 'tmpprs', z: 85000, time: 463017600000, lon: 16, lat: 48, val: 10.49},
-{param: 'tmpprs', z: 85000, time: 463039200000, lon: 16, lat: 48, val: 9.77},
-{param: 'tmpprs', z: 85000, time: 463060800000, lon: 16, lat: 48, val: 10.21},
-{param: 'tmpprs', z: 85000, time: 463082400000, lon: 16, lat: 48, val: 10.74},
-{param: 'tmpprs', z: 85000, time: 463104000000, lon: 16, lat: 48, val: 10.38},
-{param: 'tmpprs', z: 85000, time: 463125600000, lon: 16, lat: 48, val: 9.67},
-{param: 'tmpprs', z: 85000, time: 463147200000, lon: 16, lat: 48, val: 10.09},
-{param: 'tmpprs', z: 85000, time: 463168800000, lon: 16, lat: 48, val: 10.62},
-{param: 'tmpprs', z: 85000, time: 463190400000, lon: 16, lat: 48, val: 10.28},
-{param: 'tmpprs', z: 85000, time: 463212000000, lon: 16, lat: 48, val: 9.56},
-{param: 'tmpprs', z: 85000, time: 463233600000, lon: 16, lat: 48, val: 9.97},
-{param: 'tmpprs', z: 85000, time: 463255200000, lon: 16, lat: 48, val: 10.5},
-{param: 'tmpprs', z: 85000, time: 463276800000, lon: 16, lat: 48, val: 10.17},
-{param: 'tmpprs', z: 85000, time: 463298400000, lon: 16, lat: 48, val: 9.46},
-{param: 'tmpprs', z: 85000, time: 463320000000, lon: 16, lat: 48, val: 9.86},
-{param: 'tmpprs', z: 85000, time: 463341600000, lon: 16, lat: 48, val: 10.38},
-{param: 'tmpprs', z: 85000, time: 463363200000, lon: 16, lat: 48, val: 10.06},
-{param: 'tmpprs', z: 85000, time: 463384800000, lon: 16, lat: 48, val: 9.36},
-{param: 'tmpprs', z: 85000, time: 463406400000, lon: 16, lat: 48, val: 9.74},
-{param: 'tmpprs', z: 85000, time: 463428000000, lon: 16, lat: 48, val: 10.26},
-{param: 'tmpprs', z: 85000, time: 463449600000, lon: 16, lat: 48, val: 9.95},
-{param: 'tmpprs', z: 85000, time: 463471200000, lon: 16, lat: 48, val: 9.26},
-{param: 'tmpprs', z: 85000, time: 463492800000, lon: 16, lat: 48, val: 9.62},
-{param: 'tmpprs', z: 85000, time: 463514400000, lon: 16, lat: 48, val: 10.14},
-{param: 'tmpprs', z: 85000, time: 463536000000, lon: 16, lat: 48, val: 9.84},
-{param: 'tmpprs', z: 85000, time: 463557600000, lon: 16, lat: 48, val: 9.15},
-{param: 'tmpprs', z: 85000, time: 463579200000, lon: 16, lat: 48, val: 9.51},
-{param: 'tmpprs', z: 85000, time: 463600800000, lon: 16, lat: 48, val: 10.01},
-{param: 'tmpprs', z: 85000, time: 463622400000, lon: 16, lat: 48, val: 9.73},
-{param: 'tmpprs', z: 85000, time: 463644000000, lon: 16, lat: 48, val: 9.05},
-{param: 'tmpprs', z: 85000, time: 463665600000, lon: 16, lat: 48, val: 9.39},
-{param: 'tmpprs', z: 85000, time: 463687200000, lon: 16, lat: 48, val: 9.89},
-{param: 'tmpprs', z: 85000, time: 463708800000, lon: 16, lat: 48, val: 9.62},
-{param: 'tmpprs', z: 85000, time: 463730400000, lon: 16, lat: 48, val: 8.95},
-{param: 'tmpprs', z: 85000, time: 463752000000, lon: 16, lat: 48, val: 9.27},
-{param: 'tmpprs', z: 85000, time: 463773600000, lon: 16, lat: 48, val: 9.77},
-{param: 'tmpprs', z: 85000, time: 463795200000, lon: 16, lat: 48, val: 9.51},
-{param: 'tmpprs', z: 85000, time: 463816800000, lon: 16, lat: 48, val: 8.84},
-{param: 'tmpprs', z: 85000, time: 463838400000, lon: 16, lat: 48, val: 9.16},
-{param: 'tmpprs', z: 85000, time: 463860000000, lon: 16, lat: 48, val: 9.65},
-{param: 'tmpprs', z: 85000, time: 463881600000, lon: 16, lat: 48, val: 9.41},
-{param: 'tmpprs', z: 85000, time: 463903200000, lon: 16, lat: 48, val: 8.74},
-{param: 'tmpprs', z: 85000, time: 463924800000, lon: 16, lat: 48, val: 9.04},
-{param: 'tmpprs', z: 85000, time: 463946400000, lon: 16, lat: 48, val: 9.53},
-{param: 'tmpprs', z: 85000, time: 463968000000, lon: 16, lat: 48, val: 9.3},
-{param: 'tmpprs', z: 85000, time: 463989600000, lon: 16, lat: 48, val: 8.64},
-{param: 'tmpprs', z: 85000, time: 464011200000, lon: 16, lat: 48, val: 8.93},
-{param: 'tmpprs', z: 85000, time: 464032800000, lon: 16, lat: 48, val: 9.41},
-{param: 'tmpprs', z: 85000, time: 464054400000, lon: 16, lat: 48, val: 9.19},
-{param: 'tmpprs', z: 85000, time: 464076000000, lon: 16, lat: 48, val: 8.54},
-{param: 'tmpprs', z: 85000, time: 464097600000, lon: 16, lat: 48, val: 8.81},
-{param: 'tmpprs', z: 85000, time: 464119200000, lon: 16, lat: 48, val: 9.29},
-{param: 'tmpprs', z: 85000, time: 464140800000, lon: 16, lat: 48, val: 9.08},
-{param: 'tmpprs', z: 85000, time: 464162400000, lon: 16, lat: 48, val: 8.43},
-{param: 'tmpprs', z: 85000, time: 464184000000, lon: 16, lat: 48, val: 8.7},
-{param: 'tmpprs', z: 85000, time: 464205600000, lon: 16, lat: 48, val: 9.17},
-{param: 'tmpprs', z: 85000, time: 464227200000, lon: 16, lat: 48, val: 8.97},
-{param: 'tmpprs', z: 85000, time: 464248800000, lon: 16, lat: 48, val: 8.33},
-{param: 'tmpprs', z: 85000, time: 464270400000, lon: 16, lat: 48, val: 8.59},
-{param: 'tmpprs', z: 85000, time: 464292000000, lon: 16, lat: 48, val: 9.05},
-{param: 'tmpprs', z: 85000, time: 464313600000, lon: 16, lat: 48, val: 8.86},
-{param: 'tmpprs', z: 85000, time: 464335200000, lon: 16, lat: 48, val: 8.23},
-{param: 'tmpprs', z: 85000, time: 464356800000, lon: 16, lat: 48, val: 8.47},
-{param: 'tmpprs', z: 85000, time: 464378400000, lon: 16, lat: 48, val: 8.93},
-{param: 'tmpprs', z: 85000, time: 464400000000, lon: 16, lat: 48, val: 8.76},
-{param: 'tmpprs', z: 85000, time: 464421600000, lon: 16, lat: 48, val: 8.13},
-{param: 'tmpprs', z: 85000, time: 464443200000, lon: 16, lat: 48, val: 8.36},
-{param: 'tmpprs', z: 85000, time: 464464800000, lon: 16, lat: 48, val: 8.82},
-{param: 'tmpprs', z: 85000, time: 464486400000, lon: 16, lat: 48, val: 8.65},
-{param: 'tmpprs', z: 85000, time: 464508000000, lon: 16, lat: 48, val: 8.03},
-{param: 'tmpprs', z: 85000, time: 464529600000, lon: 16, lat: 48, val: 8.25},
-{param: 'tmpprs', z: 85000, time: 464551200000, lon: 16, lat: 48, val: 8.7},
-{param: 'tmpprs', z: 85000, time: 464572800000, lon: 16, lat: 48, val: 8.54},
-{param: 'tmpprs', z: 85000, time: 464594400000, lon: 16, lat: 48, val: 7.93},
-{param: 'tmpprs', z: 85000, time: 464616000000, lon: 16, lat: 48, val: 8.14},
-{param: 'tmpprs', z: 85000, time: 464637600000, lon: 16, lat: 48, val: 8.58},
-{param: 'tmpprs', z: 85000, time: 464659200000, lon: 16, lat: 48, val: 8.43},
-{param: 'tmpprs', z: 85000, time: 464680800000, lon: 16, lat: 48, val: 7.83},
-{param: 'tmpprs', z: 85000, time: 464702400000, lon: 16, lat: 48, val: 8.03},
-{param: 'tmpprs', z: 85000, time: 464724000000, lon: 16, lat: 48, val: 8.47},
-{param: 'tmpprs', z: 85000, time: 464745600000, lon: 16, lat: 48, val: 8.33},
-{param: 'tmpprs', z: 85000, time: 464767200000, lon: 16, lat: 48, val: 7.73},
-{param: 'tmpprs', z: 85000, time: 464788800000, lon: 16, lat: 48, val: 7.92},
-{param: 'tmpprs', z: 85000, time: 464810400000, lon: 16, lat: 48, val: 8.35},
-{param: 'tmpprs', z: 85000, time: 464832000000, lon: 16, lat: 48, val: 8.22},
-{param: 'tmpprs', z: 85000, time: 464853600000, lon: 16, lat: 48, val: 7.63},
-{param: 'tmpprs', z: 85000, time: 464875200000, lon: 16, lat: 48, val: 7.81},
-{param: 'tmpprs', z: 85000, time: 464896800000, lon: 16, lat: 48, val: 8.24},
-{param: 'tmpprs', z: 85000, time: 464918400000, lon: 16, lat: 48, val: 8.11},
-{param: 'tmpprs', z: 85000, time: 464940000000, lon: 16, lat: 48, val: 7.53},
-{param: 'tmpprs', z: 85000, time: 464961600000, lon: 16, lat: 48, val: 7.7},
-{param: 'tmpprs', z: 85000, time: 464983200000, lon: 16, lat: 48, val: 8.13},
-{param: 'tmpprs', z: 85000, time: 465004800000, lon: 16, lat: 48, val: 8.01},
-{param: 'tmpprs', z: 85000, time: 465026400000, lon: 16, lat: 48, val: 7.43},
-{param: 'tmpprs', z: 85000, time: 465048000000, lon: 16, lat: 48, val: 7.6},
-{param: 'tmpprs', z: 85000, time: 465069600000, lon: 16, lat: 48, val: 8.01},
-{param: 'tmpprs', z: 85000, time: 465091200000, lon: 16, lat: 48, val: 7.9},
-{param: 'tmpprs', z: 85000, time: 465112800000, lon: 16, lat: 48, val: 7.33},
-{param: 'tmpprs', z: 85000, time: 465134400000, lon: 16, lat: 48, val: 7.49},
-{param: 'tmpprs', z: 85000, time: 465156000000, lon: 16, lat: 48, val: 7.9},
-{param: 'tmpprs', z: 85000, time: 465177600000, lon: 16, lat: 48, val: 7.79},
-{param: 'tmpprs', z: 85000, time: 465199200000, lon: 16, lat: 48, val: 7.23},
-{param: 'tmpprs', z: 85000, time: 465220800000, lon: 16, lat: 48, val: 7.38},
-{param: 'tmpprs', z: 85000, time: 465242400000, lon: 16, lat: 48, val: 7.78},
-{param: 'tmpprs', z: 85000, time: 465264000000, lon: 16, lat: 48, val: 7.68},
-{param: 'tmpprs', z: 85000, time: 465285600000, lon: 16, lat: 48, val: 7.13},
-{param: 'tmpprs', z: 85000, time: 465307200000, lon: 16, lat: 48, val: 7.28},
-{param: 'tmpprs', z: 85000, time: 465328800000, lon: 16, lat: 48, val: 7.67},
-{param: 'tmpprs', z: 85000, time: 465350400000, lon: 16, lat: 48, val: 7.58},
-{param: 'tmpprs', z: 85000, time: 465372000000, lon: 16, lat: 48, val: 7.03},
-{param: 'tmpprs', z: 85000, time: 465393600000, lon: 16, lat: 48, val: 7.17},
-{param: 'tmpprs', z: 85000, time: 465415200000, lon: 16, lat: 48, val: 7.56},
-{param: 'tmpprs', z: 85000, time: 465436800000, lon: 16, lat: 48, val: 7.47},
-{param: 'tmpprs', z: 85000, time: 465458400000, lon: 16, lat: 48, val: 6.93},
-{param: 'tmpprs', z: 85000, time: 465480000000, lon: 16, lat: 48, val: 7.06},
-{param: 'tmpprs', z: 85000, time: 465501600000, lon: 16, lat: 48, val: 7.44},
-{param: 'tmpprs', z: 85000, time: 465523200000, lon: 16, lat: 48, val: 7.36},
-{param: 'tmpprs', z: 85000, time: 465544800000, lon: 16, lat: 48, val: 6.82},
-{param: 'tmpprs', z: 85000, time: 465566400000, lon: 16, lat: 48, val: 6.96},
-{param: 'tmpprs', z: 85000, time: 465588000000, lon: 16, lat: 48, val: 7.33},
-{param: 'tmpprs', z: 85000, time: 465609600000, lon: 16, lat: 48, val: 7.25},
-{param: 'tmpprs', z: 85000, time: 465631200000, lon: 16, lat: 48, val: 6.72},
-{param: 'tmpprs', z: 85000, time: 465652800000, lon: 16, lat: 48, val: 6.85},
-{param: 'tmpprs', z: 85000, time: 465674400000, lon: 16, lat: 48, val: 7.22},
-{param: 'tmpprs', z: 85000, time: 465696000000, lon: 16, lat: 48, val: 7.14},
-{param: 'tmpprs', z: 85000, time: 465717600000, lon: 16, lat: 48, val: 6.62},
-{param: 'tmpprs', z: 85000, time: 465739200000, lon: 16, lat: 48, val: 6.75},
-{param: 'tmpprs', z: 85000, time: 465760800000, lon: 16, lat: 48, val: 7.1},
-{param: 'tmpprs', z: 85000, time: 465782400000, lon: 16, lat: 48, val: 7.03},
-{param: 'tmpprs', z: 85000, time: 465804000000, lon: 16, lat: 48, val: 6.52},
-{param: 'tmpprs', z: 85000, time: 465825600000, lon: 16, lat: 48, val: 6.64},
-{param: 'tmpprs', z: 85000, time: 465847200000, lon: 16, lat: 48, val: 6.99},
-{param: 'tmpprs', z: 85000, time: 465868800000, lon: 16, lat: 48, val: 6.92},
-{param: 'tmpprs', z: 85000, time: 465890400000, lon: 16, lat: 48, val: 6.41},
-{param: 'tmpprs', z: 85000, time: 465912000000, lon: 16, lat: 48, val: 6.53},
-{param: 'tmpprs', z: 85000, time: 465933600000, lon: 16, lat: 48, val: 6.87},
-{param: 'tmpprs', z: 85000, time: 465955200000, lon: 16, lat: 48, val: 6.81},
-{param: 'tmpprs', z: 85000, time: 465976800000, lon: 16, lat: 48, val: 6.31},
-{param: 'tmpprs', z: 85000, time: 465998400000, lon: 16, lat: 48, val: 6.43},
-{param: 'tmpprs', z: 85000, time: 466020000000, lon: 16, lat: 48, val: 6.76},
-{param: 'tmpprs', z: 85000, time: 466041600000, lon: 16, lat: 48, val: 6.69},
-{param: 'tmpprs', z: 85000, time: 466063200000, lon: 16, lat: 48, val: 6.2},
-{param: 'tmpprs', z: 85000, time: 466084800000, lon: 16, lat: 48, val: 6.32},
-{param: 'tmpprs', z: 85000, time: 466106400000, lon: 16, lat: 48, val: 6.64},
-{param: 'tmpprs', z: 85000, time: 466128000000, lon: 16, lat: 48, val: 6.58},
-{param: 'tmpprs', z: 85000, time: 466149600000, lon: 16, lat: 48, val: 6.1},
-{param: 'tmpprs', z: 85000, time: 466171200000, lon: 16, lat: 48, val: 6.21},
-{param: 'tmpprs', z: 85000, time: 466192800000, lon: 16, lat: 48, val: 6.52},
-{param: 'tmpprs', z: 85000, time: 466214400000, lon: 16, lat: 48, val: 6.46},
-{param: 'tmpprs', z: 85000, time: 466236000000, lon: 16, lat: 48, val: 5.99},
-{param: 'tmpprs', z: 85000, time: 466257600000, lon: 16, lat: 48, val: 6.1},
-{param: 'tmpprs', z: 85000, time: 466279200000, lon: 16, lat: 48, val: 6.41},
-{param: 'tmpprs', z: 85000, time: 466300800000, lon: 16, lat: 48, val: 6.35},
-{param: 'tmpprs', z: 85000, time: 466322400000, lon: 16, lat: 48, val: 5.88},
-{param: 'tmpprs', z: 85000, time: 466344000000, lon: 16, lat: 48, val: 5.99},
-{param: 'tmpprs', z: 85000, time: 466365600000, lon: 16, lat: 48, val: 6.29},
-{param: 'tmpprs', z: 85000, time: 466387200000, lon: 16, lat: 48, val: 6.23},
-{param: 'tmpprs', z: 85000, time: 466408800000, lon: 16, lat: 48, val: 5.77},
-{param: 'tmpprs', z: 85000, time: 466430400000, lon: 16, lat: 48, val: 5.88},
-{param: 'tmpprs', z: 85000, time: 466452000000, lon: 16, lat: 48, val: 6.17},
-{param: 'tmpprs', z: 85000, time: 466473600000, lon: 16, lat: 48, val: 6.11},
-{param: 'tmpprs', z: 85000, time: 466495200000, lon: 16, lat: 48, val: 5.66},
-{param: 'tmpprs', z: 85000, time: 466516800000, lon: 16, lat: 48, val: 5.77},
-{param: 'tmpprs', z: 85000, time: 466538400000, lon: 16, lat: 48, val: 6.05},
-{param: 'tmpprs', z: 85000, time: 466560000000, lon: 16, lat: 48, val: 5.99},
-{param: 'tmpprs', z: 85000, time: 466581600000, lon: 16, lat: 48, val: 5.55},
-{param: 'tmpprs', z: 85000, time: 466603200000, lon: 16, lat: 48, val: 5.66},
-{param: 'tmpprs', z: 85000, time: 466624800000, lon: 16, lat: 48, val: 5.93},
-{param: 'tmpprs', z: 85000, time: 466646400000, lon: 16, lat: 48, val: 5.87},
-{param: 'tmpprs', z: 85000, time: 466668000000, lon: 16, lat: 48, val: 5.43},
-{param: 'tmpprs', z: 85000, time: 466689600000, lon: 16, lat: 48, val: 5.54},
-{param: 'tmpprs', z: 85000, time: 466711200000, lon: 16, lat: 48, val: 5.8},
-{param: 'tmpprs', z: 85000, time: 466732800000, lon: 16, lat: 48, val: 5.75},
-{param: 'tmpprs', z: 85000, time: 466754400000, lon: 16, lat: 48, val: 5.32},
-{param: 'tmpprs', z: 85000, time: 466776000000, lon: 16, lat: 48, val: 5.43},
-{param: 'tmpprs', z: 85000, time: 466797600000, lon: 16, lat: 48, val: 5.68},
-{param: 'tmpprs', z: 85000, time: 466819200000, lon: 16, lat: 48, val: 5.62},
-{param: 'tmpprs', z: 85000, time: 466840800000, lon: 16, lat: 48, val: 5.2},
-{param: 'tmpprs', z: 85000, time: 466862400000, lon: 16, lat: 48, val: 5.31},
-{param: 'tmpprs', z: 85000, time: 466884000000, lon: 16, lat: 48, val: 5.55},
-{param: 'tmpprs', z: 85000, time: 466905600000, lon: 16, lat: 48, val: 5.5},
-{param: 'tmpprs', z: 85000, time: 466927200000, lon: 16, lat: 48, val: 5.08},
-{param: 'tmpprs', z: 85000, time: 466948800000, lon: 16, lat: 48, val: 5.2},
-{param: 'tmpprs', z: 85000, time: 466970400000, lon: 16, lat: 48, val: 5.43},
-{param: 'tmpprs', z: 85000, time: 466992000000, lon: 16, lat: 48, val: 5.37},
-{param: 'tmpprs', z: 85000, time: 467013600000, lon: 16, lat: 48, val: 4.96},
-{param: 'tmpprs', z: 85000, time: 467035200000, lon: 16, lat: 48, val: 5.08},
-{param: 'tmpprs', z: 85000, time: 467056800000, lon: 16, lat: 48, val: 5.3},
-{param: 'tmpprs', z: 85000, time: 467078400000, lon: 16, lat: 48, val: 5.24},
-{param: 'tmpprs', z: 85000, time: 467100000000, lon: 16, lat: 48, val: 4.84},
-{param: 'tmpprs', z: 85000, time: 467121600000, lon: 16, lat: 48, val: 4.96},
-{param: 'tmpprs', z: 85000, time: 467143200000, lon: 16, lat: 48, val: 5.17},
-{param: 'tmpprs', z: 85000, time: 467164800000, lon: 16, lat: 48, val: 5.11},
-{param: 'tmpprs', z: 85000, time: 467186400000, lon: 16, lat: 48, val: 4.72},
-{param: 'tmpprs', z: 85000, time: 467208000000, lon: 16, lat: 48, val: 4.84},
-{param: 'tmpprs', z: 85000, time: 467229600000, lon: 16, lat: 48, val: 5.04},
-{param: 'tmpprs', z: 85000, time: 467251200000, lon: 16, lat: 48, val: 4.98},
-{param: 'tmpprs', z: 85000, time: 467272800000, lon: 16, lat: 48, val: 4.59},
-{param: 'tmpprs', z: 85000, time: 467294400000, lon: 16, lat: 48, val: 4.72},
-{param: 'tmpprs', z: 85000, time: 467316000000, lon: 16, lat: 48, val: 4.9},
-{param: 'tmpprs', z: 85000, time: 467337600000, lon: 16, lat: 48, val: 4.84},
-{param: 'tmpprs', z: 85000, time: 467359200000, lon: 16, lat: 48, val: 4.47},
-{param: 'tmpprs', z: 85000, time: 467380800000, lon: 16, lat: 48, val: 4.59},
-{param: 'tmpprs', z: 85000, time: 467402400000, lon: 16, lat: 48, val: 4.77},
-{param: 'tmpprs', z: 85000, time: 467424000000, lon: 16, lat: 48, val: 4.71},
-{param: 'tmpprs', z: 85000, time: 467445600000, lon: 16, lat: 48, val: 4.34},
-{param: 'tmpprs', z: 85000, time: 467467200000, lon: 16, lat: 48, val: 4.47},
-{param: 'tmpprs', z: 85000, time: 467488800000, lon: 16, lat: 48, val: 4.64},
-{param: 'tmpprs', z: 85000, time: 467510400000, lon: 16, lat: 48, val: 4.57},
-{param: 'tmpprs', z: 85000, time: 467532000000, lon: 16, lat: 48, val: 4.21},
-{param: 'tmpprs', z: 85000, time: 467553600000, lon: 16, lat: 48, val: 4.34},
-{param: 'tmpprs', z: 85000, time: 467575200000, lon: 16, lat: 48, val: 4.5},
-{param: 'tmpprs', z: 85000, time: 467596800000, lon: 16, lat: 48, val: 4.43},
-{param: 'tmpprs', z: 85000, time: 467618400000, lon: 16, lat: 48, val: 4.08},
-{param: 'tmpprs', z: 85000, time: 467640000000, lon: 16, lat: 48, val: 4.21},
-{param: 'tmpprs', z: 85000, time: 467661600000, lon: 16, lat: 48, val: 4.36},
-{param: 'tmpprs', z: 85000, time: 467683200000, lon: 16, lat: 48, val: 4.3},
-{param: 'tmpprs', z: 85000, time: 467704800000, lon: 16, lat: 48, val: 3.95},
-{param: 'tmpprs', z: 85000, time: 467726400000, lon: 16, lat: 48, val: 4.09},
-{param: 'tmpprs', z: 85000, time: 467748000000, lon: 16, lat: 48, val: 4.22},
-{param: 'tmpprs', z: 85000, time: 467769600000, lon: 16, lat: 48, val: 4.15},
-{param: 'tmpprs', z: 85000, time: 467791200000, lon: 16, lat: 48, val: 3.81},
-{param: 'tmpprs', z: 85000, time: 467812800000, lon: 16, lat: 48, val: 3.96},
-{param: 'tmpprs', z: 85000, time: 467834400000, lon: 16, lat: 48, val: 4.08},
-{param: 'tmpprs', z: 85000, time: 467856000000, lon: 16, lat: 48, val: 4.01},
-{param: 'tmpprs', z: 85000, time: 467877600000, lon: 16, lat: 48, val: 3.68},
-{param: 'tmpprs', z: 85000, time: 467899200000, lon: 16, lat: 48, val: 3.82},
-{param: 'tmpprs', z: 85000, time: 467920800000, lon: 16, lat: 48, val: 3.94},
-{param: 'tmpprs', z: 85000, time: 467942400000, lon: 16, lat: 48, val: 3.87},
-{param: 'tmpprs', z: 85000, time: 467964000000, lon: 16, lat: 48, val: 3.54},
-{param: 'tmpprs', z: 85000, time: 467985600000, lon: 16, lat: 48, val: 3.69},
-{param: 'tmpprs', z: 85000, time: 468007200000, lon: 16, lat: 48, val: 3.79},
-{param: 'tmpprs', z: 85000, time: 468028800000, lon: 16, lat: 48, val: 3.73},
-{param: 'tmpprs', z: 85000, time: 468050400000, lon: 16, lat: 48, val: 3.4},
-{param: 'tmpprs', z: 85000, time: 468072000000, lon: 16, lat: 48, val: 3.56},
-{param: 'tmpprs', z: 85000, time: 468093600000, lon: 16, lat: 48, val: 3.65},
-{param: 'tmpprs', z: 85000, time: 468115200000, lon: 16, lat: 48, val: 3.58},
-{param: 'tmpprs', z: 85000, time: 468136800000, lon: 16, lat: 48, val: 3.26},
-{param: 'tmpprs', z: 85000, time: 468158400000, lon: 16, lat: 48, val: 3.42},
-{param: 'tmpprs', z: 85000, time: 468180000000, lon: 16, lat: 48, val: 3.51},
-{param: 'tmpprs', z: 85000, time: 468201600000, lon: 16, lat: 48, val: 3.44},
-{param: 'tmpprs', z: 85000, time: 468223200000, lon: 16, lat: 48, val: 3.12},
-{param: 'tmpprs', z: 85000, time: 468244800000, lon: 16, lat: 48, val: 3.29},
-{param: 'tmpprs', z: 85000, time: 468266400000, lon: 16, lat: 48, val: 3.36},
-{param: 'tmpprs', z: 85000, time: 468288000000, lon: 16, lat: 48, val: 3.29},
-{param: 'tmpprs', z: 85000, time: 468309600000, lon: 16, lat: 48, val: 2.98},
-{param: 'tmpprs', z: 85000, time: 468331200000, lon: 16, lat: 48, val: 3.15},
-{param: 'tmpprs', z: 85000, time: 468352800000, lon: 16, lat: 48, val: 3.21},
-{param: 'tmpprs', z: 85000, time: 468374400000, lon: 16, lat: 48, val: 3.14},
-{param: 'tmpprs', z: 85000, time: 468396000000, lon: 16, lat: 48, val: 2.84},
-{param: 'tmpprs', z: 85000, time: 468417600000, lon: 16, lat: 48, val: 3.01},
-{param: 'tmpprs', z: 85000, time: 468439200000, lon: 16, lat: 48, val: 3.06},
-{param: 'tmpprs', z: 85000, time: 468460800000, lon: 16, lat: 48, val: 2.99},
-{param: 'tmpprs', z: 85000, time: 468482400000, lon: 16, lat: 48, val: 2.7},
-{param: 'tmpprs', z: 85000, time: 468504000000, lon: 16, lat: 48, val: 2.87},
-{param: 'tmpprs', z: 85000, time: 468525600000, lon: 16, lat: 48, val: 2.92},
-{param: 'tmpprs', z: 85000, time: 468547200000, lon: 16, lat: 48, val: 2.84},
-{param: 'tmpprs', z: 85000, time: 468568800000, lon: 16, lat: 48, val: 2.55},
-{param: 'tmpprs', z: 85000, time: 468590400000, lon: 16, lat: 48, val: 2.73},
-{param: 'tmpprs', z: 85000, time: 468612000000, lon: 16, lat: 48, val: 2.77},
-{param: 'tmpprs', z: 85000, time: 468633600000, lon: 16, lat: 48, val: 2.7},
-{param: 'tmpprs', z: 85000, time: 468655200000, lon: 16, lat: 48, val: 2.41},
-{param: 'tmpprs', z: 85000, time: 468676800000, lon: 16, lat: 48, val: 2.59},
-{param: 'tmpprs', z: 85000, time: 468698400000, lon: 16, lat: 48, val: 2.62},
-{param: 'tmpprs', z: 85000, time: 468720000000, lon: 16, lat: 48, val: 2.55},
-{param: 'tmpprs', z: 85000, time: 468741600000, lon: 16, lat: 48, val: 2.26},
-{param: 'tmpprs', z: 85000, time: 468763200000, lon: 16, lat: 48, val: 2.45},
-{param: 'tmpprs', z: 85000, time: 468784800000, lon: 16, lat: 48, val: 2.47},
-{param: 'tmpprs', z: 85000, time: 468806400000, lon: 16, lat: 48, val: 2.4},
-{param: 'tmpprs', z: 85000, time: 468828000000, lon: 16, lat: 48, val: 2.12},
-{param: 'tmpprs', z: 85000, time: 468849600000, lon: 16, lat: 48, val: 2.31},
-{param: 'tmpprs', z: 85000, time: 468871200000, lon: 16, lat: 48, val: 2.32},
-{param: 'tmpprs', z: 85000, time: 468892800000, lon: 16, lat: 48, val: 2.25},
-{param: 'tmpprs', z: 85000, time: 468914400000, lon: 16, lat: 48, val: 1.97},
-{param: 'tmpprs', z: 85000, time: 468936000000, lon: 16, lat: 48, val: 2.17},
-{param: 'tmpprs', z: 85000, time: 468957600000, lon: 16, lat: 48, val: 2.17},
-{param: 'tmpprs', z: 85000, time: 468979200000, lon: 16, lat: 48, val: 2.1},
-{param: 'tmpprs', z: 85000, time: 469000800000, lon: 16, lat: 48, val: 1.83},
-{param: 'tmpprs', z: 85000, time: 469022400000, lon: 16, lat: 48, val: 2.03},
-{param: 'tmpprs', z: 85000, time: 469044000000, lon: 16, lat: 48, val: 2.02},
-{param: 'tmpprs', z: 85000, time: 469065600000, lon: 16, lat: 48, val: 1.95},
-{param: 'tmpprs', z: 85000, time: 469087200000, lon: 16, lat: 48, val: 1.68},
-{param: 'tmpprs', z: 85000, time: 469108800000, lon: 16, lat: 48, val: 1.89},
-{param: 'tmpprs', z: 85000, time: 469130400000, lon: 16, lat: 48, val: 1.87},
-{param: 'tmpprs', z: 85000, time: 469152000000, lon: 16, lat: 48, val: 1.8},
-{param: 'tmpprs', z: 85000, time: 469173600000, lon: 16, lat: 48, val: 1.54},
-{param: 'tmpprs', z: 85000, time: 469195200000, lon: 16, lat: 48, val: 1.75},
-{param: 'tmpprs', z: 85000, time: 469216800000, lon: 16, lat: 48, val: 1.72},
-{param: 'tmpprs', z: 85000, time: 469238400000, lon: 16, lat: 48, val: 1.66},
-{param: 'tmpprs', z: 85000, time: 469260000000, lon: 16, lat: 48, val: 1.4},
-{param: 'tmpprs', z: 85000, time: 469281600000, lon: 16, lat: 48, val: 1.61},
-{param: 'tmpprs', z: 85000, time: 469303200000, lon: 16, lat: 48, val: 1.58},
-{param: 'tmpprs', z: 85000, time: 469324800000, lon: 16, lat: 48, val: 1.51},
-{param: 'tmpprs', z: 85000, time: 469346400000, lon: 16, lat: 48, val: 1.25},
-{param: 'tmpprs', z: 85000, time: 469368000000, lon: 16, lat: 48, val: 1.47},
-{param: 'tmpprs', z: 85000, time: 469389600000, lon: 16, lat: 48, val: 1.43},
-{param: 'tmpprs', z: 85000, time: 469411200000, lon: 16, lat: 48, val: 1.37},
-{param: 'tmpprs', z: 85000, time: 469432800000, lon: 16, lat: 48, val: 1.11},
-{param: 'tmpprs', z: 85000, time: 469454400000, lon: 16, lat: 48, val: 1.33},
-{param: 'tmpprs', z: 85000, time: 469476000000, lon: 16, lat: 48, val: 1.28},
-{param: 'tmpprs', z: 85000, time: 469497600000, lon: 16, lat: 48, val: 1.22},
-{param: 'tmpprs', z: 85000, time: 469519200000, lon: 16, lat: 48, val: 0.97},
-{param: 'tmpprs', z: 85000, time: 469540800000, lon: 16, lat: 48, val: 1.19},
-{param: 'tmpprs', z: 85000, time: 469562400000, lon: 16, lat: 48, val: 1.14},
-{param: 'tmpprs', z: 85000, time: 469584000000, lon: 16, lat: 48, val: 1.08},
-{param: 'tmpprs', z: 85000, time: 469605600000, lon: 16, lat: 48, val: 0.83},
-{param: 'tmpprs', z: 85000, time: 469627200000, lon: 16, lat: 48, val: 1.05},
-{param: 'tmpprs', z: 85000, time: 469648800000, lon: 16, lat: 48, val: 1},
-{param: 'tmpprs', z: 85000, time: 469670400000, lon: 16, lat: 48, val: 0.94},
-{param: 'tmpprs', z: 85000, time: 469692000000, lon: 16, lat: 48, val: 0.69},
-{param: 'tmpprs', z: 85000, time: 469713600000, lon: 16, lat: 48, val: 0.92},
-{param: 'tmpprs', z: 85000, time: 469735200000, lon: 16, lat: 48, val: 0.85},
-{param: 'tmpprs', z: 85000, time: 469756800000, lon: 16, lat: 48, val: 0.8},
-{param: 'tmpprs', z: 85000, time: 469778400000, lon: 16, lat: 48, val: 0.55},
-{param: 'tmpprs', z: 85000, time: 469800000000, lon: 16, lat: 48, val: 0.78},
-{param: 'tmpprs', z: 85000, time: 469821600000, lon: 16, lat: 48, val: 0.71},
-{param: 'tmpprs', z: 85000, time: 469843200000, lon: 16, lat: 48, val: 0.66},
-{param: 'tmpprs', z: 85000, time: 469864800000, lon: 16, lat: 48, val: 0.42},
-{param: 'tmpprs', z: 85000, time: 469886400000, lon: 16, lat: 48, val: 0.65},
-{param: 'tmpprs', z: 85000, time: 469908000000, lon: 16, lat: 48, val: 0.58},
-{param: 'tmpprs', z: 85000, time: 469929600000, lon: 16, lat: 48, val: 0.53},
-{param: 'tmpprs', z: 85000, time: 469951200000, lon: 16, lat: 48, val: 0.29},
-{param: 'tmpprs', z: 85000, time: 469972800000, lon: 16, lat: 48, val: 0.52},
-{param: 'tmpprs', z: 85000, time: 469994400000, lon: 16, lat: 48, val: 0.44},
-{param: 'tmpprs', z: 85000, time: 470016000000, lon: 16, lat: 48, val: 0.4},
-{param: 'tmpprs', z: 85000, time: 470037600000, lon: 16, lat: 48, val: 0.15},
-{param: 'tmpprs', z: 85000, time: 470059200000, lon: 16, lat: 48, val: 0.39},
-{param: 'tmpprs', z: 85000, time: 470080800000, lon: 16, lat: 48, val: 0.31},
-{param: 'tmpprs', z: 85000, time: 470102400000, lon: 16, lat: 48, val: 0.27},
-{param: 'tmpprs', z: 85000, time: 470124000000, lon: 16, lat: 48, val: 0.02},
-{param: 'tmpprs', z: 85000, time: 470145600000, lon: 16, lat: 48, val: 0.26},
-{param: 'tmpprs', z: 85000, time: 470167200000, lon: 16, lat: 48, val: 0.17},
-{param: 'tmpprs', z: 85000, time: 470188800000, lon: 16, lat: 48, val: 0.14},
-{param: 'tmpprs', z: 85000, time: 470210400000, lon: 16, lat: 48, val: -0.1},
-{param: 'tmpprs', z: 85000, time: 470232000000, lon: 16, lat: 48, val: 0.13},
-{param: 'tmpprs', z: 85000, time: 470253600000, lon: 16, lat: 48, val: 0.05},
-{param: 'tmpprs', z: 85000, time: 470275200000, lon: 16, lat: 48, val: 0.01},
-{param: 'tmpprs', z: 85000, time: 470296800000, lon: 16, lat: 48, val: -0.23},
-{param: 'tmpprs', z: 85000, time: 470318400000, lon: 16, lat: 48, val: 0.01},
-{param: 'tmpprs', z: 85000, time: 470340000000, lon: 16, lat: 48, val: -0.08},
-{param: 'tmpprs', z: 85000, time: 470361600000, lon: 16, lat: 48, val: -0.11},
-{param: 'tmpprs', z: 85000, time: 470383200000, lon: 16, lat: 48, val: -0.35},
-{param: 'tmpprs', z: 85000, time: 470404800000, lon: 16, lat: 48, val: -0.11},
-{param: 'tmpprs', z: 85000, time: 470426400000, lon: 16, lat: 48, val: -0.21},
-{param: 'tmpprs', z: 85000, time: 470448000000, lon: 16, lat: 48, val: -0.23},
-{param: 'tmpprs', z: 85000, time: 470469600000, lon: 16, lat: 48, val: -0.47},
-{param: 'tmpprs', z: 85000, time: 470491200000, lon: 16, lat: 48, val: -0.23},
-{param: 'tmpprs', z: 85000, time: 470512800000, lon: 16, lat: 48, val: -0.33},
-{param: 'tmpprs', z: 85000, time: 470534400000, lon: 16, lat: 48, val: -0.35},
-{param: 'tmpprs', z: 85000, time: 470556000000, lon: 16, lat: 48, val: -0.59},
-{param: 'tmpprs', z: 85000, time: 470577600000, lon: 16, lat: 48, val: -0.35},
-{param: 'tmpprs', z: 85000, time: 470599200000, lon: 16, lat: 48, val: -0.44},
-{param: 'tmpprs', z: 85000, time: 470620800000, lon: 16, lat: 48, val: -0.46},
-{param: 'tmpprs', z: 85000, time: 470642400000, lon: 16, lat: 48, val: -0.7},
-{param: 'tmpprs', z: 85000, time: 470664000000, lon: 16, lat: 48, val: -0.46},
-{param: 'tmpprs', z: 85000, time: 470685600000, lon: 16, lat: 48, val: -0.56},
-{param: 'tmpprs', z: 85000, time: 470707200000, lon: 16, lat: 48, val: -0.57},
-{param: 'tmpprs', z: 85000, time: 470728800000, lon: 16, lat: 48, val: -0.81},
-{param: 'tmpprs', z: 85000, time: 470750400000, lon: 16, lat: 48, val: -0.57},
-{param: 'tmpprs', z: 85000, time: 470772000000, lon: 16, lat: 48, val: -0.67},
-{param: 'tmpprs', z: 85000, time: 470793600000, lon: 16, lat: 48, val: -0.68},
-{param: 'tmpprs', z: 85000, time: 470815200000, lon: 16, lat: 48, val: -0.92},
-{param: 'tmpprs', z: 85000, time: 470836800000, lon: 16, lat: 48, val: -0.68},
-{param: 'tmpprs', z: 85000, time: 470858400000, lon: 16, lat: 48, val: -0.78},
-{param: 'tmpprs', z: 85000, time: 470880000000, lon: 16, lat: 48, val: -0.78},
-{param: 'tmpprs', z: 85000, time: 470901600000, lon: 16, lat: 48, val: -1.03},
-{param: 'tmpprs', z: 85000, time: 470923200000, lon: 16, lat: 48, val: -0.79},
-{param: 'tmpprs', z: 85000, time: 470944800000, lon: 16, lat: 48, val: -0.88},
-{param: 'tmpprs', z: 85000, time: 470966400000, lon: 16, lat: 48, val: -0.88},
-{param: 'tmpprs', z: 85000, time: 470988000000, lon: 16, lat: 48, val: -1.13},
-{param: 'tmpprs', z: 85000, time: 471009600000, lon: 16, lat: 48, val: -0.89},
-{param: 'tmpprs', z: 85000, time: 471031200000, lon: 16, lat: 48, val: -0.99},
-{param: 'tmpprs', z: 85000, time: 471052800000, lon: 16, lat: 48, val: -0.98},
-{param: 'tmpprs', z: 85000, time: 471074400000, lon: 16, lat: 48, val: -1.23},
-{param: 'tmpprs', z: 85000, time: 471096000000, lon: 16, lat: 48, val: -0.99},
-{param: 'tmpprs', z: 85000, time: 471117600000, lon: 16, lat: 48, val: -1.08},
-{param: 'tmpprs', z: 85000, time: 471139200000, lon: 16, lat: 48, val: -1.08},
-{param: 'tmpprs', z: 85000, time: 471160800000, lon: 16, lat: 48, val: -1.32},
-{param: 'tmpprs', z: 85000, time: 471182400000, lon: 16, lat: 48, val: -1.08},
-{param: 'tmpprs', z: 85000, time: 471204000000, lon: 16, lat: 48, val: -1.18},
-{param: 'tmpprs', z: 85000, time: 471225600000, lon: 16, lat: 48, val: -1.17},
-{param: 'tmpprs', z: 85000, time: 471247200000, lon: 16, lat: 48, val: -1.41},
-{param: 'tmpprs', z: 85000, time: 471268800000, lon: 16, lat: 48, val: -1.17},
-{param: 'tmpprs', z: 85000, time: 471290400000, lon: 16, lat: 48, val: -1.27},
-{param: 'tmpprs', z: 85000, time: 471312000000, lon: 16, lat: 48, val: -1.25},
-{param: 'tmpprs', z: 85000, time: 471333600000, lon: 16, lat: 48, val: -1.5},
-{param: 'tmpprs', z: 85000, time: 471355200000, lon: 16, lat: 48, val: -1.26},
-{param: 'tmpprs', z: 85000, time: 471376800000, lon: 16, lat: 48, val: -1.36},
-{param: 'tmpprs', z: 85000, time: 471398400000, lon: 16, lat: 48, val: -1.33},
-{param: 'tmpprs', z: 85000, time: 471420000000, lon: 16, lat: 48, val: -1.59},
-{param: 'tmpprs', z: 85000, time: 471441600000, lon: 16, lat: 48, val: -1.35},
-{param: 'tmpprs', z: 85000, time: 471463200000, lon: 16, lat: 48, val: -1.44},
-{param: 'tmpprs', z: 85000, time: 471484800000, lon: 16, lat: 48, val: -1.41},
-{param: 'tmpprs', z: 85000, time: 471506400000, lon: 16, lat: 48, val: -1.67},
-{param: 'tmpprs', z: 85000, time: 471528000000, lon: 16, lat: 48, val: -1.43},
-{param: 'tmpprs', z: 85000, time: 471549600000, lon: 16, lat: 48, val: -1.52},
-{param: 'tmpprs', z: 85000, time: 471571200000, lon: 16, lat: 48, val: -1.49},
-{param: 'tmpprs', z: 85000, time: 471592800000, lon: 16, lat: 48, val: -1.74},
-{param: 'tmpprs', z: 85000, time: 471614400000, lon: 16, lat: 48, val: -1.51},
-{param: 'tmpprs', z: 85000, time: 471636000000, lon: 16, lat: 48, val: -1.6},
-{param: 'tmpprs', z: 85000, time: 471657600000, lon: 16, lat: 48, val: -1.56},
-{param: 'tmpprs', z: 85000, time: 471679200000, lon: 16, lat: 48, val: -1.82},
-{param: 'tmpprs', z: 85000, time: 471700800000, lon: 16, lat: 48, val: -1.58},
-{param: 'tmpprs', z: 85000, time: 471722400000, lon: 16, lat: 48, val: -1.67},
-{param: 'tmpprs', z: 85000, time: 471744000000, lon: 16, lat: 48, val: -1.63},
-{param: 'tmpprs', z: 85000, time: 471765600000, lon: 16, lat: 48, val: -1.89},
-{param: 'tmpprs', z: 85000, time: 471787200000, lon: 16, lat: 48, val: -1.66},
-{param: 'tmpprs', z: 85000, time: 471808800000, lon: 16, lat: 48, val: -1.74},
-{param: 'tmpprs', z: 85000, time: 471830400000, lon: 16, lat: 48, val: -1.7},
-{param: 'tmpprs', z: 85000, time: 471852000000, lon: 16, lat: 48, val: -1.96},
-{param: 'tmpprs', z: 85000, time: 471873600000, lon: 16, lat: 48, val: -1.72},
-{param: 'tmpprs', z: 85000, time: 471895200000, lon: 16, lat: 48, val: -1.8},
-{param: 'tmpprs', z: 85000, time: 471916800000, lon: 16, lat: 48, val: -1.76},
-{param: 'tmpprs', z: 85000, time: 471938400000, lon: 16, lat: 48, val: -2.02},
-{param: 'tmpprs', z: 85000, time: 471960000000, lon: 16, lat: 48, val: -1.79},
-{param: 'tmpprs', z: 85000, time: 471981600000, lon: 16, lat: 48, val: -1.87},
-{param: 'tmpprs', z: 85000, time: 472003200000, lon: 16, lat: 48, val: -1.82},
-{param: 'tmpprs', z: 85000, time: 472024800000, lon: 16, lat: 48, val: -2.08},
-{param: 'tmpprs', z: 85000, time: 472046400000, lon: 16, lat: 48, val: -1.85},
-{param: 'tmpprs', z: 85000, time: 472068000000, lon: 16, lat: 48, val: -1.93},
-{param: 'tmpprs', z: 85000, time: 472089600000, lon: 16, lat: 48, val: -1.87},
-{param: 'tmpprs', z: 85000, time: 472111200000, lon: 16, lat: 48, val: -2.14},
-{param: 'tmpprs', z: 85000, time: 472132800000, lon: 16, lat: 48, val: -1.91},
-{param: 'tmpprs', z: 85000, time: 472154400000, lon: 16, lat: 48, val: -1.98},
-{param: 'tmpprs', z: 85000, time: 472176000000, lon: 16, lat: 48, val: -1.92},
-{param: 'tmpprs', z: 85000, time: 472197600000, lon: 16, lat: 48, val: -2.19},
-{param: 'tmpprs', z: 85000, time: 472219200000, lon: 16, lat: 48, val: -1.96},
-{param: 'tmpprs', z: 85000, time: 472240800000, lon: 16, lat: 48, val: -2.03},
-{param: 'tmpprs', z: 85000, time: 472262400000, lon: 16, lat: 48, val: -1.97},
-{param: 'tmpprs', z: 85000, time: 472284000000, lon: 16, lat: 48, val: -2.24},
-{param: 'tmpprs', z: 85000, time: 472305600000, lon: 16, lat: 48, val: -2.01},
-{param: 'tmpprs', z: 85000, time: 472327200000, lon: 16, lat: 48, val: -2.08},
-{param: 'tmpprs', z: 85000, time: 472348800000, lon: 16, lat: 48, val: -2.02},
-{param: 'tmpprs', z: 85000, time: 472370400000, lon: 16, lat: 48, val: -2.29},
-{param: 'tmpprs', z: 85000, time: 472392000000, lon: 16, lat: 48, val: -2.06},
-{param: 'tmpprs', z: 85000, time: 472413600000, lon: 16, lat: 48, val: -2.13},
-{param: 'tmpprs', z: 85000, time: 472435200000, lon: 16, lat: 48, val: -2.06},
-{param: 'tmpprs', z: 85000, time: 472456800000, lon: 16, lat: 48, val: -2.33},
-{param: 'tmpprs', z: 85000, time: 472478400000, lon: 16, lat: 48, val: -2.11},
-{param: 'tmpprs', z: 85000, time: 472500000000, lon: 16, lat: 48, val: -2.17},
-{param: 'tmpprs', z: 85000, time: 472521600000, lon: 16, lat: 48, val: -2.1},
-{param: 'tmpprs', z: 85000, time: 472543200000, lon: 16, lat: 48, val: -2.37},
-{param: 'tmpprs', z: 85000, time: 472564800000, lon: 16, lat: 48, val: -2.15},
-{param: 'tmpprs', z: 85000, time: 472586400000, lon: 16, lat: 48, val: -2.21},
-{param: 'tmpprs', z: 85000, time: 472608000000, lon: 16, lat: 48, val: -2.13},
-{param: 'tmpprs', z: 85000, time: 472629600000, lon: 16, lat: 48, val: -2.41},
-{param: 'tmpprs', z: 85000, time: 472651200000, lon: 16, lat: 48, val: -2.19},
-{param: 'tmpprs', z: 85000, time: 472672800000, lon: 16, lat: 48, val: -2.25},
-{param: 'tmpprs', z: 85000, time: 472694400000, lon: 16, lat: 48, val: -2.17},
-{param: 'tmpprs', z: 85000, time: 472716000000, lon: 16, lat: 48, val: -2.45},
-{param: 'tmpprs', z: 85000, time: 472737600000, lon: 16, lat: 48, val: -2.23},
-{param: 'tmpprs', z: 85000, time: 472759200000, lon: 16, lat: 48, val: -2.28},
-{param: 'tmpprs', z: 85000, time: 472780800000, lon: 16, lat: 48, val: -2.2},
-{param: 'tmpprs', z: 85000, time: 472802400000, lon: 16, lat: 48, val: -2.48},
-{param: 'tmpprs', z: 85000, time: 472824000000, lon: 16, lat: 48, val: -2.26},
-{param: 'tmpprs', z: 85000, time: 472845600000, lon: 16, lat: 48, val: -2.31},
-{param: 'tmpprs', z: 85000, time: 472867200000, lon: 16, lat: 48, val: -2.23},
-{param: 'tmpprs', z: 85000, time: 472888800000, lon: 16, lat: 48, val: -2.51},
-{param: 'tmpprs', z: 85000, time: 472910400000, lon: 16, lat: 48, val: -2.3},
-{param: 'tmpprs', z: 85000, time: 472932000000, lon: 16, lat: 48, val: -2.34},
-{param: 'tmpprs', z: 85000, time: 472953600000, lon: 16, lat: 48, val: -2.26},
-{param: 'tmpprs', z: 85000, time: 472975200000, lon: 16, lat: 48, val: -2.54},
-{param: 'tmpprs', z: 85000, time: 472996800000, lon: 16, lat: 48, val: -2.33},
-{param: 'tmpprs', z: 85000, time: 473018400000, lon: 16, lat: 48, val: -2.37},
-{param: 'tmpprs', z: 85000, time: 473040000000, lon: 16, lat: 48, val: -2.28},
-{param: 'tmpprs', z: 85000, time: 473061600000, lon: 16, lat: 48, val: -2.57},
-{param: 'tmpprs', z: 85000, time: 473083200000, lon: 16, lat: 48, val: -2.35},
-{param: 'tmpprs', z: 85000, time: 473104800000, lon: 16, lat: 48, val: -2.39},
-{param: 'tmpprs', z: 85000, time: 473126400000, lon: 16, lat: 48, val: -2.3},
-{param: 'tmpprs', z: 85000, time: 473148000000, lon: 16, lat: 48, val: -2.59},
-{param: 'tmpprs', z: 85000, time: 473169600000, lon: 16, lat: 48, val: -2.38},
-{param: 'tmpprs', z: 85000, time: 473191200000, lon: 16, lat: 48, val: -2.41},
-{param: 'tmpprs', z: 85000, time: 473212800000, lon: 16, lat: 48, val: -2.33},
-{param: 'tmpprs', z: 85000, time: 473234400000, lon: 16, lat: 48, val: -2.61},
-{param: 'tmpprs', z: 85000, time: 473256000000, lon: 16, lat: 48, val: -2.4},
-{param: 'tmpprs', z: 85000, time: 473277600000, lon: 16, lat: 48, val: -2.43},
-{param: 'tmpprs', z: 85000, time: 473299200000, lon: 16, lat: 48, val: -2.35},
-{param: 'tmpprs', z: 85000, time: 473320800000, lon: 16, lat: 48, val: -2.63},
-{param: 'tmpprs', z: 85000, time: 473342400000, lon: 16, lat: 48, val: -2.42},
-{param: 'tmpprs', z: 85000, time: 473364000000, lon: 16, lat: 48, val: -2.45},
-{param: 'hgtprs', z: 50000, time: 441763200000, lon: 16, lat: 48, val: 5506.79},
-{param: 'hgtprs', z: 50000, time: 441784800000, lon: 16, lat: 48, val: 5500.83},
-{param: 'hgtprs', z: 50000, time: 441806400000, lon: 16, lat: 48, val: 5506.24},
-{param: 'hgtprs', z: 50000, time: 441828000000, lon: 16, lat: 48, val: 5506.92},
-{param: 'hgtprs', z: 50000, time: 441849600000, lon: 16, lat: 48, val: 5506.82},
-{param: 'hgtprs', z: 50000, time: 441871200000, lon: 16, lat: 48, val: 5500.85},
-{param: 'hgtprs', z: 50000, time: 441892800000, lon: 16, lat: 48, val: 5506.27},
-{param: 'hgtprs', z: 50000, time: 441914400000, lon: 16, lat: 48, val: 5506.96},
-{param: 'hgtprs', z: 50000, time: 441936000000, lon: 16, lat: 48, val: 5506.86},
-{param: 'hgtprs', z: 50000, time: 441957600000, lon: 16, lat: 48, val: 5500.88},
-{param: 'hgtprs', z: 50000, time: 441979200000, lon: 16, lat: 48, val: 5506.32},
-{param: 'hgtprs', z: 50000, time: 442000800000, lon: 16, lat: 48, val: 5507.03},
-{param: 'hgtprs', z: 50000, time: 442022400000, lon: 16, lat: 48, val: 5506.91},
-{param: 'hgtprs', z: 50000, time: 442044000000, lon: 16, lat: 48, val: 5500.91},
-{param: 'hgtprs', z: 50000, time: 442065600000, lon: 16, lat: 48, val: 5506.39},
-{param: 'hgtprs', z: 50000, time: 442087200000, lon: 16, lat: 48, val: 5507.09},
-{param: 'hgtprs', z: 50000, time: 442108800000, lon: 16, lat: 48, val: 5506.97},
-{param: 'hgtprs', z: 50000, time: 442130400000, lon: 16, lat: 48, val: 5500.96},
-{param: 'hgtprs', z: 50000, time: 442152000000, lon: 16, lat: 48, val: 5506.47},
-{param: 'hgtprs', z: 50000, time: 442173600000, lon: 16, lat: 48, val: 5507.17},
-{param: 'hgtprs', z: 50000, time: 442195200000, lon: 16, lat: 48, val: 5507.06},
-{param: 'hgtprs', z: 50000, time: 442216800000, lon: 16, lat: 48, val: 5501},
-{param: 'hgtprs', z: 50000, time: 442238400000, lon: 16, lat: 48, val: 5506.55},
-{param: 'hgtprs', z: 50000, time: 442260000000, lon: 16, lat: 48, val: 5507.25},
-{param: 'hgtprs', z: 50000, time: 442281600000, lon: 16, lat: 48, val: 5507.12},
-{param: 'hgtprs', z: 50000, time: 442303200000, lon: 16, lat: 48, val: 5501.06},
-{param: 'hgtprs', z: 50000, time: 442324800000, lon: 16, lat: 48, val: 5506.64},
-{param: 'hgtprs', z: 50000, time: 442346400000, lon: 16, lat: 48, val: 5507.32},
-{param: 'hgtprs', z: 50000, time: 442368000000, lon: 16, lat: 48, val: 5507.2},
-{param: 'hgtprs', z: 50000, time: 442389600000, lon: 16, lat: 48, val: 5501.11},
-{param: 'hgtprs', z: 50000, time: 442411200000, lon: 16, lat: 48, val: 5506.73},
-{param: 'hgtprs', z: 50000, time: 442432800000, lon: 16, lat: 48, val: 5507.39},
-{param: 'hgtprs', z: 50000, time: 442454400000, lon: 16, lat: 48, val: 5507.26},
-{param: 'hgtprs', z: 50000, time: 442476000000, lon: 16, lat: 48, val: 5501.15},
-{param: 'hgtprs', z: 50000, time: 442497600000, lon: 16, lat: 48, val: 5506.82},
-{param: 'hgtprs', z: 50000, time: 442519200000, lon: 16, lat: 48, val: 5507.45},
-{param: 'hgtprs', z: 50000, time: 442540800000, lon: 16, lat: 48, val: 5507.31},
-{param: 'hgtprs', z: 50000, time: 442562400000, lon: 16, lat: 48, val: 5501.18},
-{param: 'hgtprs', z: 50000, time: 442584000000, lon: 16, lat: 48, val: 5506.89},
-{param: 'hgtprs', z: 50000, time: 442605600000, lon: 16, lat: 48, val: 5507.5},
-{param: 'hgtprs', z: 50000, time: 442627200000, lon: 16, lat: 48, val: 5507.35},
-{param: 'hgtprs', z: 50000, time: 442648800000, lon: 16, lat: 48, val: 5501.19},
-{param: 'hgtprs', z: 50000, time: 442670400000, lon: 16, lat: 48, val: 5506.94},
-{param: 'hgtprs', z: 50000, time: 442692000000, lon: 16, lat: 48, val: 5507.54},
-{param: 'hgtprs', z: 50000, time: 442713600000, lon: 16, lat: 48, val: 5507.38},
-{param: 'hgtprs', z: 50000, time: 442735200000, lon: 16, lat: 48, val: 5501.2},
-{param: 'hgtprs', z: 50000, time: 442756800000, lon: 16, lat: 48, val: 5506.98},
-{param: 'hgtprs', z: 50000, time: 442778400000, lon: 16, lat: 48, val: 5507.55},
-{param: 'hgtprs', z: 50000, time: 442800000000, lon: 16, lat: 48, val: 5507.38},
-{param: 'hgtprs', z: 50000, time: 442821600000, lon: 16, lat: 48, val: 5501.17},
-{param: 'hgtprs', z: 50000, time: 442843200000, lon: 16, lat: 48, val: 5507.01},
-{param: 'hgtprs', z: 50000, time: 442864800000, lon: 16, lat: 48, val: 5507.55},
-{param: 'hgtprs', z: 50000, time: 442886400000, lon: 16, lat: 48, val: 5507.37},
-{param: 'hgtprs', z: 50000, time: 442908000000, lon: 16, lat: 48, val: 5501.13},
-{param: 'hgtprs', z: 50000, time: 442929600000, lon: 16, lat: 48, val: 5507},
-{param: 'hgtprs', z: 50000, time: 442951200000, lon: 16, lat: 48, val: 5507.52},
-{param: 'hgtprs', z: 50000, time: 442972800000, lon: 16, lat: 48, val: 5507.32},
-{param: 'hgtprs', z: 50000, time: 442994400000, lon: 16, lat: 48, val: 5501.05},
-{param: 'hgtprs', z: 50000, time: 443016000000, lon: 16, lat: 48, val: 5506.98},
-{param: 'hgtprs', z: 50000, time: 443037600000, lon: 16, lat: 48, val: 5507.45},
-{param: 'hgtprs', z: 50000, time: 443059200000, lon: 16, lat: 48, val: 5507.25},
-{param: 'hgtprs', z: 50000, time: 443080800000, lon: 16, lat: 48, val: 5500.96},
-{param: 'hgtprs', z: 50000, time: 443102400000, lon: 16, lat: 48, val: 5506.93},
-{param: 'hgtprs', z: 50000, time: 443124000000, lon: 16, lat: 48, val: 5507.37},
-{param: 'hgtprs', z: 50000, time: 443145600000, lon: 16, lat: 48, val: 5507.15},
-{param: 'hgtprs', z: 50000, time: 443167200000, lon: 16, lat: 48, val: 5500.82},
-{param: 'hgtprs', z: 50000, time: 443188800000, lon: 16, lat: 48, val: 5506.85},
-{param: 'hgtprs', z: 50000, time: 443210400000, lon: 16, lat: 48, val: 5507.24},
-{param: 'hgtprs', z: 50000, time: 443232000000, lon: 16, lat: 48, val: 5507.02},
-{param: 'hgtprs', z: 50000, time: 443253600000, lon: 16, lat: 48, val: 5500.66},
-{param: 'hgtprs', z: 50000, time: 443275200000, lon: 16, lat: 48, val: 5506.71},
-{param: 'hgtprs', z: 50000, time: 443296800000, lon: 16, lat: 48, val: 5507.09},
-{param: 'hgtprs', z: 50000, time: 443318400000, lon: 16, lat: 48, val: 5506.83},
-{param: 'hgtprs', z: 50000, time: 443340000000, lon: 16, lat: 48, val: 5500.45},
-{param: 'hgtprs', z: 50000, time: 443361600000, lon: 16, lat: 48, val: 5506.57},
-{param: 'hgtprs', z: 50000, time: 443383200000, lon: 16, lat: 48, val: 5506.88},
-{param: 'hgtprs', z: 50000, time: 443404800000, lon: 16, lat: 48, val: 5506.63},
-{param: 'hgtprs', z: 50000, time: 443426400000, lon: 16, lat: 48, val: 5500.21},
-{param: 'hgtprs', z: 50000, time: 443448000000, lon: 16, lat: 48, val: 5506.39},
-{param: 'hgtprs', z: 50000, time: 443469600000, lon: 16, lat: 48, val: 5506.66},
-{param: 'hgtprs', z: 50000, time: 443491200000, lon: 16, lat: 48, val: 5506.39},
-{param: 'hgtprs', z: 50000, time: 443512800000, lon: 16, lat: 48, val: 5499.92},
-{param: 'hgtprs', z: 50000, time: 443534400000, lon: 16, lat: 48, val: 5506.15},
-{param: 'hgtprs', z: 50000, time: 443556000000, lon: 16, lat: 48, val: 5506.39},
-{param: 'hgtprs', z: 50000, time: 443577600000, lon: 16, lat: 48, val: 5506.1},
-{param: 'hgtprs', z: 50000, time: 443599200000, lon: 16, lat: 48, val: 5499.6},
-{param: 'hgtprs', z: 50000, time: 443620800000, lon: 16, lat: 48, val: 5505.89},
-{param: 'hgtprs', z: 50000, time: 443642400000, lon: 16, lat: 48, val: 5506.07},
-{param: 'hgtprs', z: 50000, time: 443664000000, lon: 16, lat: 48, val: 5505.76},
-{param: 'hgtprs', z: 50000, time: 443685600000, lon: 16, lat: 48, val: 5499.23},
-{param: 'hgtprs', z: 50000, time: 443707200000, lon: 16, lat: 48, val: 5505.59},
-{param: 'hgtprs', z: 50000, time: 443728800000, lon: 16, lat: 48, val: 5505.73},
-{param: 'hgtprs', z: 50000, time: 443750400000, lon: 16, lat: 48, val: 5505.4},
-{param: 'hgtprs', z: 50000, time: 443772000000, lon: 16, lat: 48, val: 5498.83},
-{param: 'hgtprs', z: 50000, time: 443793600000, lon: 16, lat: 48, val: 5505.24},
-{param: 'hgtprs', z: 50000, time: 443815200000, lon: 16, lat: 48, val: 5505.34},
-{param: 'hgtprs', z: 50000, time: 443836800000, lon: 16, lat: 48, val: 5504.99},
-{param: 'hgtprs', z: 50000, time: 443858400000, lon: 16, lat: 48, val: 5498.38},
-{param: 'hgtprs', z: 50000, time: 443880000000, lon: 16, lat: 48, val: 5504.87},
-{param: 'hgtprs', z: 50000, time: 443901600000, lon: 16, lat: 48, val: 5504.9},
-{param: 'hgtprs', z: 50000, time: 443923200000, lon: 16, lat: 48, val: 5504.53},
-{param: 'hgtprs', z: 50000, time: 443944800000, lon: 16, lat: 48, val: 5497.88},
-{param: 'hgtprs', z: 50000, time: 443966400000, lon: 16, lat: 48, val: 5504.43},
-{param: 'hgtprs', z: 50000, time: 443988000000, lon: 16, lat: 48, val: 5504.43},
-{param: 'hgtprs', z: 50000, time: 444009600000, lon: 16, lat: 48, val: 5504.05},
-{param: 'hgtprs', z: 50000, time: 444031200000, lon: 16, lat: 48, val: 5497.36},
-{param: 'hgtprs', z: 50000, time: 444052800000, lon: 16, lat: 48, val: 5503.96},
-{param: 'hgtprs', z: 50000, time: 444074400000, lon: 16, lat: 48, val: 5503.91},
-{param: 'hgtprs', z: 50000, time: 444096000000, lon: 16, lat: 48, val: 5503.52},
-{param: 'hgtprs', z: 50000, time: 444117600000, lon: 16, lat: 48, val: 5496.78},
-{param: 'hgtprs', z: 50000, time: 444139200000, lon: 16, lat: 48, val: 5503.47},
-{param: 'hgtprs', z: 50000, time: 444160800000, lon: 16, lat: 48, val: 5503.35},
-{param: 'hgtprs', z: 50000, time: 444182400000, lon: 16, lat: 48, val: 5502.94},
-{param: 'hgtprs', z: 50000, time: 444204000000, lon: 16, lat: 48, val: 5496.16},
-{param: 'hgtprs', z: 50000, time: 444225600000, lon: 16, lat: 48, val: 5502.92},
-{param: 'hgtprs', z: 50000, time: 444247200000, lon: 16, lat: 48, val: 5502.76},
-{param: 'hgtprs', z: 50000, time: 444268800000, lon: 16, lat: 48, val: 5502.32},
-{param: 'hgtprs', z: 50000, time: 444290400000, lon: 16, lat: 48, val: 5495.52},
-{param: 'hgtprs', z: 50000, time: 444312000000, lon: 16, lat: 48, val: 5502.34},
-{param: 'hgtprs', z: 50000, time: 444333600000, lon: 16, lat: 48, val: 5502.14},
-{param: 'hgtprs', z: 50000, time: 444355200000, lon: 16, lat: 48, val: 5501.66},
-{param: 'hgtprs', z: 50000, time: 444376800000, lon: 16, lat: 48, val: 5494.81},
-{param: 'hgtprs', z: 50000, time: 444398400000, lon: 16, lat: 48, val: 5501.71},
-{param: 'hgtprs', z: 50000, time: 444420000000, lon: 16, lat: 48, val: 5501.47},
-{param: 'hgtprs', z: 50000, time: 444441600000, lon: 16, lat: 48, val: 5500.98},
-{param: 'hgtprs', z: 50000, time: 444463200000, lon: 16, lat: 48, val: 5494.08},
-{param: 'hgtprs', z: 50000, time: 444484800000, lon: 16, lat: 48, val: 5501.05},
-{param: 'hgtprs', z: 50000, time: 444506400000, lon: 16, lat: 48, val: 5500.75},
-{param: 'hgtprs', z: 50000, time: 444528000000, lon: 16, lat: 48, val: 5500.25},
-{param: 'hgtprs', z: 50000, time: 444549600000, lon: 16, lat: 48, val: 5493.32},
-{param: 'hgtprs', z: 50000, time: 444571200000, lon: 16, lat: 48, val: 5500.36},
-{param: 'hgtprs', z: 50000, time: 444592800000, lon: 16, lat: 48, val: 5500.02},
-{param: 'hgtprs', z: 50000, time: 444614400000, lon: 16, lat: 48, val: 5499.49},
-{param: 'hgtprs', z: 50000, time: 444636000000, lon: 16, lat: 48, val: 5492.52},
-{param: 'hgtprs', z: 50000, time: 444657600000, lon: 16, lat: 48, val: 5499.64},
-{param: 'hgtprs', z: 50000, time: 444679200000, lon: 16, lat: 48, val: 5499.25},
-{param: 'hgtprs', z: 50000, time: 444700800000, lon: 16, lat: 48, val: 5498.7},
-{param: 'hgtprs', z: 50000, time: 444722400000, lon: 16, lat: 48, val: 5491.68},
-{param: 'hgtprs', z: 50000, time: 444744000000, lon: 16, lat: 48, val: 5498.88},
-{param: 'hgtprs', z: 50000, time: 444765600000, lon: 16, lat: 48, val: 5498.46},
-{param: 'hgtprs', z: 50000, time: 444787200000, lon: 16, lat: 48, val: 5497.9},
-{param: 'hgtprs', z: 50000, time: 444808800000, lon: 16, lat: 48, val: 5490.82},
-{param: 'hgtprs', z: 50000, time: 444830400000, lon: 16, lat: 48, val: 5498.1},
-{param: 'hgtprs', z: 50000, time: 444852000000, lon: 16, lat: 48, val: 5497.64},
-{param: 'hgtprs', z: 50000, time: 444873600000, lon: 16, lat: 48, val: 5497.05},
-{param: 'hgtprs', z: 50000, time: 444895200000, lon: 16, lat: 48, val: 5489.93},
-{param: 'hgtprs', z: 50000, time: 444916800000, lon: 16, lat: 48, val: 5497.29},
-{param: 'hgtprs', z: 50000, time: 444938400000, lon: 16, lat: 48, val: 5496.79},
-{param: 'hgtprs', z: 50000, time: 444960000000, lon: 16, lat: 48, val: 5496.18},
-{param: 'hgtprs', z: 50000, time: 444981600000, lon: 16, lat: 48, val: 5489.02},
-{param: 'hgtprs', z: 50000, time: 445003200000, lon: 16, lat: 48, val: 5496.47},
-{param: 'hgtprs', z: 50000, time: 445024800000, lon: 16, lat: 48, val: 5495.94},
-{param: 'hgtprs', z: 50000, time: 445046400000, lon: 16, lat: 48, val: 5495.3},
-{param: 'hgtprs', z: 50000, time: 445068000000, lon: 16, lat: 48, val: 5488.08},
-{param: 'hgtprs', z: 50000, time: 445089600000, lon: 16, lat: 48, val: 5495.64},
-{param: 'hgtprs', z: 50000, time: 445111200000, lon: 16, lat: 48, val: 5495.05},
-{param: 'hgtprs', z: 50000, time: 445132800000, lon: 16, lat: 48, val: 5494.4},
-{param: 'hgtprs', z: 50000, time: 445154400000, lon: 16, lat: 48, val: 5487.14},
-{param: 'hgtprs', z: 50000, time: 445176000000, lon: 16, lat: 48, val: 5494.77},
-{param: 'hgtprs', z: 50000, time: 445197600000, lon: 16, lat: 48, val: 5494.16},
-{param: 'hgtprs', z: 50000, time: 445219200000, lon: 16, lat: 48, val: 5493.49},
-{param: 'hgtprs', z: 50000, time: 445240800000, lon: 16, lat: 48, val: 5486.18},
-{param: 'hgtprs', z: 50000, time: 445262400000, lon: 16, lat: 48, val: 5493.91},
-{param: 'hgtprs', z: 50000, time: 445284000000, lon: 16, lat: 48, val: 5493.26},
-{param: 'hgtprs', z: 50000, time: 445305600000, lon: 16, lat: 48, val: 5492.56},
-{param: 'hgtprs', z: 50000, time: 445327200000, lon: 16, lat: 48, val: 5485.21},
-{param: 'hgtprs', z: 50000, time: 445348800000, lon: 16, lat: 48, val: 5493.03},
-{param: 'hgtprs', z: 50000, time: 445370400000, lon: 16, lat: 48, val: 5492.37},
-{param: 'hgtprs', z: 50000, time: 445392000000, lon: 16, lat: 48, val: 5491.64},
-{param: 'hgtprs', z: 50000, time: 445413600000, lon: 16, lat: 48, val: 5484.25},
-{param: 'hgtprs', z: 50000, time: 445435200000, lon: 16, lat: 48, val: 5492.14},
-{param: 'hgtprs', z: 50000, time: 445456800000, lon: 16, lat: 48, val: 5491.46},
-{param: 'hgtprs', z: 50000, time: 445478400000, lon: 16, lat: 48, val: 5490.71},
-{param: 'hgtprs', z: 50000, time: 445500000000, lon: 16, lat: 48, val: 5483.27},
-{param: 'hgtprs', z: 50000, time: 445521600000, lon: 16, lat: 48, val: 5491.27},
-{param: 'hgtprs', z: 50000, time: 445543200000, lon: 16, lat: 48, val: 5490.55},
-{param: 'hgtprs', z: 50000, time: 445564800000, lon: 16, lat: 48, val: 5489.78},
-{param: 'hgtprs', z: 50000, time: 445586400000, lon: 16, lat: 48, val: 5482.28},
-{param: 'hgtprs', z: 50000, time: 445608000000, lon: 16, lat: 48, val: 5490.4},
-{param: 'hgtprs', z: 50000, time: 445629600000, lon: 16, lat: 48, val: 5489.65},
-{param: 'hgtprs', z: 50000, time: 445651200000, lon: 16, lat: 48, val: 5488.86},
-{param: 'hgtprs', z: 50000, time: 445672800000, lon: 16, lat: 48, val: 5481.33},
-{param: 'hgtprs', z: 50000, time: 445694400000, lon: 16, lat: 48, val: 5489.53},
-{param: 'hgtprs', z: 50000, time: 445716000000, lon: 16, lat: 48, val: 5488.77},
-{param: 'hgtprs', z: 50000, time: 445737600000, lon: 16, lat: 48, val: 5487.96},
-{param: 'hgtprs', z: 50000, time: 445759200000, lon: 16, lat: 48, val: 5480.37},
-{param: 'hgtprs', z: 50000, time: 445780800000, lon: 16, lat: 48, val: 5488.67},
-{param: 'hgtprs', z: 50000, time: 445802400000, lon: 16, lat: 48, val: 5487.9},
-{param: 'hgtprs', z: 50000, time: 445824000000, lon: 16, lat: 48, val: 5487.06},
-{param: 'hgtprs', z: 50000, time: 445845600000, lon: 16, lat: 48, val: 5479.42},
-{param: 'hgtprs', z: 50000, time: 445867200000, lon: 16, lat: 48, val: 5487.83},
-{param: 'hgtprs', z: 50000, time: 445888800000, lon: 16, lat: 48, val: 5487.04},
-{param: 'hgtprs', z: 50000, time: 445910400000, lon: 16, lat: 48, val: 5486.2},
-{param: 'hgtprs', z: 50000, time: 445932000000, lon: 16, lat: 48, val: 5478.5},
-{param: 'hgtprs', z: 50000, time: 445953600000, lon: 16, lat: 48, val: 5487.02},
-{param: 'hgtprs', z: 50000, time: 445975200000, lon: 16, lat: 48, val: 5486.21},
-{param: 'hgtprs', z: 50000, time: 445996800000, lon: 16, lat: 48, val: 5485.35},
-{param: 'hgtprs', z: 50000, time: 446018400000, lon: 16, lat: 48, val: 5477.6},
-{param: 'hgtprs', z: 50000, time: 446040000000, lon: 16, lat: 48, val: 5486.22},
-{param: 'hgtprs', z: 50000, time: 446061600000, lon: 16, lat: 48, val: 5485.42},
-{param: 'hgtprs', z: 50000, time: 446083200000, lon: 16, lat: 48, val: 5484.51},
-{param: 'hgtprs', z: 50000, time: 446104800000, lon: 16, lat: 48, val: 5476.73},
-{param: 'hgtprs', z: 50000, time: 446126400000, lon: 16, lat: 48, val: 5485.46},
-{param: 'hgtprs', z: 50000, time: 446148000000, lon: 16, lat: 48, val: 5484.64},
-{param: 'hgtprs', z: 50000, time: 446169600000, lon: 16, lat: 48, val: 5483.73},
-{param: 'hgtprs', z: 50000, time: 446191200000, lon: 16, lat: 48, val: 5475.9},
-{param: 'hgtprs', z: 50000, time: 446212800000, lon: 16, lat: 48, val: 5484.73},
-{param: 'hgtprs', z: 50000, time: 446234400000, lon: 16, lat: 48, val: 5483.92},
-{param: 'hgtprs', z: 50000, time: 446256000000, lon: 16, lat: 48, val: 5482.98},
-{param: 'hgtprs', z: 50000, time: 446277600000, lon: 16, lat: 48, val: 5475.09},
-{param: 'hgtprs', z: 50000, time: 446299200000, lon: 16, lat: 48, val: 5484.03},
-{param: 'hgtprs', z: 50000, time: 446320800000, lon: 16, lat: 48, val: 5483.23},
-{param: 'hgtprs', z: 50000, time: 446342400000, lon: 16, lat: 48, val: 5482.28},
-{param: 'hgtprs', z: 50000, time: 446364000000, lon: 16, lat: 48, val: 5474.33},
-{param: 'hgtprs', z: 50000, time: 446385600000, lon: 16, lat: 48, val: 5483.4},
-{param: 'hgtprs', z: 50000, time: 446407200000, lon: 16, lat: 48, val: 5482.59},
-{param: 'hgtprs', z: 50000, time: 446428800000, lon: 16, lat: 48, val: 5481.61},
-{param: 'hgtprs', z: 50000, time: 446450400000, lon: 16, lat: 48, val: 5473.63},
-{param: 'hgtprs', z: 50000, time: 446472000000, lon: 16, lat: 48, val: 5482.78},
-{param: 'hgtprs', z: 50000, time: 446493600000, lon: 16, lat: 48, val: 5481.99},
-{param: 'hgtprs', z: 50000, time: 446515200000, lon: 16, lat: 48, val: 5481},
-{param: 'hgtprs', z: 50000, time: 446536800000, lon: 16, lat: 48, val: 5472.97},
-{param: 'hgtprs', z: 50000, time: 446558400000, lon: 16, lat: 48, val: 5482.23},
-{param: 'hgtprs', z: 50000, time: 446580000000, lon: 16, lat: 48, val: 5481.45},
-{param: 'hgtprs', z: 50000, time: 446601600000, lon: 16, lat: 48, val: 5480.44},
-{param: 'hgtprs', z: 50000, time: 446623200000, lon: 16, lat: 48, val: 5472.36},
-{param: 'hgtprs', z: 50000, time: 446644800000, lon: 16, lat: 48, val: 5481.73},
-{param: 'hgtprs', z: 50000, time: 446666400000, lon: 16, lat: 48, val: 5480.97},
-{param: 'hgtprs', z: 50000, time: 446688000000, lon: 16, lat: 48, val: 5479.95},
-{param: 'hgtprs', z: 50000, time: 446709600000, lon: 16, lat: 48, val: 5471.81},
-{param: 'hgtprs', z: 50000, time: 446731200000, lon: 16, lat: 48, val: 5481.31},
-{param: 'hgtprs', z: 50000, time: 446752800000, lon: 16, lat: 48, val: 5480.55},
-{param: 'hgtprs', z: 50000, time: 446774400000, lon: 16, lat: 48, val: 5479.49},
-{param: 'hgtprs', z: 50000, time: 446796000000, lon: 16, lat: 48, val: 5471.32},
-{param: 'hgtprs', z: 50000, time: 446817600000, lon: 16, lat: 48, val: 5480.93},
-{param: 'hgtprs', z: 50000, time: 446839200000, lon: 16, lat: 48, val: 5480.18},
-{param: 'hgtprs', z: 50000, time: 446860800000, lon: 16, lat: 48, val: 5479.3},
-{param: 'hgtprs', z: 50000, time: 446882400000, lon: 16, lat: 48, val: 5471.1},
-{param: 'hgtprs', z: 50000, time: 446904000000, lon: 16, lat: 48, val: 5480.78},
-{param: 'hgtprs', z: 50000, time: 446925600000, lon: 16, lat: 48, val: 5480.05},
-{param: 'hgtprs', z: 50000, time: 446947200000, lon: 16, lat: 48, val: 5479.13},
-{param: 'hgtprs', z: 50000, time: 446968800000, lon: 16, lat: 48, val: 5470.9},
-{param: 'hgtprs', z: 50000, time: 446990400000, lon: 16, lat: 48, val: 5480.63},
-{param: 'hgtprs', z: 50000, time: 447012000000, lon: 16, lat: 48, val: 5479.91},
-{param: 'hgtprs', z: 50000, time: 447033600000, lon: 16, lat: 48, val: 5478.81},
-{param: 'hgtprs', z: 50000, time: 447055200000, lon: 16, lat: 48, val: 5470.54},
-{param: 'hgtprs', z: 50000, time: 447076800000, lon: 16, lat: 48, val: 5480.39},
-{param: 'hgtprs', z: 50000, time: 447098400000, lon: 16, lat: 48, val: 5479.7},
-{param: 'hgtprs', z: 50000, time: 447120000000, lon: 16, lat: 48, val: 5478.58},
-{param: 'hgtprs', z: 50000, time: 447141600000, lon: 16, lat: 48, val: 5470.27},
-{param: 'hgtprs', z: 50000, time: 447163200000, lon: 16, lat: 48, val: 5480.22},
-{param: 'hgtprs', z: 50000, time: 447184800000, lon: 16, lat: 48, val: 5479.54},
-{param: 'hgtprs', z: 50000, time: 447206400000, lon: 16, lat: 48, val: 5478.43},
-{param: 'hgtprs', z: 50000, time: 447228000000, lon: 16, lat: 48, val: 5470.07},
-{param: 'hgtprs', z: 50000, time: 447249600000, lon: 16, lat: 48, val: 5480.14},
-{param: 'hgtprs', z: 50000, time: 447271200000, lon: 16, lat: 48, val: 5479.49},
-{param: 'hgtprs', z: 50000, time: 447292800000, lon: 16, lat: 48, val: 5478.35},
-{param: 'hgtprs', z: 50000, time: 447314400000, lon: 16, lat: 48, val: 5469.95},
-{param: 'hgtprs', z: 50000, time: 447336000000, lon: 16, lat: 48, val: 5480.13},
-{param: 'hgtprs', z: 50000, time: 447357600000, lon: 16, lat: 48, val: 5479.51},
-{param: 'hgtprs', z: 50000, time: 447379200000, lon: 16, lat: 48, val: 5478.36},
-{param: 'hgtprs', z: 50000, time: 447400800000, lon: 16, lat: 48, val: 5469.9},
-{param: 'hgtprs', z: 50000, time: 447422400000, lon: 16, lat: 48, val: 5480.2},
-{param: 'hgtprs', z: 50000, time: 447444000000, lon: 16, lat: 48, val: 5479.61},
-{param: 'hgtprs', z: 50000, time: 447465600000, lon: 16, lat: 48, val: 5478.44},
-{param: 'hgtprs', z: 50000, time: 447487200000, lon: 16, lat: 48, val: 5469.95},
-{param: 'hgtprs', z: 50000, time: 447508800000, lon: 16, lat: 48, val: 5480.35},
-{param: 'hgtprs', z: 50000, time: 447530400000, lon: 16, lat: 48, val: 5479.79},
-{param: 'hgtprs', z: 50000, time: 447552000000, lon: 16, lat: 48, val: 5478.62},
-{param: 'hgtprs', z: 50000, time: 447573600000, lon: 16, lat: 48, val: 5470.07},
-{param: 'hgtprs', z: 50000, time: 447595200000, lon: 16, lat: 48, val: 5480.6},
-{param: 'hgtprs', z: 50000, time: 447616800000, lon: 16, lat: 48, val: 5480.08},
-{param: 'hgtprs', z: 50000, time: 447638400000, lon: 16, lat: 48, val: 5478.87},
-{param: 'hgtprs', z: 50000, time: 447660000000, lon: 16, lat: 48, val: 5470.29},
-{param: 'hgtprs', z: 50000, time: 447681600000, lon: 16, lat: 48, val: 5480.94},
-{param: 'hgtprs', z: 50000, time: 447703200000, lon: 16, lat: 48, val: 5480.44},
-{param: 'hgtprs', z: 50000, time: 447724800000, lon: 16, lat: 48, val: 5479.23},
-{param: 'hgtprs', z: 50000, time: 447746400000, lon: 16, lat: 48, val: 5470.61},
-{param: 'hgtprs', z: 50000, time: 447768000000, lon: 16, lat: 48, val: 5481.37},
-{param: 'hgtprs', z: 50000, time: 447789600000, lon: 16, lat: 48, val: 5480.92},
-{param: 'hgtprs', z: 50000, time: 447811200000, lon: 16, lat: 48, val: 5479.67},
-{param: 'hgtprs', z: 50000, time: 447832800000, lon: 16, lat: 48, val: 5471.01},
-{param: 'hgtprs', z: 50000, time: 447854400000, lon: 16, lat: 48, val: 5481.88},
-{param: 'hgtprs', z: 50000, time: 447876000000, lon: 16, lat: 48, val: 5481.46},
-{param: 'hgtprs', z: 50000, time: 447897600000, lon: 16, lat: 48, val: 5480.21},
-{param: 'hgtprs', z: 50000, time: 447919200000, lon: 16, lat: 48, val: 5471.52},
-{param: 'hgtprs', z: 50000, time: 447940800000, lon: 16, lat: 48, val: 5482.49},
-{param: 'hgtprs', z: 50000, time: 447962400000, lon: 16, lat: 48, val: 5482.11},
-{param: 'hgtprs', z: 50000, time: 447984000000, lon: 16, lat: 48, val: 5480.85},
-{param: 'hgtprs', z: 50000, time: 448005600000, lon: 16, lat: 48, val: 5472.1},
-{param: 'hgtprs', z: 50000, time: 448027200000, lon: 16, lat: 48, val: 5483.21},
-{param: 'hgtprs', z: 50000, time: 448048800000, lon: 16, lat: 48, val: 5482.85},
-{param: 'hgtprs', z: 50000, time: 448070400000, lon: 16, lat: 48, val: 5481.58},
-{param: 'hgtprs', z: 50000, time: 448092000000, lon: 16, lat: 48, val: 5472.8},
-{param: 'hgtprs', z: 50000, time: 448113600000, lon: 16, lat: 48, val: 5484.02},
-{param: 'hgtprs', z: 50000, time: 448135200000, lon: 16, lat: 48, val: 5483.7},
-{param: 'hgtprs', z: 50000, time: 448156800000, lon: 16, lat: 48, val: 5482.4},
-{param: 'hgtprs', z: 50000, time: 448178400000, lon: 16, lat: 48, val: 5473.59},
-{param: 'hgtprs', z: 50000, time: 448200000000, lon: 16, lat: 48, val: 5484.91},
-{param: 'hgtprs', z: 50000, time: 448221600000, lon: 16, lat: 48, val: 5484.64},
-{param: 'hgtprs', z: 50000, time: 448243200000, lon: 16, lat: 48, val: 5483.33},
-{param: 'hgtprs', z: 50000, time: 448264800000, lon: 16, lat: 48, val: 5474.48},
-{param: 'hgtprs', z: 50000, time: 448286400000, lon: 16, lat: 48, val: 5485.92},
-{param: 'hgtprs', z: 50000, time: 448308000000, lon: 16, lat: 48, val: 5485.68},
-{param: 'hgtprs', z: 50000, time: 448329600000, lon: 16, lat: 48, val: 5484.34},
-{param: 'hgtprs', z: 50000, time: 448351200000, lon: 16, lat: 48, val: 5475.47},
-{param: 'hgtprs', z: 50000, time: 448372800000, lon: 16, lat: 48, val: 5487.01},
-{param: 'hgtprs', z: 50000, time: 448394400000, lon: 16, lat: 48, val: 5486.81},
-{param: 'hgtprs', z: 50000, time: 448416000000, lon: 16, lat: 48, val: 5485.46},
-{param: 'hgtprs', z: 50000, time: 448437600000, lon: 16, lat: 48, val: 5476.55},
-{param: 'hgtprs', z: 50000, time: 448459200000, lon: 16, lat: 48, val: 5488.2},
-{param: 'hgtprs', z: 50000, time: 448480800000, lon: 16, lat: 48, val: 5488.04},
-{param: 'hgtprs', z: 50000, time: 448502400000, lon: 16, lat: 48, val: 5486.68},
-{param: 'hgtprs', z: 50000, time: 448524000000, lon: 16, lat: 48, val: 5477.74},
-{param: 'hgtprs', z: 50000, time: 448545600000, lon: 16, lat: 48, val: 5489.51},
-{param: 'hgtprs', z: 50000, time: 448567200000, lon: 16, lat: 48, val: 5489.38},
-{param: 'hgtprs', z: 50000, time: 448588800000, lon: 16, lat: 48, val: 5487.99},
-{param: 'hgtprs', z: 50000, time: 448610400000, lon: 16, lat: 48, val: 5479.02},
-{param: 'hgtprs', z: 50000, time: 448632000000, lon: 16, lat: 48, val: 5490.89},
-{param: 'hgtprs', z: 50000, time: 448653600000, lon: 16, lat: 48, val: 5490.79},
-{param: 'hgtprs', z: 50000, time: 448675200000, lon: 16, lat: 48, val: 5489.39},
-{param: 'hgtprs', z: 50000, time: 448696800000, lon: 16, lat: 48, val: 5480.41},
-{param: 'hgtprs', z: 50000, time: 448718400000, lon: 16, lat: 48, val: 5492.37},
-{param: 'hgtprs', z: 50000, time: 448740000000, lon: 16, lat: 48, val: 5492.31},
-{param: 'hgtprs', z: 50000, time: 448761600000, lon: 16, lat: 48, val: 5490.9},
-{param: 'hgtprs', z: 50000, time: 448783200000, lon: 16, lat: 48, val: 5481.88},
-{param: 'hgtprs', z: 50000, time: 448804800000, lon: 16, lat: 48, val: 5493.94},
-{param: 'hgtprs', z: 50000, time: 448826400000, lon: 16, lat: 48, val: 5493.92},
-{param: 'hgtprs', z: 50000, time: 448848000000, lon: 16, lat: 48, val: 5492.49},
-{param: 'hgtprs', z: 50000, time: 448869600000, lon: 16, lat: 48, val: 5483.44},
-{param: 'hgtprs', z: 50000, time: 448891200000, lon: 16, lat: 48, val: 5495.63},
-{param: 'hgtprs', z: 50000, time: 448912800000, lon: 16, lat: 48, val: 5495.62},
-{param: 'hgtprs', z: 50000, time: 448934400000, lon: 16, lat: 48, val: 5494.18},
-{param: 'hgtprs', z: 50000, time: 448956000000, lon: 16, lat: 48, val: 5485.11},
-{param: 'hgtprs', z: 50000, time: 448977600000, lon: 16, lat: 48, val: 5497.39},
-{param: 'hgtprs', z: 50000, time: 448999200000, lon: 16, lat: 48, val: 5497.41},
-{param: 'hgtprs', z: 50000, time: 449020800000, lon: 16, lat: 48, val: 5495.96},
-{param: 'hgtprs', z: 50000, time: 449042400000, lon: 16, lat: 48, val: 5486.87},
-{param: 'hgtprs', z: 50000, time: 449064000000, lon: 16, lat: 48, val: 5499.24},
-{param: 'hgtprs', z: 50000, time: 449085600000, lon: 16, lat: 48, val: 5499.29},
-{param: 'hgtprs', z: 50000, time: 449107200000, lon: 16, lat: 48, val: 5497.82},
-{param: 'hgtprs', z: 50000, time: 449128800000, lon: 16, lat: 48, val: 5488.7},
-{param: 'hgtprs', z: 50000, time: 449150400000, lon: 16, lat: 48, val: 5501.18},
-{param: 'hgtprs', z: 50000, time: 449172000000, lon: 16, lat: 48, val: 5501.25},
-{param: 'hgtprs', z: 50000, time: 449193600000, lon: 16, lat: 48, val: 5499.76},
-{param: 'hgtprs', z: 50000, time: 449215200000, lon: 16, lat: 48, val: 5490.64},
-{param: 'hgtprs', z: 50000, time: 449236800000, lon: 16, lat: 48, val: 5503.2},
-{param: 'hgtprs', z: 50000, time: 449258400000, lon: 16, lat: 48, val: 5503.29},
-{param: 'hgtprs', z: 50000, time: 449280000000, lon: 16, lat: 48, val: 5501.79},
-{param: 'hgtprs', z: 50000, time: 449301600000, lon: 16, lat: 48, val: 5492.66},
-{param: 'hgtprs', z: 50000, time: 449323200000, lon: 16, lat: 48, val: 5505.31},
-{param: 'hgtprs', z: 50000, time: 449344800000, lon: 16, lat: 48, val: 5505.43},
-{param: 'hgtprs', z: 50000, time: 449366400000, lon: 16, lat: 48, val: 5503.91},
-{param: 'hgtprs', z: 50000, time: 449388000000, lon: 16, lat: 48, val: 5494.76},
-{param: 'hgtprs', z: 50000, time: 449409600000, lon: 16, lat: 48, val: 5507.5},
-{param: 'hgtprs', z: 50000, time: 449431200000, lon: 16, lat: 48, val: 5507.64},
-{param: 'hgtprs', z: 50000, time: 449452800000, lon: 16, lat: 48, val: 5506.09},
-{param: 'hgtprs', z: 50000, time: 449474400000, lon: 16, lat: 48, val: 5496.94},
-{param: 'hgtprs', z: 50000, time: 449496000000, lon: 16, lat: 48, val: 5509.77},
-{param: 'hgtprs', z: 50000, time: 449517600000, lon: 16, lat: 48, val: 5509.92},
-{param: 'hgtprs', z: 50000, time: 449539200000, lon: 16, lat: 48, val: 5508.35},
-{param: 'hgtprs', z: 50000, time: 449560800000, lon: 16, lat: 48, val: 5499.18},
-{param: 'hgtprs', z: 50000, time: 449582400000, lon: 16, lat: 48, val: 5512.1},
-{param: 'hgtprs', z: 50000, time: 449604000000, lon: 16, lat: 48, val: 5512.27},
-{param: 'hgtprs', z: 50000, time: 449625600000, lon: 16, lat: 48, val: 5510.7},
-{param: 'hgtprs', z: 50000, time: 449647200000, lon: 16, lat: 48, val: 5501.51},
-{param: 'hgtprs', z: 50000, time: 449668800000, lon: 16, lat: 48, val: 5514.51},
-{param: 'hgtprs', z: 50000, time: 449690400000, lon: 16, lat: 48, val: 5514.7},
-{param: 'hgtprs', z: 50000, time: 449712000000, lon: 16, lat: 48, val: 5513.1},
-{param: 'hgtprs', z: 50000, time: 449733600000, lon: 16, lat: 48, val: 5503.92},
-{param: 'hgtprs', z: 50000, time: 449755200000, lon: 16, lat: 48, val: 5516.99},
-{param: 'hgtprs', z: 50000, time: 449776800000, lon: 16, lat: 48, val: 5517.19},
-{param: 'hgtprs', z: 50000, time: 449798400000, lon: 16, lat: 48, val: 5515.56},
-{param: 'hgtprs', z: 50000, time: 449820000000, lon: 16, lat: 48, val: 5506.38},
-{param: 'hgtprs', z: 50000, time: 449841600000, lon: 16, lat: 48, val: 5519.55},
-{param: 'hgtprs', z: 50000, time: 449863200000, lon: 16, lat: 48, val: 5519.74},
-{param: 'hgtprs', z: 50000, time: 449884800000, lon: 16, lat: 48, val: 5518.1},
-{param: 'hgtprs', z: 50000, time: 449906400000, lon: 16, lat: 48, val: 5508.91},
-{param: 'hgtprs', z: 50000, time: 449928000000, lon: 16, lat: 48, val: 5522.15},
-{param: 'hgtprs', z: 50000, time: 449949600000, lon: 16, lat: 48, val: 5522.35},
-{param: 'hgtprs', z: 50000, time: 449971200000, lon: 16, lat: 48, val: 5520.68},
-{param: 'hgtprs', z: 50000, time: 449992800000, lon: 16, lat: 48, val: 5511.51},
-{param: 'hgtprs', z: 50000, time: 450014400000, lon: 16, lat: 48, val: 5524.81},
-{param: 'hgtprs', z: 50000, time: 450036000000, lon: 16, lat: 48, val: 5525.02},
-{param: 'hgtprs', z: 50000, time: 450057600000, lon: 16, lat: 48, val: 5523.33},
-{param: 'hgtprs', z: 50000, time: 450079200000, lon: 16, lat: 48, val: 5514.15},
-{param: 'hgtprs', z: 50000, time: 450100800000, lon: 16, lat: 48, val: 5527.54},
-{param: 'hgtprs', z: 50000, time: 450122400000, lon: 16, lat: 48, val: 5527.73},
-{param: 'hgtprs', z: 50000, time: 450144000000, lon: 16, lat: 48, val: 5526.03},
-{param: 'hgtprs', z: 50000, time: 450165600000, lon: 16, lat: 48, val: 5516.86},
-{param: 'hgtprs', z: 50000, time: 450187200000, lon: 16, lat: 48, val: 5530.32},
-{param: 'hgtprs', z: 50000, time: 450208800000, lon: 16, lat: 48, val: 5530.49},
-{param: 'hgtprs', z: 50000, time: 450230400000, lon: 16, lat: 48, val: 5528.77},
-{param: 'hgtprs', z: 50000, time: 450252000000, lon: 16, lat: 48, val: 5519.61},
-{param: 'hgtprs', z: 50000, time: 450273600000, lon: 16, lat: 48, val: 5533.14},
-{param: 'hgtprs', z: 50000, time: 450295200000, lon: 16, lat: 48, val: 5533.31},
-{param: 'hgtprs', z: 50000, time: 450316800000, lon: 16, lat: 48, val: 5531.57},
-{param: 'hgtprs', z: 50000, time: 450338400000, lon: 16, lat: 48, val: 5522.41},
-{param: 'hgtprs', z: 50000, time: 450360000000, lon: 16, lat: 48, val: 5536},
-{param: 'hgtprs', z: 50000, time: 450381600000, lon: 16, lat: 48, val: 5536.16},
-{param: 'hgtprs', z: 50000, time: 450403200000, lon: 16, lat: 48, val: 5534.39},
-{param: 'hgtprs', z: 50000, time: 450424800000, lon: 16, lat: 48, val: 5525.24},
-{param: 'hgtprs', z: 50000, time: 450446400000, lon: 16, lat: 48, val: 5538.89},
-{param: 'hgtprs', z: 50000, time: 450468000000, lon: 16, lat: 48, val: 5539.05},
-{param: 'hgtprs', z: 50000, time: 450489600000, lon: 16, lat: 48, val: 5537.25},
-{param: 'hgtprs', z: 50000, time: 450511200000, lon: 16, lat: 48, val: 5528.12},
-{param: 'hgtprs', z: 50000, time: 450532800000, lon: 16, lat: 48, val: 5541.84},
-{param: 'hgtprs', z: 50000, time: 450554400000, lon: 16, lat: 48, val: 5541.98},
-{param: 'hgtprs', z: 50000, time: 450576000000, lon: 16, lat: 48, val: 5540.16},
-{param: 'hgtprs', z: 50000, time: 450597600000, lon: 16, lat: 48, val: 5531.04},
-{param: 'hgtprs', z: 50000, time: 450619200000, lon: 16, lat: 48, val: 5544.8},
-{param: 'hgtprs', z: 50000, time: 450640800000, lon: 16, lat: 48, val: 5544.92},
-{param: 'hgtprs', z: 50000, time: 450662400000, lon: 16, lat: 48, val: 5543.08},
-{param: 'hgtprs', z: 50000, time: 450684000000, lon: 16, lat: 48, val: 5533.98},
-{param: 'hgtprs', z: 50000, time: 450705600000, lon: 16, lat: 48, val: 5547.8},
-{param: 'hgtprs', z: 50000, time: 450727200000, lon: 16, lat: 48, val: 5547.9},
-{param: 'hgtprs', z: 50000, time: 450748800000, lon: 16, lat: 48, val: 5546.04},
-{param: 'hgtprs', z: 50000, time: 450770400000, lon: 16, lat: 48, val: 5536.96},
-{param: 'hgtprs', z: 50000, time: 450792000000, lon: 16, lat: 48, val: 5550.82},
-{param: 'hgtprs', z: 50000, time: 450813600000, lon: 16, lat: 48, val: 5550.91},
-{param: 'hgtprs', z: 50000, time: 450835200000, lon: 16, lat: 48, val: 5549.01},
-{param: 'hgtprs', z: 50000, time: 450856800000, lon: 16, lat: 48, val: 5539.94},
-{param: 'hgtprs', z: 50000, time: 450878400000, lon: 16, lat: 48, val: 5553.86},
-{param: 'hgtprs', z: 50000, time: 450900000000, lon: 16, lat: 48, val: 5553.93},
-{param: 'hgtprs', z: 50000, time: 450921600000, lon: 16, lat: 48, val: 5552},
-{param: 'hgtprs', z: 50000, time: 450943200000, lon: 16, lat: 48, val: 5542.96},
-{param: 'hgtprs', z: 50000, time: 450964800000, lon: 16, lat: 48, val: 5556.94},
-{param: 'hgtprs', z: 50000, time: 450986400000, lon: 16, lat: 48, val: 5556.97},
-{param: 'hgtprs', z: 50000, time: 451008000000, lon: 16, lat: 48, val: 5555.01},
-{param: 'hgtprs', z: 50000, time: 451029600000, lon: 16, lat: 48, val: 5545.99},
-{param: 'hgtprs', z: 50000, time: 451051200000, lon: 16, lat: 48, val: 5560.01},
-{param: 'hgtprs', z: 50000, time: 451072800000, lon: 16, lat: 48, val: 5560},
-{param: 'hgtprs', z: 50000, time: 451094400000, lon: 16, lat: 48, val: 5558.04},
-{param: 'hgtprs', z: 50000, time: 451116000000, lon: 16, lat: 48, val: 5549.04},
-{param: 'hgtprs', z: 50000, time: 451137600000, lon: 16, lat: 48, val: 5563.1},
-{param: 'hgtprs', z: 50000, time: 451159200000, lon: 16, lat: 48, val: 5563.06},
-{param: 'hgtprs', z: 50000, time: 451180800000, lon: 16, lat: 48, val: 5561.07},
-{param: 'hgtprs', z: 50000, time: 451202400000, lon: 16, lat: 48, val: 5552.09},
-{param: 'hgtprs', z: 50000, time: 451224000000, lon: 16, lat: 48, val: 5566.19},
-{param: 'hgtprs', z: 50000, time: 451245600000, lon: 16, lat: 48, val: 5566.13},
-{param: 'hgtprs', z: 50000, time: 451267200000, lon: 16, lat: 48, val: 5564.1},
-{param: 'hgtprs', z: 50000, time: 451288800000, lon: 16, lat: 48, val: 5555.16},
-{param: 'hgtprs', z: 50000, time: 451310400000, lon: 16, lat: 48, val: 5569.29},
-{param: 'hgtprs', z: 50000, time: 451332000000, lon: 16, lat: 48, val: 5569.19},
-{param: 'hgtprs', z: 50000, time: 451353600000, lon: 16, lat: 48, val: 5567.14},
-{param: 'hgtprs', z: 50000, time: 451375200000, lon: 16, lat: 48, val: 5558.23},
-{param: 'hgtprs', z: 50000, time: 451396800000, lon: 16, lat: 48, val: 5572.38},
-{param: 'hgtprs', z: 50000, time: 451418400000, lon: 16, lat: 48, val: 5572.24},
-{param: 'hgtprs', z: 50000, time: 451440000000, lon: 16, lat: 48, val: 5570.17},
-{param: 'hgtprs', z: 50000, time: 451461600000, lon: 16, lat: 48, val: 5561.29},
-{param: 'hgtprs', z: 50000, time: 451483200000, lon: 16, lat: 48, val: 5575.49},
-{param: 'hgtprs', z: 50000, time: 451504800000, lon: 16, lat: 48, val: 5575.3},
-{param: 'hgtprs', z: 50000, time: 451526400000, lon: 16, lat: 48, val: 5573.21},
-{param: 'hgtprs', z: 50000, time: 451548000000, lon: 16, lat: 48, val: 5564.36},
-{param: 'hgtprs', z: 50000, time: 451569600000, lon: 16, lat: 48, val: 5578.58},
-{param: 'hgtprs', z: 50000, time: 451591200000, lon: 16, lat: 48, val: 5578.37},
-{param: 'hgtprs', z: 50000, time: 451612800000, lon: 16, lat: 48, val: 5576.23},
-{param: 'hgtprs', z: 50000, time: 451634400000, lon: 16, lat: 48, val: 5567.42},
-{param: 'hgtprs', z: 50000, time: 451656000000, lon: 16, lat: 48, val: 5581.67},
-{param: 'hgtprs', z: 50000, time: 451677600000, lon: 16, lat: 48, val: 5581.41},
-{param: 'hgtprs', z: 50000, time: 451699200000, lon: 16, lat: 48, val: 5579.25},
-{param: 'hgtprs', z: 50000, time: 451720800000, lon: 16, lat: 48, val: 5570.47},
-{param: 'hgtprs', z: 50000, time: 451742400000, lon: 16, lat: 48, val: 5584.75},
-{param: 'hgtprs', z: 50000, time: 451764000000, lon: 16, lat: 48, val: 5584.45},
-{param: 'hgtprs', z: 50000, time: 451785600000, lon: 16, lat: 48, val: 5582.26},
-{param: 'hgtprs', z: 50000, time: 451807200000, lon: 16, lat: 48, val: 5573.52},
-{param: 'hgtprs', z: 50000, time: 451828800000, lon: 16, lat: 48, val: 5587.81},
-{param: 'hgtprs', z: 50000, time: 451850400000, lon: 16, lat: 48, val: 5587.47},
-{param: 'hgtprs', z: 50000, time: 451872000000, lon: 16, lat: 48, val: 5585.26},
-{param: 'hgtprs', z: 50000, time: 451893600000, lon: 16, lat: 48, val: 5576.55},
-{param: 'hgtprs', z: 50000, time: 451915200000, lon: 16, lat: 48, val: 5590.87},
-{param: 'hgtprs', z: 50000, time: 451936800000, lon: 16, lat: 48, val: 5590.49},
-{param: 'hgtprs', z: 50000, time: 451958400000, lon: 16, lat: 48, val: 5588.23},
-{param: 'hgtprs', z: 50000, time: 451980000000, lon: 16, lat: 48, val: 5579.57},
-{param: 'hgtprs', z: 50000, time: 452001600000, lon: 16, lat: 48, val: 5593.9},
-{param: 'hgtprs', z: 50000, time: 452023200000, lon: 16, lat: 48, val: 5593.47},
-{param: 'hgtprs', z: 50000, time: 452044800000, lon: 16, lat: 48, val: 5591.2},
-{param: 'hgtprs', z: 50000, time: 452066400000, lon: 16, lat: 48, val: 5582.57},
-{param: 'hgtprs', z: 50000, time: 452088000000, lon: 16, lat: 48, val: 5596.92},
-{param: 'hgtprs', z: 50000, time: 452109600000, lon: 16, lat: 48, val: 5596.44},
-{param: 'hgtprs', z: 50000, time: 452131200000, lon: 16, lat: 48, val: 5594.14},
-{param: 'hgtprs', z: 50000, time: 452152800000, lon: 16, lat: 48, val: 5585.55},
-{param: 'hgtprs', z: 50000, time: 452174400000, lon: 16, lat: 48, val: 5599.91},
-{param: 'hgtprs', z: 50000, time: 452196000000, lon: 16, lat: 48, val: 5599.4},
-{param: 'hgtprs', z: 50000, time: 452217600000, lon: 16, lat: 48, val: 5597.06},
-{param: 'hgtprs', z: 50000, time: 452239200000, lon: 16, lat: 48, val: 5588.52},
-{param: 'hgtprs', z: 50000, time: 452260800000, lon: 16, lat: 48, val: 5602.88},
-{param: 'hgtprs', z: 50000, time: 452282400000, lon: 16, lat: 48, val: 5602.33},
-{param: 'hgtprs', z: 50000, time: 452304000000, lon: 16, lat: 48, val: 5599.98},
-{param: 'hgtprs', z: 50000, time: 452325600000, lon: 16, lat: 48, val: 5591.46},
-{param: 'hgtprs', z: 50000, time: 452347200000, lon: 16, lat: 48, val: 5605.83},
-{param: 'hgtprs', z: 50000, time: 452368800000, lon: 16, lat: 48, val: 5605.24},
-{param: 'hgtprs', z: 50000, time: 452390400000, lon: 16, lat: 48, val: 5602.85},
-{param: 'hgtprs', z: 50000, time: 452412000000, lon: 16, lat: 48, val: 5594.39},
-{param: 'hgtprs', z: 50000, time: 452433600000, lon: 16, lat: 48, val: 5608.76},
-{param: 'hgtprs', z: 50000, time: 452455200000, lon: 16, lat: 48, val: 5608.12},
-{param: 'hgtprs', z: 50000, time: 452476800000, lon: 16, lat: 48, val: 5605.71},
-{param: 'hgtprs', z: 50000, time: 452498400000, lon: 16, lat: 48, val: 5597.28},
-{param: 'hgtprs', z: 50000, time: 452520000000, lon: 16, lat: 48, val: 5611.67},
-{param: 'hgtprs', z: 50000, time: 452541600000, lon: 16, lat: 48, val: 5610.98},
-{param: 'hgtprs', z: 50000, time: 452563200000, lon: 16, lat: 48, val: 5608.55},
-{param: 'hgtprs', z: 50000, time: 452584800000, lon: 16, lat: 48, val: 5600.16},
-{param: 'hgtprs', z: 50000, time: 452606400000, lon: 16, lat: 48, val: 5614.54},
-{param: 'hgtprs', z: 50000, time: 452628000000, lon: 16, lat: 48, val: 5613.83},
-{param: 'hgtprs', z: 50000, time: 452649600000, lon: 16, lat: 48, val: 5611.36},
-{param: 'hgtprs', z: 50000, time: 452671200000, lon: 16, lat: 48, val: 5603},
-{param: 'hgtprs', z: 50000, time: 452692800000, lon: 16, lat: 48, val: 5617.39},
-{param: 'hgtprs', z: 50000, time: 452714400000, lon: 16, lat: 48, val: 5616.64},
-{param: 'hgtprs', z: 50000, time: 452736000000, lon: 16, lat: 48, val: 5614.15},
-{param: 'hgtprs', z: 50000, time: 452757600000, lon: 16, lat: 48, val: 5605.84},
-{param: 'hgtprs', z: 50000, time: 452779200000, lon: 16, lat: 48, val: 5620.21},
-{param: 'hgtprs', z: 50000, time: 452800800000, lon: 16, lat: 48, val: 5619.43},
-{param: 'hgtprs', z: 50000, time: 452822400000, lon: 16, lat: 48, val: 5616.9},
-{param: 'hgtprs', z: 50000, time: 452844000000, lon: 16, lat: 48, val: 5608.63},
-{param: 'hgtprs', z: 50000, time: 452865600000, lon: 16, lat: 48, val: 5623.02},
-{param: 'hgtprs', z: 50000, time: 452887200000, lon: 16, lat: 48, val: 5622.18},
-{param: 'hgtprs', z: 50000, time: 452908800000, lon: 16, lat: 48, val: 5619.63},
-{param: 'hgtprs', z: 50000, time: 452930400000, lon: 16, lat: 48, val: 5611.41},
-{param: 'hgtprs', z: 50000, time: 452952000000, lon: 16, lat: 48, val: 5625.78},
-{param: 'hgtprs', z: 50000, time: 452973600000, lon: 16, lat: 48, val: 5624.92},
-{param: 'hgtprs', z: 50000, time: 452995200000, lon: 16, lat: 48, val: 5622.35},
-{param: 'hgtprs', z: 50000, time: 453016800000, lon: 16, lat: 48, val: 5614.15},
-{param: 'hgtprs', z: 50000, time: 453038400000, lon: 16, lat: 48, val: 5628.52},
-{param: 'hgtprs', z: 50000, time: 453060000000, lon: 16, lat: 48, val: 5627.62},
-{param: 'hgtprs', z: 50000, time: 453081600000, lon: 16, lat: 48, val: 5625.03},
-{param: 'hgtprs', z: 50000, time: 453103200000, lon: 16, lat: 48, val: 5616.88},
-{param: 'hgtprs', z: 50000, time: 453124800000, lon: 16, lat: 48, val: 5631.24},
-{param: 'hgtprs', z: 50000, time: 453146400000, lon: 16, lat: 48, val: 5630.32},
-{param: 'hgtprs', z: 50000, time: 453168000000, lon: 16, lat: 48, val: 5627.69},
-{param: 'hgtprs', z: 50000, time: 453189600000, lon: 16, lat: 48, val: 5619.58},
-{param: 'hgtprs', z: 50000, time: 453211200000, lon: 16, lat: 48, val: 5633.92},
-{param: 'hgtprs', z: 50000, time: 453232800000, lon: 16, lat: 48, val: 5632.98},
-{param: 'hgtprs', z: 50000, time: 453254400000, lon: 16, lat: 48, val: 5630.32},
-{param: 'hgtprs', z: 50000, time: 453276000000, lon: 16, lat: 48, val: 5622.23},
-{param: 'hgtprs', z: 50000, time: 453297600000, lon: 16, lat: 48, val: 5636.58},
-{param: 'hgtprs', z: 50000, time: 453319200000, lon: 16, lat: 48, val: 5635.6},
-{param: 'hgtprs', z: 50000, time: 453340800000, lon: 16, lat: 48, val: 5632.92},
-{param: 'hgtprs', z: 50000, time: 453362400000, lon: 16, lat: 48, val: 5624.89},
-{param: 'hgtprs', z: 50000, time: 453384000000, lon: 16, lat: 48, val: 5639.21},
-{param: 'hgtprs', z: 50000, time: 453405600000, lon: 16, lat: 48, val: 5638.22},
-{param: 'hgtprs', z: 50000, time: 453427200000, lon: 16, lat: 48, val: 5635.51},
-{param: 'hgtprs', z: 50000, time: 453448800000, lon: 16, lat: 48, val: 5627.49},
-{param: 'hgtprs', z: 50000, time: 453470400000, lon: 16, lat: 48, val: 5641.81},
-{param: 'hgtprs', z: 50000, time: 453492000000, lon: 16, lat: 48, val: 5640.8},
-{param: 'hgtprs', z: 50000, time: 453513600000, lon: 16, lat: 48, val: 5638.07},
-{param: 'hgtprs', z: 50000, time: 453535200000, lon: 16, lat: 48, val: 5630.09},
-{param: 'hgtprs', z: 50000, time: 453556800000, lon: 16, lat: 48, val: 5644.4},
-{param: 'hgtprs', z: 50000, time: 453578400000, lon: 16, lat: 48, val: 5643.36},
-{param: 'hgtprs', z: 50000, time: 453600000000, lon: 16, lat: 48, val: 5640.61},
-{param: 'hgtprs', z: 50000, time: 453621600000, lon: 16, lat: 48, val: 5632.68},
-{param: 'hgtprs', z: 50000, time: 453643200000, lon: 16, lat: 48, val: 5646.94},
-{param: 'hgtprs', z: 50000, time: 453664800000, lon: 16, lat: 48, val: 5645.9},
-{param: 'hgtprs', z: 50000, time: 453686400000, lon: 16, lat: 48, val: 5643.13},
-{param: 'hgtprs', z: 50000, time: 453708000000, lon: 16, lat: 48, val: 5635.21},
-{param: 'hgtprs', z: 50000, time: 453729600000, lon: 16, lat: 48, val: 5649.48},
-{param: 'hgtprs', z: 50000, time: 453751200000, lon: 16, lat: 48, val: 5648.42},
-{param: 'hgtprs', z: 50000, time: 453772800000, lon: 16, lat: 48, val: 5645.63},
-{param: 'hgtprs', z: 50000, time: 453794400000, lon: 16, lat: 48, val: 5637.75},
-{param: 'hgtprs', z: 50000, time: 453816000000, lon: 16, lat: 48, val: 5651.98},
-{param: 'hgtprs', z: 50000, time: 453837600000, lon: 16, lat: 48, val: 5650.91},
-{param: 'hgtprs', z: 50000, time: 453859200000, lon: 16, lat: 48, val: 5648.1},
-{param: 'hgtprs', z: 50000, time: 453880800000, lon: 16, lat: 48, val: 5640.25},
-{param: 'hgtprs', z: 50000, time: 453902400000, lon: 16, lat: 48, val: 5654.47},
-{param: 'hgtprs', z: 50000, time: 453924000000, lon: 16, lat: 48, val: 5653.4},
-{param: 'hgtprs', z: 50000, time: 453945600000, lon: 16, lat: 48, val: 5650.56},
-{param: 'hgtprs', z: 50000, time: 453967200000, lon: 16, lat: 48, val: 5642.73},
-{param: 'hgtprs', z: 50000, time: 453988800000, lon: 16, lat: 48, val: 5656.92},
-{param: 'hgtprs', z: 50000, time: 454010400000, lon: 16, lat: 48, val: 5655.87},
-{param: 'hgtprs', z: 50000, time: 454032000000, lon: 16, lat: 48, val: 5653.01},
-{param: 'hgtprs', z: 50000, time: 454053600000, lon: 16, lat: 48, val: 5645.19},
-{param: 'hgtprs', z: 50000, time: 454075200000, lon: 16, lat: 48, val: 5659.38},
-{param: 'hgtprs', z: 50000, time: 454096800000, lon: 16, lat: 48, val: 5658.3},
-{param: 'hgtprs', z: 50000, time: 454118400000, lon: 16, lat: 48, val: 5655.43},
-{param: 'hgtprs', z: 50000, time: 454140000000, lon: 16, lat: 48, val: 5647.65},
-{param: 'hgtprs', z: 50000, time: 454161600000, lon: 16, lat: 48, val: 5661.79},
-{param: 'hgtprs', z: 50000, time: 454183200000, lon: 16, lat: 48, val: 5660.74},
-{param: 'hgtprs', z: 50000, time: 454204800000, lon: 16, lat: 48, val: 5657.84},
-{param: 'hgtprs', z: 50000, time: 454226400000, lon: 16, lat: 48, val: 5650.08},
-{param: 'hgtprs', z: 50000, time: 454248000000, lon: 16, lat: 48, val: 5664.19},
-{param: 'hgtprs', z: 50000, time: 454269600000, lon: 16, lat: 48, val: 5663.15},
-{param: 'hgtprs', z: 50000, time: 454291200000, lon: 16, lat: 48, val: 5660.22},
-{param: 'hgtprs', z: 50000, time: 454312800000, lon: 16, lat: 48, val: 5652.49},
-{param: 'hgtprs', z: 50000, time: 454334400000, lon: 16, lat: 48, val: 5666.59},
-{param: 'hgtprs', z: 50000, time: 454356000000, lon: 16, lat: 48, val: 5665.54},
-{param: 'hgtprs', z: 50000, time: 454377600000, lon: 16, lat: 48, val: 5662.6},
-{param: 'hgtprs', z: 50000, time: 454399200000, lon: 16, lat: 48, val: 5654.89},
-{param: 'hgtprs', z: 50000, time: 454420800000, lon: 16, lat: 48, val: 5668.95},
-{param: 'hgtprs', z: 50000, time: 454442400000, lon: 16, lat: 48, val: 5667.93},
-{param: 'hgtprs', z: 50000, time: 454464000000, lon: 16, lat: 48, val: 5664.98},
-{param: 'hgtprs', z: 50000, time: 454485600000, lon: 16, lat: 48, val: 5657.27},
-{param: 'hgtprs', z: 50000, time: 454507200000, lon: 16, lat: 48, val: 5671.31},
-{param: 'hgtprs', z: 50000, time: 454528800000, lon: 16, lat: 48, val: 5670.31},
-{param: 'hgtprs', z: 50000, time: 454550400000, lon: 16, lat: 48, val: 5667.34},
-{param: 'hgtprs', z: 50000, time: 454572000000, lon: 16, lat: 48, val: 5659.65},
-{param: 'hgtprs', z: 50000, time: 454593600000, lon: 16, lat: 48, val: 5673.65},
-{param: 'hgtprs', z: 50000, time: 454615200000, lon: 16, lat: 48, val: 5672.66},
-{param: 'hgtprs', z: 50000, time: 454636800000, lon: 16, lat: 48, val: 5669.68},
-{param: 'hgtprs', z: 50000, time: 454658400000, lon: 16, lat: 48, val: 5662},
-{param: 'hgtprs', z: 50000, time: 454680000000, lon: 16, lat: 48, val: 5675.98},
-{param: 'hgtprs', z: 50000, time: 454701600000, lon: 16, lat: 48, val: 5675.01},
-{param: 'hgtprs', z: 50000, time: 454723200000, lon: 16, lat: 48, val: 5672.03},
-{param: 'hgtprs', z: 50000, time: 454744800000, lon: 16, lat: 48, val: 5664.35},
-{param: 'hgtprs', z: 50000, time: 454766400000, lon: 16, lat: 48, val: 5678.29},
-{param: 'hgtprs', z: 50000, time: 454788000000, lon: 16, lat: 48, val: 5677.36},
-{param: 'hgtprs', z: 50000, time: 454809600000, lon: 16, lat: 48, val: 5674.34},
-{param: 'hgtprs', z: 50000, time: 454831200000, lon: 16, lat: 48, val: 5666.68},
-{param: 'hgtprs', z: 50000, time: 454852800000, lon: 16, lat: 48, val: 5680.61},
-{param: 'hgtprs', z: 50000, time: 454874400000, lon: 16, lat: 48, val: 5679.7},
-{param: 'hgtprs', z: 50000, time: 454896000000, lon: 16, lat: 48, val: 5676.66},
-{param: 'hgtprs', z: 50000, time: 454917600000, lon: 16, lat: 48, val: 5669},
-{param: 'hgtprs', z: 50000, time: 454939200000, lon: 16, lat: 48, val: 5682.9},
-{param: 'hgtprs', z: 50000, time: 454960800000, lon: 16, lat: 48, val: 5682.01},
-{param: 'hgtprs', z: 50000, time: 454982400000, lon: 16, lat: 48, val: 5678.98},
-{param: 'hgtprs', z: 50000, time: 455004000000, lon: 16, lat: 48, val: 5671.31},
-{param: 'hgtprs', z: 50000, time: 455025600000, lon: 16, lat: 48, val: 5685.18},
-{param: 'hgtprs', z: 50000, time: 455047200000, lon: 16, lat: 48, val: 5684.33},
-{param: 'hgtprs', z: 50000, time: 455068800000, lon: 16, lat: 48, val: 5681.28},
-{param: 'hgtprs', z: 50000, time: 455090400000, lon: 16, lat: 48, val: 5673.62},
-{param: 'hgtprs', z: 50000, time: 455112000000, lon: 16, lat: 48, val: 5687.46},
-{param: 'hgtprs', z: 50000, time: 455133600000, lon: 16, lat: 48, val: 5686.64},
-{param: 'hgtprs', z: 50000, time: 455155200000, lon: 16, lat: 48, val: 5683.59},
-{param: 'hgtprs', z: 50000, time: 455176800000, lon: 16, lat: 48, val: 5675.91},
-{param: 'hgtprs', z: 50000, time: 455198400000, lon: 16, lat: 48, val: 5689.72},
-{param: 'hgtprs', z: 50000, time: 455220000000, lon: 16, lat: 48, val: 5688.95},
-{param: 'hgtprs', z: 50000, time: 455241600000, lon: 16, lat: 48, val: 5685.88},
-{param: 'hgtprs', z: 50000, time: 455263200000, lon: 16, lat: 48, val: 5678.2},
-{param: 'hgtprs', z: 50000, time: 455284800000, lon: 16, lat: 48, val: 5691.97},
-{param: 'hgtprs', z: 50000, time: 455306400000, lon: 16, lat: 48, val: 5691.24},
-{param: 'hgtprs', z: 50000, time: 455328000000, lon: 16, lat: 48, val: 5688.16},
-{param: 'hgtprs', z: 50000, time: 455349600000, lon: 16, lat: 48, val: 5680.49},
-{param: 'hgtprs', z: 50000, time: 455371200000, lon: 16, lat: 48, val: 5694.22},
-{param: 'hgtprs', z: 50000, time: 455392800000, lon: 16, lat: 48, val: 5693.53},
-{param: 'hgtprs', z: 50000, time: 455414400000, lon: 16, lat: 48, val: 5690.44},
-{param: 'hgtprs', z: 50000, time: 455436000000, lon: 16, lat: 48, val: 5682.75},
-{param: 'hgtprs', z: 50000, time: 455457600000, lon: 16, lat: 48, val: 5696.44},
-{param: 'hgtprs', z: 50000, time: 455479200000, lon: 16, lat: 48, val: 5695.82},
-{param: 'hgtprs', z: 50000, time: 455500800000, lon: 16, lat: 48, val: 5692.71},
-{param: 'hgtprs', z: 50000, time: 455522400000, lon: 16, lat: 48, val: 5685.01},
-{param: 'hgtprs', z: 50000, time: 455544000000, lon: 16, lat: 48, val: 5698.69},
-{param: 'hgtprs', z: 50000, time: 455565600000, lon: 16, lat: 48, val: 5698.08},
-{param: 'hgtprs', z: 50000, time: 455587200000, lon: 16, lat: 48, val: 5694.98},
-{param: 'hgtprs', z: 50000, time: 455608800000, lon: 16, lat: 48, val: 5687.27},
-{param: 'hgtprs', z: 50000, time: 455630400000, lon: 16, lat: 48, val: 5700.91},
-{param: 'hgtprs', z: 50000, time: 455652000000, lon: 16, lat: 48, val: 5700.36},
-{param: 'hgtprs', z: 50000, time: 455673600000, lon: 16, lat: 48, val: 5697.24},
-{param: 'hgtprs', z: 50000, time: 455695200000, lon: 16, lat: 48, val: 5689.51},
-{param: 'hgtprs', z: 50000, time: 455716800000, lon: 16, lat: 48, val: 5703.12},
-{param: 'hgtprs', z: 50000, time: 455738400000, lon: 16, lat: 48, val: 5702.62},
-{param: 'hgtprs', z: 50000, time: 455760000000, lon: 16, lat: 48, val: 5699.5},
-{param: 'hgtprs', z: 50000, time: 455781600000, lon: 16, lat: 48, val: 5691.75},
-{param: 'hgtprs', z: 50000, time: 455803200000, lon: 16, lat: 48, val: 5705.32},
-{param: 'hgtprs', z: 50000, time: 455824800000, lon: 16, lat: 48, val: 5704.87},
-{param: 'hgtprs', z: 50000, time: 455846400000, lon: 16, lat: 48, val: 5701.75},
-{param: 'hgtprs', z: 50000, time: 455868000000, lon: 16, lat: 48, val: 5693.97},
-{param: 'hgtprs', z: 50000, time: 455889600000, lon: 16, lat: 48, val: 5707.51},
-{param: 'hgtprs', z: 50000, time: 455911200000, lon: 16, lat: 48, val: 5707.12},
-{param: 'hgtprs', z: 50000, time: 455932800000, lon: 16, lat: 48, val: 5703.98},
-{param: 'hgtprs', z: 50000, time: 455954400000, lon: 16, lat: 48, val: 5696.19},
-{param: 'hgtprs', z: 50000, time: 455976000000, lon: 16, lat: 48, val: 5709.69},
-{param: 'hgtprs', z: 50000, time: 455997600000, lon: 16, lat: 48, val: 5709.35},
-{param: 'hgtprs', z: 50000, time: 456019200000, lon: 16, lat: 48, val: 5706.21},
-{param: 'hgtprs', z: 50000, time: 456040800000, lon: 16, lat: 48, val: 5698.39},
-{param: 'hgtprs', z: 50000, time: 456062400000, lon: 16, lat: 48, val: 5711.86},
-{param: 'hgtprs', z: 50000, time: 456084000000, lon: 16, lat: 48, val: 5711.57},
-{param: 'hgtprs', z: 50000, time: 456105600000, lon: 16, lat: 48, val: 5708.43},
-{param: 'hgtprs', z: 50000, time: 456127200000, lon: 16, lat: 48, val: 5700.59},
-{param: 'hgtprs', z: 50000, time: 456148800000, lon: 16, lat: 48, val: 5714.02},
-{param: 'hgtprs', z: 50000, time: 456170400000, lon: 16, lat: 48, val: 5713.79},
-{param: 'hgtprs', z: 50000, time: 456192000000, lon: 16, lat: 48, val: 5710.64},
-{param: 'hgtprs', z: 50000, time: 456213600000, lon: 16, lat: 48, val: 5702.77},
-{param: 'hgtprs', z: 50000, time: 456235200000, lon: 16, lat: 48, val: 5716.18},
-{param: 'hgtprs', z: 50000, time: 456256800000, lon: 16, lat: 48, val: 5715.98},
-{param: 'hgtprs', z: 50000, time: 456278400000, lon: 16, lat: 48, val: 5712.85},
-{param: 'hgtprs', z: 50000, time: 456300000000, lon: 16, lat: 48, val: 5704.94},
-{param: 'hgtprs', z: 50000, time: 456321600000, lon: 16, lat: 48, val: 5718.3},
-{param: 'hgtprs', z: 50000, time: 456343200000, lon: 16, lat: 48, val: 5718.17},
-{param: 'hgtprs', z: 50000, time: 456364800000, lon: 16, lat: 48, val: 5715.03},
-{param: 'hgtprs', z: 50000, time: 456386400000, lon: 16, lat: 48, val: 5707.09},
-{param: 'hgtprs', z: 50000, time: 456408000000, lon: 16, lat: 48, val: 5720.43},
-{param: 'hgtprs', z: 50000, time: 456429600000, lon: 16, lat: 48, val: 5720.35},
-{param: 'hgtprs', z: 50000, time: 456451200000, lon: 16, lat: 48, val: 5717.2},
-{param: 'hgtprs', z: 50000, time: 456472800000, lon: 16, lat: 48, val: 5709.22},
-{param: 'hgtprs', z: 50000, time: 456494400000, lon: 16, lat: 48, val: 5722.52},
-{param: 'hgtprs', z: 50000, time: 456516000000, lon: 16, lat: 48, val: 5722.5},
-{param: 'hgtprs', z: 50000, time: 456537600000, lon: 16, lat: 48, val: 5719.36},
-{param: 'hgtprs', z: 50000, time: 456559200000, lon: 16, lat: 48, val: 5711.35},
-{param: 'hgtprs', z: 50000, time: 456580800000, lon: 16, lat: 48, val: 5724.64},
-{param: 'hgtprs', z: 50000, time: 456602400000, lon: 16, lat: 48, val: 5724.65},
-{param: 'hgtprs', z: 50000, time: 456624000000, lon: 16, lat: 48, val: 5721.49},
-{param: 'hgtprs', z: 50000, time: 456645600000, lon: 16, lat: 48, val: 5713.44},
-{param: 'hgtprs', z: 50000, time: 456667200000, lon: 16, lat: 48, val: 5726.68},
-{param: 'hgtprs', z: 50000, time: 456688800000, lon: 16, lat: 48, val: 5726.75},
-{param: 'hgtprs', z: 50000, time: 456710400000, lon: 16, lat: 48, val: 5723.61},
-{param: 'hgtprs', z: 50000, time: 456732000000, lon: 16, lat: 48, val: 5715.51},
-{param: 'hgtprs', z: 50000, time: 456753600000, lon: 16, lat: 48, val: 5728.75},
-{param: 'hgtprs', z: 50000, time: 456775200000, lon: 16, lat: 48, val: 5728.85},
-{param: 'hgtprs', z: 50000, time: 456796800000, lon: 16, lat: 48, val: 5725.72},
-{param: 'hgtprs', z: 50000, time: 456818400000, lon: 16, lat: 48, val: 5717.58},
-{param: 'hgtprs', z: 50000, time: 456840000000, lon: 16, lat: 48, val: 5730.78},
-{param: 'hgtprs', z: 50000, time: 456861600000, lon: 16, lat: 48, val: 5730.94},
-{param: 'hgtprs', z: 50000, time: 456883200000, lon: 16, lat: 48, val: 5727.77},
-{param: 'hgtprs', z: 50000, time: 456904800000, lon: 16, lat: 48, val: 5719.59},
-{param: 'hgtprs', z: 50000, time: 456926400000, lon: 16, lat: 48, val: 5732.77},
-{param: 'hgtprs', z: 50000, time: 456948000000, lon: 16, lat: 48, val: 5732.97},
-{param: 'hgtprs', z: 50000, time: 456969600000, lon: 16, lat: 48, val: 5729.81},
-{param: 'hgtprs', z: 50000, time: 456991200000, lon: 16, lat: 48, val: 5721.6},
-{param: 'hgtprs', z: 50000, time: 457012800000, lon: 16, lat: 48, val: 5734.74},
-{param: 'hgtprs', z: 50000, time: 457034400000, lon: 16, lat: 48, val: 5735.01},
-{param: 'hgtprs', z: 50000, time: 457056000000, lon: 16, lat: 48, val: 5731.83},
-{param: 'hgtprs', z: 50000, time: 457077600000, lon: 16, lat: 48, val: 5723.57},
-{param: 'hgtprs', z: 50000, time: 457099200000, lon: 16, lat: 48, val: 5736.69},
-{param: 'hgtprs', z: 50000, time: 457120800000, lon: 16, lat: 48, val: 5736.98},
-{param: 'hgtprs', z: 50000, time: 457142400000, lon: 16, lat: 48, val: 5733.82},
-{param: 'hgtprs', z: 50000, time: 457164000000, lon: 16, lat: 48, val: 5725.5},
-{param: 'hgtprs', z: 50000, time: 457185600000, lon: 16, lat: 48, val: 5738.61},
-{param: 'hgtprs', z: 50000, time: 457207200000, lon: 16, lat: 48, val: 5738.94},
-{param: 'hgtprs', z: 50000, time: 457228800000, lon: 16, lat: 48, val: 5735.8},
-{param: 'hgtprs', z: 50000, time: 457250400000, lon: 16, lat: 48, val: 5727.43},
-{param: 'hgtprs', z: 50000, time: 457272000000, lon: 16, lat: 48, val: 5740.48},
-{param: 'hgtprs', z: 50000, time: 457293600000, lon: 16, lat: 48, val: 5740.87},
-{param: 'hgtprs', z: 50000, time: 457315200000, lon: 16, lat: 48, val: 5737.72},
-{param: 'hgtprs', z: 50000, time: 457336800000, lon: 16, lat: 48, val: 5729.31},
-{param: 'hgtprs', z: 50000, time: 457358400000, lon: 16, lat: 48, val: 5742.33},
-{param: 'hgtprs', z: 50000, time: 457380000000, lon: 16, lat: 48, val: 5742.75},
-{param: 'hgtprs', z: 50000, time: 457401600000, lon: 16, lat: 48, val: 5739.6},
-{param: 'hgtprs', z: 50000, time: 457423200000, lon: 16, lat: 48, val: 5731.14},
-{param: 'hgtprs', z: 50000, time: 457444800000, lon: 16, lat: 48, val: 5744.17},
-{param: 'hgtprs', z: 50000, time: 457466400000, lon: 16, lat: 48, val: 5744.59},
-{param: 'hgtprs', z: 50000, time: 457488000000, lon: 16, lat: 48, val: 5741.44},
-{param: 'hgtprs', z: 50000, time: 457509600000, lon: 16, lat: 48, val: 5732.94},
-{param: 'hgtprs', z: 50000, time: 457531200000, lon: 16, lat: 48, val: 5745.94},
-{param: 'hgtprs', z: 50000, time: 457552800000, lon: 16, lat: 48, val: 5746.39},
-{param: 'hgtprs', z: 50000, time: 457574400000, lon: 16, lat: 48, val: 5743.26},
-{param: 'hgtprs', z: 50000, time: 457596000000, lon: 16, lat: 48, val: 5734.68},
-{param: 'hgtprs', z: 50000, time: 457617600000, lon: 16, lat: 48, val: 5747.68},
-{param: 'hgtprs', z: 50000, time: 457639200000, lon: 16, lat: 48, val: 5748.15},
-{param: 'hgtprs', z: 50000, time: 457660800000, lon: 16, lat: 48, val: 5745.02},
-{param: 'hgtprs', z: 50000, time: 457682400000, lon: 16, lat: 48, val: 5736.4},
-{param: 'hgtprs', z: 50000, time: 457704000000, lon: 16, lat: 48, val: 5749.35},
-{param: 'hgtprs', z: 50000, time: 457725600000, lon: 16, lat: 48, val: 5749.86},
-{param: 'hgtprs', z: 50000, time: 457747200000, lon: 16, lat: 48, val: 5746.72},
-{param: 'hgtprs', z: 50000, time: 457768800000, lon: 16, lat: 48, val: 5738.05},
-{param: 'hgtprs', z: 50000, time: 457790400000, lon: 16, lat: 48, val: 5751.01},
-{param: 'hgtprs', z: 50000, time: 457812000000, lon: 16, lat: 48, val: 5751.54},
-{param: 'hgtprs', z: 50000, time: 457833600000, lon: 16, lat: 48, val: 5748.4},
-{param: 'hgtprs', z: 50000, time: 457855200000, lon: 16, lat: 48, val: 5739.69},
-{param: 'hgtprs', z: 50000, time: 457876800000, lon: 16, lat: 48, val: 5752.6},
-{param: 'hgtprs', z: 50000, time: 457898400000, lon: 16, lat: 48, val: 5753.13},
-{param: 'hgtprs', z: 50000, time: 457920000000, lon: 16, lat: 48, val: 5750.02},
-{param: 'hgtprs', z: 50000, time: 457941600000, lon: 16, lat: 48, val: 5741.24},
-{param: 'hgtprs', z: 50000, time: 457963200000, lon: 16, lat: 48, val: 5754.13},
-{param: 'hgtprs', z: 50000, time: 457984800000, lon: 16, lat: 48, val: 5754.71},
-{param: 'hgtprs', z: 50000, time: 458006400000, lon: 16, lat: 48, val: 5751.57},
-{param: 'hgtprs', z: 50000, time: 458028000000, lon: 16, lat: 48, val: 5742.74},
-{param: 'hgtprs', z: 50000, time: 458049600000, lon: 16, lat: 48, val: 5755.65},
-{param: 'hgtprs', z: 50000, time: 458071200000, lon: 16, lat: 48, val: 5756.22},
-{param: 'hgtprs', z: 50000, time: 458092800000, lon: 16, lat: 48, val: 5753.08},
-{param: 'hgtprs', z: 50000, time: 458114400000, lon: 16, lat: 48, val: 5744.21},
-{param: 'hgtprs', z: 50000, time: 458136000000, lon: 16, lat: 48, val: 5757.08},
-{param: 'hgtprs', z: 50000, time: 458157600000, lon: 16, lat: 48, val: 5757.66},
-{param: 'hgtprs', z: 50000, time: 458179200000, lon: 16, lat: 48, val: 5754.54},
-{param: 'hgtprs', z: 50000, time: 458200800000, lon: 16, lat: 48, val: 5745.6},
-{param: 'hgtprs', z: 50000, time: 458222400000, lon: 16, lat: 48, val: 5758.47},
-{param: 'hgtprs', z: 50000, time: 458244000000, lon: 16, lat: 48, val: 5759.06},
-{param: 'hgtprs', z: 50000, time: 458265600000, lon: 16, lat: 48, val: 5755.91},
-{param: 'hgtprs', z: 50000, time: 458287200000, lon: 16, lat: 48, val: 5746.94},
-{param: 'hgtprs', z: 50000, time: 458308800000, lon: 16, lat: 48, val: 5759.79},
-{param: 'hgtprs', z: 50000, time: 458330400000, lon: 16, lat: 48, val: 5760.39},
-{param: 'hgtprs', z: 50000, time: 458352000000, lon: 16, lat: 48, val: 5757.26},
-{param: 'hgtprs', z: 50000, time: 458373600000, lon: 16, lat: 48, val: 5748.22},
-{param: 'hgtprs', z: 50000, time: 458395200000, lon: 16, lat: 48, val: 5761.07},
-{param: 'hgtprs', z: 50000, time: 458416800000, lon: 16, lat: 48, val: 5761.64},
-{param: 'hgtprs', z: 50000, time: 458438400000, lon: 16, lat: 48, val: 5758.52},
-{param: 'hgtprs', z: 50000, time: 458460000000, lon: 16, lat: 48, val: 5749.45},
-{param: 'hgtprs', z: 50000, time: 458481600000, lon: 16, lat: 48, val: 5762.28},
-{param: 'hgtprs', z: 50000, time: 458503200000, lon: 16, lat: 48, val: 5762.85},
-{param: 'hgtprs', z: 50000, time: 458524800000, lon: 16, lat: 48, val: 5759.73},
-{param: 'hgtprs', z: 50000, time: 458546400000, lon: 16, lat: 48, val: 5750.58},
-{param: 'hgtprs', z: 50000, time: 458568000000, lon: 16, lat: 48, val: 5763.42},
-{param: 'hgtprs', z: 50000, time: 458589600000, lon: 16, lat: 48, val: 5763.98},
-{param: 'hgtprs', z: 50000, time: 458611200000, lon: 16, lat: 48, val: 5760.84},
-{param: 'hgtprs', z: 50000, time: 458632800000, lon: 16, lat: 48, val: 5751.68},
-{param: 'hgtprs', z: 50000, time: 458654400000, lon: 16, lat: 48, val: 5764.48},
-{param: 'hgtprs', z: 50000, time: 458676000000, lon: 16, lat: 48, val: 5765.02},
-{param: 'hgtprs', z: 50000, time: 458697600000, lon: 16, lat: 48, val: 5761.91},
-{param: 'hgtprs', z: 50000, time: 458719200000, lon: 16, lat: 48, val: 5752.7},
-{param: 'hgtprs', z: 50000, time: 458740800000, lon: 16, lat: 48, val: 5765.5},
-{param: 'hgtprs', z: 50000, time: 458762400000, lon: 16, lat: 48, val: 5766.03},
-{param: 'hgtprs', z: 50000, time: 458784000000, lon: 16, lat: 48, val: 5762.93},
-{param: 'hgtprs', z: 50000, time: 458805600000, lon: 16, lat: 48, val: 5753.64},
-{param: 'hgtprs', z: 50000, time: 458827200000, lon: 16, lat: 48, val: 5766.44},
-{param: 'hgtprs', z: 50000, time: 458848800000, lon: 16, lat: 48, val: 5766.95},
-{param: 'hgtprs', z: 50000, time: 458870400000, lon: 16, lat: 48, val: 5763.83},
-{param: 'hgtprs', z: 50000, time: 458892000000, lon: 16, lat: 48, val: 5754.52},
-{param: 'hgtprs', z: 50000, time: 458913600000, lon: 16, lat: 48, val: 5767.33},
-{param: 'hgtprs', z: 50000, time: 458935200000, lon: 16, lat: 48, val: 5767.81},
-{param: 'hgtprs', z: 50000, time: 458956800000, lon: 16, lat: 48, val: 5764.7},
-{param: 'hgtprs', z: 50000, time: 458978400000, lon: 16, lat: 48, val: 5755.32},
-{param: 'hgtprs', z: 50000, time: 459000000000, lon: 16, lat: 48, val: 5768.13},
-{param: 'hgtprs', z: 50000, time: 459021600000, lon: 16, lat: 48, val: 5768.58},
-{param: 'hgtprs', z: 50000, time: 459043200000, lon: 16, lat: 48, val: 5765.48},
-{param: 'hgtprs', z: 50000, time: 459064800000, lon: 16, lat: 48, val: 5756.06},
-{param: 'hgtprs', z: 50000, time: 459086400000, lon: 16, lat: 48, val: 5768.86},
-{param: 'hgtprs', z: 50000, time: 459108000000, lon: 16, lat: 48, val: 5769.28},
-{param: 'hgtprs', z: 50000, time: 459129600000, lon: 16, lat: 48, val: 5766.19},
-{param: 'hgtprs', z: 50000, time: 459151200000, lon: 16, lat: 48, val: 5756.71},
-{param: 'hgtprs', z: 50000, time: 459172800000, lon: 16, lat: 48, val: 5769.54},
-{param: 'hgtprs', z: 50000, time: 459194400000, lon: 16, lat: 48, val: 5769.92},
-{param: 'hgtprs', z: 50000, time: 459216000000, lon: 16, lat: 48, val: 5766.8},
-{param: 'hgtprs', z: 50000, time: 459237600000, lon: 16, lat: 48, val: 5757.32},
-{param: 'hgtprs', z: 50000, time: 459259200000, lon: 16, lat: 48, val: 5770.14},
-{param: 'hgtprs', z: 50000, time: 459280800000, lon: 16, lat: 48, val: 5770.46},
-{param: 'hgtprs', z: 50000, time: 459302400000, lon: 16, lat: 48, val: 5767.37},
-{param: 'hgtprs', z: 50000, time: 459324000000, lon: 16, lat: 48, val: 5757.81},
-{param: 'hgtprs', z: 50000, time: 459345600000, lon: 16, lat: 48, val: 5770.63},
-{param: 'hgtprs', z: 50000, time: 459367200000, lon: 16, lat: 48, val: 5770.93},
-{param: 'hgtprs', z: 50000, time: 459388800000, lon: 16, lat: 48, val: 5767.84},
-{param: 'hgtprs', z: 50000, time: 459410400000, lon: 16, lat: 48, val: 5758.28},
-{param: 'hgtprs', z: 50000, time: 459432000000, lon: 16, lat: 48, val: 5771.08},
-{param: 'hgtprs', z: 50000, time: 459453600000, lon: 16, lat: 48, val: 5771.33},
-{param: 'hgtprs', z: 50000, time: 459475200000, lon: 16, lat: 48, val: 5768.23},
-{param: 'hgtprs', z: 50000, time: 459496800000, lon: 16, lat: 48, val: 5758.62},
-{param: 'hgtprs', z: 50000, time: 459518400000, lon: 16, lat: 48, val: 5771.44},
-{param: 'hgtprs', z: 50000, time: 459540000000, lon: 16, lat: 48, val: 5771.67},
-{param: 'hgtprs', z: 50000, time: 459561600000, lon: 16, lat: 48, val: 5768.55},
-{param: 'hgtprs', z: 50000, time: 459583200000, lon: 16, lat: 48, val: 5758.9},
-{param: 'hgtprs', z: 50000, time: 459604800000, lon: 16, lat: 48, val: 5771.75},
-{param: 'hgtprs', z: 50000, time: 459626400000, lon: 16, lat: 48, val: 5771.93},
-{param: 'hgtprs', z: 50000, time: 459648000000, lon: 16, lat: 48, val: 5768.8},
-{param: 'hgtprs', z: 50000, time: 459669600000, lon: 16, lat: 48, val: 5759.13},
-{param: 'hgtprs', z: 50000, time: 459691200000, lon: 16, lat: 48, val: 5771.97},
-{param: 'hgtprs', z: 50000, time: 459712800000, lon: 16, lat: 48, val: 5772.1},
-{param: 'hgtprs', z: 50000, time: 459734400000, lon: 16, lat: 48, val: 5768.97},
-{param: 'hgtprs', z: 50000, time: 459756000000, lon: 16, lat: 48, val: 5759.28},
-{param: 'hgtprs', z: 50000, time: 459777600000, lon: 16, lat: 48, val: 5772.11},
-{param: 'hgtprs', z: 50000, time: 459799200000, lon: 16, lat: 48, val: 5772.19},
-{param: 'hgtprs', z: 50000, time: 459820800000, lon: 16, lat: 48, val: 5769.09},
-{param: 'hgtprs', z: 50000, time: 459842400000, lon: 16, lat: 48, val: 5759.33},
-{param: 'hgtprs', z: 50000, time: 459864000000, lon: 16, lat: 48, val: 5772.2},
-{param: 'hgtprs', z: 50000, time: 459885600000, lon: 16, lat: 48, val: 5772.19},
-{param: 'hgtprs', z: 50000, time: 459907200000, lon: 16, lat: 48, val: 5769.09},
-{param: 'hgtprs', z: 50000, time: 459928800000, lon: 16, lat: 48, val: 5759.32},
-{param: 'hgtprs', z: 50000, time: 459950400000, lon: 16, lat: 48, val: 5772.21},
-{param: 'hgtprs', z: 50000, time: 459972000000, lon: 16, lat: 48, val: 5772.16},
-{param: 'hgtprs', z: 50000, time: 459993600000, lon: 16, lat: 48, val: 5769.06},
-{param: 'hgtprs', z: 50000, time: 460015200000, lon: 16, lat: 48, val: 5759.25},
-{param: 'hgtprs', z: 50000, time: 460036800000, lon: 16, lat: 48, val: 5772.14},
-{param: 'hgtprs', z: 50000, time: 460058400000, lon: 16, lat: 48, val: 5772.02},
-{param: 'hgtprs', z: 50000, time: 460080000000, lon: 16, lat: 48, val: 5768.92},
-{param: 'hgtprs', z: 50000, time: 460101600000, lon: 16, lat: 48, val: 5759.09},
-{param: 'hgtprs', z: 50000, time: 460123200000, lon: 16, lat: 48, val: 5771.98},
-{param: 'hgtprs', z: 50000, time: 460144800000, lon: 16, lat: 48, val: 5771.85},
-{param: 'hgtprs', z: 50000, time: 460166400000, lon: 16, lat: 48, val: 5768.72},
-{param: 'hgtprs', z: 50000, time: 460188000000, lon: 16, lat: 48, val: 5758.88},
-{param: 'hgtprs', z: 50000, time: 460209600000, lon: 16, lat: 48, val: 5771.78},
-{param: 'hgtprs', z: 50000, time: 460231200000, lon: 16, lat: 48, val: 5771.57},
-{param: 'hgtprs', z: 50000, time: 460252800000, lon: 16, lat: 48, val: 5768.46},
-{param: 'hgtprs', z: 50000, time: 460274400000, lon: 16, lat: 48, val: 5758.58},
-{param: 'hgtprs', z: 50000, time: 460296000000, lon: 16, lat: 48, val: 5771.49},
-{param: 'hgtprs', z: 50000, time: 460317600000, lon: 16, lat: 48, val: 5771.24},
-{param: 'hgtprs', z: 50000, time: 460339200000, lon: 16, lat: 48, val: 5768.12},
-{param: 'hgtprs', z: 50000, time: 460360800000, lon: 16, lat: 48, val: 5758.24},
-{param: 'hgtprs', z: 50000, time: 460382400000, lon: 16, lat: 48, val: 5771.17},
-{param: 'hgtprs', z: 50000, time: 460404000000, lon: 16, lat: 48, val: 5770.81},
-{param: 'hgtprs', z: 50000, time: 460425600000, lon: 16, lat: 48, val: 5767.72},
-{param: 'hgtprs', z: 50000, time: 460447200000, lon: 16, lat: 48, val: 5757.8},
-{param: 'hgtprs', z: 50000, time: 460468800000, lon: 16, lat: 48, val: 5770.75},
-{param: 'hgtprs', z: 50000, time: 460490400000, lon: 16, lat: 48, val: 5770.34},
-{param: 'hgtprs', z: 50000, time: 460512000000, lon: 16, lat: 48, val: 5767.25},
-{param: 'hgtprs', z: 50000, time: 460533600000, lon: 16, lat: 48, val: 5757.32},
-{param: 'hgtprs', z: 50000, time: 460555200000, lon: 16, lat: 48, val: 5770.3},
-{param: 'hgtprs', z: 50000, time: 460576800000, lon: 16, lat: 48, val: 5769.8},
-{param: 'hgtprs', z: 50000, time: 460598400000, lon: 16, lat: 48, val: 5766.71},
-{param: 'hgtprs', z: 50000, time: 460620000000, lon: 16, lat: 48, val: 5756.77},
-{param: 'hgtprs', z: 50000, time: 460641600000, lon: 16, lat: 48, val: 5769.74},
-{param: 'hgtprs', z: 50000, time: 460663200000, lon: 16, lat: 48, val: 5769.2},
-{param: 'hgtprs', z: 50000, time: 460684800000, lon: 16, lat: 48, val: 5766.13},
-{param: 'hgtprs', z: 50000, time: 460706400000, lon: 16, lat: 48, val: 5756.16},
-{param: 'hgtprs', z: 50000, time: 460728000000, lon: 16, lat: 48, val: 5769.15},
-{param: 'hgtprs', z: 50000, time: 460749600000, lon: 16, lat: 48, val: 5768.56},
-{param: 'hgtprs', z: 50000, time: 460771200000, lon: 16, lat: 48, val: 5765.47},
-{param: 'hgtprs', z: 50000, time: 460792800000, lon: 16, lat: 48, val: 5755.51},
-{param: 'hgtprs', z: 50000, time: 460814400000, lon: 16, lat: 48, val: 5768.49},
-{param: 'hgtprs', z: 50000, time: 460836000000, lon: 16, lat: 48, val: 5767.82},
-{param: 'hgtprs', z: 50000, time: 460857600000, lon: 16, lat: 48, val: 5764.75},
-{param: 'hgtprs', z: 50000, time: 460879200000, lon: 16, lat: 48, val: 5754.76},
-{param: 'hgtprs', z: 50000, time: 460900800000, lon: 16, lat: 48, val: 5767.78},
-{param: 'hgtprs', z: 50000, time: 460922400000, lon: 16, lat: 48, val: 5767.07},
-{param: 'hgtprs', z: 50000, time: 460944000000, lon: 16, lat: 48, val: 5763.96},
-{param: 'hgtprs', z: 50000, time: 460965600000, lon: 16, lat: 48, val: 5754.01},
-{param: 'hgtprs', z: 50000, time: 460987200000, lon: 16, lat: 48, val: 5767.03},
-{param: 'hgtprs', z: 50000, time: 461008800000, lon: 16, lat: 48, val: 5766.24},
-{param: 'hgtprs', z: 50000, time: 461030400000, lon: 16, lat: 48, val: 5763.15},
-{param: 'hgtprs', z: 50000, time: 461052000000, lon: 16, lat: 48, val: 5753.16},
-{param: 'hgtprs', z: 50000, time: 461073600000, lon: 16, lat: 48, val: 5766.21},
-{param: 'hgtprs', z: 50000, time: 461095200000, lon: 16, lat: 48, val: 5765.34},
-{param: 'hgtprs', z: 50000, time: 461116800000, lon: 16, lat: 48, val: 5762.25},
-{param: 'hgtprs', z: 50000, time: 461138400000, lon: 16, lat: 48, val: 5752.3},
-{param: 'hgtprs', z: 50000, time: 461160000000, lon: 16, lat: 48, val: 5765.35},
-{param: 'hgtprs', z: 50000, time: 461181600000, lon: 16, lat: 48, val: 5764.43},
-{param: 'hgtprs', z: 50000, time: 461203200000, lon: 16, lat: 48, val: 5761.34},
-{param: 'hgtprs', z: 50000, time: 461224800000, lon: 16, lat: 48, val: 5751.36},
-{param: 'hgtprs', z: 50000, time: 461246400000, lon: 16, lat: 48, val: 5764.45},
-{param: 'hgtprs', z: 50000, time: 461268000000, lon: 16, lat: 48, val: 5763.44},
-{param: 'hgtprs', z: 50000, time: 461289600000, lon: 16, lat: 48, val: 5760.38},
-{param: 'hgtprs', z: 50000, time: 461311200000, lon: 16, lat: 48, val: 5750.38},
-{param: 'hgtprs', z: 50000, time: 461332800000, lon: 16, lat: 48, val: 5763.47},
-{param: 'hgtprs', z: 50000, time: 461354400000, lon: 16, lat: 48, val: 5762.44},
-{param: 'hgtprs', z: 50000, time: 461376000000, lon: 16, lat: 48, val: 5759.37},
-{param: 'hgtprs', z: 50000, time: 461397600000, lon: 16, lat: 48, val: 5749.38},
-{param: 'hgtprs', z: 50000, time: 461419200000, lon: 16, lat: 48, val: 5762.47},
-{param: 'hgtprs', z: 50000, time: 461440800000, lon: 16, lat: 48, val: 5761.35},
-{param: 'hgtprs', z: 50000, time: 461462400000, lon: 16, lat: 48, val: 5758.31},
-{param: 'hgtprs', z: 50000, time: 461484000000, lon: 16, lat: 48, val: 5748.31},
-{param: 'hgtprs', z: 50000, time: 461505600000, lon: 16, lat: 48, val: 5761.46},
-{param: 'hgtprs', z: 50000, time: 461527200000, lon: 16, lat: 48, val: 5760.25},
-{param: 'hgtprs', z: 50000, time: 461548800000, lon: 16, lat: 48, val: 5757.2},
-{param: 'hgtprs', z: 50000, time: 461570400000, lon: 16, lat: 48, val: 5747.22},
-{param: 'hgtprs', z: 50000, time: 461592000000, lon: 16, lat: 48, val: 5760.35},
-{param: 'hgtprs', z: 50000, time: 461613600000, lon: 16, lat: 48, val: 5759.12},
-{param: 'hgtprs', z: 50000, time: 461635200000, lon: 16, lat: 48, val: 5756.07},
-{param: 'hgtprs', z: 50000, time: 461656800000, lon: 16, lat: 48, val: 5746.11},
-{param: 'hgtprs', z: 50000, time: 461678400000, lon: 16, lat: 48, val: 5759.25},
-{param: 'hgtprs', z: 50000, time: 461700000000, lon: 16, lat: 48, val: 5757.97},
-{param: 'hgtprs', z: 50000, time: 461721600000, lon: 16, lat: 48, val: 5754.91},
-{param: 'hgtprs', z: 50000, time: 461743200000, lon: 16, lat: 48, val: 5744.94},
-{param: 'hgtprs', z: 50000, time: 461764800000, lon: 16, lat: 48, val: 5758.12},
-{param: 'hgtprs', z: 50000, time: 461786400000, lon: 16, lat: 48, val: 5756.76},
-{param: 'hgtprs', z: 50000, time: 461808000000, lon: 16, lat: 48, val: 5753.72},
-{param: 'hgtprs', z: 50000, time: 461829600000, lon: 16, lat: 48, val: 5743.75},
-{param: 'hgtprs', z: 50000, time: 461851200000, lon: 16, lat: 48, val: 5756.93},
-{param: 'hgtprs', z: 50000, time: 461872800000, lon: 16, lat: 48, val: 5755.54},
-{param: 'hgtprs', z: 50000, time: 461894400000, lon: 16, lat: 48, val: 5752.5},
-{param: 'hgtprs', z: 50000, time: 461916000000, lon: 16, lat: 48, val: 5742.56},
-{param: 'hgtprs', z: 50000, time: 461937600000, lon: 16, lat: 48, val: 5755.74},
-{param: 'hgtprs', z: 50000, time: 461959200000, lon: 16, lat: 48, val: 5754.28},
-{param: 'hgtprs', z: 50000, time: 461980800000, lon: 16, lat: 48, val: 5751.24},
-{param: 'hgtprs', z: 50000, time: 462002400000, lon: 16, lat: 48, val: 5741.33},
-{param: 'hgtprs', z: 50000, time: 462024000000, lon: 16, lat: 48, val: 5754.51},
-{param: 'hgtprs', z: 50000, time: 462045600000, lon: 16, lat: 48, val: 5752.99},
-{param: 'hgtprs', z: 50000, time: 462067200000, lon: 16, lat: 48, val: 5749.96},
-{param: 'hgtprs', z: 50000, time: 462088800000, lon: 16, lat: 48, val: 5740.06},
-{param: 'hgtprs', z: 50000, time: 462110400000, lon: 16, lat: 48, val: 5753.24},
-{param: 'hgtprs', z: 50000, time: 462132000000, lon: 16, lat: 48, val: 5751.68},
-{param: 'hgtprs', z: 50000, time: 462153600000, lon: 16, lat: 48, val: 5748.68},
-{param: 'hgtprs', z: 50000, time: 462175200000, lon: 16, lat: 48, val: 5738.78},
-{param: 'hgtprs', z: 50000, time: 462196800000, lon: 16, lat: 48, val: 5751.98},
-{param: 'hgtprs', z: 50000, time: 462218400000, lon: 16, lat: 48, val: 5750.36},
-{param: 'hgtprs', z: 50000, time: 462240000000, lon: 16, lat: 48, val: 5747.35},
-{param: 'hgtprs', z: 50000, time: 462261600000, lon: 16, lat: 48, val: 5737.49},
-{param: 'hgtprs', z: 50000, time: 462283200000, lon: 16, lat: 48, val: 5750.68},
-{param: 'hgtprs', z: 50000, time: 462304800000, lon: 16, lat: 48, val: 5749.02},
-{param: 'hgtprs', z: 50000, time: 462326400000, lon: 16, lat: 48, val: 5746.02},
-{param: 'hgtprs', z: 50000, time: 462348000000, lon: 16, lat: 48, val: 5736.18},
-{param: 'hgtprs', z: 50000, time: 462369600000, lon: 16, lat: 48, val: 5749.36},
-{param: 'hgtprs', z: 50000, time: 462391200000, lon: 16, lat: 48, val: 5747.65},
-{param: 'hgtprs', z: 50000, time: 462412800000, lon: 16, lat: 48, val: 5744.67},
-{param: 'hgtprs', z: 50000, time: 462434400000, lon: 16, lat: 48, val: 5734.85},
-{param: 'hgtprs', z: 50000, time: 462456000000, lon: 16, lat: 48, val: 5748.04},
-{param: 'hgtprs', z: 50000, time: 462477600000, lon: 16, lat: 48, val: 5746.3},
-{param: 'hgtprs', z: 50000, time: 462499200000, lon: 16, lat: 48, val: 5743.33},
-{param: 'hgtprs', z: 50000, time: 462520800000, lon: 16, lat: 48, val: 5733.52},
-{param: 'hgtprs', z: 50000, time: 462542400000, lon: 16, lat: 48, val: 5746.69},
-{param: 'hgtprs', z: 50000, time: 462564000000, lon: 16, lat: 48, val: 5744.94},
-{param: 'hgtprs', z: 50000, time: 462585600000, lon: 16, lat: 48, val: 5741.95},
-{param: 'hgtprs', z: 50000, time: 462607200000, lon: 16, lat: 48, val: 5732.16},
-{param: 'hgtprs', z: 50000, time: 462628800000, lon: 16, lat: 48, val: 5745.34},
-{param: 'hgtprs', z: 50000, time: 462650400000, lon: 16, lat: 48, val: 5743.54},
-{param: 'hgtprs', z: 50000, time: 462672000000, lon: 16, lat: 48, val: 5740.6},
-{param: 'hgtprs', z: 50000, time: 462693600000, lon: 16, lat: 48, val: 5730.8},
-{param: 'hgtprs', z: 50000, time: 462715200000, lon: 16, lat: 48, val: 5743.99},
-{param: 'hgtprs', z: 50000, time: 462736800000, lon: 16, lat: 48, val: 5742.14},
-{param: 'hgtprs', z: 50000, time: 462758400000, lon: 16, lat: 48, val: 5739.2},
-{param: 'hgtprs', z: 50000, time: 462780000000, lon: 16, lat: 48, val: 5729.43},
-{param: 'hgtprs', z: 50000, time: 462801600000, lon: 16, lat: 48, val: 5742.62},
-{param: 'hgtprs', z: 50000, time: 462823200000, lon: 16, lat: 48, val: 5740.73},
-{param: 'hgtprs', z: 50000, time: 462844800000, lon: 16, lat: 48, val: 5737.8},
-{param: 'hgtprs', z: 50000, time: 462866400000, lon: 16, lat: 48, val: 5728.09},
-{param: 'hgtprs', z: 50000, time: 462888000000, lon: 16, lat: 48, val: 5741.21},
-{param: 'hgtprs', z: 50000, time: 462909600000, lon: 16, lat: 48, val: 5739.31},
-{param: 'hgtprs', z: 50000, time: 462931200000, lon: 16, lat: 48, val: 5736.4},
-{param: 'hgtprs', z: 50000, time: 462952800000, lon: 16, lat: 48, val: 5726.69},
-{param: 'hgtprs', z: 50000, time: 462974400000, lon: 16, lat: 48, val: 5739.85},
-{param: 'hgtprs', z: 50000, time: 462996000000, lon: 16, lat: 48, val: 5737.9},
-{param: 'hgtprs', z: 50000, time: 463017600000, lon: 16, lat: 48, val: 5735},
-{param: 'hgtprs', z: 50000, time: 463039200000, lon: 16, lat: 48, val: 5725.34},
-{param: 'hgtprs', z: 50000, time: 463060800000, lon: 16, lat: 48, val: 5738.44},
-{param: 'hgtprs', z: 50000, time: 463082400000, lon: 16, lat: 48, val: 5736.49},
-{param: 'hgtprs', z: 50000, time: 463104000000, lon: 16, lat: 48, val: 5733.61},
-{param: 'hgtprs', z: 50000, time: 463125600000, lon: 16, lat: 48, val: 5723.97},
-{param: 'hgtprs', z: 50000, time: 463147200000, lon: 16, lat: 48, val: 5737.04},
-{param: 'hgtprs', z: 50000, time: 463168800000, lon: 16, lat: 48, val: 5735.07},
-{param: 'hgtprs', z: 50000, time: 463190400000, lon: 16, lat: 48, val: 5732.21},
-{param: 'hgtprs', z: 50000, time: 463212000000, lon: 16, lat: 48, val: 5722.58},
-{param: 'hgtprs', z: 50000, time: 463233600000, lon: 16, lat: 48, val: 5735.63},
-{param: 'hgtprs', z: 50000, time: 463255200000, lon: 16, lat: 48, val: 5733.65},
-{param: 'hgtprs', z: 50000, time: 463276800000, lon: 16, lat: 48, val: 5730.79},
-{param: 'hgtprs', z: 50000, time: 463298400000, lon: 16, lat: 48, val: 5721.22},
-{param: 'hgtprs', z: 50000, time: 463320000000, lon: 16, lat: 48, val: 5734.24},
-{param: 'hgtprs', z: 50000, time: 463341600000, lon: 16, lat: 48, val: 5732.22},
-{param: 'hgtprs', z: 50000, time: 463363200000, lon: 16, lat: 48, val: 5729.39},
-{param: 'hgtprs', z: 50000, time: 463384800000, lon: 16, lat: 48, val: 5719.82},
-{param: 'hgtprs', z: 50000, time: 463406400000, lon: 16, lat: 48, val: 5732.84},
-{param: 'hgtprs', z: 50000, time: 463428000000, lon: 16, lat: 48, val: 5730.8},
-{param: 'hgtprs', z: 50000, time: 463449600000, lon: 16, lat: 48, val: 5727.99},
-{param: 'hgtprs', z: 50000, time: 463471200000, lon: 16, lat: 48, val: 5718.46},
-{param: 'hgtprs', z: 50000, time: 463492800000, lon: 16, lat: 48, val: 5731.44},
-{param: 'hgtprs', z: 50000, time: 463514400000, lon: 16, lat: 48, val: 5729.38},
-{param: 'hgtprs', z: 50000, time: 463536000000, lon: 16, lat: 48, val: 5726.58},
-{param: 'hgtprs', z: 50000, time: 463557600000, lon: 16, lat: 48, val: 5717.08},
-{param: 'hgtprs', z: 50000, time: 463579200000, lon: 16, lat: 48, val: 5730.03},
-{param: 'hgtprs', z: 50000, time: 463600800000, lon: 16, lat: 48, val: 5727.95},
-{param: 'hgtprs', z: 50000, time: 463622400000, lon: 16, lat: 48, val: 5725.15},
-{param: 'hgtprs', z: 50000, time: 463644000000, lon: 16, lat: 48, val: 5715.68},
-{param: 'hgtprs', z: 50000, time: 463665600000, lon: 16, lat: 48, val: 5728.58},
-{param: 'hgtprs', z: 50000, time: 463687200000, lon: 16, lat: 48, val: 5726.51},
-{param: 'hgtprs', z: 50000, time: 463708800000, lon: 16, lat: 48, val: 5723.75},
-{param: 'hgtprs', z: 50000, time: 463730400000, lon: 16, lat: 48, val: 5714.32},
-{param: 'hgtprs', z: 50000, time: 463752000000, lon: 16, lat: 48, val: 5727.17},
-{param: 'hgtprs', z: 50000, time: 463773600000, lon: 16, lat: 48, val: 5725.08},
-{param: 'hgtprs', z: 50000, time: 463795200000, lon: 16, lat: 48, val: 5722.36},
-{param: 'hgtprs', z: 50000, time: 463816800000, lon: 16, lat: 48, val: 5712.92},
-{param: 'hgtprs', z: 50000, time: 463838400000, lon: 16, lat: 48, val: 5725.77},
-{param: 'hgtprs', z: 50000, time: 463860000000, lon: 16, lat: 48, val: 5723.65},
-{param: 'hgtprs', z: 50000, time: 463881600000, lon: 16, lat: 48, val: 5720.93},
-{param: 'hgtprs', z: 50000, time: 463903200000, lon: 16, lat: 48, val: 5711.56},
-{param: 'hgtprs', z: 50000, time: 463924800000, lon: 16, lat: 48, val: 5724.32},
-{param: 'hgtprs', z: 50000, time: 463946400000, lon: 16, lat: 48, val: 5722.22},
-{param: 'hgtprs', z: 50000, time: 463968000000, lon: 16, lat: 48, val: 5719.54},
-{param: 'hgtprs', z: 50000, time: 463989600000, lon: 16, lat: 48, val: 5710.19},
-{param: 'hgtprs', z: 50000, time: 464011200000, lon: 16, lat: 48, val: 5722.89},
-{param: 'hgtprs', z: 50000, time: 464032800000, lon: 16, lat: 48, val: 5720.75},
-{param: 'hgtprs', z: 50000, time: 464054400000, lon: 16, lat: 48, val: 5718.1},
-{param: 'hgtprs', z: 50000, time: 464076000000, lon: 16, lat: 48, val: 5708.79},
-{param: 'hgtprs', z: 50000, time: 464097600000, lon: 16, lat: 48, val: 5721.44},
-{param: 'hgtprs', z: 50000, time: 464119200000, lon: 16, lat: 48, val: 5719.33},
-{param: 'hgtprs', z: 50000, time: 464140800000, lon: 16, lat: 48, val: 5716.67},
-{param: 'hgtprs', z: 50000, time: 464162400000, lon: 16, lat: 48, val: 5707.42},
-{param: 'hgtprs', z: 50000, time: 464184000000, lon: 16, lat: 48, val: 5720.01},
-{param: 'hgtprs', z: 50000, time: 464205600000, lon: 16, lat: 48, val: 5717.89},
-{param: 'hgtprs', z: 50000, time: 464227200000, lon: 16, lat: 48, val: 5715.26},
-{param: 'hgtprs', z: 50000, time: 464248800000, lon: 16, lat: 48, val: 5706.02},
-{param: 'hgtprs', z: 50000, time: 464270400000, lon: 16, lat: 48, val: 5718.56},
-{param: 'hgtprs', z: 50000, time: 464292000000, lon: 16, lat: 48, val: 5716.43},
-{param: 'hgtprs', z: 50000, time: 464313600000, lon: 16, lat: 48, val: 5713.81},
-{param: 'hgtprs', z: 50000, time: 464335200000, lon: 16, lat: 48, val: 5704.6},
-{param: 'hgtprs', z: 50000, time: 464356800000, lon: 16, lat: 48, val: 5717.09},
-{param: 'hgtprs', z: 50000, time: 464378400000, lon: 16, lat: 48, val: 5714.95},
-{param: 'hgtprs', z: 50000, time: 464400000000, lon: 16, lat: 48, val: 5712.38},
-{param: 'hgtprs', z: 50000, time: 464421600000, lon: 16, lat: 48, val: 5703.2},
-{param: 'hgtprs', z: 50000, time: 464443200000, lon: 16, lat: 48, val: 5715.6},
-{param: 'hgtprs', z: 50000, time: 464464800000, lon: 16, lat: 48, val: 5713.48},
-{param: 'hgtprs', z: 50000, time: 464486400000, lon: 16, lat: 48, val: 5710.93},
-{param: 'hgtprs', z: 50000, time: 464508000000, lon: 16, lat: 48, val: 5701.77},
-{param: 'hgtprs', z: 50000, time: 464529600000, lon: 16, lat: 48, val: 5714.13},
-{param: 'hgtprs', z: 50000, time: 464551200000, lon: 16, lat: 48, val: 5712},
-{param: 'hgtprs', z: 50000, time: 464572800000, lon: 16, lat: 48, val: 5709.46},
-{param: 'hgtprs', z: 50000, time: 464594400000, lon: 16, lat: 48, val: 5700.37},
-{param: 'hgtprs', z: 50000, time: 464616000000, lon: 16, lat: 48, val: 5712.64},
-{param: 'hgtprs', z: 50000, time: 464637600000, lon: 16, lat: 48, val: 5710.47},
-{param: 'hgtprs', z: 50000, time: 464659200000, lon: 16, lat: 48, val: 5708},
-{param: 'hgtprs', z: 50000, time: 464680800000, lon: 16, lat: 48, val: 5698.91},
-{param: 'hgtprs', z: 50000, time: 464702400000, lon: 16, lat: 48, val: 5711.1},
-{param: 'hgtprs', z: 50000, time: 464724000000, lon: 16, lat: 48, val: 5708.96},
-{param: 'hgtprs', z: 50000, time: 464745600000, lon: 16, lat: 48, val: 5706.5},
-{param: 'hgtprs', z: 50000, time: 464767200000, lon: 16, lat: 48, val: 5697.47},
-{param: 'hgtprs', z: 50000, time: 464788800000, lon: 16, lat: 48, val: 5709.58},
-{param: 'hgtprs', z: 50000, time: 464810400000, lon: 16, lat: 48, val: 5707.45},
-{param: 'hgtprs', z: 50000, time: 464832000000, lon: 16, lat: 48, val: 5704.99},
-{param: 'hgtprs', z: 50000, time: 464853600000, lon: 16, lat: 48, val: 5695.99},
-{param: 'hgtprs', z: 50000, time: 464875200000, lon: 16, lat: 48, val: 5708.01},
-{param: 'hgtprs', z: 50000, time: 464896800000, lon: 16, lat: 48, val: 5705.9},
-{param: 'hgtprs', z: 50000, time: 464918400000, lon: 16, lat: 48, val: 5703.47},
-{param: 'hgtprs', z: 50000, time: 464940000000, lon: 16, lat: 48, val: 5694.51},
-{param: 'hgtprs', z: 50000, time: 464961600000, lon: 16, lat: 48, val: 5706.43},
-{param: 'hgtprs', z: 50000, time: 464983200000, lon: 16, lat: 48, val: 5704.31},
-{param: 'hgtprs', z: 50000, time: 465004800000, lon: 16, lat: 48, val: 5701.91},
-{param: 'hgtprs', z: 50000, time: 465026400000, lon: 16, lat: 48, val: 5693.01},
-{param: 'hgtprs', z: 50000, time: 465048000000, lon: 16, lat: 48, val: 5704.85},
-{param: 'hgtprs', z: 50000, time: 465069600000, lon: 16, lat: 48, val: 5702.73},
-{param: 'hgtprs', z: 50000, time: 465091200000, lon: 16, lat: 48, val: 5700.35},
-{param: 'hgtprs', z: 50000, time: 465112800000, lon: 16, lat: 48, val: 5691.47},
-{param: 'hgtprs', z: 50000, time: 465134400000, lon: 16, lat: 48, val: 5703.23},
-{param: 'hgtprs', z: 50000, time: 465156000000, lon: 16, lat: 48, val: 5701.11},
-{param: 'hgtprs', z: 50000, time: 465177600000, lon: 16, lat: 48, val: 5698.75},
-{param: 'hgtprs', z: 50000, time: 465199200000, lon: 16, lat: 48, val: 5689.93},
-{param: 'hgtprs', z: 50000, time: 465220800000, lon: 16, lat: 48, val: 5701.57},
-{param: 'hgtprs', z: 50000, time: 465242400000, lon: 16, lat: 48, val: 5699.47},
-{param: 'hgtprs', z: 50000, time: 465264000000, lon: 16, lat: 48, val: 5697.16},
-{param: 'hgtprs', z: 50000, time: 465285600000, lon: 16, lat: 48, val: 5688.33},
-{param: 'hgtprs', z: 50000, time: 465307200000, lon: 16, lat: 48, val: 5699.9},
-{param: 'hgtprs', z: 50000, time: 465328800000, lon: 16, lat: 48, val: 5697.79},
-{param: 'hgtprs', z: 50000, time: 465350400000, lon: 16, lat: 48, val: 5695.51},
-{param: 'hgtprs', z: 50000, time: 465372000000, lon: 16, lat: 48, val: 5686.73},
-{param: 'hgtprs', z: 50000, time: 465393600000, lon: 16, lat: 48, val: 5698.19},
-{param: 'hgtprs', z: 50000, time: 465415200000, lon: 16, lat: 48, val: 5696.09},
-{param: 'hgtprs', z: 50000, time: 465436800000, lon: 16, lat: 48, val: 5693.83},
-{param: 'hgtprs', z: 50000, time: 465458400000, lon: 16, lat: 48, val: 5685.08},
-{param: 'hgtprs', z: 50000, time: 465480000000, lon: 16, lat: 48, val: 5696.45},
-{param: 'hgtprs', z: 50000, time: 465501600000, lon: 16, lat: 48, val: 5694.34},
-{param: 'hgtprs', z: 50000, time: 465523200000, lon: 16, lat: 48, val: 5692.11},
-{param: 'hgtprs', z: 50000, time: 465544800000, lon: 16, lat: 48, val: 5683.41},
-{param: 'hgtprs', z: 50000, time: 465566400000, lon: 16, lat: 48, val: 5694.67},
-{param: 'hgtprs', z: 50000, time: 465588000000, lon: 16, lat: 48, val: 5692.57},
-{param: 'hgtprs', z: 50000, time: 465609600000, lon: 16, lat: 48, val: 5690.38},
-{param: 'hgtprs', z: 50000, time: 465631200000, lon: 16, lat: 48, val: 5681.72},
-{param: 'hgtprs', z: 50000, time: 465652800000, lon: 16, lat: 48, val: 5692.87},
-{param: 'hgtprs', z: 50000, time: 465674400000, lon: 16, lat: 48, val: 5690.76},
-{param: 'hgtprs', z: 50000, time: 465696000000, lon: 16, lat: 48, val: 5688.6},
-{param: 'hgtprs', z: 50000, time: 465717600000, lon: 16, lat: 48, val: 5679.96},
-{param: 'hgtprs', z: 50000, time: 465739200000, lon: 16, lat: 48, val: 5690.99},
-{param: 'hgtprs', z: 50000, time: 465760800000, lon: 16, lat: 48, val: 5688.91},
-{param: 'hgtprs', z: 50000, time: 465782400000, lon: 16, lat: 48, val: 5686.75},
-{param: 'hgtprs', z: 50000, time: 465804000000, lon: 16, lat: 48, val: 5678.19},
-{param: 'hgtprs', z: 50000, time: 465825600000, lon: 16, lat: 48, val: 5689.12},
-{param: 'hgtprs', z: 50000, time: 465847200000, lon: 16, lat: 48, val: 5687.02},
-{param: 'hgtprs', z: 50000, time: 465868800000, lon: 16, lat: 48, val: 5684.9},
-{param: 'hgtprs', z: 50000, time: 465890400000, lon: 16, lat: 48, val: 5676.38},
-{param: 'hgtprs', z: 50000, time: 465912000000, lon: 16, lat: 48, val: 5687.17},
-{param: 'hgtprs', z: 50000, time: 465933600000, lon: 16, lat: 48, val: 5685.07},
-{param: 'hgtprs', z: 50000, time: 465955200000, lon: 16, lat: 48, val: 5682.99},
-{param: 'hgtprs', z: 50000, time: 465976800000, lon: 16, lat: 48, val: 5674.51},
-{param: 'hgtprs', z: 50000, time: 465998400000, lon: 16, lat: 48, val: 5685.2},
-{param: 'hgtprs', z: 50000, time: 466020000000, lon: 16, lat: 48, val: 5683.1},
-{param: 'hgtprs', z: 50000, time: 466041600000, lon: 16, lat: 48, val: 5681.06},
-{param: 'hgtprs', z: 50000, time: 466063200000, lon: 16, lat: 48, val: 5672.59},
-{param: 'hgtprs', z: 50000, time: 466084800000, lon: 16, lat: 48, val: 5683.18},
-{param: 'hgtprs', z: 50000, time: 466106400000, lon: 16, lat: 48, val: 5681.11},
-{param: 'hgtprs', z: 50000, time: 466128000000, lon: 16, lat: 48, val: 5679.07},
-{param: 'hgtprs', z: 50000, time: 466149600000, lon: 16, lat: 48, val: 5670.64},
-{param: 'hgtprs', z: 50000, time: 466171200000, lon: 16, lat: 48, val: 5681.1},
-{param: 'hgtprs', z: 50000, time: 466192800000, lon: 16, lat: 48, val: 5679.03},
-{param: 'hgtprs', z: 50000, time: 466214400000, lon: 16, lat: 48, val: 5677.04},
-{param: 'hgtprs', z: 50000, time: 466236000000, lon: 16, lat: 48, val: 5668.64},
-{param: 'hgtprs', z: 50000, time: 466257600000, lon: 16, lat: 48, val: 5678.98},
-{param: 'hgtprs', z: 50000, time: 466279200000, lon: 16, lat: 48, val: 5676.92},
-{param: 'hgtprs', z: 50000, time: 466300800000, lon: 16, lat: 48, val: 5674.96},
-{param: 'hgtprs', z: 50000, time: 466322400000, lon: 16, lat: 48, val: 5666.6},
-{param: 'hgtprs', z: 50000, time: 466344000000, lon: 16, lat: 48, val: 5676.82},
-{param: 'hgtprs', z: 50000, time: 466365600000, lon: 16, lat: 48, val: 5674.76},
-{param: 'hgtprs', z: 50000, time: 466387200000, lon: 16, lat: 48, val: 5672.81},
-{param: 'hgtprs', z: 50000, time: 466408800000, lon: 16, lat: 48, val: 5664.51},
-{param: 'hgtprs', z: 50000, time: 466430400000, lon: 16, lat: 48, val: 5674.62},
-{param: 'hgtprs', z: 50000, time: 466452000000, lon: 16, lat: 48, val: 5672.54},
-{param: 'hgtprs', z: 50000, time: 466473600000, lon: 16, lat: 48, val: 5670.64},
-{param: 'hgtprs', z: 50000, time: 466495200000, lon: 16, lat: 48, val: 5662.39},
-{param: 'hgtprs', z: 50000, time: 466516800000, lon: 16, lat: 48, val: 5672.35},
-{param: 'hgtprs', z: 50000, time: 466538400000, lon: 16, lat: 48, val: 5670.29},
-{param: 'hgtprs', z: 50000, time: 466560000000, lon: 16, lat: 48, val: 5668.41},
-{param: 'hgtprs', z: 50000, time: 466581600000, lon: 16, lat: 48, val: 5660.18},
-{param: 'hgtprs', z: 50000, time: 466603200000, lon: 16, lat: 48, val: 5670.03},
-{param: 'hgtprs', z: 50000, time: 466624800000, lon: 16, lat: 48, val: 5667.96},
-{param: 'hgtprs', z: 50000, time: 466646400000, lon: 16, lat: 48, val: 5666.13},
-{param: 'hgtprs', z: 50000, time: 466668000000, lon: 16, lat: 48, val: 5657.94},
-{param: 'hgtprs', z: 50000, time: 466689600000, lon: 16, lat: 48, val: 5667.68},
-{param: 'hgtprs', z: 50000, time: 466711200000, lon: 16, lat: 48, val: 5665.6},
-{param: 'hgtprs', z: 50000, time: 466732800000, lon: 16, lat: 48, val: 5663.8},
-{param: 'hgtprs', z: 50000, time: 466754400000, lon: 16, lat: 48, val: 5655.65},
-{param: 'hgtprs', z: 50000, time: 466776000000, lon: 16, lat: 48, val: 5665.24},
-{param: 'hgtprs', z: 50000, time: 466797600000, lon: 16, lat: 48, val: 5663.19},
-{param: 'hgtprs', z: 50000, time: 466819200000, lon: 16, lat: 48, val: 5661.4},
-{param: 'hgtprs', z: 50000, time: 466840800000, lon: 16, lat: 48, val: 5653.31},
-{param: 'hgtprs', z: 50000, time: 466862400000, lon: 16, lat: 48, val: 5662.8},
-{param: 'hgtprs', z: 50000, time: 466884000000, lon: 16, lat: 48, val: 5660.72},
-{param: 'hgtprs', z: 50000, time: 466905600000, lon: 16, lat: 48, val: 5658.96},
-{param: 'hgtprs', z: 50000, time: 466927200000, lon: 16, lat: 48, val: 5650.93},
-{param: 'hgtprs', z: 50000, time: 466948800000, lon: 16, lat: 48, val: 5660.27},
-{param: 'hgtprs', z: 50000, time: 466970400000, lon: 16, lat: 48, val: 5658.21},
-{param: 'hgtprs', z: 50000, time: 466992000000, lon: 16, lat: 48, val: 5656.48},
-{param: 'hgtprs', z: 50000, time: 467013600000, lon: 16, lat: 48, val: 5648.48},
-{param: 'hgtprs', z: 50000, time: 467035200000, lon: 16, lat: 48, val: 5657.71},
-{param: 'hgtprs', z: 50000, time: 467056800000, lon: 16, lat: 48, val: 5655.63},
-{param: 'hgtprs', z: 50000, time: 467078400000, lon: 16, lat: 48, val: 5653.94},
-{param: 'hgtprs', z: 50000, time: 467100000000, lon: 16, lat: 48, val: 5645.99},
-{param: 'hgtprs', z: 50000, time: 467121600000, lon: 16, lat: 48, val: 5655.07},
-{param: 'hgtprs', z: 50000, time: 467143200000, lon: 16, lat: 48, val: 5653.01},
-{param: 'hgtprs', z: 50000, time: 467164800000, lon: 16, lat: 48, val: 5651.36},
-{param: 'hgtprs', z: 50000, time: 467186400000, lon: 16, lat: 48, val: 5643.45},
-{param: 'hgtprs', z: 50000, time: 467208000000, lon: 16, lat: 48, val: 5652.41},
-{param: 'hgtprs', z: 50000, time: 467229600000, lon: 16, lat: 48, val: 5650.36},
-{param: 'hgtprs', z: 50000, time: 467251200000, lon: 16, lat: 48, val: 5648.72},
-{param: 'hgtprs', z: 50000, time: 467272800000, lon: 16, lat: 48, val: 5640.84},
-{param: 'hgtprs', z: 50000, time: 467294400000, lon: 16, lat: 48, val: 5649.69},
-{param: 'hgtprs', z: 50000, time: 467316000000, lon: 16, lat: 48, val: 5647.65},
-{param: 'hgtprs', z: 50000, time: 467337600000, lon: 16, lat: 48, val: 5646.04},
-{param: 'hgtprs', z: 50000, time: 467359200000, lon: 16, lat: 48, val: 5638.2},
-{param: 'hgtprs', z: 50000, time: 467380800000, lon: 16, lat: 48, val: 5646.92},
-{param: 'hgtprs', z: 50000, time: 467402400000, lon: 16, lat: 48, val: 5644.88},
-{param: 'hgtprs', z: 50000, time: 467424000000, lon: 16, lat: 48, val: 5643.31},
-{param: 'hgtprs', z: 50000, time: 467445600000, lon: 16, lat: 48, val: 5635.52},
-{param: 'hgtprs', z: 50000, time: 467467200000, lon: 16, lat: 48, val: 5644.11},
-{param: 'hgtprs', z: 50000, time: 467488800000, lon: 16, lat: 48, val: 5642.07},
-{param: 'hgtprs', z: 50000, time: 467510400000, lon: 16, lat: 48, val: 5640.53},
-{param: 'hgtprs', z: 50000, time: 467532000000, lon: 16, lat: 48, val: 5632.79},
-{param: 'hgtprs', z: 50000, time: 467553600000, lon: 16, lat: 48, val: 5641.26},
-{param: 'hgtprs', z: 50000, time: 467575200000, lon: 16, lat: 48, val: 5639.23},
-{param: 'hgtprs', z: 50000, time: 467596800000, lon: 16, lat: 48, val: 5637.7},
-{param: 'hgtprs', z: 50000, time: 467618400000, lon: 16, lat: 48, val: 5630.02},
-{param: 'hgtprs', z: 50000, time: 467640000000, lon: 16, lat: 48, val: 5638.36},
-{param: 'hgtprs', z: 50000, time: 467661600000, lon: 16, lat: 48, val: 5636.35},
-{param: 'hgtprs', z: 50000, time: 467683200000, lon: 16, lat: 48, val: 5634.85},
-{param: 'hgtprs', z: 50000, time: 467704800000, lon: 16, lat: 48, val: 5627.21},
-{param: 'hgtprs', z: 50000, time: 467726400000, lon: 16, lat: 48, val: 5635.42},
-{param: 'hgtprs', z: 50000, time: 467748000000, lon: 16, lat: 48, val: 5633.4},
-{param: 'hgtprs', z: 50000, time: 467769600000, lon: 16, lat: 48, val: 5631.95},
-{param: 'hgtprs', z: 50000, time: 467791200000, lon: 16, lat: 48, val: 5624.35},
-{param: 'hgtprs', z: 50000, time: 467812800000, lon: 16, lat: 48, val: 5632.45},
-{param: 'hgtprs', z: 50000, time: 467834400000, lon: 16, lat: 48, val: 5630.45},
-{param: 'hgtprs', z: 50000, time: 467856000000, lon: 16, lat: 48, val: 5629},
-{param: 'hgtprs', z: 50000, time: 467877600000, lon: 16, lat: 48, val: 5621.47},
-{param: 'hgtprs', z: 50000, time: 467899200000, lon: 16, lat: 48, val: 5629.45},
-{param: 'hgtprs', z: 50000, time: 467920800000, lon: 16, lat: 48, val: 5627.44},
-{param: 'hgtprs', z: 50000, time: 467942400000, lon: 16, lat: 48, val: 5626.03},
-{param: 'hgtprs', z: 50000, time: 467964000000, lon: 16, lat: 48, val: 5618.53},
-{param: 'hgtprs', z: 50000, time: 467985600000, lon: 16, lat: 48, val: 5626.4},
-{param: 'hgtprs', z: 50000, time: 468007200000, lon: 16, lat: 48, val: 5624.42},
-{param: 'hgtprs', z: 50000, time: 468028800000, lon: 16, lat: 48, val: 5623.04},
-{param: 'hgtprs', z: 50000, time: 468050400000, lon: 16, lat: 48, val: 5615.58},
-{param: 'hgtprs', z: 50000, time: 468072000000, lon: 16, lat: 48, val: 5623.33},
-{param: 'hgtprs', z: 50000, time: 468093600000, lon: 16, lat: 48, val: 5621.36},
-{param: 'hgtprs', z: 50000, time: 468115200000, lon: 16, lat: 48, val: 5620},
-{param: 'hgtprs', z: 50000, time: 468136800000, lon: 16, lat: 48, val: 5612.6},
-{param: 'hgtprs', z: 50000, time: 468158400000, lon: 16, lat: 48, val: 5620.22},
-{param: 'hgtprs', z: 50000, time: 468180000000, lon: 16, lat: 48, val: 5618.27},
-{param: 'hgtprs', z: 50000, time: 468201600000, lon: 16, lat: 48, val: 5616.95},
-{param: 'hgtprs', z: 50000, time: 468223200000, lon: 16, lat: 48, val: 5609.58},
-{param: 'hgtprs', z: 50000, time: 468244800000, lon: 16, lat: 48, val: 5617.11},
-{param: 'hgtprs', z: 50000, time: 468266400000, lon: 16, lat: 48, val: 5615.16},
-{param: 'hgtprs', z: 50000, time: 468288000000, lon: 16, lat: 48, val: 5613.87},
-{param: 'hgtprs', z: 50000, time: 468309600000, lon: 16, lat: 48, val: 5606.54},
-{param: 'hgtprs', z: 50000, time: 468331200000, lon: 16, lat: 48, val: 5613.97},
-{param: 'hgtprs', z: 50000, time: 468352800000, lon: 16, lat: 48, val: 5612.02},
-{param: 'hgtprs', z: 50000, time: 468374400000, lon: 16, lat: 48, val: 5610.76},
-{param: 'hgtprs', z: 50000, time: 468396000000, lon: 16, lat: 48, val: 5603.49},
-{param: 'hgtprs', z: 50000, time: 468417600000, lon: 16, lat: 48, val: 5610.8},
-{param: 'hgtprs', z: 50000, time: 468439200000, lon: 16, lat: 48, val: 5608.89},
-{param: 'hgtprs', z: 50000, time: 468460800000, lon: 16, lat: 48, val: 5607.66},
-{param: 'hgtprs', z: 50000, time: 468482400000, lon: 16, lat: 48, val: 5600.42},
-{param: 'hgtprs', z: 50000, time: 468504000000, lon: 16, lat: 48, val: 5607.62},
-{param: 'hgtprs', z: 50000, time: 468525600000, lon: 16, lat: 48, val: 5605.74},
-{param: 'hgtprs', z: 50000, time: 468547200000, lon: 16, lat: 48, val: 5604.54},
-{param: 'hgtprs', z: 50000, time: 468568800000, lon: 16, lat: 48, val: 5597.34},
-{param: 'hgtprs', z: 50000, time: 468590400000, lon: 16, lat: 48, val: 5604.44},
-{param: 'hgtprs', z: 50000, time: 468612000000, lon: 16, lat: 48, val: 5602.58},
-{param: 'hgtprs', z: 50000, time: 468633600000, lon: 16, lat: 48, val: 5601.39},
-{param: 'hgtprs', z: 50000, time: 468655200000, lon: 16, lat: 48, val: 5594.26},
-{param: 'hgtprs', z: 50000, time: 468676800000, lon: 16, lat: 48, val: 5601.24},
-{param: 'hgtprs', z: 50000, time: 468698400000, lon: 16, lat: 48, val: 5599.41},
-{param: 'hgtprs', z: 50000, time: 468720000000, lon: 16, lat: 48, val: 5598.26},
-{param: 'hgtprs', z: 50000, time: 468741600000, lon: 16, lat: 48, val: 5591.16},
-{param: 'hgtprs', z: 50000, time: 468763200000, lon: 16, lat: 48, val: 5598.06},
-{param: 'hgtprs', z: 50000, time: 468784800000, lon: 16, lat: 48, val: 5596.24},
-{param: 'hgtprs', z: 50000, time: 468806400000, lon: 16, lat: 48, val: 5595.12},
-{param: 'hgtprs', z: 50000, time: 468828000000, lon: 16, lat: 48, val: 5588.07},
-{param: 'hgtprs', z: 50000, time: 468849600000, lon: 16, lat: 48, val: 5594.86},
-{param: 'hgtprs', z: 50000, time: 468871200000, lon: 16, lat: 48, val: 5593.07},
-{param: 'hgtprs', z: 50000, time: 468892800000, lon: 16, lat: 48, val: 5591.99},
-{param: 'hgtprs', z: 50000, time: 468914400000, lon: 16, lat: 48, val: 5584.98},
-{param: 'hgtprs', z: 50000, time: 468936000000, lon: 16, lat: 48, val: 5591.67},
-{param: 'hgtprs', z: 50000, time: 468957600000, lon: 16, lat: 48, val: 5589.93},
-{param: 'hgtprs', z: 50000, time: 468979200000, lon: 16, lat: 48, val: 5588.85},
-{param: 'hgtprs', z: 50000, time: 469000800000, lon: 16, lat: 48, val: 5581.9},
-{param: 'hgtprs', z: 50000, time: 469022400000, lon: 16, lat: 48, val: 5588.5},
-{param: 'hgtprs', z: 50000, time: 469044000000, lon: 16, lat: 48, val: 5586.78},
-{param: 'hgtprs', z: 50000, time: 469065600000, lon: 16, lat: 48, val: 5585.75},
-{param: 'hgtprs', z: 50000, time: 469087200000, lon: 16, lat: 48, val: 5578.82},
-{param: 'hgtprs', z: 50000, time: 469108800000, lon: 16, lat: 48, val: 5585.34},
-{param: 'hgtprs', z: 50000, time: 469130400000, lon: 16, lat: 48, val: 5583.66},
-{param: 'hgtprs', z: 50000, time: 469152000000, lon: 16, lat: 48, val: 5582.64},
-{param: 'hgtprs', z: 50000, time: 469173600000, lon: 16, lat: 48, val: 5575.77},
-{param: 'hgtprs', z: 50000, time: 469195200000, lon: 16, lat: 48, val: 5582.21},
-{param: 'hgtprs', z: 50000, time: 469216800000, lon: 16, lat: 48, val: 5580.55},
-{param: 'hgtprs', z: 50000, time: 469238400000, lon: 16, lat: 48, val: 5579.57},
-{param: 'hgtprs', z: 50000, time: 469260000000, lon: 16, lat: 48, val: 5572.74},
-{param: 'hgtprs', z: 50000, time: 469281600000, lon: 16, lat: 48, val: 5579.08},
-{param: 'hgtprs', z: 50000, time: 469303200000, lon: 16, lat: 48, val: 5577.47},
-{param: 'hgtprs', z: 50000, time: 469324800000, lon: 16, lat: 48, val: 5576.51},
-{param: 'hgtprs', z: 50000, time: 469346400000, lon: 16, lat: 48, val: 5569.72},
-{param: 'hgtprs', z: 50000, time: 469368000000, lon: 16, lat: 48, val: 5576},
-{param: 'hgtprs', z: 50000, time: 469389600000, lon: 16, lat: 48, val: 5574.42},
-{param: 'hgtprs', z: 50000, time: 469411200000, lon: 16, lat: 48, val: 5573.5},
-{param: 'hgtprs', z: 50000, time: 469432800000, lon: 16, lat: 48, val: 5566.74},
-{param: 'hgtprs', z: 50000, time: 469454400000, lon: 16, lat: 48, val: 5572.94},
-{param: 'hgtprs', z: 50000, time: 469476000000, lon: 16, lat: 48, val: 5571.41},
-{param: 'hgtprs', z: 50000, time: 469497600000, lon: 16, lat: 48, val: 5570.5},
-{param: 'hgtprs', z: 50000, time: 469519200000, lon: 16, lat: 48, val: 5563.79},
-{param: 'hgtprs', z: 50000, time: 469540800000, lon: 16, lat: 48, val: 5569.92},
-{param: 'hgtprs', z: 50000, time: 469562400000, lon: 16, lat: 48, val: 5568.42},
-{param: 'hgtprs', z: 50000, time: 469584000000, lon: 16, lat: 48, val: 5567.55},
-{param: 'hgtprs', z: 50000, time: 469605600000, lon: 16, lat: 48, val: 5560.89},
-{param: 'hgtprs', z: 50000, time: 469627200000, lon: 16, lat: 48, val: 5566.93},
-{param: 'hgtprs', z: 50000, time: 469648800000, lon: 16, lat: 48, val: 5565.48},
-{param: 'hgtprs', z: 50000, time: 469670400000, lon: 16, lat: 48, val: 5564.63},
-{param: 'hgtprs', z: 50000, time: 469692000000, lon: 16, lat: 48, val: 5558.01},
-{param: 'hgtprs', z: 50000, time: 469713600000, lon: 16, lat: 48, val: 5563.98},
-{param: 'hgtprs', z: 50000, time: 469735200000, lon: 16, lat: 48, val: 5562.58},
-{param: 'hgtprs', z: 50000, time: 469756800000, lon: 16, lat: 48, val: 5561.77},
-{param: 'hgtprs', z: 50000, time: 469778400000, lon: 16, lat: 48, val: 5555.19},
-{param: 'hgtprs', z: 50000, time: 469800000000, lon: 16, lat: 48, val: 5561.09},
-{param: 'hgtprs', z: 50000, time: 469821600000, lon: 16, lat: 48, val: 5559.74},
-{param: 'hgtprs', z: 50000, time: 469843200000, lon: 16, lat: 48, val: 5558.95},
-{param: 'hgtprs', z: 50000, time: 469864800000, lon: 16, lat: 48, val: 5552.4},
-{param: 'hgtprs', z: 50000, time: 469886400000, lon: 16, lat: 48, val: 5558.25},
-{param: 'hgtprs', z: 50000, time: 469908000000, lon: 16, lat: 48, val: 5556.95},
-{param: 'hgtprs', z: 50000, time: 469929600000, lon: 16, lat: 48, val: 5556.18},
-{param: 'hgtprs', z: 50000, time: 469951200000, lon: 16, lat: 48, val: 5549.67},
-{param: 'hgtprs', z: 50000, time: 469972800000, lon: 16, lat: 48, val: 5555.47},
-{param: 'hgtprs', z: 50000, time: 469994400000, lon: 16, lat: 48, val: 5554.21},
-{param: 'hgtprs', z: 50000, time: 470016000000, lon: 16, lat: 48, val: 5553.48},
-{param: 'hgtprs', z: 50000, time: 470037600000, lon: 16, lat: 48, val: 5547.01},
-{param: 'hgtprs', z: 50000, time: 470059200000, lon: 16, lat: 48, val: 5552.73},
-{param: 'hgtprs', z: 50000, time: 470080800000, lon: 16, lat: 48, val: 5551.53},
-{param: 'hgtprs', z: 50000, time: 470102400000, lon: 16, lat: 48, val: 5550.83},
-{param: 'hgtprs', z: 50000, time: 470124000000, lon: 16, lat: 48, val: 5544.4},
-{param: 'hgtprs', z: 50000, time: 470145600000, lon: 16, lat: 48, val: 5550.08},
-{param: 'hgtprs', z: 50000, time: 470167200000, lon: 16, lat: 48, val: 5548.93},
-{param: 'hgtprs', z: 50000, time: 470188800000, lon: 16, lat: 48, val: 5548.24},
-{param: 'hgtprs', z: 50000, time: 470210400000, lon: 16, lat: 48, val: 5541.85},
-{param: 'hgtprs', z: 50000, time: 470232000000, lon: 16, lat: 48, val: 5547.46},
-{param: 'hgtprs', z: 50000, time: 470253600000, lon: 16, lat: 48, val: 5546.38},
-{param: 'hgtprs', z: 50000, time: 470275200000, lon: 16, lat: 48, val: 5545.73},
-{param: 'hgtprs', z: 50000, time: 470296800000, lon: 16, lat: 48, val: 5539.36},
-{param: 'hgtprs', z: 50000, time: 470318400000, lon: 16, lat: 48, val: 5544.94},
-{param: 'hgtprs', z: 50000, time: 470340000000, lon: 16, lat: 48, val: 5543.91},
-{param: 'hgtprs', z: 50000, time: 470361600000, lon: 16, lat: 48, val: 5543.28},
-{param: 'hgtprs', z: 50000, time: 470383200000, lon: 16, lat: 48, val: 5536.94},
-{param: 'hgtprs', z: 50000, time: 470404800000, lon: 16, lat: 48, val: 5542.47},
-{param: 'hgtprs', z: 50000, time: 470426400000, lon: 16, lat: 48, val: 5541.51},
-{param: 'hgtprs', z: 50000, time: 470448000000, lon: 16, lat: 48, val: 5540.89},
-{param: 'hgtprs', z: 50000, time: 470469600000, lon: 16, lat: 48, val: 5534.6},
-{param: 'hgtprs', z: 50000, time: 470491200000, lon: 16, lat: 48, val: 5540.08},
-{param: 'hgtprs', z: 50000, time: 470512800000, lon: 16, lat: 48, val: 5539.18},
-{param: 'hgtprs', z: 50000, time: 470534400000, lon: 16, lat: 48, val: 5538.59},
-{param: 'hgtprs', z: 50000, time: 470556000000, lon: 16, lat: 48, val: 5532.33},
-{param: 'hgtprs', z: 50000, time: 470577600000, lon: 16, lat: 48, val: 5537.78},
-{param: 'hgtprs', z: 50000, time: 470599200000, lon: 16, lat: 48, val: 5536.93},
-{param: 'hgtprs', z: 50000, time: 470620800000, lon: 16, lat: 48, val: 5536.36},
-{param: 'hgtprs', z: 50000, time: 470642400000, lon: 16, lat: 48, val: 5530.13},
-{param: 'hgtprs', z: 50000, time: 470664000000, lon: 16, lat: 48, val: 5535.53},
-{param: 'hgtprs', z: 50000, time: 470685600000, lon: 16, lat: 48, val: 5534.75},
-{param: 'hgtprs', z: 50000, time: 470707200000, lon: 16, lat: 48, val: 5534.21},
-{param: 'hgtprs', z: 50000, time: 470728800000, lon: 16, lat: 48, val: 5528.01},
-{param: 'hgtprs', z: 50000, time: 470750400000, lon: 16, lat: 48, val: 5533.39},
-{param: 'hgtprs', z: 50000, time: 470772000000, lon: 16, lat: 48, val: 5532.67},
-{param: 'hgtprs', z: 50000, time: 470793600000, lon: 16, lat: 48, val: 5532.15},
-{param: 'hgtprs', z: 50000, time: 470815200000, lon: 16, lat: 48, val: 5525.97},
-{param: 'hgtprs', z: 50000, time: 470836800000, lon: 16, lat: 48, val: 5531.32},
-{param: 'hgtprs', z: 50000, time: 470858400000, lon: 16, lat: 48, val: 5530.67},
-{param: 'hgtprs', z: 50000, time: 470880000000, lon: 16, lat: 48, val: 5530.16},
-{param: 'hgtprs', z: 50000, time: 470901600000, lon: 16, lat: 48, val: 5524.02},
-{param: 'hgtprs', z: 50000, time: 470923200000, lon: 16, lat: 48, val: 5529.33},
-{param: 'hgtprs', z: 50000, time: 470944800000, lon: 16, lat: 48, val: 5528.73},
-{param: 'hgtprs', z: 50000, time: 470966400000, lon: 16, lat: 48, val: 5528.27},
-{param: 'hgtprs', z: 50000, time: 470988000000, lon: 16, lat: 48, val: 5522.14},
-{param: 'hgtprs', z: 50000, time: 471009600000, lon: 16, lat: 48, val: 5527.43},
-{param: 'hgtprs', z: 50000, time: 471031200000, lon: 16, lat: 48, val: 5526.9},
-{param: 'hgtprs', z: 50000, time: 471052800000, lon: 16, lat: 48, val: 5526.46},
-{param: 'hgtprs', z: 50000, time: 471074400000, lon: 16, lat: 48, val: 5520.35},
-{param: 'hgtprs', z: 50000, time: 471096000000, lon: 16, lat: 48, val: 5525.61},
-{param: 'hgtprs', z: 50000, time: 471117600000, lon: 16, lat: 48, val: 5525.15},
-{param: 'hgtprs', z: 50000, time: 471139200000, lon: 16, lat: 48, val: 5524.73},
-{param: 'hgtprs', z: 50000, time: 471160800000, lon: 16, lat: 48, val: 5518.65},
-{param: 'hgtprs', z: 50000, time: 471182400000, lon: 16, lat: 48, val: 5523.89},
-{param: 'hgtprs', z: 50000, time: 471204000000, lon: 16, lat: 48, val: 5523.49},
-{param: 'hgtprs', z: 50000, time: 471225600000, lon: 16, lat: 48, val: 5523.09},
-{param: 'hgtprs', z: 50000, time: 471247200000, lon: 16, lat: 48, val: 5517.03},
-{param: 'hgtprs', z: 50000, time: 471268800000, lon: 16, lat: 48, val: 5522.25},
-{param: 'hgtprs', z: 50000, time: 471290400000, lon: 16, lat: 48, val: 5521.92},
-{param: 'hgtprs', z: 50000, time: 471312000000, lon: 16, lat: 48, val: 5521.53},
-{param: 'hgtprs', z: 50000, time: 471333600000, lon: 16, lat: 48, val: 5515.5},
-{param: 'hgtprs', z: 50000, time: 471355200000, lon: 16, lat: 48, val: 5520.71},
-{param: 'hgtprs', z: 50000, time: 471376800000, lon: 16, lat: 48, val: 5520.44},
-{param: 'hgtprs', z: 50000, time: 471398400000, lon: 16, lat: 48, val: 5520.06},
-{param: 'hgtprs', z: 50000, time: 471420000000, lon: 16, lat: 48, val: 5514.05},
-{param: 'hgtprs', z: 50000, time: 471441600000, lon: 16, lat: 48, val: 5519.24},
-{param: 'hgtprs', z: 50000, time: 471463200000, lon: 16, lat: 48, val: 5519.04},
-{param: 'hgtprs', z: 50000, time: 471484800000, lon: 16, lat: 48, val: 5518.68},
-{param: 'hgtprs', z: 50000, time: 471506400000, lon: 16, lat: 48, val: 5512.7},
-{param: 'hgtprs', z: 50000, time: 471528000000, lon: 16, lat: 48, val: 5517.86},
-{param: 'hgtprs', z: 50000, time: 471549600000, lon: 16, lat: 48, val: 5517.72},
-{param: 'hgtprs', z: 50000, time: 471571200000, lon: 16, lat: 48, val: 5517.38},
-{param: 'hgtprs', z: 50000, time: 471592800000, lon: 16, lat: 48, val: 5511.42},
-{param: 'hgtprs', z: 50000, time: 471614400000, lon: 16, lat: 48, val: 5516.58},
-{param: 'hgtprs', z: 50000, time: 471636000000, lon: 16, lat: 48, val: 5516.49},
-{param: 'hgtprs', z: 50000, time: 471657600000, lon: 16, lat: 48, val: 5516.18},
-{param: 'hgtprs', z: 50000, time: 471679200000, lon: 16, lat: 48, val: 5510.22},
-{param: 'hgtprs', z: 50000, time: 471700800000, lon: 16, lat: 48, val: 5515.37},
-{param: 'hgtprs', z: 50000, time: 471722400000, lon: 16, lat: 48, val: 5515.35},
-{param: 'hgtprs', z: 50000, time: 471744000000, lon: 16, lat: 48, val: 5515.05},
-{param: 'hgtprs', z: 50000, time: 471765600000, lon: 16, lat: 48, val: 5509.11},
-{param: 'hgtprs', z: 50000, time: 471787200000, lon: 16, lat: 48, val: 5514.27},
-{param: 'hgtprs', z: 50000, time: 471808800000, lon: 16, lat: 48, val: 5514.3},
-{param: 'hgtprs', z: 50000, time: 471830400000, lon: 16, lat: 48, val: 5514.03},
-{param: 'hgtprs', z: 50000, time: 471852000000, lon: 16, lat: 48, val: 5508.08},
-{param: 'hgtprs', z: 50000, time: 471873600000, lon: 16, lat: 48, val: 5513.23},
-{param: 'hgtprs', z: 50000, time: 471895200000, lon: 16, lat: 48, val: 5513.32},
-{param: 'hgtprs', z: 50000, time: 471916800000, lon: 16, lat: 48, val: 5513.06},
-{param: 'hgtprs', z: 50000, time: 471938400000, lon: 16, lat: 48, val: 5507.14},
-{param: 'hgtprs', z: 50000, time: 471960000000, lon: 16, lat: 48, val: 5512.28},
-{param: 'hgtprs', z: 50000, time: 471981600000, lon: 16, lat: 48, val: 5512.44},
-{param: 'hgtprs', z: 50000, time: 472003200000, lon: 16, lat: 48, val: 5512.19},
-{param: 'hgtprs', z: 50000, time: 472024800000, lon: 16, lat: 48, val: 5506.26},
-{param: 'hgtprs', z: 50000, time: 472046400000, lon: 16, lat: 48, val: 5511.41},
-{param: 'hgtprs', z: 50000, time: 472068000000, lon: 16, lat: 48, val: 5511.62},
-{param: 'hgtprs', z: 50000, time: 472089600000, lon: 16, lat: 48, val: 5511.38},
-{param: 'hgtprs', z: 50000, time: 472111200000, lon: 16, lat: 48, val: 5505.48},
-{param: 'hgtprs', z: 50000, time: 472132800000, lon: 16, lat: 48, val: 5510.63},
-{param: 'hgtprs', z: 50000, time: 472154400000, lon: 16, lat: 48, val: 5510.88},
-{param: 'hgtprs', z: 50000, time: 472176000000, lon: 16, lat: 48, val: 5510.66},
-{param: 'hgtprs', z: 50000, time: 472197600000, lon: 16, lat: 48, val: 5504.76},
-{param: 'hgtprs', z: 50000, time: 472219200000, lon: 16, lat: 48, val: 5509.92},
-{param: 'hgtprs', z: 50000, time: 472240800000, lon: 16, lat: 48, val: 5510.21},
-{param: 'hgtprs', z: 50000, time: 472262400000, lon: 16, lat: 48, val: 5510.02},
-{param: 'hgtprs', z: 50000, time: 472284000000, lon: 16, lat: 48, val: 5504.11},
-{param: 'hgtprs', z: 50000, time: 472305600000, lon: 16, lat: 48, val: 5509.28},
-{param: 'hgtprs', z: 50000, time: 472327200000, lon: 16, lat: 48, val: 5509.62},
-{param: 'hgtprs', z: 50000, time: 472348800000, lon: 16, lat: 48, val: 5509.43},
-{param: 'hgtprs', z: 50000, time: 472370400000, lon: 16, lat: 48, val: 5503.54},
-{param: 'hgtprs', z: 50000, time: 472392000000, lon: 16, lat: 48, val: 5508.72},
-{param: 'hgtprs', z: 50000, time: 472413600000, lon: 16, lat: 48, val: 5509.1},
-{param: 'hgtprs', z: 50000, time: 472435200000, lon: 16, lat: 48, val: 5508.92},
-{param: 'hgtprs', z: 50000, time: 472456800000, lon: 16, lat: 48, val: 5503.03},
-{param: 'hgtprs', z: 50000, time: 472478400000, lon: 16, lat: 48, val: 5508.22},
-{param: 'hgtprs', z: 50000, time: 472500000000, lon: 16, lat: 48, val: 5508.65},
-{param: 'hgtprs', z: 50000, time: 472521600000, lon: 16, lat: 48, val: 5508.48},
-{param: 'hgtprs', z: 50000, time: 472543200000, lon: 16, lat: 48, val: 5502.59},
-{param: 'hgtprs', z: 50000, time: 472564800000, lon: 16, lat: 48, val: 5507.78},
-{param: 'hgtprs', z: 50000, time: 472586400000, lon: 16, lat: 48, val: 5508.26},
-{param: 'hgtprs', z: 50000, time: 472608000000, lon: 16, lat: 48, val: 5508.09},
-{param: 'hgtprs', z: 50000, time: 472629600000, lon: 16, lat: 48, val: 5502.2},
-{param: 'hgtprs', z: 50000, time: 472651200000, lon: 16, lat: 48, val: 5507.42},
-{param: 'hgtprs', z: 50000, time: 472672800000, lon: 16, lat: 48, val: 5507.92},
-{param: 'hgtprs', z: 50000, time: 472694400000, lon: 16, lat: 48, val: 5507.77},
-{param: 'hgtprs', z: 50000, time: 472716000000, lon: 16, lat: 48, val: 5501.87},
-{param: 'hgtprs', z: 50000, time: 472737600000, lon: 16, lat: 48, val: 5507.1},
-{param: 'hgtprs', z: 50000, time: 472759200000, lon: 16, lat: 48, val: 5507.63},
-{param: 'hgtprs', z: 50000, time: 472780800000, lon: 16, lat: 48, val: 5507.5},
-{param: 'hgtprs', z: 50000, time: 472802400000, lon: 16, lat: 48, val: 5501.6},
-{param: 'hgtprs', z: 50000, time: 472824000000, lon: 16, lat: 48, val: 5506.84},
-{param: 'hgtprs', z: 50000, time: 472845600000, lon: 16, lat: 48, val: 5507.41},
-{param: 'hgtprs', z: 50000, time: 472867200000, lon: 16, lat: 48, val: 5507.28},
-{param: 'hgtprs', z: 50000, time: 472888800000, lon: 16, lat: 48, val: 5501.38},
-{param: 'hgtprs', z: 50000, time: 472910400000, lon: 16, lat: 48, val: 5506.63},
-{param: 'hgtprs', z: 50000, time: 472932000000, lon: 16, lat: 48, val: 5507.23},
-{param: 'hgtprs', z: 50000, time: 472953600000, lon: 16, lat: 48, val: 5507.1},
-{param: 'hgtprs', z: 50000, time: 472975200000, lon: 16, lat: 48, val: 5501.19},
-{param: 'hgtprs', z: 50000, time: 472996800000, lon: 16, lat: 48, val: 5506.47},
-{param: 'hgtprs', z: 50000, time: 473018400000, lon: 16, lat: 48, val: 5507.09},
-{param: 'hgtprs', z: 50000, time: 473040000000, lon: 16, lat: 48, val: 5506.97},
-{param: 'hgtprs', z: 50000, time: 473061600000, lon: 16, lat: 48, val: 5501.05},
-{param: 'hgtprs', z: 50000, time: 473083200000, lon: 16, lat: 48, val: 5506.35},
-{param: 'hgtprs', z: 50000, time: 473104800000, lon: 16, lat: 48, val: 5506.99},
-{param: 'hgtprs', z: 50000, time: 473126400000, lon: 16, lat: 48, val: 5506.88},
-{param: 'hgtprs', z: 50000, time: 473148000000, lon: 16, lat: 48, val: 5500.95},
-{param: 'hgtprs', z: 50000, time: 473169600000, lon: 16, lat: 48, val: 5506.27},
-{param: 'hgtprs', z: 50000, time: 473191200000, lon: 16, lat: 48, val: 5506.94},
-{param: 'hgtprs', z: 50000, time: 473212800000, lon: 16, lat: 48, val: 5506.83},
-{param: 'hgtprs', z: 50000, time: 473234400000, lon: 16, lat: 48, val: 5500.88},
-{param: 'hgtprs', z: 50000, time: 473256000000, lon: 16, lat: 48, val: 5506.23},
-{param: 'hgtprs', z: 50000, time: 473277600000, lon: 16, lat: 48, val: 5506.91},
-{param: 'hgtprs', z: 50000, time: 473299200000, lon: 16, lat: 48, val: 5506.79},
-{param: 'hgtprs', z: 50000, time: 473320800000, lon: 16, lat: 48, val: 5500.85},
-{param: 'hgtprs', z: 50000, time: 473342400000, lon: 16, lat: 48, val: 5506.23},
-{param: 'hgtprs', z: 50000, time: 473364000000, lon: 16, lat: 48, val: 5506.91},
-{param: 'hgtprs', z: 100000, time: 441763200000, lon: 16, lat: 48, val: 163.61},
-{param: 'hgtprs', z: 100000, time: 441784800000, lon: 16, lat: 48, val: 162.16},
-{param: 'hgtprs', z: 100000, time: 441806400000, lon: 16, lat: 48, val: 161.1},
-{param: 'hgtprs', z: 100000, time: 441828000000, lon: 16, lat: 48, val: 164.3},
-{param: 'hgtprs', z: 100000, time: 441849600000, lon: 16, lat: 48, val: 164.03},
-{param: 'hgtprs', z: 100000, time: 441871200000, lon: 16, lat: 48, val: 162.58},
-{param: 'hgtprs', z: 100000, time: 441892800000, lon: 16, lat: 48, val: 161.5},
-{param: 'hgtprs', z: 100000, time: 441914400000, lon: 16, lat: 48, val: 164.7},
-{param: 'hgtprs', z: 100000, time: 441936000000, lon: 16, lat: 48, val: 164.45},
-{param: 'hgtprs', z: 100000, time: 441957600000, lon: 16, lat: 48, val: 162.98},
-{param: 'hgtprs', z: 100000, time: 441979200000, lon: 16, lat: 48, val: 161.89},
-{param: 'hgtprs', z: 100000, time: 442000800000, lon: 16, lat: 48, val: 165.08},
-{param: 'hgtprs', z: 100000, time: 442022400000, lon: 16, lat: 48, val: 164.87},
-{param: 'hgtprs', z: 100000, time: 442044000000, lon: 16, lat: 48, val: 163.38},
-{param: 'hgtprs', z: 100000, time: 442065600000, lon: 16, lat: 48, val: 162.27},
-{param: 'hgtprs', z: 100000, time: 442087200000, lon: 16, lat: 48, val: 165.45},
-{param: 'hgtprs', z: 100000, time: 442108800000, lon: 16, lat: 48, val: 165.27},
-{param: 'hgtprs', z: 100000, time: 442130400000, lon: 16, lat: 48, val: 163.77},
-{param: 'hgtprs', z: 100000, time: 442152000000, lon: 16, lat: 48, val: 162.64},
-{param: 'hgtprs', z: 100000, time: 442173600000, lon: 16, lat: 48, val: 165.81},
-{param: 'hgtprs', z: 100000, time: 442195200000, lon: 16, lat: 48, val: 165.66},
-{param: 'hgtprs', z: 100000, time: 442216800000, lon: 16, lat: 48, val: 164.15},
-{param: 'hgtprs', z: 100000, time: 442238400000, lon: 16, lat: 48, val: 162.99},
-{param: 'hgtprs', z: 100000, time: 442260000000, lon: 16, lat: 48, val: 166.16},
-{param: 'hgtprs', z: 100000, time: 442281600000, lon: 16, lat: 48, val: 166.04},
-{param: 'hgtprs', z: 100000, time: 442303200000, lon: 16, lat: 48, val: 164.51},
-{param: 'hgtprs', z: 100000, time: 442324800000, lon: 16, lat: 48, val: 163.34},
-{param: 'hgtprs', z: 100000, time: 442346400000, lon: 16, lat: 48, val: 166.49},
-{param: 'hgtprs', z: 100000, time: 442368000000, lon: 16, lat: 48, val: 166.4},
-{param: 'hgtprs', z: 100000, time: 442389600000, lon: 16, lat: 48, val: 164.86},
-{param: 'hgtprs', z: 100000, time: 442411200000, lon: 16, lat: 48, val: 163.66},
-{param: 'hgtprs', z: 100000, time: 442432800000, lon: 16, lat: 48, val: 166.81},
-{param: 'hgtprs', z: 100000, time: 442454400000, lon: 16, lat: 48, val: 166.75},
-{param: 'hgtprs', z: 100000, time: 442476000000, lon: 16, lat: 48, val: 165.2},
-{param: 'hgtprs', z: 100000, time: 442497600000, lon: 16, lat: 48, val: 163.97},
-{param: 'hgtprs', z: 100000, time: 442519200000, lon: 16, lat: 48, val: 167.11},
-{param: 'hgtprs', z: 100000, time: 442540800000, lon: 16, lat: 48, val: 167.09},
-{param: 'hgtprs', z: 100000, time: 442562400000, lon: 16, lat: 48, val: 165.52},
-{param: 'hgtprs', z: 100000, time: 442584000000, lon: 16, lat: 48, val: 164.26},
-{param: 'hgtprs', z: 100000, time: 442605600000, lon: 16, lat: 48, val: 167.39},
-{param: 'hgtprs', z: 100000, time: 442627200000, lon: 16, lat: 48, val: 167.41},
-{param: 'hgtprs', z: 100000, time: 442648800000, lon: 16, lat: 48, val: 165.82},
-{param: 'hgtprs', z: 100000, time: 442670400000, lon: 16, lat: 48, val: 164.53},
-{param: 'hgtprs', z: 100000, time: 442692000000, lon: 16, lat: 48, val: 167.67},
-{param: 'hgtprs', z: 100000, time: 442713600000, lon: 16, lat: 48, val: 167.72},
-{param: 'hgtprs', z: 100000, time: 442735200000, lon: 16, lat: 48, val: 166.1},
-{param: 'hgtprs', z: 100000, time: 442756800000, lon: 16, lat: 48, val: 164.78},
-{param: 'hgtprs', z: 100000, time: 442778400000, lon: 16, lat: 48, val: 167.91},
-{param: 'hgtprs', z: 100000, time: 442800000000, lon: 16, lat: 48, val: 168},
-{param: 'hgtprs', z: 100000, time: 442821600000, lon: 16, lat: 48, val: 166.37},
-{param: 'hgtprs', z: 100000, time: 442843200000, lon: 16, lat: 48, val: 165.01},
-{param: 'hgtprs', z: 100000, time: 442864800000, lon: 16, lat: 48, val: 168.13},
-{param: 'hgtprs', z: 100000, time: 442886400000, lon: 16, lat: 48, val: 168.26},
-{param: 'hgtprs', z: 100000, time: 442908000000, lon: 16, lat: 48, val: 166.61},
-{param: 'hgtprs', z: 100000, time: 442929600000, lon: 16, lat: 48, val: 165.22},
-{param: 'hgtprs', z: 100000, time: 442951200000, lon: 16, lat: 48, val: 168.33},
-{param: 'hgtprs', z: 100000, time: 442972800000, lon: 16, lat: 48, val: 168.5},
-{param: 'hgtprs', z: 100000, time: 442994400000, lon: 16, lat: 48, val: 166.83},
-{param: 'hgtprs', z: 100000, time: 443016000000, lon: 16, lat: 48, val: 165.42},
-{param: 'hgtprs', z: 100000, time: 443037600000, lon: 16, lat: 48, val: 168.52},
-{param: 'hgtprs', z: 100000, time: 443059200000, lon: 16, lat: 48, val: 168.71},
-{param: 'hgtprs', z: 100000, time: 443080800000, lon: 16, lat: 48, val: 167.03},
-{param: 'hgtprs', z: 100000, time: 443102400000, lon: 16, lat: 48, val: 165.58},
-{param: 'hgtprs', z: 100000, time: 443124000000, lon: 16, lat: 48, val: 168.67},
-{param: 'hgtprs', z: 100000, time: 443145600000, lon: 16, lat: 48, val: 168.91},
-{param: 'hgtprs', z: 100000, time: 443167200000, lon: 16, lat: 48, val: 167.2},
-{param: 'hgtprs', z: 100000, time: 443188800000, lon: 16, lat: 48, val: 165.72},
-{param: 'hgtprs', z: 100000, time: 443210400000, lon: 16, lat: 48, val: 168.8},
-{param: 'hgtprs', z: 100000, time: 443232000000, lon: 16, lat: 48, val: 169.07},
-{param: 'hgtprs', z: 100000, time: 443253600000, lon: 16, lat: 48, val: 167.35},
-{param: 'hgtprs', z: 100000, time: 443275200000, lon: 16, lat: 48, val: 165.83},
-{param: 'hgtprs', z: 100000, time: 443296800000, lon: 16, lat: 48, val: 168.91},
-{param: 'hgtprs', z: 100000, time: 443318400000, lon: 16, lat: 48, val: 169.21},
-{param: 'hgtprs', z: 100000, time: 443340000000, lon: 16, lat: 48, val: 167.47},
-{param: 'hgtprs', z: 100000, time: 443361600000, lon: 16, lat: 48, val: 165.92},
-{param: 'hgtprs', z: 100000, time: 443383200000, lon: 16, lat: 48, val: 168.98},
-{param: 'hgtprs', z: 100000, time: 443404800000, lon: 16, lat: 48, val: 169.33},
-{param: 'hgtprs', z: 100000, time: 443426400000, lon: 16, lat: 48, val: 167.56},
-{param: 'hgtprs', z: 100000, time: 443448000000, lon: 16, lat: 48, val: 165.98},
-{param: 'hgtprs', z: 100000, time: 443469600000, lon: 16, lat: 48, val: 169.02},
-{param: 'hgtprs', z: 100000, time: 443491200000, lon: 16, lat: 48, val: 169.42},
-{param: 'hgtprs', z: 100000, time: 443512800000, lon: 16, lat: 48, val: 167.63},
-{param: 'hgtprs', z: 100000, time: 443534400000, lon: 16, lat: 48, val: 166.02},
-{param: 'hgtprs', z: 100000, time: 443556000000, lon: 16, lat: 48, val: 169.04},
-{param: 'hgtprs', z: 100000, time: 443577600000, lon: 16, lat: 48, val: 169.48},
-{param: 'hgtprs', z: 100000, time: 443599200000, lon: 16, lat: 48, val: 167.67},
-{param: 'hgtprs', z: 100000, time: 443620800000, lon: 16, lat: 48, val: 166.03},
-{param: 'hgtprs', z: 100000, time: 443642400000, lon: 16, lat: 48, val: 169.04},
-{param: 'hgtprs', z: 100000, time: 443664000000, lon: 16, lat: 48, val: 169.51},
-{param: 'hgtprs', z: 100000, time: 443685600000, lon: 16, lat: 48, val: 167.68},
-{param: 'hgtprs', z: 100000, time: 443707200000, lon: 16, lat: 48, val: 166},
-{param: 'hgtprs', z: 100000, time: 443728800000, lon: 16, lat: 48, val: 169.01},
-{param: 'hgtprs', z: 100000, time: 443750400000, lon: 16, lat: 48, val: 169.52},
-{param: 'hgtprs', z: 100000, time: 443772000000, lon: 16, lat: 48, val: 167.66},
-{param: 'hgtprs', z: 100000, time: 443793600000, lon: 16, lat: 48, val: 165.95},
-{param: 'hgtprs', z: 100000, time: 443815200000, lon: 16, lat: 48, val: 168.93},
-{param: 'hgtprs', z: 100000, time: 443836800000, lon: 16, lat: 48, val: 169.48},
-{param: 'hgtprs', z: 100000, time: 443858400000, lon: 16, lat: 48, val: 167.61},
-{param: 'hgtprs', z: 100000, time: 443880000000, lon: 16, lat: 48, val: 165.87},
-{param: 'hgtprs', z: 100000, time: 443901600000, lon: 16, lat: 48, val: 168.84},
-{param: 'hgtprs', z: 100000, time: 443923200000, lon: 16, lat: 48, val: 169.42},
-{param: 'hgtprs', z: 100000, time: 443944800000, lon: 16, lat: 48, val: 167.53},
-{param: 'hgtprs', z: 100000, time: 443966400000, lon: 16, lat: 48, val: 165.76},
-{param: 'hgtprs', z: 100000, time: 443988000000, lon: 16, lat: 48, val: 168.71},
-{param: 'hgtprs', z: 100000, time: 444009600000, lon: 16, lat: 48, val: 169.34},
-{param: 'hgtprs', z: 100000, time: 444031200000, lon: 16, lat: 48, val: 167.42},
-{param: 'hgtprs', z: 100000, time: 444052800000, lon: 16, lat: 48, val: 165.62},
-{param: 'hgtprs', z: 100000, time: 444074400000, lon: 16, lat: 48, val: 168.55},
-{param: 'hgtprs', z: 100000, time: 444096000000, lon: 16, lat: 48, val: 169.22},
-{param: 'hgtprs', z: 100000, time: 444117600000, lon: 16, lat: 48, val: 167.27},
-{param: 'hgtprs', z: 100000, time: 444139200000, lon: 16, lat: 48, val: 165.45},
-{param: 'hgtprs', z: 100000, time: 444160800000, lon: 16, lat: 48, val: 168.36},
-{param: 'hgtprs', z: 100000, time: 444182400000, lon: 16, lat: 48, val: 169.07},
-{param: 'hgtprs', z: 100000, time: 444204000000, lon: 16, lat: 48, val: 167.1},
-{param: 'hgtprs', z: 100000, time: 444225600000, lon: 16, lat: 48, val: 165.25},
-{param: 'hgtprs', z: 100000, time: 444247200000, lon: 16, lat: 48, val: 168.13},
-{param: 'hgtprs', z: 100000, time: 444268800000, lon: 16, lat: 48, val: 168.88},
-{param: 'hgtprs', z: 100000, time: 444290400000, lon: 16, lat: 48, val: 166.89},
-{param: 'hgtprs', z: 100000, time: 444312000000, lon: 16, lat: 48, val: 165.01},
-{param: 'hgtprs', z: 100000, time: 444333600000, lon: 16, lat: 48, val: 167.88},
-{param: 'hgtprs', z: 100000, time: 444355200000, lon: 16, lat: 48, val: 168.67},
-{param: 'hgtprs', z: 100000, time: 444376800000, lon: 16, lat: 48, val: 166.66},
-{param: 'hgtprs', z: 100000, time: 444398400000, lon: 16, lat: 48, val: 164.75},
-{param: 'hgtprs', z: 100000, time: 444420000000, lon: 16, lat: 48, val: 167.59},
-{param: 'hgtprs', z: 100000, time: 444441600000, lon: 16, lat: 48, val: 168.41},
-{param: 'hgtprs', z: 100000, time: 444463200000, lon: 16, lat: 48, val: 166.39},
-{param: 'hgtprs', z: 100000, time: 444484800000, lon: 16, lat: 48, val: 164.46},
-{param: 'hgtprs', z: 100000, time: 444506400000, lon: 16, lat: 48, val: 167.27},
-{param: 'hgtprs', z: 100000, time: 444528000000, lon: 16, lat: 48, val: 168.14},
-{param: 'hgtprs', z: 100000, time: 444549600000, lon: 16, lat: 48, val: 166.09},
-{param: 'hgtprs', z: 100000, time: 444571200000, lon: 16, lat: 48, val: 164.14},
-{param: 'hgtprs', z: 100000, time: 444592800000, lon: 16, lat: 48, val: 166.92},
-{param: 'hgtprs', z: 100000, time: 444614400000, lon: 16, lat: 48, val: 167.83},
-{param: 'hgtprs', z: 100000, time: 444636000000, lon: 16, lat: 48, val: 165.77},
-{param: 'hgtprs', z: 100000, time: 444657600000, lon: 16, lat: 48, val: 163.78},
-{param: 'hgtprs', z: 100000, time: 444679200000, lon: 16, lat: 48, val: 166.53},
-{param: 'hgtprs', z: 100000, time: 444700800000, lon: 16, lat: 48, val: 167.48},
-{param: 'hgtprs', z: 100000, time: 444722400000, lon: 16, lat: 48, val: 165.41},
-{param: 'hgtprs', z: 100000, time: 444744000000, lon: 16, lat: 48, val: 163.39},
-{param: 'hgtprs', z: 100000, time: 444765600000, lon: 16, lat: 48, val: 166.12},
-{param: 'hgtprs', z: 100000, time: 444787200000, lon: 16, lat: 48, val: 167.1},
-{param: 'hgtprs', z: 100000, time: 444808800000, lon: 16, lat: 48, val: 165.02},
-{param: 'hgtprs', z: 100000, time: 444830400000, lon: 16, lat: 48, val: 162.98},
-{param: 'hgtprs', z: 100000, time: 444852000000, lon: 16, lat: 48, val: 165.67},
-{param: 'hgtprs', z: 100000, time: 444873600000, lon: 16, lat: 48, val: 166.69},
-{param: 'hgtprs', z: 100000, time: 444895200000, lon: 16, lat: 48, val: 164.6},
-{param: 'hgtprs', z: 100000, time: 444916800000, lon: 16, lat: 48, val: 162.54},
-{param: 'hgtprs', z: 100000, time: 444938400000, lon: 16, lat: 48, val: 165.19},
-{param: 'hgtprs', z: 100000, time: 444960000000, lon: 16, lat: 48, val: 166.25},
-{param: 'hgtprs', z: 100000, time: 444981600000, lon: 16, lat: 48, val: 164.15},
-{param: 'hgtprs', z: 100000, time: 445003200000, lon: 16, lat: 48, val: 162.07},
-{param: 'hgtprs', z: 100000, time: 445024800000, lon: 16, lat: 48, val: 164.68},
-{param: 'hgtprs', z: 100000, time: 445046400000, lon: 16, lat: 48, val: 165.8},
-{param: 'hgtprs', z: 100000, time: 445068000000, lon: 16, lat: 48, val: 163.67},
-{param: 'hgtprs', z: 100000, time: 445089600000, lon: 16, lat: 48, val: 161.57},
-{param: 'hgtprs', z: 100000, time: 445111200000, lon: 16, lat: 48, val: 164.14},
-{param: 'hgtprs', z: 100000, time: 445132800000, lon: 16, lat: 48, val: 165.3},
-{param: 'hgtprs', z: 100000, time: 445154400000, lon: 16, lat: 48, val: 163.17},
-{param: 'hgtprs', z: 100000, time: 445176000000, lon: 16, lat: 48, val: 161.04},
-{param: 'hgtprs', z: 100000, time: 445197600000, lon: 16, lat: 48, val: 163.57},
-{param: 'hgtprs', z: 100000, time: 445219200000, lon: 16, lat: 48, val: 164.76},
-{param: 'hgtprs', z: 100000, time: 445240800000, lon: 16, lat: 48, val: 162.63},
-{param: 'hgtprs', z: 100000, time: 445262400000, lon: 16, lat: 48, val: 160.48},
-{param: 'hgtprs', z: 100000, time: 445284000000, lon: 16, lat: 48, val: 162.97},
-{param: 'hgtprs', z: 100000, time: 445305600000, lon: 16, lat: 48, val: 164.2},
-{param: 'hgtprs', z: 100000, time: 445327200000, lon: 16, lat: 48, val: 162.07},
-{param: 'hgtprs', z: 100000, time: 445348800000, lon: 16, lat: 48, val: 159.9},
-{param: 'hgtprs', z: 100000, time: 445370400000, lon: 16, lat: 48, val: 162.34},
-{param: 'hgtprs', z: 100000, time: 445392000000, lon: 16, lat: 48, val: 163.63},
-{param: 'hgtprs', z: 100000, time: 445413600000, lon: 16, lat: 48, val: 161.48},
-{param: 'hgtprs', z: 100000, time: 445435200000, lon: 16, lat: 48, val: 159.29},
-{param: 'hgtprs', z: 100000, time: 445456800000, lon: 16, lat: 48, val: 161.69},
-{param: 'hgtprs', z: 100000, time: 445478400000, lon: 16, lat: 48, val: 163.01},
-{param: 'hgtprs', z: 100000, time: 445500000000, lon: 16, lat: 48, val: 160.87},
-{param: 'hgtprs', z: 100000, time: 445521600000, lon: 16, lat: 48, val: 158.65},
-{param: 'hgtprs', z: 100000, time: 445543200000, lon: 16, lat: 48, val: 161},
-{param: 'hgtprs', z: 100000, time: 445564800000, lon: 16, lat: 48, val: 162.37},
-{param: 'hgtprs', z: 100000, time: 445586400000, lon: 16, lat: 48, val: 160.23},
-{param: 'hgtprs', z: 100000, time: 445608000000, lon: 16, lat: 48, val: 158},
-{param: 'hgtprs', z: 100000, time: 445629600000, lon: 16, lat: 48, val: 160.29},
-{param: 'hgtprs', z: 100000, time: 445651200000, lon: 16, lat: 48, val: 161.72},
-{param: 'hgtprs', z: 100000, time: 445672800000, lon: 16, lat: 48, val: 159.58},
-{param: 'hgtprs', z: 100000, time: 445694400000, lon: 16, lat: 48, val: 157.31},
-{param: 'hgtprs', z: 100000, time: 445716000000, lon: 16, lat: 48, val: 159.56},
-{param: 'hgtprs', z: 100000, time: 445737600000, lon: 16, lat: 48, val: 161.03},
-{param: 'hgtprs', z: 100000, time: 445759200000, lon: 16, lat: 48, val: 158.9},
-{param: 'hgtprs', z: 100000, time: 445780800000, lon: 16, lat: 48, val: 156.62},
-{param: 'hgtprs', z: 100000, time: 445802400000, lon: 16, lat: 48, val: 158.8},
-{param: 'hgtprs', z: 100000, time: 445824000000, lon: 16, lat: 48, val: 160.31},
-{param: 'hgtprs', z: 100000, time: 445845600000, lon: 16, lat: 48, val: 158.2},
-{param: 'hgtprs', z: 100000, time: 445867200000, lon: 16, lat: 48, val: 155.89},
-{param: 'hgtprs', z: 100000, time: 445888800000, lon: 16, lat: 48, val: 158.01},
-{param: 'hgtprs', z: 100000, time: 445910400000, lon: 16, lat: 48, val: 159.59},
-{param: 'hgtprs', z: 100000, time: 445932000000, lon: 16, lat: 48, val: 157.48},
-{param: 'hgtprs', z: 100000, time: 445953600000, lon: 16, lat: 48, val: 155.14},
-{param: 'hgtprs', z: 100000, time: 445975200000, lon: 16, lat: 48, val: 157.21},
-{param: 'hgtprs', z: 100000, time: 445996800000, lon: 16, lat: 48, val: 158.83},
-{param: 'hgtprs', z: 100000, time: 446018400000, lon: 16, lat: 48, val: 156.74},
-{param: 'hgtprs', z: 100000, time: 446040000000, lon: 16, lat: 48, val: 154.38},
-{param: 'hgtprs', z: 100000, time: 446061600000, lon: 16, lat: 48, val: 156.38},
-{param: 'hgtprs', z: 100000, time: 446083200000, lon: 16, lat: 48, val: 158.07},
-{param: 'hgtprs', z: 100000, time: 446104800000, lon: 16, lat: 48, val: 155.98},
-{param: 'hgtprs', z: 100000, time: 446126400000, lon: 16, lat: 48, val: 153.59},
-{param: 'hgtprs', z: 100000, time: 446148000000, lon: 16, lat: 48, val: 155.53},
-{param: 'hgtprs', z: 100000, time: 446169600000, lon: 16, lat: 48, val: 157.27},
-{param: 'hgtprs', z: 100000, time: 446191200000, lon: 16, lat: 48, val: 155.21},
-{param: 'hgtprs', z: 100000, time: 446212800000, lon: 16, lat: 48, val: 152.79},
-{param: 'hgtprs', z: 100000, time: 446234400000, lon: 16, lat: 48, val: 154.67},
-{param: 'hgtprs', z: 100000, time: 446256000000, lon: 16, lat: 48, val: 156.46},
-{param: 'hgtprs', z: 100000, time: 446277600000, lon: 16, lat: 48, val: 154.43},
-{param: 'hgtprs', z: 100000, time: 446299200000, lon: 16, lat: 48, val: 151.98},
-{param: 'hgtprs', z: 100000, time: 446320800000, lon: 16, lat: 48, val: 153.78},
-{param: 'hgtprs', z: 100000, time: 446342400000, lon: 16, lat: 48, val: 155.63},
-{param: 'hgtprs', z: 100000, time: 446364000000, lon: 16, lat: 48, val: 153.63},
-{param: 'hgtprs', z: 100000, time: 446385600000, lon: 16, lat: 48, val: 151.14},
-{param: 'hgtprs', z: 100000, time: 446407200000, lon: 16, lat: 48, val: 152.87},
-{param: 'hgtprs', z: 100000, time: 446428800000, lon: 16, lat: 48, val: 154.79},
-{param: 'hgtprs', z: 100000, time: 446450400000, lon: 16, lat: 48, val: 152.81},
-{param: 'hgtprs', z: 100000, time: 446472000000, lon: 16, lat: 48, val: 150.29},
-{param: 'hgtprs', z: 100000, time: 446493600000, lon: 16, lat: 48, val: 151.95},
-{param: 'hgtprs', z: 100000, time: 446515200000, lon: 16, lat: 48, val: 153.94},
-{param: 'hgtprs', z: 100000, time: 446536800000, lon: 16, lat: 48, val: 151.99},
-{param: 'hgtprs', z: 100000, time: 446558400000, lon: 16, lat: 48, val: 149.44},
-{param: 'hgtprs', z: 100000, time: 446580000000, lon: 16, lat: 48, val: 151.02},
-{param: 'hgtprs', z: 100000, time: 446601600000, lon: 16, lat: 48, val: 153.07},
-{param: 'hgtprs', z: 100000, time: 446623200000, lon: 16, lat: 48, val: 151.17},
-{param: 'hgtprs', z: 100000, time: 446644800000, lon: 16, lat: 48, val: 148.57},
-{param: 'hgtprs', z: 100000, time: 446666400000, lon: 16, lat: 48, val: 150.08},
-{param: 'hgtprs', z: 100000, time: 446688000000, lon: 16, lat: 48, val: 152.2},
-{param: 'hgtprs', z: 100000, time: 446709600000, lon: 16, lat: 48, val: 150.32},
-{param: 'hgtprs', z: 100000, time: 446731200000, lon: 16, lat: 48, val: 147.69},
-{param: 'hgtprs', z: 100000, time: 446752800000, lon: 16, lat: 48, val: 149.11},
-{param: 'hgtprs', z: 100000, time: 446774400000, lon: 16, lat: 48, val: 151.31},
-{param: 'hgtprs', z: 100000, time: 446796000000, lon: 16, lat: 48, val: 149.48},
-{param: 'hgtprs', z: 100000, time: 446817600000, lon: 16, lat: 48, val: 146.81},
-{param: 'hgtprs', z: 100000, time: 446839200000, lon: 16, lat: 48, val: 148.15},
-{param: 'hgtprs', z: 100000, time: 446860800000, lon: 16, lat: 48, val: 150.86},
-{param: 'hgtprs', z: 100000, time: 446882400000, lon: 16, lat: 48, val: 149.05},
-{param: 'hgtprs', z: 100000, time: 446904000000, lon: 16, lat: 48, val: 146.36},
-{param: 'hgtprs', z: 100000, time: 446925600000, lon: 16, lat: 48, val: 147.65},
-{param: 'hgtprs', z: 100000, time: 446947200000, lon: 16, lat: 48, val: 150.4},
-{param: 'hgtprs', z: 100000, time: 446968800000, lon: 16, lat: 48, val: 148.63},
-{param: 'hgtprs', z: 100000, time: 446990400000, lon: 16, lat: 48, val: 145.91},
-{param: 'hgtprs', z: 100000, time: 447012000000, lon: 16, lat: 48, val: 147.17},
-{param: 'hgtprs', z: 100000, time: 447033600000, lon: 16, lat: 48, val: 149.5},
-{param: 'hgtprs', z: 100000, time: 447055200000, lon: 16, lat: 48, val: 147.77},
-{param: 'hgtprs', z: 100000, time: 447076800000, lon: 16, lat: 48, val: 145.01},
-{param: 'hgtprs', z: 100000, time: 447098400000, lon: 16, lat: 48, val: 146.18},
-{param: 'hgtprs', z: 100000, time: 447120000000, lon: 16, lat: 48, val: 148.6},
-{param: 'hgtprs', z: 100000, time: 447141600000, lon: 16, lat: 48, val: 146.92},
-{param: 'hgtprs', z: 100000, time: 447163200000, lon: 16, lat: 48, val: 144.11},
-{param: 'hgtprs', z: 100000, time: 447184800000, lon: 16, lat: 48, val: 145.2},
-{param: 'hgtprs', z: 100000, time: 447206400000, lon: 16, lat: 48, val: 147.68},
-{param: 'hgtprs', z: 100000, time: 447228000000, lon: 16, lat: 48, val: 146.06},
-{param: 'hgtprs', z: 100000, time: 447249600000, lon: 16, lat: 48, val: 143.2},
-{param: 'hgtprs', z: 100000, time: 447271200000, lon: 16, lat: 48, val: 144.19},
-{param: 'hgtprs', z: 100000, time: 447292800000, lon: 16, lat: 48, val: 146.77},
-{param: 'hgtprs', z: 100000, time: 447314400000, lon: 16, lat: 48, val: 145.21},
-{param: 'hgtprs', z: 100000, time: 447336000000, lon: 16, lat: 48, val: 142.29},
-{param: 'hgtprs', z: 100000, time: 447357600000, lon: 16, lat: 48, val: 143.2},
-{param: 'hgtprs', z: 100000, time: 447379200000, lon: 16, lat: 48, val: 145.86},
-{param: 'hgtprs', z: 100000, time: 447400800000, lon: 16, lat: 48, val: 144.35},
-{param: 'hgtprs', z: 100000, time: 447422400000, lon: 16, lat: 48, val: 141.39},
-{param: 'hgtprs', z: 100000, time: 447444000000, lon: 16, lat: 48, val: 142.2},
-{param: 'hgtprs', z: 100000, time: 447465600000, lon: 16, lat: 48, val: 144.94},
-{param: 'hgtprs', z: 100000, time: 447487200000, lon: 16, lat: 48, val: 143.5},
-{param: 'hgtprs', z: 100000, time: 447508800000, lon: 16, lat: 48, val: 140.48},
-{param: 'hgtprs', z: 100000, time: 447530400000, lon: 16, lat: 48, val: 141.2},
-{param: 'hgtprs', z: 100000, time: 447552000000, lon: 16, lat: 48, val: 144.02},
-{param: 'hgtprs', z: 100000, time: 447573600000, lon: 16, lat: 48, val: 142.66},
-{param: 'hgtprs', z: 100000, time: 447595200000, lon: 16, lat: 48, val: 139.58},
-{param: 'hgtprs', z: 100000, time: 447616800000, lon: 16, lat: 48, val: 140.19},
-{param: 'hgtprs', z: 100000, time: 447638400000, lon: 16, lat: 48, val: 143.11},
-{param: 'hgtprs', z: 100000, time: 447660000000, lon: 16, lat: 48, val: 141.82},
-{param: 'hgtprs', z: 100000, time: 447681600000, lon: 16, lat: 48, val: 138.67},
-{param: 'hgtprs', z: 100000, time: 447703200000, lon: 16, lat: 48, val: 139.2},
-{param: 'hgtprs', z: 100000, time: 447724800000, lon: 16, lat: 48, val: 142.21},
-{param: 'hgtprs', z: 100000, time: 447746400000, lon: 16, lat: 48, val: 140.98},
-{param: 'hgtprs', z: 100000, time: 447768000000, lon: 16, lat: 48, val: 137.78},
-{param: 'hgtprs', z: 100000, time: 447789600000, lon: 16, lat: 48, val: 138.2},
-{param: 'hgtprs', z: 100000, time: 447811200000, lon: 16, lat: 48, val: 141.32},
-{param: 'hgtprs', z: 100000, time: 447832800000, lon: 16, lat: 48, val: 140.16},
-{param: 'hgtprs', z: 100000, time: 447854400000, lon: 16, lat: 48, val: 136.89},
-{param: 'hgtprs', z: 100000, time: 447876000000, lon: 16, lat: 48, val: 137.2},
-{param: 'hgtprs', z: 100000, time: 447897600000, lon: 16, lat: 48, val: 140.42},
-{param: 'hgtprs', z: 100000, time: 447919200000, lon: 16, lat: 48, val: 139.34},
-{param: 'hgtprs', z: 100000, time: 447940800000, lon: 16, lat: 48, val: 136},
-{param: 'hgtprs', z: 100000, time: 447962400000, lon: 16, lat: 48, val: 136.22},
-{param: 'hgtprs', z: 100000, time: 447984000000, lon: 16, lat: 48, val: 139.53},
-{param: 'hgtprs', z: 100000, time: 448005600000, lon: 16, lat: 48, val: 138.54},
-{param: 'hgtprs', z: 100000, time: 448027200000, lon: 16, lat: 48, val: 135.13},
-{param: 'hgtprs', z: 100000, time: 448048800000, lon: 16, lat: 48, val: 135.24},
-{param: 'hgtprs', z: 100000, time: 448070400000, lon: 16, lat: 48, val: 138.66},
-{param: 'hgtprs', z: 100000, time: 448092000000, lon: 16, lat: 48, val: 137.75},
-{param: 'hgtprs', z: 100000, time: 448113600000, lon: 16, lat: 48, val: 134.26},
-{param: 'hgtprs', z: 100000, time: 448135200000, lon: 16, lat: 48, val: 134.27},
-{param: 'hgtprs', z: 100000, time: 448156800000, lon: 16, lat: 48, val: 137.79},
-{param: 'hgtprs', z: 100000, time: 448178400000, lon: 16, lat: 48, val: 136.98},
-{param: 'hgtprs', z: 100000, time: 448200000000, lon: 16, lat: 48, val: 133.41},
-{param: 'hgtprs', z: 100000, time: 448221600000, lon: 16, lat: 48, val: 133.31},
-{param: 'hgtprs', z: 100000, time: 448243200000, lon: 16, lat: 48, val: 136.94},
-{param: 'hgtprs', z: 100000, time: 448264800000, lon: 16, lat: 48, val: 136.21},
-{param: 'hgtprs', z: 100000, time: 448286400000, lon: 16, lat: 48, val: 132.57},
-{param: 'hgtprs', z: 100000, time: 448308000000, lon: 16, lat: 48, val: 132.37},
-{param: 'hgtprs', z: 100000, time: 448329600000, lon: 16, lat: 48, val: 136.1},
-{param: 'hgtprs', z: 100000, time: 448351200000, lon: 16, lat: 48, val: 135.47},
-{param: 'hgtprs', z: 100000, time: 448372800000, lon: 16, lat: 48, val: 131.74},
-{param: 'hgtprs', z: 100000, time: 448394400000, lon: 16, lat: 48, val: 131.43},
-{param: 'hgtprs', z: 100000, time: 448416000000, lon: 16, lat: 48, val: 135.27},
-{param: 'hgtprs', z: 100000, time: 448437600000, lon: 16, lat: 48, val: 134.73},
-{param: 'hgtprs', z: 100000, time: 448459200000, lon: 16, lat: 48, val: 130.93},
-{param: 'hgtprs', z: 100000, time: 448480800000, lon: 16, lat: 48, val: 130.51},
-{param: 'hgtprs', z: 100000, time: 448502400000, lon: 16, lat: 48, val: 134.46},
-{param: 'hgtprs', z: 100000, time: 448524000000, lon: 16, lat: 48, val: 134.02},
-{param: 'hgtprs', z: 100000, time: 448545600000, lon: 16, lat: 48, val: 130.13},
-{param: 'hgtprs', z: 100000, time: 448567200000, lon: 16, lat: 48, val: 129.61},
-{param: 'hgtprs', z: 100000, time: 448588800000, lon: 16, lat: 48, val: 133.68},
-{param: 'hgtprs', z: 100000, time: 448610400000, lon: 16, lat: 48, val: 133.32},
-{param: 'hgtprs', z: 100000, time: 448632000000, lon: 16, lat: 48, val: 129.35},
-{param: 'hgtprs', z: 100000, time: 448653600000, lon: 16, lat: 48, val: 128.71},
-{param: 'hgtprs', z: 100000, time: 448675200000, lon: 16, lat: 48, val: 132.9},
-{param: 'hgtprs', z: 100000, time: 448696800000, lon: 16, lat: 48, val: 132.65},
-{param: 'hgtprs', z: 100000, time: 448718400000, lon: 16, lat: 48, val: 128.59},
-{param: 'hgtprs', z: 100000, time: 448740000000, lon: 16, lat: 48, val: 127.84},
-{param: 'hgtprs', z: 100000, time: 448761600000, lon: 16, lat: 48, val: 132.14},
-{param: 'hgtprs', z: 100000, time: 448783200000, lon: 16, lat: 48, val: 132},
-{param: 'hgtprs', z: 100000, time: 448804800000, lon: 16, lat: 48, val: 127.85},
-{param: 'hgtprs', z: 100000, time: 448826400000, lon: 16, lat: 48, val: 126.99},
-{param: 'hgtprs', z: 100000, time: 448848000000, lon: 16, lat: 48, val: 131.4},
-{param: 'hgtprs', z: 100000, time: 448869600000, lon: 16, lat: 48, val: 131.36},
-{param: 'hgtprs', z: 100000, time: 448891200000, lon: 16, lat: 48, val: 127.12},
-{param: 'hgtprs', z: 100000, time: 448912800000, lon: 16, lat: 48, val: 126.15},
-{param: 'hgtprs', z: 100000, time: 448934400000, lon: 16, lat: 48, val: 130.68},
-{param: 'hgtprs', z: 100000, time: 448956000000, lon: 16, lat: 48, val: 130.75},
-{param: 'hgtprs', z: 100000, time: 448977600000, lon: 16, lat: 48, val: 126.42},
-{param: 'hgtprs', z: 100000, time: 448999200000, lon: 16, lat: 48, val: 125.34},
-{param: 'hgtprs', z: 100000, time: 449020800000, lon: 16, lat: 48, val: 129.98},
-{param: 'hgtprs', z: 100000, time: 449042400000, lon: 16, lat: 48, val: 130.16},
-{param: 'hgtprs', z: 100000, time: 449064000000, lon: 16, lat: 48, val: 125.73},
-{param: 'hgtprs', z: 100000, time: 449085600000, lon: 16, lat: 48, val: 124.54},
-{param: 'hgtprs', z: 100000, time: 449107200000, lon: 16, lat: 48, val: 129.31},
-{param: 'hgtprs', z: 100000, time: 449128800000, lon: 16, lat: 48, val: 129.59},
-{param: 'hgtprs', z: 100000, time: 449150400000, lon: 16, lat: 48, val: 125.07},
-{param: 'hgtprs', z: 100000, time: 449172000000, lon: 16, lat: 48, val: 123.77},
-{param: 'hgtprs', z: 100000, time: 449193600000, lon: 16, lat: 48, val: 128.67},
-{param: 'hgtprs', z: 100000, time: 449215200000, lon: 16, lat: 48, val: 129.04},
-{param: 'hgtprs', z: 100000, time: 449236800000, lon: 16, lat: 48, val: 124.44},
-{param: 'hgtprs', z: 100000, time: 449258400000, lon: 16, lat: 48, val: 123.02},
-{param: 'hgtprs', z: 100000, time: 449280000000, lon: 16, lat: 48, val: 128.04},
-{param: 'hgtprs', z: 100000, time: 449301600000, lon: 16, lat: 48, val: 128.51},
-{param: 'hgtprs', z: 100000, time: 449323200000, lon: 16, lat: 48, val: 123.82},
-{param: 'hgtprs', z: 100000, time: 449344800000, lon: 16, lat: 48, val: 122.3},
-{param: 'hgtprs', z: 100000, time: 449366400000, lon: 16, lat: 48, val: 127.42},
-{param: 'hgtprs', z: 100000, time: 449388000000, lon: 16, lat: 48, val: 128.02},
-{param: 'hgtprs', z: 100000, time: 449409600000, lon: 16, lat: 48, val: 123.23},
-{param: 'hgtprs', z: 100000, time: 449431200000, lon: 16, lat: 48, val: 121.6},
-{param: 'hgtprs', z: 100000, time: 449452800000, lon: 16, lat: 48, val: 126.84},
-{param: 'hgtprs', z: 100000, time: 449474400000, lon: 16, lat: 48, val: 127.54},
-{param: 'hgtprs', z: 100000, time: 449496000000, lon: 16, lat: 48, val: 122.66},
-{param: 'hgtprs', z: 100000, time: 449517600000, lon: 16, lat: 48, val: 120.92},
-{param: 'hgtprs', z: 100000, time: 449539200000, lon: 16, lat: 48, val: 126.28},
-{param: 'hgtprs', z: 100000, time: 449560800000, lon: 16, lat: 48, val: 127.1},
-{param: 'hgtprs', z: 100000, time: 449582400000, lon: 16, lat: 48, val: 122.12},
-{param: 'hgtprs', z: 100000, time: 449604000000, lon: 16, lat: 48, val: 120.27},
-{param: 'hgtprs', z: 100000, time: 449625600000, lon: 16, lat: 48, val: 125.75},
-{param: 'hgtprs', z: 100000, time: 449647200000, lon: 16, lat: 48, val: 126.67},
-{param: 'hgtprs', z: 100000, time: 449668800000, lon: 16, lat: 48, val: 121.6},
-{param: 'hgtprs', z: 100000, time: 449690400000, lon: 16, lat: 48, val: 119.64},
-{param: 'hgtprs', z: 100000, time: 449712000000, lon: 16, lat: 48, val: 125.24},
-{param: 'hgtprs', z: 100000, time: 449733600000, lon: 16, lat: 48, val: 126.27},
-{param: 'hgtprs', z: 100000, time: 449755200000, lon: 16, lat: 48, val: 121.11},
-{param: 'hgtprs', z: 100000, time: 449776800000, lon: 16, lat: 48, val: 119.05},
-{param: 'hgtprs', z: 100000, time: 449798400000, lon: 16, lat: 48, val: 124.76},
-{param: 'hgtprs', z: 100000, time: 449820000000, lon: 16, lat: 48, val: 125.89},
-{param: 'hgtprs', z: 100000, time: 449841600000, lon: 16, lat: 48, val: 120.64},
-{param: 'hgtprs', z: 100000, time: 449863200000, lon: 16, lat: 48, val: 118.47},
-{param: 'hgtprs', z: 100000, time: 449884800000, lon: 16, lat: 48, val: 124.31},
-{param: 'hgtprs', z: 100000, time: 449906400000, lon: 16, lat: 48, val: 125.55},
-{param: 'hgtprs', z: 100000, time: 449928000000, lon: 16, lat: 48, val: 120.21},
-{param: 'hgtprs', z: 100000, time: 449949600000, lon: 16, lat: 48, val: 117.93},
-{param: 'hgtprs', z: 100000, time: 449971200000, lon: 16, lat: 48, val: 123.88},
-{param: 'hgtprs', z: 100000, time: 449992800000, lon: 16, lat: 48, val: 125.22},
-{param: 'hgtprs', z: 100000, time: 450014400000, lon: 16, lat: 48, val: 119.8},
-{param: 'hgtprs', z: 100000, time: 450036000000, lon: 16, lat: 48, val: 117.42},
-{param: 'hgtprs', z: 100000, time: 450057600000, lon: 16, lat: 48, val: 123.47},
-{param: 'hgtprs', z: 100000, time: 450079200000, lon: 16, lat: 48, val: 124.93},
-{param: 'hgtprs', z: 100000, time: 450100800000, lon: 16, lat: 48, val: 119.41},
-{param: 'hgtprs', z: 100000, time: 450122400000, lon: 16, lat: 48, val: 116.93},
-{param: 'hgtprs', z: 100000, time: 450144000000, lon: 16, lat: 48, val: 123.11},
-{param: 'hgtprs', z: 100000, time: 450165600000, lon: 16, lat: 48, val: 124.65},
-{param: 'hgtprs', z: 100000, time: 450187200000, lon: 16, lat: 48, val: 119.05},
-{param: 'hgtprs', z: 100000, time: 450208800000, lon: 16, lat: 48, val: 116.47},
-{param: 'hgtprs', z: 100000, time: 450230400000, lon: 16, lat: 48, val: 122.75},
-{param: 'hgtprs', z: 100000, time: 450252000000, lon: 16, lat: 48, val: 124.4},
-{param: 'hgtprs', z: 100000, time: 450273600000, lon: 16, lat: 48, val: 118.72},
-{param: 'hgtprs', z: 100000, time: 450295200000, lon: 16, lat: 48, val: 116.04},
-{param: 'hgtprs', z: 100000, time: 450316800000, lon: 16, lat: 48, val: 122.43},
-{param: 'hgtprs', z: 100000, time: 450338400000, lon: 16, lat: 48, val: 124.18},
-{param: 'hgtprs', z: 100000, time: 450360000000, lon: 16, lat: 48, val: 118.42},
-{param: 'hgtprs', z: 100000, time: 450381600000, lon: 16, lat: 48, val: 115.64},
-{param: 'hgtprs', z: 100000, time: 450403200000, lon: 16, lat: 48, val: 122.13},
-{param: 'hgtprs', z: 100000, time: 450424800000, lon: 16, lat: 48, val: 123.98},
-{param: 'hgtprs', z: 100000, time: 450446400000, lon: 16, lat: 48, val: 118.14},
-{param: 'hgtprs', z: 100000, time: 450468000000, lon: 16, lat: 48, val: 115.27},
-{param: 'hgtprs', z: 100000, time: 450489600000, lon: 16, lat: 48, val: 121.86},
-{param: 'hgtprs', z: 100000, time: 450511200000, lon: 16, lat: 48, val: 123.81},
-{param: 'hgtprs', z: 100000, time: 450532800000, lon: 16, lat: 48, val: 117.89},
-{param: 'hgtprs', z: 100000, time: 450554400000, lon: 16, lat: 48, val: 114.93},
-{param: 'hgtprs', z: 100000, time: 450576000000, lon: 16, lat: 48, val: 121.62},
-{param: 'hgtprs', z: 100000, time: 450597600000, lon: 16, lat: 48, val: 123.65},
-{param: 'hgtprs', z: 100000, time: 450619200000, lon: 16, lat: 48, val: 117.67},
-{param: 'hgtprs', z: 100000, time: 450640800000, lon: 16, lat: 48, val: 114.62},
-{param: 'hgtprs', z: 100000, time: 450662400000, lon: 16, lat: 48, val: 121.41},
-{param: 'hgtprs', z: 100000, time: 450684000000, lon: 16, lat: 48, val: 123.53},
-{param: 'hgtprs', z: 100000, time: 450705600000, lon: 16, lat: 48, val: 117.48},
-{param: 'hgtprs', z: 100000, time: 450727200000, lon: 16, lat: 48, val: 114.33},
-{param: 'hgtprs', z: 100000, time: 450748800000, lon: 16, lat: 48, val: 121.22},
-{param: 'hgtprs', z: 100000, time: 450770400000, lon: 16, lat: 48, val: 123.43},
-{param: 'hgtprs', z: 100000, time: 450792000000, lon: 16, lat: 48, val: 117.31},
-{param: 'hgtprs', z: 100000, time: 450813600000, lon: 16, lat: 48, val: 114.07},
-{param: 'hgtprs', z: 100000, time: 450835200000, lon: 16, lat: 48, val: 121.06},
-{param: 'hgtprs', z: 100000, time: 450856800000, lon: 16, lat: 48, val: 123.35},
-{param: 'hgtprs', z: 100000, time: 450878400000, lon: 16, lat: 48, val: 117.17},
-{param: 'hgtprs', z: 100000, time: 450900000000, lon: 16, lat: 48, val: 113.84},
-{param: 'hgtprs', z: 100000, time: 450921600000, lon: 16, lat: 48, val: 120.91},
-{param: 'hgtprs', z: 100000, time: 450943200000, lon: 16, lat: 48, val: 123.3},
-{param: 'hgtprs', z: 100000, time: 450964800000, lon: 16, lat: 48, val: 117.05},
-{param: 'hgtprs', z: 100000, time: 450986400000, lon: 16, lat: 48, val: 113.64},
-{param: 'hgtprs', z: 100000, time: 451008000000, lon: 16, lat: 48, val: 120.8},
-{param: 'hgtprs', z: 100000, time: 451029600000, lon: 16, lat: 48, val: 123.26},
-{param: 'hgtprs', z: 100000, time: 451051200000, lon: 16, lat: 48, val: 116.96},
-{param: 'hgtprs', z: 100000, time: 451072800000, lon: 16, lat: 48, val: 113.47},
-{param: 'hgtprs', z: 100000, time: 451094400000, lon: 16, lat: 48, val: 120.71},
-{param: 'hgtprs', z: 100000, time: 451116000000, lon: 16, lat: 48, val: 123.25},
-{param: 'hgtprs', z: 100000, time: 451137600000, lon: 16, lat: 48, val: 116.89},
-{param: 'hgtprs', z: 100000, time: 451159200000, lon: 16, lat: 48, val: 113.33},
-{param: 'hgtprs', z: 100000, time: 451180800000, lon: 16, lat: 48, val: 120.64},
-{param: 'hgtprs', z: 100000, time: 451202400000, lon: 16, lat: 48, val: 123.26},
-{param: 'hgtprs', z: 100000, time: 451224000000, lon: 16, lat: 48, val: 116.86},
-{param: 'hgtprs', z: 100000, time: 451245600000, lon: 16, lat: 48, val: 113.21},
-{param: 'hgtprs', z: 100000, time: 451267200000, lon: 16, lat: 48, val: 120.6},
-{param: 'hgtprs', z: 100000, time: 451288800000, lon: 16, lat: 48, val: 123.29},
-{param: 'hgtprs', z: 100000, time: 451310400000, lon: 16, lat: 48, val: 116.84},
-{param: 'hgtprs', z: 100000, time: 451332000000, lon: 16, lat: 48, val: 113.13},
-{param: 'hgtprs', z: 100000, time: 451353600000, lon: 16, lat: 48, val: 120.59},
-{param: 'hgtprs', z: 100000, time: 451375200000, lon: 16, lat: 48, val: 123.34},
-{param: 'hgtprs', z: 100000, time: 451396800000, lon: 16, lat: 48, val: 116.85},
-{param: 'hgtprs', z: 100000, time: 451418400000, lon: 16, lat: 48, val: 113.06},
-{param: 'hgtprs', z: 100000, time: 451440000000, lon: 16, lat: 48, val: 120.59},
-{param: 'hgtprs', z: 100000, time: 451461600000, lon: 16, lat: 48, val: 123.4},
-{param: 'hgtprs', z: 100000, time: 451483200000, lon: 16, lat: 48, val: 116.88},
-{param: 'hgtprs', z: 100000, time: 451504800000, lon: 16, lat: 48, val: 113.02},
-{param: 'hgtprs', z: 100000, time: 451526400000, lon: 16, lat: 48, val: 120.62},
-{param: 'hgtprs', z: 100000, time: 451548000000, lon: 16, lat: 48, val: 123.5},
-{param: 'hgtprs', z: 100000, time: 451569600000, lon: 16, lat: 48, val: 116.94},
-{param: 'hgtprs', z: 100000, time: 451591200000, lon: 16, lat: 48, val: 113.02},
-{param: 'hgtprs', z: 100000, time: 451612800000, lon: 16, lat: 48, val: 120.67},
-{param: 'hgtprs', z: 100000, time: 451634400000, lon: 16, lat: 48, val: 123.6},
-{param: 'hgtprs', z: 100000, time: 451656000000, lon: 16, lat: 48, val: 117.02},
-{param: 'hgtprs', z: 100000, time: 451677600000, lon: 16, lat: 48, val: 113.03},
-{param: 'hgtprs', z: 100000, time: 451699200000, lon: 16, lat: 48, val: 120.74},
-{param: 'hgtprs', z: 100000, time: 451720800000, lon: 16, lat: 48, val: 123.73},
-{param: 'hgtprs', z: 100000, time: 451742400000, lon: 16, lat: 48, val: 117.12},
-{param: 'hgtprs', z: 100000, time: 451764000000, lon: 16, lat: 48, val: 113.06},
-{param: 'hgtprs', z: 100000, time: 451785600000, lon: 16, lat: 48, val: 120.83},
-{param: 'hgtprs', z: 100000, time: 451807200000, lon: 16, lat: 48, val: 123.87},
-{param: 'hgtprs', z: 100000, time: 451828800000, lon: 16, lat: 48, val: 117.24},
-{param: 'hgtprs', z: 100000, time: 451850400000, lon: 16, lat: 48, val: 113.13},
-{param: 'hgtprs', z: 100000, time: 451872000000, lon: 16, lat: 48, val: 120.94},
-{param: 'hgtprs', z: 100000, time: 451893600000, lon: 16, lat: 48, val: 124.02},
-{param: 'hgtprs', z: 100000, time: 451915200000, lon: 16, lat: 48, val: 117.38},
-{param: 'hgtprs', z: 100000, time: 451936800000, lon: 16, lat: 48, val: 113.22},
-{param: 'hgtprs', z: 100000, time: 451958400000, lon: 16, lat: 48, val: 121.07},
-{param: 'hgtprs', z: 100000, time: 451980000000, lon: 16, lat: 48, val: 124.2},
-{param: 'hgtprs', z: 100000, time: 452001600000, lon: 16, lat: 48, val: 117.54},
-{param: 'hgtprs', z: 100000, time: 452023200000, lon: 16, lat: 48, val: 113.32},
-{param: 'hgtprs', z: 100000, time: 452044800000, lon: 16, lat: 48, val: 121.23},
-{param: 'hgtprs', z: 100000, time: 452066400000, lon: 16, lat: 48, val: 124.39},
-{param: 'hgtprs', z: 100000, time: 452088000000, lon: 16, lat: 48, val: 117.72},
-{param: 'hgtprs', z: 100000, time: 452109600000, lon: 16, lat: 48, val: 113.45},
-{param: 'hgtprs', z: 100000, time: 452131200000, lon: 16, lat: 48, val: 121.39},
-{param: 'hgtprs', z: 100000, time: 452152800000, lon: 16, lat: 48, val: 124.59},
-{param: 'hgtprs', z: 100000, time: 452174400000, lon: 16, lat: 48, val: 117.92},
-{param: 'hgtprs', z: 100000, time: 452196000000, lon: 16, lat: 48, val: 113.6},
-{param: 'hgtprs', z: 100000, time: 452217600000, lon: 16, lat: 48, val: 121.58},
-{param: 'hgtprs', z: 100000, time: 452239200000, lon: 16, lat: 48, val: 124.8},
-{param: 'hgtprs', z: 100000, time: 452260800000, lon: 16, lat: 48, val: 118.14},
-{param: 'hgtprs', z: 100000, time: 452282400000, lon: 16, lat: 48, val: 113.77},
-{param: 'hgtprs', z: 100000, time: 452304000000, lon: 16, lat: 48, val: 121.78},
-{param: 'hgtprs', z: 100000, time: 452325600000, lon: 16, lat: 48, val: 125.03},
-{param: 'hgtprs', z: 100000, time: 452347200000, lon: 16, lat: 48, val: 118.37},
-{param: 'hgtprs', z: 100000, time: 452368800000, lon: 16, lat: 48, val: 113.97},
-{param: 'hgtprs', z: 100000, time: 452390400000, lon: 16, lat: 48, val: 122},
-{param: 'hgtprs', z: 100000, time: 452412000000, lon: 16, lat: 48, val: 125.27},
-{param: 'hgtprs', z: 100000, time: 452433600000, lon: 16, lat: 48, val: 118.62},
-{param: 'hgtprs', z: 100000, time: 452455200000, lon: 16, lat: 48, val: 114.17},
-{param: 'hgtprs', z: 100000, time: 452476800000, lon: 16, lat: 48, val: 122.23},
-{param: 'hgtprs', z: 100000, time: 452498400000, lon: 16, lat: 48, val: 125.52},
-{param: 'hgtprs', z: 100000, time: 452520000000, lon: 16, lat: 48, val: 118.89},
-{param: 'hgtprs', z: 100000, time: 452541600000, lon: 16, lat: 48, val: 114.4},
-{param: 'hgtprs', z: 100000, time: 452563200000, lon: 16, lat: 48, val: 122.48},
-{param: 'hgtprs', z: 100000, time: 452584800000, lon: 16, lat: 48, val: 125.79},
-{param: 'hgtprs', z: 100000, time: 452606400000, lon: 16, lat: 48, val: 119.16},
-{param: 'hgtprs', z: 100000, time: 452628000000, lon: 16, lat: 48, val: 114.64},
-{param: 'hgtprs', z: 100000, time: 452649600000, lon: 16, lat: 48, val: 122.74},
-{param: 'hgtprs', z: 100000, time: 452671200000, lon: 16, lat: 48, val: 126.05},
-{param: 'hgtprs', z: 100000, time: 452692800000, lon: 16, lat: 48, val: 119.45},
-{param: 'hgtprs', z: 100000, time: 452714400000, lon: 16, lat: 48, val: 114.9},
-{param: 'hgtprs', z: 100000, time: 452736000000, lon: 16, lat: 48, val: 123.01},
-{param: 'hgtprs', z: 100000, time: 452757600000, lon: 16, lat: 48, val: 126.34},
-{param: 'hgtprs', z: 100000, time: 452779200000, lon: 16, lat: 48, val: 119.76},
-{param: 'hgtprs', z: 100000, time: 452800800000, lon: 16, lat: 48, val: 115.17},
-{param: 'hgtprs', z: 100000, time: 452822400000, lon: 16, lat: 48, val: 123.3},
-{param: 'hgtprs', z: 100000, time: 452844000000, lon: 16, lat: 48, val: 126.63},
-{param: 'hgtprs', z: 100000, time: 452865600000, lon: 16, lat: 48, val: 120.08},
-{param: 'hgtprs', z: 100000, time: 452887200000, lon: 16, lat: 48, val: 115.46},
-{param: 'hgtprs', z: 100000, time: 452908800000, lon: 16, lat: 48, val: 123.59},
-{param: 'hgtprs', z: 100000, time: 452930400000, lon: 16, lat: 48, val: 126.93},
-{param: 'hgtprs', z: 100000, time: 452952000000, lon: 16, lat: 48, val: 120.4},
-{param: 'hgtprs', z: 100000, time: 452973600000, lon: 16, lat: 48, val: 115.76},
-{param: 'hgtprs', z: 100000, time: 452995200000, lon: 16, lat: 48, val: 123.9},
-{param: 'hgtprs', z: 100000, time: 453016800000, lon: 16, lat: 48, val: 127.23},
-{param: 'hgtprs', z: 100000, time: 453038400000, lon: 16, lat: 48, val: 120.74},
-{param: 'hgtprs', z: 100000, time: 453060000000, lon: 16, lat: 48, val: 116.08},
-{param: 'hgtprs', z: 100000, time: 453081600000, lon: 16, lat: 48, val: 124.22},
-{param: 'hgtprs', z: 100000, time: 453103200000, lon: 16, lat: 48, val: 127.54},
-{param: 'hgtprs', z: 100000, time: 453124800000, lon: 16, lat: 48, val: 121.08},
-{param: 'hgtprs', z: 100000, time: 453146400000, lon: 16, lat: 48, val: 116.4},
-{param: 'hgtprs', z: 100000, time: 453168000000, lon: 16, lat: 48, val: 124.54},
-{param: 'hgtprs', z: 100000, time: 453189600000, lon: 16, lat: 48, val: 127.86},
-{param: 'hgtprs', z: 100000, time: 453211200000, lon: 16, lat: 48, val: 121.44},
-{param: 'hgtprs', z: 100000, time: 453232800000, lon: 16, lat: 48, val: 116.74},
-{param: 'hgtprs', z: 100000, time: 453254400000, lon: 16, lat: 48, val: 124.88},
-{param: 'hgtprs', z: 100000, time: 453276000000, lon: 16, lat: 48, val: 128.18},
-{param: 'hgtprs', z: 100000, time: 453297600000, lon: 16, lat: 48, val: 121.8},
-{param: 'hgtprs', z: 100000, time: 453319200000, lon: 16, lat: 48, val: 117.08},
-{param: 'hgtprs', z: 100000, time: 453340800000, lon: 16, lat: 48, val: 125.22},
-{param: 'hgtprs', z: 100000, time: 453362400000, lon: 16, lat: 48, val: 128.5},
-{param: 'hgtprs', z: 100000, time: 453384000000, lon: 16, lat: 48, val: 122.17},
-{param: 'hgtprs', z: 100000, time: 453405600000, lon: 16, lat: 48, val: 117.43},
-{param: 'hgtprs', z: 100000, time: 453427200000, lon: 16, lat: 48, val: 125.56},
-{param: 'hgtprs', z: 100000, time: 453448800000, lon: 16, lat: 48, val: 128.83},
-{param: 'hgtprs', z: 100000, time: 453470400000, lon: 16, lat: 48, val: 122.54},
-{param: 'hgtprs', z: 100000, time: 453492000000, lon: 16, lat: 48, val: 117.79},
-{param: 'hgtprs', z: 100000, time: 453513600000, lon: 16, lat: 48, val: 125.92},
-{param: 'hgtprs', z: 100000, time: 453535200000, lon: 16, lat: 48, val: 129.17},
-{param: 'hgtprs', z: 100000, time: 453556800000, lon: 16, lat: 48, val: 122.92},
-{param: 'hgtprs', z: 100000, time: 453578400000, lon: 16, lat: 48, val: 118.17},
-{param: 'hgtprs', z: 100000, time: 453600000000, lon: 16, lat: 48, val: 126.28},
-{param: 'hgtprs', z: 100000, time: 453621600000, lon: 16, lat: 48, val: 129.5},
-{param: 'hgtprs', z: 100000, time: 453643200000, lon: 16, lat: 48, val: 123.3},
-{param: 'hgtprs', z: 100000, time: 453664800000, lon: 16, lat: 48, val: 118.53},
-{param: 'hgtprs', z: 100000, time: 453686400000, lon: 16, lat: 48, val: 126.64},
-{param: 'hgtprs', z: 100000, time: 453708000000, lon: 16, lat: 48, val: 129.84},
-{param: 'hgtprs', z: 100000, time: 453729600000, lon: 16, lat: 48, val: 123.69},
-{param: 'hgtprs', z: 100000, time: 453751200000, lon: 16, lat: 48, val: 118.91},
-{param: 'hgtprs', z: 100000, time: 453772800000, lon: 16, lat: 48, val: 127},
-{param: 'hgtprs', z: 100000, time: 453794400000, lon: 16, lat: 48, val: 130.18},
-{param: 'hgtprs', z: 100000, time: 453816000000, lon: 16, lat: 48, val: 124.07},
-{param: 'hgtprs', z: 100000, time: 453837600000, lon: 16, lat: 48, val: 119.3},
-{param: 'hgtprs', z: 100000, time: 453859200000, lon: 16, lat: 48, val: 127.37},
-{param: 'hgtprs', z: 100000, time: 453880800000, lon: 16, lat: 48, val: 130.52},
-{param: 'hgtprs', z: 100000, time: 453902400000, lon: 16, lat: 48, val: 124.46},
-{param: 'hgtprs', z: 100000, time: 453924000000, lon: 16, lat: 48, val: 119.68},
-{param: 'hgtprs', z: 100000, time: 453945600000, lon: 16, lat: 48, val: 127.74},
-{param: 'hgtprs', z: 100000, time: 453967200000, lon: 16, lat: 48, val: 130.85},
-{param: 'hgtprs', z: 100000, time: 453988800000, lon: 16, lat: 48, val: 124.85},
-{param: 'hgtprs', z: 100000, time: 454010400000, lon: 16, lat: 48, val: 120.06},
-{param: 'hgtprs', z: 100000, time: 454032000000, lon: 16, lat: 48, val: 128.12},
-{param: 'hgtprs', z: 100000, time: 454053600000, lon: 16, lat: 48, val: 131.19},
-{param: 'hgtprs', z: 100000, time: 454075200000, lon: 16, lat: 48, val: 125.24},
-{param: 'hgtprs', z: 100000, time: 454096800000, lon: 16, lat: 48, val: 120.45},
-{param: 'hgtprs', z: 100000, time: 454118400000, lon: 16, lat: 48, val: 128.49},
-{param: 'hgtprs', z: 100000, time: 454140000000, lon: 16, lat: 48, val: 131.53},
-{param: 'hgtprs', z: 100000, time: 454161600000, lon: 16, lat: 48, val: 125.63},
-{param: 'hgtprs', z: 100000, time: 454183200000, lon: 16, lat: 48, val: 120.84},
-{param: 'hgtprs', z: 100000, time: 454204800000, lon: 16, lat: 48, val: 128.87},
-{param: 'hgtprs', z: 100000, time: 454226400000, lon: 16, lat: 48, val: 131.87},
-{param: 'hgtprs', z: 100000, time: 454248000000, lon: 16, lat: 48, val: 126.01},
-{param: 'hgtprs', z: 100000, time: 454269600000, lon: 16, lat: 48, val: 121.22},
-{param: 'hgtprs', z: 100000, time: 454291200000, lon: 16, lat: 48, val: 129.23},
-{param: 'hgtprs', z: 100000, time: 454312800000, lon: 16, lat: 48, val: 132.2},
-{param: 'hgtprs', z: 100000, time: 454334400000, lon: 16, lat: 48, val: 126.39},
-{param: 'hgtprs', z: 100000, time: 454356000000, lon: 16, lat: 48, val: 121.61},
-{param: 'hgtprs', z: 100000, time: 454377600000, lon: 16, lat: 48, val: 129.61},
-{param: 'hgtprs', z: 100000, time: 454399200000, lon: 16, lat: 48, val: 132.53},
-{param: 'hgtprs', z: 100000, time: 454420800000, lon: 16, lat: 48, val: 126.77},
-{param: 'hgtprs', z: 100000, time: 454442400000, lon: 16, lat: 48, val: 121.99},
-{param: 'hgtprs', z: 100000, time: 454464000000, lon: 16, lat: 48, val: 129.97},
-{param: 'hgtprs', z: 100000, time: 454485600000, lon: 16, lat: 48, val: 132.86},
-{param: 'hgtprs', z: 100000, time: 454507200000, lon: 16, lat: 48, val: 127.15},
-{param: 'hgtprs', z: 100000, time: 454528800000, lon: 16, lat: 48, val: 122.37},
-{param: 'hgtprs', z: 100000, time: 454550400000, lon: 16, lat: 48, val: 130.35},
-{param: 'hgtprs', z: 100000, time: 454572000000, lon: 16, lat: 48, val: 133.19},
-{param: 'hgtprs', z: 100000, time: 454593600000, lon: 16, lat: 48, val: 127.51},
-{param: 'hgtprs', z: 100000, time: 454615200000, lon: 16, lat: 48, val: 122.74},
-{param: 'hgtprs', z: 100000, time: 454636800000, lon: 16, lat: 48, val: 130.71},
-{param: 'hgtprs', z: 100000, time: 454658400000, lon: 16, lat: 48, val: 133.51},
-{param: 'hgtprs', z: 100000, time: 454680000000, lon: 16, lat: 48, val: 127.88},
-{param: 'hgtprs', z: 100000, time: 454701600000, lon: 16, lat: 48, val: 123.12},
-{param: 'hgtprs', z: 100000, time: 454723200000, lon: 16, lat: 48, val: 131.07},
-{param: 'hgtprs', z: 100000, time: 454744800000, lon: 16, lat: 48, val: 133.83},
-{param: 'hgtprs', z: 100000, time: 454766400000, lon: 16, lat: 48, val: 128.24},
-{param: 'hgtprs', z: 100000, time: 454788000000, lon: 16, lat: 48, val: 123.48},
-{param: 'hgtprs', z: 100000, time: 454809600000, lon: 16, lat: 48, val: 131.42},
-{param: 'hgtprs', z: 100000, time: 454831200000, lon: 16, lat: 48, val: 134.14},
-{param: 'hgtprs', z: 100000, time: 454852800000, lon: 16, lat: 48, val: 128.59},
-{param: 'hgtprs', z: 100000, time: 454874400000, lon: 16, lat: 48, val: 123.84},
-{param: 'hgtprs', z: 100000, time: 454896000000, lon: 16, lat: 48, val: 131.77},
-{param: 'hgtprs', z: 100000, time: 454917600000, lon: 16, lat: 48, val: 134.44},
-{param: 'hgtprs', z: 100000, time: 454939200000, lon: 16, lat: 48, val: 128.94},
-{param: 'hgtprs', z: 100000, time: 454960800000, lon: 16, lat: 48, val: 124.2},
-{param: 'hgtprs', z: 100000, time: 454982400000, lon: 16, lat: 48, val: 132.12},
-{param: 'hgtprs', z: 100000, time: 455004000000, lon: 16, lat: 48, val: 134.74},
-{param: 'hgtprs', z: 100000, time: 455025600000, lon: 16, lat: 48, val: 129.28},
-{param: 'hgtprs', z: 100000, time: 455047200000, lon: 16, lat: 48, val: 124.54},
-{param: 'hgtprs', z: 100000, time: 455068800000, lon: 16, lat: 48, val: 132.46},
-{param: 'hgtprs', z: 100000, time: 455090400000, lon: 16, lat: 48, val: 135.04},
-{param: 'hgtprs', z: 100000, time: 455112000000, lon: 16, lat: 48, val: 129.61},
-{param: 'hgtprs', z: 100000, time: 455133600000, lon: 16, lat: 48, val: 124.88},
-{param: 'hgtprs', z: 100000, time: 455155200000, lon: 16, lat: 48, val: 132.79},
-{param: 'hgtprs', z: 100000, time: 455176800000, lon: 16, lat: 48, val: 135.34},
-{param: 'hgtprs', z: 100000, time: 455198400000, lon: 16, lat: 48, val: 129.93},
-{param: 'hgtprs', z: 100000, time: 455220000000, lon: 16, lat: 48, val: 125.2},
-{param: 'hgtprs', z: 100000, time: 455241600000, lon: 16, lat: 48, val: 133.12},
-{param: 'hgtprs', z: 100000, time: 455263200000, lon: 16, lat: 48, val: 135.61},
-{param: 'hgtprs', z: 100000, time: 455284800000, lon: 16, lat: 48, val: 130.24},
-{param: 'hgtprs', z: 100000, time: 455306400000, lon: 16, lat: 48, val: 125.52},
-{param: 'hgtprs', z: 100000, time: 455328000000, lon: 16, lat: 48, val: 133.43},
-{param: 'hgtprs', z: 100000, time: 455349600000, lon: 16, lat: 48, val: 135.9},
-{param: 'hgtprs', z: 100000, time: 455371200000, lon: 16, lat: 48, val: 130.54},
-{param: 'hgtprs', z: 100000, time: 455392800000, lon: 16, lat: 48, val: 125.84},
-{param: 'hgtprs', z: 100000, time: 455414400000, lon: 16, lat: 48, val: 133.75},
-{param: 'hgtprs', z: 100000, time: 455436000000, lon: 16, lat: 48, val: 136.16},
-{param: 'hgtprs', z: 100000, time: 455457600000, lon: 16, lat: 48, val: 130.84},
-{param: 'hgtprs', z: 100000, time: 455479200000, lon: 16, lat: 48, val: 126.14},
-{param: 'hgtprs', z: 100000, time: 455500800000, lon: 16, lat: 48, val: 134.05},
-{param: 'hgtprs', z: 100000, time: 455522400000, lon: 16, lat: 48, val: 136.42},
-{param: 'hgtprs', z: 100000, time: 455544000000, lon: 16, lat: 48, val: 131.11},
-{param: 'hgtprs', z: 100000, time: 455565600000, lon: 16, lat: 48, val: 126.42},
-{param: 'hgtprs', z: 100000, time: 455587200000, lon: 16, lat: 48, val: 134.34},
-{param: 'hgtprs', z: 100000, time: 455608800000, lon: 16, lat: 48, val: 136.68},
-{param: 'hgtprs', z: 100000, time: 455630400000, lon: 16, lat: 48, val: 131.39},
-{param: 'hgtprs', z: 100000, time: 455652000000, lon: 16, lat: 48, val: 126.7},
-{param: 'hgtprs', z: 100000, time: 455673600000, lon: 16, lat: 48, val: 134.62},
-{param: 'hgtprs', z: 100000, time: 455695200000, lon: 16, lat: 48, val: 136.91},
-{param: 'hgtprs', z: 100000, time: 455716800000, lon: 16, lat: 48, val: 131.66},
-{param: 'hgtprs', z: 100000, time: 455738400000, lon: 16, lat: 48, val: 126.97},
-{param: 'hgtprs', z: 100000, time: 455760000000, lon: 16, lat: 48, val: 134.9},
-{param: 'hgtprs', z: 100000, time: 455781600000, lon: 16, lat: 48, val: 137.16},
-{param: 'hgtprs', z: 100000, time: 455803200000, lon: 16, lat: 48, val: 131.9},
-{param: 'hgtprs', z: 100000, time: 455824800000, lon: 16, lat: 48, val: 127.22},
-{param: 'hgtprs', z: 100000, time: 455846400000, lon: 16, lat: 48, val: 135.17},
-{param: 'hgtprs', z: 100000, time: 455868000000, lon: 16, lat: 48, val: 137.38},
-{param: 'hgtprs', z: 100000, time: 455889600000, lon: 16, lat: 48, val: 132.13},
-{param: 'hgtprs', z: 100000, time: 455911200000, lon: 16, lat: 48, val: 127.47},
-{param: 'hgtprs', z: 100000, time: 455932800000, lon: 16, lat: 48, val: 135.42},
-{param: 'hgtprs', z: 100000, time: 455954400000, lon: 16, lat: 48, val: 137.6},
-{param: 'hgtprs', z: 100000, time: 455976000000, lon: 16, lat: 48, val: 132.37},
-{param: 'hgtprs', z: 100000, time: 455997600000, lon: 16, lat: 48, val: 127.7},
-{param: 'hgtprs', z: 100000, time: 456019200000, lon: 16, lat: 48, val: 135.67},
-{param: 'hgtprs', z: 100000, time: 456040800000, lon: 16, lat: 48, val: 137.82},
-{param: 'hgtprs', z: 100000, time: 456062400000, lon: 16, lat: 48, val: 132.58},
-{param: 'hgtprs', z: 100000, time: 456084000000, lon: 16, lat: 48, val: 127.91},
-{param: 'hgtprs', z: 100000, time: 456105600000, lon: 16, lat: 48, val: 135.91},
-{param: 'hgtprs', z: 100000, time: 456127200000, lon: 16, lat: 48, val: 138.02},
-{param: 'hgtprs', z: 100000, time: 456148800000, lon: 16, lat: 48, val: 132.78},
-{param: 'hgtprs', z: 100000, time: 456170400000, lon: 16, lat: 48, val: 128.12},
-{param: 'hgtprs', z: 100000, time: 456192000000, lon: 16, lat: 48, val: 136.13},
-{param: 'hgtprs', z: 100000, time: 456213600000, lon: 16, lat: 48, val: 138.22},
-{param: 'hgtprs', z: 100000, time: 456235200000, lon: 16, lat: 48, val: 132.97},
-{param: 'hgtprs', z: 100000, time: 456256800000, lon: 16, lat: 48, val: 128.31},
-{param: 'hgtprs', z: 100000, time: 456278400000, lon: 16, lat: 48, val: 136.35},
-{param: 'hgtprs', z: 100000, time: 456300000000, lon: 16, lat: 48, val: 138.4},
-{param: 'hgtprs', z: 100000, time: 456321600000, lon: 16, lat: 48, val: 133.15},
-{param: 'hgtprs', z: 100000, time: 456343200000, lon: 16, lat: 48, val: 128.49},
-{param: 'hgtprs', z: 100000, time: 456364800000, lon: 16, lat: 48, val: 136.55},
-{param: 'hgtprs', z: 100000, time: 456386400000, lon: 16, lat: 48, val: 138.58},
-{param: 'hgtprs', z: 100000, time: 456408000000, lon: 16, lat: 48, val: 133.32},
-{param: 'hgtprs', z: 100000, time: 456429600000, lon: 16, lat: 48, val: 128.66},
-{param: 'hgtprs', z: 100000, time: 456451200000, lon: 16, lat: 48, val: 136.73},
-{param: 'hgtprs', z: 100000, time: 456472800000, lon: 16, lat: 48, val: 138.74},
-{param: 'hgtprs', z: 100000, time: 456494400000, lon: 16, lat: 48, val: 133.47},
-{param: 'hgtprs', z: 100000, time: 456516000000, lon: 16, lat: 48, val: 128.81},
-{param: 'hgtprs', z: 100000, time: 456537600000, lon: 16, lat: 48, val: 136.92},
-{param: 'hgtprs', z: 100000, time: 456559200000, lon: 16, lat: 48, val: 138.89},
-{param: 'hgtprs', z: 100000, time: 456580800000, lon: 16, lat: 48, val: 133.62},
-{param: 'hgtprs', z: 100000, time: 456602400000, lon: 16, lat: 48, val: 128.95},
-{param: 'hgtprs', z: 100000, time: 456624000000, lon: 16, lat: 48, val: 137.09},
-{param: 'hgtprs', z: 100000, time: 456645600000, lon: 16, lat: 48, val: 139.04},
-{param: 'hgtprs', z: 100000, time: 456667200000, lon: 16, lat: 48, val: 133.75},
-{param: 'hgtprs', z: 100000, time: 456688800000, lon: 16, lat: 48, val: 129.09},
-{param: 'hgtprs', z: 100000, time: 456710400000, lon: 16, lat: 48, val: 137.25},
-{param: 'hgtprs', z: 100000, time: 456732000000, lon: 16, lat: 48, val: 139.18},
-{param: 'hgtprs', z: 100000, time: 456753600000, lon: 16, lat: 48, val: 133.88},
-{param: 'hgtprs', z: 100000, time: 456775200000, lon: 16, lat: 48, val: 129.2},
-{param: 'hgtprs', z: 100000, time: 456796800000, lon: 16, lat: 48, val: 137.4},
-{param: 'hgtprs', z: 100000, time: 456818400000, lon: 16, lat: 48, val: 139.31},
-{param: 'hgtprs', z: 100000, time: 456840000000, lon: 16, lat: 48, val: 133.98},
-{param: 'hgtprs', z: 100000, time: 456861600000, lon: 16, lat: 48, val: 129.3},
-{param: 'hgtprs', z: 100000, time: 456883200000, lon: 16, lat: 48, val: 137.53},
-{param: 'hgtprs', z: 100000, time: 456904800000, lon: 16, lat: 48, val: 139.43},
-{param: 'hgtprs', z: 100000, time: 456926400000, lon: 16, lat: 48, val: 134.07},
-{param: 'hgtprs', z: 100000, time: 456948000000, lon: 16, lat: 48, val: 129.4},
-{param: 'hgtprs', z: 100000, time: 456969600000, lon: 16, lat: 48, val: 137.65},
-{param: 'hgtprs', z: 100000, time: 456991200000, lon: 16, lat: 48, val: 139.54},
-{param: 'hgtprs', z: 100000, time: 457012800000, lon: 16, lat: 48, val: 134.16},
-{param: 'hgtprs', z: 100000, time: 457034400000, lon: 16, lat: 48, val: 129.47},
-{param: 'hgtprs', z: 100000, time: 457056000000, lon: 16, lat: 48, val: 137.76},
-{param: 'hgtprs', z: 100000, time: 457077600000, lon: 16, lat: 48, val: 139.64},
-{param: 'hgtprs', z: 100000, time: 457099200000, lon: 16, lat: 48, val: 134.24},
-{param: 'hgtprs', z: 100000, time: 457120800000, lon: 16, lat: 48, val: 129.55},
-{param: 'hgtprs', z: 100000, time: 457142400000, lon: 16, lat: 48, val: 137.86},
-{param: 'hgtprs', z: 100000, time: 457164000000, lon: 16, lat: 48, val: 139.74},
-{param: 'hgtprs', z: 100000, time: 457185600000, lon: 16, lat: 48, val: 134.3},
-{param: 'hgtprs', z: 100000, time: 457207200000, lon: 16, lat: 48, val: 129.6},
-{param: 'hgtprs', z: 100000, time: 457228800000, lon: 16, lat: 48, val: 137.96},
-{param: 'hgtprs', z: 100000, time: 457250400000, lon: 16, lat: 48, val: 139.82},
-{param: 'hgtprs', z: 100000, time: 457272000000, lon: 16, lat: 48, val: 134.36},
-{param: 'hgtprs', z: 100000, time: 457293600000, lon: 16, lat: 48, val: 129.65},
-{param: 'hgtprs', z: 100000, time: 457315200000, lon: 16, lat: 48, val: 138.04},
-{param: 'hgtprs', z: 100000, time: 457336800000, lon: 16, lat: 48, val: 139.88},
-{param: 'hgtprs', z: 100000, time: 457358400000, lon: 16, lat: 48, val: 134.4},
-{param: 'hgtprs', z: 100000, time: 457380000000, lon: 16, lat: 48, val: 129.68},
-{param: 'hgtprs', z: 100000, time: 457401600000, lon: 16, lat: 48, val: 138.11},
-{param: 'hgtprs', z: 100000, time: 457423200000, lon: 16, lat: 48, val: 139.95},
-{param: 'hgtprs', z: 100000, time: 457444800000, lon: 16, lat: 48, val: 134.44},
-{param: 'hgtprs', z: 100000, time: 457466400000, lon: 16, lat: 48, val: 129.7},
-{param: 'hgtprs', z: 100000, time: 457488000000, lon: 16, lat: 48, val: 138.17},
-{param: 'hgtprs', z: 100000, time: 457509600000, lon: 16, lat: 48, val: 140.01},
-{param: 'hgtprs', z: 100000, time: 457531200000, lon: 16, lat: 48, val: 134.46},
-{param: 'hgtprs', z: 100000, time: 457552800000, lon: 16, lat: 48, val: 129.71},
-{param: 'hgtprs', z: 100000, time: 457574400000, lon: 16, lat: 48, val: 138.21},
-{param: 'hgtprs', z: 100000, time: 457596000000, lon: 16, lat: 48, val: 140.06},
-{param: 'hgtprs', z: 100000, time: 457617600000, lon: 16, lat: 48, val: 134.47},
-{param: 'hgtprs', z: 100000, time: 457639200000, lon: 16, lat: 48, val: 129.72},
-{param: 'hgtprs', z: 100000, time: 457660800000, lon: 16, lat: 48, val: 138.25},
-{param: 'hgtprs', z: 100000, time: 457682400000, lon: 16, lat: 48, val: 140.09},
-{param: 'hgtprs', z: 100000, time: 457704000000, lon: 16, lat: 48, val: 134.48},
-{param: 'hgtprs', z: 100000, time: 457725600000, lon: 16, lat: 48, val: 129.71},
-{param: 'hgtprs', z: 100000, time: 457747200000, lon: 16, lat: 48, val: 138.28},
-{param: 'hgtprs', z: 100000, time: 457768800000, lon: 16, lat: 48, val: 140.13},
-{param: 'hgtprs', z: 100000, time: 457790400000, lon: 16, lat: 48, val: 134.48},
-{param: 'hgtprs', z: 100000, time: 457812000000, lon: 16, lat: 48, val: 129.69},
-{param: 'hgtprs', z: 100000, time: 457833600000, lon: 16, lat: 48, val: 138.29},
-{param: 'hgtprs', z: 100000, time: 457855200000, lon: 16, lat: 48, val: 140.15},
-{param: 'hgtprs', z: 100000, time: 457876800000, lon: 16, lat: 48, val: 134.48},
-{param: 'hgtprs', z: 100000, time: 457898400000, lon: 16, lat: 48, val: 129.67},
-{param: 'hgtprs', z: 100000, time: 457920000000, lon: 16, lat: 48, val: 138.31},
-{param: 'hgtprs', z: 100000, time: 457941600000, lon: 16, lat: 48, val: 140.16},
-{param: 'hgtprs', z: 100000, time: 457963200000, lon: 16, lat: 48, val: 134.46},
-{param: 'hgtprs', z: 100000, time: 457984800000, lon: 16, lat: 48, val: 129.63},
-{param: 'hgtprs', z: 100000, time: 458006400000, lon: 16, lat: 48, val: 138.32},
-{param: 'hgtprs', z: 100000, time: 458028000000, lon: 16, lat: 48, val: 140.17},
-{param: 'hgtprs', z: 100000, time: 458049600000, lon: 16, lat: 48, val: 134.44},
-{param: 'hgtprs', z: 100000, time: 458071200000, lon: 16, lat: 48, val: 129.6},
-{param: 'hgtprs', z: 100000, time: 458092800000, lon: 16, lat: 48, val: 138.3},
-{param: 'hgtprs', z: 100000, time: 458114400000, lon: 16, lat: 48, val: 140.17},
-{param: 'hgtprs', z: 100000, time: 458136000000, lon: 16, lat: 48, val: 134.41},
-{param: 'hgtprs', z: 100000, time: 458157600000, lon: 16, lat: 48, val: 129.56},
-{param: 'hgtprs', z: 100000, time: 458179200000, lon: 16, lat: 48, val: 138.29},
-{param: 'hgtprs', z: 100000, time: 458200800000, lon: 16, lat: 48, val: 140.16},
-{param: 'hgtprs', z: 100000, time: 458222400000, lon: 16, lat: 48, val: 134.38},
-{param: 'hgtprs', z: 100000, time: 458244000000, lon: 16, lat: 48, val: 129.51},
-{param: 'hgtprs', z: 100000, time: 458265600000, lon: 16, lat: 48, val: 138.27},
-{param: 'hgtprs', z: 100000, time: 458287200000, lon: 16, lat: 48, val: 140.16},
-{param: 'hgtprs', z: 100000, time: 458308800000, lon: 16, lat: 48, val: 134.34},
-{param: 'hgtprs', z: 100000, time: 458330400000, lon: 16, lat: 48, val: 129.45},
-{param: 'hgtprs', z: 100000, time: 458352000000, lon: 16, lat: 48, val: 138.24},
-{param: 'hgtprs', z: 100000, time: 458373600000, lon: 16, lat: 48, val: 140.13},
-{param: 'hgtprs', z: 100000, time: 458395200000, lon: 16, lat: 48, val: 134.3},
-{param: 'hgtprs', z: 100000, time: 458416800000, lon: 16, lat: 48, val: 129.39},
-{param: 'hgtprs', z: 100000, time: 458438400000, lon: 16, lat: 48, val: 138.21},
-{param: 'hgtprs', z: 100000, time: 458460000000, lon: 16, lat: 48, val: 140.11},
-{param: 'hgtprs', z: 100000, time: 458481600000, lon: 16, lat: 48, val: 134.26},
-{param: 'hgtprs', z: 100000, time: 458503200000, lon: 16, lat: 48, val: 129.33},
-{param: 'hgtprs', z: 100000, time: 458524800000, lon: 16, lat: 48, val: 138.15},
-{param: 'hgtprs', z: 100000, time: 458546400000, lon: 16, lat: 48, val: 140.09},
-{param: 'hgtprs', z: 100000, time: 458568000000, lon: 16, lat: 48, val: 134.21},
-{param: 'hgtprs', z: 100000, time: 458589600000, lon: 16, lat: 48, val: 129.27},
-{param: 'hgtprs', z: 100000, time: 458611200000, lon: 16, lat: 48, val: 138.11},
-{param: 'hgtprs', z: 100000, time: 458632800000, lon: 16, lat: 48, val: 140.05},
-{param: 'hgtprs', z: 100000, time: 458654400000, lon: 16, lat: 48, val: 134.16},
-{param: 'hgtprs', z: 100000, time: 458676000000, lon: 16, lat: 48, val: 129.2},
-{param: 'hgtprs', z: 100000, time: 458697600000, lon: 16, lat: 48, val: 138.06},
-{param: 'hgtprs', z: 100000, time: 458719200000, lon: 16, lat: 48, val: 140.02},
-{param: 'hgtprs', z: 100000, time: 458740800000, lon: 16, lat: 48, val: 134.1},
-{param: 'hgtprs', z: 100000, time: 458762400000, lon: 16, lat: 48, val: 129.12},
-{param: 'hgtprs', z: 100000, time: 458784000000, lon: 16, lat: 48, val: 138},
-{param: 'hgtprs', z: 100000, time: 458805600000, lon: 16, lat: 48, val: 139.97},
-{param: 'hgtprs', z: 100000, time: 458827200000, lon: 16, lat: 48, val: 134.05},
-{param: 'hgtprs', z: 100000, time: 458848800000, lon: 16, lat: 48, val: 129.05},
-{param: 'hgtprs', z: 100000, time: 458870400000, lon: 16, lat: 48, val: 137.94},
-{param: 'hgtprs', z: 100000, time: 458892000000, lon: 16, lat: 48, val: 139.94},
-{param: 'hgtprs', z: 100000, time: 458913600000, lon: 16, lat: 48, val: 134},
-{param: 'hgtprs', z: 100000, time: 458935200000, lon: 16, lat: 48, val: 128.98},
-{param: 'hgtprs', z: 100000, time: 458956800000, lon: 16, lat: 48, val: 137.87},
-{param: 'hgtprs', z: 100000, time: 458978400000, lon: 16, lat: 48, val: 139.88},
-{param: 'hgtprs', z: 100000, time: 459000000000, lon: 16, lat: 48, val: 133.94},
-{param: 'hgtprs', z: 100000, time: 459021600000, lon: 16, lat: 48, val: 128.91},
-{param: 'hgtprs', z: 100000, time: 459043200000, lon: 16, lat: 48, val: 137.8},
-{param: 'hgtprs', z: 100000, time: 459064800000, lon: 16, lat: 48, val: 139.83},
-{param: 'hgtprs', z: 100000, time: 459086400000, lon: 16, lat: 48, val: 133.89},
-{param: 'hgtprs', z: 100000, time: 459108000000, lon: 16, lat: 48, val: 128.84},
-{param: 'hgtprs', z: 100000, time: 459129600000, lon: 16, lat: 48, val: 137.73},
-{param: 'hgtprs', z: 100000, time: 459151200000, lon: 16, lat: 48, val: 139.78},
-{param: 'hgtprs', z: 100000, time: 459172800000, lon: 16, lat: 48, val: 133.84},
-{param: 'hgtprs', z: 100000, time: 459194400000, lon: 16, lat: 48, val: 128.78},
-{param: 'hgtprs', z: 100000, time: 459216000000, lon: 16, lat: 48, val: 137.66},
-{param: 'hgtprs', z: 100000, time: 459237600000, lon: 16, lat: 48, val: 139.73},
-{param: 'hgtprs', z: 100000, time: 459259200000, lon: 16, lat: 48, val: 133.79},
-{param: 'hgtprs', z: 100000, time: 459280800000, lon: 16, lat: 48, val: 128.72},
-{param: 'hgtprs', z: 100000, time: 459302400000, lon: 16, lat: 48, val: 137.59},
-{param: 'hgtprs', z: 100000, time: 459324000000, lon: 16, lat: 48, val: 139.68},
-{param: 'hgtprs', z: 100000, time: 459345600000, lon: 16, lat: 48, val: 133.74},
-{param: 'hgtprs', z: 100000, time: 459367200000, lon: 16, lat: 48, val: 128.66},
-{param: 'hgtprs', z: 100000, time: 459388800000, lon: 16, lat: 48, val: 137.52},
-{param: 'hgtprs', z: 100000, time: 459410400000, lon: 16, lat: 48, val: 139.62},
-{param: 'hgtprs', z: 100000, time: 459432000000, lon: 16, lat: 48, val: 133.7},
-{param: 'hgtprs', z: 100000, time: 459453600000, lon: 16, lat: 48, val: 128.6},
-{param: 'hgtprs', z: 100000, time: 459475200000, lon: 16, lat: 48, val: 137.44},
-{param: 'hgtprs', z: 100000, time: 459496800000, lon: 16, lat: 48, val: 139.57},
-{param: 'hgtprs', z: 100000, time: 459518400000, lon: 16, lat: 48, val: 133.66},
-{param: 'hgtprs', z: 100000, time: 459540000000, lon: 16, lat: 48, val: 128.55},
-{param: 'hgtprs', z: 100000, time: 459561600000, lon: 16, lat: 48, val: 137.38},
-{param: 'hgtprs', z: 100000, time: 459583200000, lon: 16, lat: 48, val: 139.52},
-{param: 'hgtprs', z: 100000, time: 459604800000, lon: 16, lat: 48, val: 133.63},
-{param: 'hgtprs', z: 100000, time: 459626400000, lon: 16, lat: 48, val: 128.51},
-{param: 'hgtprs', z: 100000, time: 459648000000, lon: 16, lat: 48, val: 137.3},
-{param: 'hgtprs', z: 100000, time: 459669600000, lon: 16, lat: 48, val: 139.46},
-{param: 'hgtprs', z: 100000, time: 459691200000, lon: 16, lat: 48, val: 133.59},
-{param: 'hgtprs', z: 100000, time: 459712800000, lon: 16, lat: 48, val: 128.47},
-{param: 'hgtprs', z: 100000, time: 459734400000, lon: 16, lat: 48, val: 137.24},
-{param: 'hgtprs', z: 100000, time: 459756000000, lon: 16, lat: 48, val: 139.41},
-{param: 'hgtprs', z: 100000, time: 459777600000, lon: 16, lat: 48, val: 133.57},
-{param: 'hgtprs', z: 100000, time: 459799200000, lon: 16, lat: 48, val: 128.44},
-{param: 'hgtprs', z: 100000, time: 459820800000, lon: 16, lat: 48, val: 137.17},
-{param: 'hgtprs', z: 100000, time: 459842400000, lon: 16, lat: 48, val: 139.36},
-{param: 'hgtprs', z: 100000, time: 459864000000, lon: 16, lat: 48, val: 133.55},
-{param: 'hgtprs', z: 100000, time: 459885600000, lon: 16, lat: 48, val: 128.42},
-{param: 'hgtprs', z: 100000, time: 459907200000, lon: 16, lat: 48, val: 137.11},
-{param: 'hgtprs', z: 100000, time: 459928800000, lon: 16, lat: 48, val: 139.32},
-{param: 'hgtprs', z: 100000, time: 459950400000, lon: 16, lat: 48, val: 133.54},
-{param: 'hgtprs', z: 100000, time: 459972000000, lon: 16, lat: 48, val: 128.4},
-{param: 'hgtprs', z: 100000, time: 459993600000, lon: 16, lat: 48, val: 137.05},
-{param: 'hgtprs', z: 100000, time: 460015200000, lon: 16, lat: 48, val: 139.27},
-{param: 'hgtprs', z: 100000, time: 460036800000, lon: 16, lat: 48, val: 133.54},
-{param: 'hgtprs', z: 100000, time: 460058400000, lon: 16, lat: 48, val: 128.41},
-{param: 'hgtprs', z: 100000, time: 460080000000, lon: 16, lat: 48, val: 136.99},
-{param: 'hgtprs', z: 100000, time: 460101600000, lon: 16, lat: 48, val: 139.24},
-{param: 'hgtprs', z: 100000, time: 460123200000, lon: 16, lat: 48, val: 133.54},
-{param: 'hgtprs', z: 100000, time: 460144800000, lon: 16, lat: 48, val: 128.4},
-{param: 'hgtprs', z: 100000, time: 460166400000, lon: 16, lat: 48, val: 136.96},
-{param: 'hgtprs', z: 100000, time: 460188000000, lon: 16, lat: 48, val: 139.21},
-{param: 'hgtprs', z: 100000, time: 460209600000, lon: 16, lat: 48, val: 133.55},
-{param: 'hgtprs', z: 100000, time: 460231200000, lon: 16, lat: 48, val: 128.43},
-{param: 'hgtprs', z: 100000, time: 460252800000, lon: 16, lat: 48, val: 136.91},
-{param: 'hgtprs', z: 100000, time: 460274400000, lon: 16, lat: 48, val: 139.19},
-{param: 'hgtprs', z: 100000, time: 460296000000, lon: 16, lat: 48, val: 133.58},
-{param: 'hgtprs', z: 100000, time: 460317600000, lon: 16, lat: 48, val: 128.46},
-{param: 'hgtprs', z: 100000, time: 460339200000, lon: 16, lat: 48, val: 136.87},
-{param: 'hgtprs', z: 100000, time: 460360800000, lon: 16, lat: 48, val: 139.16},
-{param: 'hgtprs', z: 100000, time: 460382400000, lon: 16, lat: 48, val: 133.61},
-{param: 'hgtprs', z: 100000, time: 460404000000, lon: 16, lat: 48, val: 128.49},
-{param: 'hgtprs', z: 100000, time: 460425600000, lon: 16, lat: 48, val: 136.86},
-{param: 'hgtprs', z: 100000, time: 460447200000, lon: 16, lat: 48, val: 139.14},
-{param: 'hgtprs', z: 100000, time: 460468800000, lon: 16, lat: 48, val: 133.64},
-{param: 'hgtprs', z: 100000, time: 460490400000, lon: 16, lat: 48, val: 128.54},
-{param: 'hgtprs', z: 100000, time: 460512000000, lon: 16, lat: 48, val: 136.83},
-{param: 'hgtprs', z: 100000, time: 460533600000, lon: 16, lat: 48, val: 139.14},
-{param: 'hgtprs', z: 100000, time: 460555200000, lon: 16, lat: 48, val: 133.7},
-{param: 'hgtprs', z: 100000, time: 460576800000, lon: 16, lat: 48, val: 128.6},
-{param: 'hgtprs', z: 100000, time: 460598400000, lon: 16, lat: 48, val: 136.82},
-{param: 'hgtprs', z: 100000, time: 460620000000, lon: 16, lat: 48, val: 139.14},
-{param: 'hgtprs', z: 100000, time: 460641600000, lon: 16, lat: 48, val: 133.76},
-{param: 'hgtprs', z: 100000, time: 460663200000, lon: 16, lat: 48, val: 128.68},
-{param: 'hgtprs', z: 100000, time: 460684800000, lon: 16, lat: 48, val: 136.82},
-{param: 'hgtprs', z: 100000, time: 460706400000, lon: 16, lat: 48, val: 139.14},
-{param: 'hgtprs', z: 100000, time: 460728000000, lon: 16, lat: 48, val: 133.83},
-{param: 'hgtprs', z: 100000, time: 460749600000, lon: 16, lat: 48, val: 128.78},
-{param: 'hgtprs', z: 100000, time: 460771200000, lon: 16, lat: 48, val: 136.83},
-{param: 'hgtprs', z: 100000, time: 460792800000, lon: 16, lat: 48, val: 139.15},
-{param: 'hgtprs', z: 100000, time: 460814400000, lon: 16, lat: 48, val: 133.91},
-{param: 'hgtprs', z: 100000, time: 460836000000, lon: 16, lat: 48, val: 128.87},
-{param: 'hgtprs', z: 100000, time: 460857600000, lon: 16, lat: 48, val: 136.85},
-{param: 'hgtprs', z: 100000, time: 460879200000, lon: 16, lat: 48, val: 139.18},
-{param: 'hgtprs', z: 100000, time: 460900800000, lon: 16, lat: 48, val: 134.01},
-{param: 'hgtprs', z: 100000, time: 460922400000, lon: 16, lat: 48, val: 128.99},
-{param: 'hgtprs', z: 100000, time: 460944000000, lon: 16, lat: 48, val: 136.87},
-{param: 'hgtprs', z: 100000, time: 460965600000, lon: 16, lat: 48, val: 139.22},
-{param: 'hgtprs', z: 100000, time: 460987200000, lon: 16, lat: 48, val: 134.11},
-{param: 'hgtprs', z: 100000, time: 461008800000, lon: 16, lat: 48, val: 129.13},
-{param: 'hgtprs', z: 100000, time: 461030400000, lon: 16, lat: 48, val: 136.91},
-{param: 'hgtprs', z: 100000, time: 461052000000, lon: 16, lat: 48, val: 139.25},
-{param: 'hgtprs', z: 100000, time: 461073600000, lon: 16, lat: 48, val: 134.22},
-{param: 'hgtprs', z: 100000, time: 461095200000, lon: 16, lat: 48, val: 129.27},
-{param: 'hgtprs', z: 100000, time: 461116800000, lon: 16, lat: 48, val: 136.96},
-{param: 'hgtprs', z: 100000, time: 461138400000, lon: 16, lat: 48, val: 139.3},
-{param: 'hgtprs', z: 100000, time: 461160000000, lon: 16, lat: 48, val: 134.35},
-{param: 'hgtprs', z: 100000, time: 461181600000, lon: 16, lat: 48, val: 129.43},
-{param: 'hgtprs', z: 100000, time: 461203200000, lon: 16, lat: 48, val: 137.01},
-{param: 'hgtprs', z: 100000, time: 461224800000, lon: 16, lat: 48, val: 139.36},
-{param: 'hgtprs', z: 100000, time: 461246400000, lon: 16, lat: 48, val: 134.49},
-{param: 'hgtprs', z: 100000, time: 461268000000, lon: 16, lat: 48, val: 129.6},
-{param: 'hgtprs', z: 100000, time: 461289600000, lon: 16, lat: 48, val: 137.09},
-{param: 'hgtprs', z: 100000, time: 461311200000, lon: 16, lat: 48, val: 139.43},
-{param: 'hgtprs', z: 100000, time: 461332800000, lon: 16, lat: 48, val: 134.65},
-{param: 'hgtprs', z: 100000, time: 461354400000, lon: 16, lat: 48, val: 129.8},
-{param: 'hgtprs', z: 100000, time: 461376000000, lon: 16, lat: 48, val: 137.17},
-{param: 'hgtprs', z: 100000, time: 461397600000, lon: 16, lat: 48, val: 139.52},
-{param: 'hgtprs', z: 100000, time: 461419200000, lon: 16, lat: 48, val: 134.81},
-{param: 'hgtprs', z: 100000, time: 461440800000, lon: 16, lat: 48, val: 130},
-{param: 'hgtprs', z: 100000, time: 461462400000, lon: 16, lat: 48, val: 137.27},
-{param: 'hgtprs', z: 100000, time: 461484000000, lon: 16, lat: 48, val: 139.61},
-{param: 'hgtprs', z: 100000, time: 461505600000, lon: 16, lat: 48, val: 134.99},
-{param: 'hgtprs', z: 100000, time: 461527200000, lon: 16, lat: 48, val: 130.23},
-{param: 'hgtprs', z: 100000, time: 461548800000, lon: 16, lat: 48, val: 137.38},
-{param: 'hgtprs', z: 100000, time: 461570400000, lon: 16, lat: 48, val: 139.71},
-{param: 'hgtprs', z: 100000, time: 461592000000, lon: 16, lat: 48, val: 135.17},
-{param: 'hgtprs', z: 100000, time: 461613600000, lon: 16, lat: 48, val: 130.47},
-{param: 'hgtprs', z: 100000, time: 461635200000, lon: 16, lat: 48, val: 137.5},
-{param: 'hgtprs', z: 100000, time: 461656800000, lon: 16, lat: 48, val: 139.82},
-{param: 'hgtprs', z: 100000, time: 461678400000, lon: 16, lat: 48, val: 135.37},
-{param: 'hgtprs', z: 100000, time: 461700000000, lon: 16, lat: 48, val: 130.71},
-{param: 'hgtprs', z: 100000, time: 461721600000, lon: 16, lat: 48, val: 137.63},
-{param: 'hgtprs', z: 100000, time: 461743200000, lon: 16, lat: 48, val: 139.95},
-{param: 'hgtprs', z: 100000, time: 461764800000, lon: 16, lat: 48, val: 135.58},
-{param: 'hgtprs', z: 100000, time: 461786400000, lon: 16, lat: 48, val: 130.97},
-{param: 'hgtprs', z: 100000, time: 461808000000, lon: 16, lat: 48, val: 137.79},
-{param: 'hgtprs', z: 100000, time: 461829600000, lon: 16, lat: 48, val: 140.09},
-{param: 'hgtprs', z: 100000, time: 461851200000, lon: 16, lat: 48, val: 135.81},
-{param: 'hgtprs', z: 100000, time: 461872800000, lon: 16, lat: 48, val: 131.26},
-{param: 'hgtprs', z: 100000, time: 461894400000, lon: 16, lat: 48, val: 137.95},
-{param: 'hgtprs', z: 100000, time: 461916000000, lon: 16, lat: 48, val: 140.24},
-{param: 'hgtprs', z: 100000, time: 461937600000, lon: 16, lat: 48, val: 136.04},
-{param: 'hgtprs', z: 100000, time: 461959200000, lon: 16, lat: 48, val: 131.55},
-{param: 'hgtprs', z: 100000, time: 461980800000, lon: 16, lat: 48, val: 138.12},
-{param: 'hgtprs', z: 100000, time: 462002400000, lon: 16, lat: 48, val: 140.4},
-{param: 'hgtprs', z: 100000, time: 462024000000, lon: 16, lat: 48, val: 136.29},
-{param: 'hgtprs', z: 100000, time: 462045600000, lon: 16, lat: 48, val: 131.86},
-{param: 'hgtprs', z: 100000, time: 462067200000, lon: 16, lat: 48, val: 138.3},
-{param: 'hgtprs', z: 100000, time: 462088800000, lon: 16, lat: 48, val: 140.57},
-{param: 'hgtprs', z: 100000, time: 462110400000, lon: 16, lat: 48, val: 136.54},
-{param: 'hgtprs', z: 100000, time: 462132000000, lon: 16, lat: 48, val: 132.19},
-{param: 'hgtprs', z: 100000, time: 462153600000, lon: 16, lat: 48, val: 138.51},
-{param: 'hgtprs', z: 100000, time: 462175200000, lon: 16, lat: 48, val: 140.75},
-{param: 'hgtprs', z: 100000, time: 462196800000, lon: 16, lat: 48, val: 136.81},
-{param: 'hgtprs', z: 100000, time: 462218400000, lon: 16, lat: 48, val: 132.53},
-{param: 'hgtprs', z: 100000, time: 462240000000, lon: 16, lat: 48, val: 138.72},
-{param: 'hgtprs', z: 100000, time: 462261600000, lon: 16, lat: 48, val: 140.95},
-{param: 'hgtprs', z: 100000, time: 462283200000, lon: 16, lat: 48, val: 137.09},
-{param: 'hgtprs', z: 100000, time: 462304800000, lon: 16, lat: 48, val: 132.88},
-{param: 'hgtprs', z: 100000, time: 462326400000, lon: 16, lat: 48, val: 138.95},
-{param: 'hgtprs', z: 100000, time: 462348000000, lon: 16, lat: 48, val: 141.16},
-{param: 'hgtprs', z: 100000, time: 462369600000, lon: 16, lat: 48, val: 137.37},
-{param: 'hgtprs', z: 100000, time: 462391200000, lon: 16, lat: 48, val: 133.24},
-{param: 'hgtprs', z: 100000, time: 462412800000, lon: 16, lat: 48, val: 139.19},
-{param: 'hgtprs', z: 100000, time: 462434400000, lon: 16, lat: 48, val: 141.38},
-{param: 'hgtprs', z: 100000, time: 462456000000, lon: 16, lat: 48, val: 137.67},
-{param: 'hgtprs', z: 100000, time: 462477600000, lon: 16, lat: 48, val: 133.62},
-{param: 'hgtprs', z: 100000, time: 462499200000, lon: 16, lat: 48, val: 139.44},
-{param: 'hgtprs', z: 100000, time: 462520800000, lon: 16, lat: 48, val: 141.6},
-{param: 'hgtprs', z: 100000, time: 462542400000, lon: 16, lat: 48, val: 137.98},
-{param: 'hgtprs', z: 100000, time: 462564000000, lon: 16, lat: 48, val: 134.01},
-{param: 'hgtprs', z: 100000, time: 462585600000, lon: 16, lat: 48, val: 139.7},
-{param: 'hgtprs', z: 100000, time: 462607200000, lon: 16, lat: 48, val: 141.85},
-{param: 'hgtprs', z: 100000, time: 462628800000, lon: 16, lat: 48, val: 138.29},
-{param: 'hgtprs', z: 100000, time: 462650400000, lon: 16, lat: 48, val: 134.41},
-{param: 'hgtprs', z: 100000, time: 462672000000, lon: 16, lat: 48, val: 139.97},
-{param: 'hgtprs', z: 100000, time: 462693600000, lon: 16, lat: 48, val: 142.1},
-{param: 'hgtprs', z: 100000, time: 462715200000, lon: 16, lat: 48, val: 138.62},
-{param: 'hgtprs', z: 100000, time: 462736800000, lon: 16, lat: 48, val: 134.83},
-{param: 'hgtprs', z: 100000, time: 462758400000, lon: 16, lat: 48, val: 140.26},
-{param: 'hgtprs', z: 100000, time: 462780000000, lon: 16, lat: 48, val: 142.36},
-{param: 'hgtprs', z: 100000, time: 462801600000, lon: 16, lat: 48, val: 138.94},
-{param: 'hgtprs', z: 100000, time: 462823200000, lon: 16, lat: 48, val: 135.25},
-{param: 'hgtprs', z: 100000, time: 462844800000, lon: 16, lat: 48, val: 140.56},
-{param: 'hgtprs', z: 100000, time: 462866400000, lon: 16, lat: 48, val: 142.63},
-{param: 'hgtprs', z: 100000, time: 462888000000, lon: 16, lat: 48, val: 139.27},
-{param: 'hgtprs', z: 100000, time: 462909600000, lon: 16, lat: 48, val: 135.68},
-{param: 'hgtprs', z: 100000, time: 462931200000, lon: 16, lat: 48, val: 140.87},
-{param: 'hgtprs', z: 100000, time: 462952800000, lon: 16, lat: 48, val: 142.91},
-{param: 'hgtprs', z: 100000, time: 462974400000, lon: 16, lat: 48, val: 139.63},
-{param: 'hgtprs', z: 100000, time: 462996000000, lon: 16, lat: 48, val: 136.12},
-{param: 'hgtprs', z: 100000, time: 463017600000, lon: 16, lat: 48, val: 141.19},
-{param: 'hgtprs', z: 100000, time: 463039200000, lon: 16, lat: 48, val: 143.2},
-{param: 'hgtprs', z: 100000, time: 463060800000, lon: 16, lat: 48, val: 139.98},
-{param: 'hgtprs', z: 100000, time: 463082400000, lon: 16, lat: 48, val: 136.57},
-{param: 'hgtprs', z: 100000, time: 463104000000, lon: 16, lat: 48, val: 141.51},
-{param: 'hgtprs', z: 100000, time: 463125600000, lon: 16, lat: 48, val: 143.5},
-{param: 'hgtprs', z: 100000, time: 463147200000, lon: 16, lat: 48, val: 140.32},
-{param: 'hgtprs', z: 100000, time: 463168800000, lon: 16, lat: 48, val: 137.03},
-{param: 'hgtprs', z: 100000, time: 463190400000, lon: 16, lat: 48, val: 141.86},
-{param: 'hgtprs', z: 100000, time: 463212000000, lon: 16, lat: 48, val: 143.81},
-{param: 'hgtprs', z: 100000, time: 463233600000, lon: 16, lat: 48, val: 140.69},
-{param: 'hgtprs', z: 100000, time: 463255200000, lon: 16, lat: 48, val: 137.5},
-{param: 'hgtprs', z: 100000, time: 463276800000, lon: 16, lat: 48, val: 142.2},
-{param: 'hgtprs', z: 100000, time: 463298400000, lon: 16, lat: 48, val: 144.13},
-{param: 'hgtprs', z: 100000, time: 463320000000, lon: 16, lat: 48, val: 141.05},
-{param: 'hgtprs', z: 100000, time: 463341600000, lon: 16, lat: 48, val: 137.97},
-{param: 'hgtprs', z: 100000, time: 463363200000, lon: 16, lat: 48, val: 142.56},
-{param: 'hgtprs', z: 100000, time: 463384800000, lon: 16, lat: 48, val: 144.45},
-{param: 'hgtprs', z: 100000, time: 463406400000, lon: 16, lat: 48, val: 141.42},
-{param: 'hgtprs', z: 100000, time: 463428000000, lon: 16, lat: 48, val: 138.45},
-{param: 'hgtprs', z: 100000, time: 463449600000, lon: 16, lat: 48, val: 142.92},
-{param: 'hgtprs', z: 100000, time: 463471200000, lon: 16, lat: 48, val: 144.77},
-{param: 'hgtprs', z: 100000, time: 463492800000, lon: 16, lat: 48, val: 141.79},
-{param: 'hgtprs', z: 100000, time: 463514400000, lon: 16, lat: 48, val: 138.92},
-{param: 'hgtprs', z: 100000, time: 463536000000, lon: 16, lat: 48, val: 143.29},
-{param: 'hgtprs', z: 100000, time: 463557600000, lon: 16, lat: 48, val: 145.11},
-{param: 'hgtprs', z: 100000, time: 463579200000, lon: 16, lat: 48, val: 142.16},
-{param: 'hgtprs', z: 100000, time: 463600800000, lon: 16, lat: 48, val: 139.42},
-{param: 'hgtprs', z: 100000, time: 463622400000, lon: 16, lat: 48, val: 143.66},
-{param: 'hgtprs', z: 100000, time: 463644000000, lon: 16, lat: 48, val: 145.45},
-{param: 'hgtprs', z: 100000, time: 463665600000, lon: 16, lat: 48, val: 142.53},
-{param: 'hgtprs', z: 100000, time: 463687200000, lon: 16, lat: 48, val: 139.91},
-{param: 'hgtprs', z: 100000, time: 463708800000, lon: 16, lat: 48, val: 144.05},
-{param: 'hgtprs', z: 100000, time: 463730400000, lon: 16, lat: 48, val: 145.79},
-{param: 'hgtprs', z: 100000, time: 463752000000, lon: 16, lat: 48, val: 142.9},
-{param: 'hgtprs', z: 100000, time: 463773600000, lon: 16, lat: 48, val: 140.39},
-{param: 'hgtprs', z: 100000, time: 463795200000, lon: 16, lat: 48, val: 144.43},
-{param: 'hgtprs', z: 100000, time: 463816800000, lon: 16, lat: 48, val: 146.14},
-{param: 'hgtprs', z: 100000, time: 463838400000, lon: 16, lat: 48, val: 143.28},
-{param: 'hgtprs', z: 100000, time: 463860000000, lon: 16, lat: 48, val: 140.89},
-{param: 'hgtprs', z: 100000, time: 463881600000, lon: 16, lat: 48, val: 144.82},
-{param: 'hgtprs', z: 100000, time: 463903200000, lon: 16, lat: 48, val: 146.49},
-{param: 'hgtprs', z: 100000, time: 463924800000, lon: 16, lat: 48, val: 143.64},
-{param: 'hgtprs', z: 100000, time: 463946400000, lon: 16, lat: 48, val: 141.37},
-{param: 'hgtprs', z: 100000, time: 463968000000, lon: 16, lat: 48, val: 145.21},
-{param: 'hgtprs', z: 100000, time: 463989600000, lon: 16, lat: 48, val: 146.84},
-{param: 'hgtprs', z: 100000, time: 464011200000, lon: 16, lat: 48, val: 144.01},
-{param: 'hgtprs', z: 100000, time: 464032800000, lon: 16, lat: 48, val: 141.87},
-{param: 'hgtprs', z: 100000, time: 464054400000, lon: 16, lat: 48, val: 145.61},
-{param: 'hgtprs', z: 100000, time: 464076000000, lon: 16, lat: 48, val: 147.2},
-{param: 'hgtprs', z: 100000, time: 464097600000, lon: 16, lat: 48, val: 144.38},
-{param: 'hgtprs', z: 100000, time: 464119200000, lon: 16, lat: 48, val: 142.37},
-{param: 'hgtprs', z: 100000, time: 464140800000, lon: 16, lat: 48, val: 146},
-{param: 'hgtprs', z: 100000, time: 464162400000, lon: 16, lat: 48, val: 147.55},
-{param: 'hgtprs', z: 100000, time: 464184000000, lon: 16, lat: 48, val: 144.75},
-{param: 'hgtprs', z: 100000, time: 464205600000, lon: 16, lat: 48, val: 142.85},
-{param: 'hgtprs', z: 100000, time: 464227200000, lon: 16, lat: 48, val: 146.4},
-{param: 'hgtprs', z: 100000, time: 464248800000, lon: 16, lat: 48, val: 147.91},
-{param: 'hgtprs', z: 100000, time: 464270400000, lon: 16, lat: 48, val: 145.11},
-{param: 'hgtprs', z: 100000, time: 464292000000, lon: 16, lat: 48, val: 143.33},
-{param: 'hgtprs', z: 100000, time: 464313600000, lon: 16, lat: 48, val: 146.8},
-{param: 'hgtprs', z: 100000, time: 464335200000, lon: 16, lat: 48, val: 148.26},
-{param: 'hgtprs', z: 100000, time: 464356800000, lon: 16, lat: 48, val: 145.46},
-{param: 'hgtprs', z: 100000, time: 464378400000, lon: 16, lat: 48, val: 143.82},
-{param: 'hgtprs', z: 100000, time: 464400000000, lon: 16, lat: 48, val: 147.19},
-{param: 'hgtprs', z: 100000, time: 464421600000, lon: 16, lat: 48, val: 148.62},
-{param: 'hgtprs', z: 100000, time: 464443200000, lon: 16, lat: 48, val: 145.81},
-{param: 'hgtprs', z: 100000, time: 464464800000, lon: 16, lat: 48, val: 144.3},
-{param: 'hgtprs', z: 100000, time: 464486400000, lon: 16, lat: 48, val: 147.6},
-{param: 'hgtprs', z: 100000, time: 464508000000, lon: 16, lat: 48, val: 148.97},
-{param: 'hgtprs', z: 100000, time: 464529600000, lon: 16, lat: 48, val: 146.15},
-{param: 'hgtprs', z: 100000, time: 464551200000, lon: 16, lat: 48, val: 144.77},
-{param: 'hgtprs', z: 100000, time: 464572800000, lon: 16, lat: 48, val: 147.99},
-{param: 'hgtprs', z: 100000, time: 464594400000, lon: 16, lat: 48, val: 149.32},
-{param: 'hgtprs', z: 100000, time: 464616000000, lon: 16, lat: 48, val: 146.49},
-{param: 'hgtprs', z: 100000, time: 464637600000, lon: 16, lat: 48, val: 145.23},
-{param: 'hgtprs', z: 100000, time: 464659200000, lon: 16, lat: 48, val: 148.37},
-{param: 'hgtprs', z: 100000, time: 464680800000, lon: 16, lat: 48, val: 149.66},
-{param: 'hgtprs', z: 100000, time: 464702400000, lon: 16, lat: 48, val: 146.82},
-{param: 'hgtprs', z: 100000, time: 464724000000, lon: 16, lat: 48, val: 145.69},
-{param: 'hgtprs', z: 100000, time: 464745600000, lon: 16, lat: 48, val: 148.76},
-{param: 'hgtprs', z: 100000, time: 464767200000, lon: 16, lat: 48, val: 150},
-{param: 'hgtprs', z: 100000, time: 464788800000, lon: 16, lat: 48, val: 147.14},
-{param: 'hgtprs', z: 100000, time: 464810400000, lon: 16, lat: 48, val: 146.14},
-{param: 'hgtprs', z: 100000, time: 464832000000, lon: 16, lat: 48, val: 149.13},
-{param: 'hgtprs', z: 100000, time: 464853600000, lon: 16, lat: 48, val: 150.34},
-{param: 'hgtprs', z: 100000, time: 464875200000, lon: 16, lat: 48, val: 147.45},
-{param: 'hgtprs', z: 100000, time: 464896800000, lon: 16, lat: 48, val: 146.59},
-{param: 'hgtprs', z: 100000, time: 464918400000, lon: 16, lat: 48, val: 149.51},
-{param: 'hgtprs', z: 100000, time: 464940000000, lon: 16, lat: 48, val: 150.67},
-{param: 'hgtprs', z: 100000, time: 464961600000, lon: 16, lat: 48, val: 147.76},
-{param: 'hgtprs', z: 100000, time: 464983200000, lon: 16, lat: 48, val: 147.02},
-{param: 'hgtprs', z: 100000, time: 465004800000, lon: 16, lat: 48, val: 149.88},
-{param: 'hgtprs', z: 100000, time: 465026400000, lon: 16, lat: 48, val: 151},
-{param: 'hgtprs', z: 100000, time: 465048000000, lon: 16, lat: 48, val: 148.05},
-{param: 'hgtprs', z: 100000, time: 465069600000, lon: 16, lat: 48, val: 147.44},
-{param: 'hgtprs', z: 100000, time: 465091200000, lon: 16, lat: 48, val: 150.23},
-{param: 'hgtprs', z: 100000, time: 465112800000, lon: 16, lat: 48, val: 151.31},
-{param: 'hgtprs', z: 100000, time: 465134400000, lon: 16, lat: 48, val: 148.34},
-{param: 'hgtprs', z: 100000, time: 465156000000, lon: 16, lat: 48, val: 147.85},
-{param: 'hgtprs', z: 100000, time: 465177600000, lon: 16, lat: 48, val: 150.58},
-{param: 'hgtprs', z: 100000, time: 465199200000, lon: 16, lat: 48, val: 151.62},
-{param: 'hgtprs', z: 100000, time: 465220800000, lon: 16, lat: 48, val: 148.61},
-{param: 'hgtprs', z: 100000, time: 465242400000, lon: 16, lat: 48, val: 148.25},
-{param: 'hgtprs', z: 100000, time: 465264000000, lon: 16, lat: 48, val: 150.92},
-{param: 'hgtprs', z: 100000, time: 465285600000, lon: 16, lat: 48, val: 151.91},
-{param: 'hgtprs', z: 100000, time: 465307200000, lon: 16, lat: 48, val: 148.87},
-{param: 'hgtprs', z: 100000, time: 465328800000, lon: 16, lat: 48, val: 148.64},
-{param: 'hgtprs', z: 100000, time: 465350400000, lon: 16, lat: 48, val: 151.26},
-{param: 'hgtprs', z: 100000, time: 465372000000, lon: 16, lat: 48, val: 152.2},
-{param: 'hgtprs', z: 100000, time: 465393600000, lon: 16, lat: 48, val: 149.12},
-{param: 'hgtprs', z: 100000, time: 465415200000, lon: 16, lat: 48, val: 149.01},
-{param: 'hgtprs', z: 100000, time: 465436800000, lon: 16, lat: 48, val: 151.58},
-{param: 'hgtprs', z: 100000, time: 465458400000, lon: 16, lat: 48, val: 152.48},
-{param: 'hgtprs', z: 100000, time: 465480000000, lon: 16, lat: 48, val: 149.36},
-{param: 'hgtprs', z: 100000, time: 465501600000, lon: 16, lat: 48, val: 149.38},
-{param: 'hgtprs', z: 100000, time: 465523200000, lon: 16, lat: 48, val: 151.89},
-{param: 'hgtprs', z: 100000, time: 465544800000, lon: 16, lat: 48, val: 152.74},
-{param: 'hgtprs', z: 100000, time: 465566400000, lon: 16, lat: 48, val: 149.58},
-{param: 'hgtprs', z: 100000, time: 465588000000, lon: 16, lat: 48, val: 149.73},
-{param: 'hgtprs', z: 100000, time: 465609600000, lon: 16, lat: 48, val: 152.19},
-{param: 'hgtprs', z: 100000, time: 465631200000, lon: 16, lat: 48, val: 153},
-{param: 'hgtprs', z: 100000, time: 465652800000, lon: 16, lat: 48, val: 149.79},
-{param: 'hgtprs', z: 100000, time: 465674400000, lon: 16, lat: 48, val: 150.06},
-{param: 'hgtprs', z: 100000, time: 465696000000, lon: 16, lat: 48, val: 152.48},
-{param: 'hgtprs', z: 100000, time: 465717600000, lon: 16, lat: 48, val: 153.24},
-{param: 'hgtprs', z: 100000, time: 465739200000, lon: 16, lat: 48, val: 149.99},
-{param: 'hgtprs', z: 100000, time: 465760800000, lon: 16, lat: 48, val: 150.38},
-{param: 'hgtprs', z: 100000, time: 465782400000, lon: 16, lat: 48, val: 152.76},
-{param: 'hgtprs', z: 100000, time: 465804000000, lon: 16, lat: 48, val: 153.47},
-{param: 'hgtprs', z: 100000, time: 465825600000, lon: 16, lat: 48, val: 150.18},
-{param: 'hgtprs', z: 100000, time: 465847200000, lon: 16, lat: 48, val: 150.68},
-{param: 'hgtprs', z: 100000, time: 465868800000, lon: 16, lat: 48, val: 153.03},
-{param: 'hgtprs', z: 100000, time: 465890400000, lon: 16, lat: 48, val: 153.69},
-{param: 'hgtprs', z: 100000, time: 465912000000, lon: 16, lat: 48, val: 150.35},
-{param: 'hgtprs', z: 100000, time: 465933600000, lon: 16, lat: 48, val: 150.98},
-{param: 'hgtprs', z: 100000, time: 465955200000, lon: 16, lat: 48, val: 153.28},
-{param: 'hgtprs', z: 100000, time: 465976800000, lon: 16, lat: 48, val: 153.9},
-{param: 'hgtprs', z: 100000, time: 465998400000, lon: 16, lat: 48, val: 150.5},
-{param: 'hgtprs', z: 100000, time: 466020000000, lon: 16, lat: 48, val: 151.25},
-{param: 'hgtprs', z: 100000, time: 466041600000, lon: 16, lat: 48, val: 153.51},
-{param: 'hgtprs', z: 100000, time: 466063200000, lon: 16, lat: 48, val: 154.08},
-{param: 'hgtprs', z: 100000, time: 466084800000, lon: 16, lat: 48, val: 150.65},
-{param: 'hgtprs', z: 100000, time: 466106400000, lon: 16, lat: 48, val: 151.52},
-{param: 'hgtprs', z: 100000, time: 466128000000, lon: 16, lat: 48, val: 153.73},
-{param: 'hgtprs', z: 100000, time: 466149600000, lon: 16, lat: 48, val: 154.26},
-{param: 'hgtprs', z: 100000, time: 466171200000, lon: 16, lat: 48, val: 150.78},
-{param: 'hgtprs', z: 100000, time: 466192800000, lon: 16, lat: 48, val: 151.76},
-{param: 'hgtprs', z: 100000, time: 466214400000, lon: 16, lat: 48, val: 153.93},
-{param: 'hgtprs', z: 100000, time: 466236000000, lon: 16, lat: 48, val: 154.42},
-{param: 'hgtprs', z: 100000, time: 466257600000, lon: 16, lat: 48, val: 150.9},
-{param: 'hgtprs', z: 100000, time: 466279200000, lon: 16, lat: 48, val: 151.99},
-{param: 'hgtprs', z: 100000, time: 466300800000, lon: 16, lat: 48, val: 154.13},
-{param: 'hgtprs', z: 100000, time: 466322400000, lon: 16, lat: 48, val: 154.57},
-{param: 'hgtprs', z: 100000, time: 466344000000, lon: 16, lat: 48, val: 151.01},
-{param: 'hgtprs', z: 100000, time: 466365600000, lon: 16, lat: 48, val: 152.2},
-{param: 'hgtprs', z: 100000, time: 466387200000, lon: 16, lat: 48, val: 154.3},
-{param: 'hgtprs', z: 100000, time: 466408800000, lon: 16, lat: 48, val: 154.71},
-{param: 'hgtprs', z: 100000, time: 466430400000, lon: 16, lat: 48, val: 151.09},
-{param: 'hgtprs', z: 100000, time: 466452000000, lon: 16, lat: 48, val: 152.39},
-{param: 'hgtprs', z: 100000, time: 466473600000, lon: 16, lat: 48, val: 154.48},
-{param: 'hgtprs', z: 100000, time: 466495200000, lon: 16, lat: 48, val: 154.82},
-{param: 'hgtprs', z: 100000, time: 466516800000, lon: 16, lat: 48, val: 151.17},
-{param: 'hgtprs', z: 100000, time: 466538400000, lon: 16, lat: 48, val: 152.58},
-{param: 'hgtprs', z: 100000, time: 466560000000, lon: 16, lat: 48, val: 154.62},
-{param: 'hgtprs', z: 100000, time: 466581600000, lon: 16, lat: 48, val: 154.93},
-{param: 'hgtprs', z: 100000, time: 466603200000, lon: 16, lat: 48, val: 151.23},
-{param: 'hgtprs', z: 100000, time: 466624800000, lon: 16, lat: 48, val: 152.75},
-{param: 'hgtprs', z: 100000, time: 466646400000, lon: 16, lat: 48, val: 154.76},
-{param: 'hgtprs', z: 100000, time: 466668000000, lon: 16, lat: 48, val: 155.02},
-{param: 'hgtprs', z: 100000, time: 466689600000, lon: 16, lat: 48, val: 151.28},
-{param: 'hgtprs', z: 100000, time: 466711200000, lon: 16, lat: 48, val: 152.89},
-{param: 'hgtprs', z: 100000, time: 466732800000, lon: 16, lat: 48, val: 154.87},
-{param: 'hgtprs', z: 100000, time: 466754400000, lon: 16, lat: 48, val: 155.09},
-{param: 'hgtprs', z: 100000, time: 466776000000, lon: 16, lat: 48, val: 151.31},
-{param: 'hgtprs', z: 100000, time: 466797600000, lon: 16, lat: 48, val: 153.02},
-{param: 'hgtprs', z: 100000, time: 466819200000, lon: 16, lat: 48, val: 154.97},
-{param: 'hgtprs', z: 100000, time: 466840800000, lon: 16, lat: 48, val: 155.14},
-{param: 'hgtprs', z: 100000, time: 466862400000, lon: 16, lat: 48, val: 151.34},
-{param: 'hgtprs', z: 100000, time: 466884000000, lon: 16, lat: 48, val: 153.15},
-{param: 'hgtprs', z: 100000, time: 466905600000, lon: 16, lat: 48, val: 155.07},
-{param: 'hgtprs', z: 100000, time: 466927200000, lon: 16, lat: 48, val: 155.18},
-{param: 'hgtprs', z: 100000, time: 466948800000, lon: 16, lat: 48, val: 151.35},
-{param: 'hgtprs', z: 100000, time: 466970400000, lon: 16, lat: 48, val: 153.25},
-{param: 'hgtprs', z: 100000, time: 466992000000, lon: 16, lat: 48, val: 155.14},
-{param: 'hgtprs', z: 100000, time: 467013600000, lon: 16, lat: 48, val: 155.21},
-{param: 'hgtprs', z: 100000, time: 467035200000, lon: 16, lat: 48, val: 151.36},
-{param: 'hgtprs', z: 100000, time: 467056800000, lon: 16, lat: 48, val: 153.34},
-{param: 'hgtprs', z: 100000, time: 467078400000, lon: 16, lat: 48, val: 155.19},
-{param: 'hgtprs', z: 100000, time: 467100000000, lon: 16, lat: 48, val: 155.23},
-{param: 'hgtprs', z: 100000, time: 467121600000, lon: 16, lat: 48, val: 151.34},
-{param: 'hgtprs', z: 100000, time: 467143200000, lon: 16, lat: 48, val: 153.42},
-{param: 'hgtprs', z: 100000, time: 467164800000, lon: 16, lat: 48, val: 155.24},
-{param: 'hgtprs', z: 100000, time: 467186400000, lon: 16, lat: 48, val: 155.23},
-{param: 'hgtprs', z: 100000, time: 467208000000, lon: 16, lat: 48, val: 151.32},
-{param: 'hgtprs', z: 100000, time: 467229600000, lon: 16, lat: 48, val: 153.48},
-{param: 'hgtprs', z: 100000, time: 467251200000, lon: 16, lat: 48, val: 155.26},
-{param: 'hgtprs', z: 100000, time: 467272800000, lon: 16, lat: 48, val: 155.23},
-{param: 'hgtprs', z: 100000, time: 467294400000, lon: 16, lat: 48, val: 151.28},
-{param: 'hgtprs', z: 100000, time: 467316000000, lon: 16, lat: 48, val: 153.52},
-{param: 'hgtprs', z: 100000, time: 467337600000, lon: 16, lat: 48, val: 155.28},
-{param: 'hgtprs', z: 100000, time: 467359200000, lon: 16, lat: 48, val: 155.2},
-{param: 'hgtprs', z: 100000, time: 467380800000, lon: 16, lat: 48, val: 151.24},
-{param: 'hgtprs', z: 100000, time: 467402400000, lon: 16, lat: 48, val: 153.56},
-{param: 'hgtprs', z: 100000, time: 467424000000, lon: 16, lat: 48, val: 155.29},
-{param: 'hgtprs', z: 100000, time: 467445600000, lon: 16, lat: 48, val: 155.16},
-{param: 'hgtprs', z: 100000, time: 467467200000, lon: 16, lat: 48, val: 151.2},
-{param: 'hgtprs', z: 100000, time: 467488800000, lon: 16, lat: 48, val: 153.6},
-{param: 'hgtprs', z: 100000, time: 467510400000, lon: 16, lat: 48, val: 155.28},
-{param: 'hgtprs', z: 100000, time: 467532000000, lon: 16, lat: 48, val: 155.11},
-{param: 'hgtprs', z: 100000, time: 467553600000, lon: 16, lat: 48, val: 151.13},
-{param: 'hgtprs', z: 100000, time: 467575200000, lon: 16, lat: 48, val: 153.6},
-{param: 'hgtprs', z: 100000, time: 467596800000, lon: 16, lat: 48, val: 155.25},
-{param: 'hgtprs', z: 100000, time: 467618400000, lon: 16, lat: 48, val: 155.05},
-{param: 'hgtprs', z: 100000, time: 467640000000, lon: 16, lat: 48, val: 151.07},
-{param: 'hgtprs', z: 100000, time: 467661600000, lon: 16, lat: 48, val: 153.61},
-{param: 'hgtprs', z: 100000, time: 467683200000, lon: 16, lat: 48, val: 155.22},
-{param: 'hgtprs', z: 100000, time: 467704800000, lon: 16, lat: 48, val: 154.97},
-{param: 'hgtprs', z: 100000, time: 467726400000, lon: 16, lat: 48, val: 151},
-{param: 'hgtprs', z: 100000, time: 467748000000, lon: 16, lat: 48, val: 153.6},
-{param: 'hgtprs', z: 100000, time: 467769600000, lon: 16, lat: 48, val: 155.17},
-{param: 'hgtprs', z: 100000, time: 467791200000, lon: 16, lat: 48, val: 154.9},
-{param: 'hgtprs', z: 100000, time: 467812800000, lon: 16, lat: 48, val: 150.92},
-{param: 'hgtprs', z: 100000, time: 467834400000, lon: 16, lat: 48, val: 153.59},
-{param: 'hgtprs', z: 100000, time: 467856000000, lon: 16, lat: 48, val: 155.13},
-{param: 'hgtprs', z: 100000, time: 467877600000, lon: 16, lat: 48, val: 154.8},
-{param: 'hgtprs', z: 100000, time: 467899200000, lon: 16, lat: 48, val: 150.83},
-{param: 'hgtprs', z: 100000, time: 467920800000, lon: 16, lat: 48, val: 153.56},
-{param: 'hgtprs', z: 100000, time: 467942400000, lon: 16, lat: 48, val: 155.07},
-{param: 'hgtprs', z: 100000, time: 467964000000, lon: 16, lat: 48, val: 154.7},
-{param: 'hgtprs', z: 100000, time: 467985600000, lon: 16, lat: 48, val: 150.73},
-{param: 'hgtprs', z: 100000, time: 468007200000, lon: 16, lat: 48, val: 153.53},
-{param: 'hgtprs', z: 100000, time: 468028800000, lon: 16, lat: 48, val: 154.99},
-{param: 'hgtprs', z: 100000, time: 468050400000, lon: 16, lat: 48, val: 154.6},
-{param: 'hgtprs', z: 100000, time: 468072000000, lon: 16, lat: 48, val: 150.64},
-{param: 'hgtprs', z: 100000, time: 468093600000, lon: 16, lat: 48, val: 153.49},
-{param: 'hgtprs', z: 100000, time: 468115200000, lon: 16, lat: 48, val: 154.91},
-{param: 'hgtprs', z: 100000, time: 468136800000, lon: 16, lat: 48, val: 154.47},
-{param: 'hgtprs', z: 100000, time: 468158400000, lon: 16, lat: 48, val: 150.54},
-{param: 'hgtprs', z: 100000, time: 468180000000, lon: 16, lat: 48, val: 153.44},
-{param: 'hgtprs', z: 100000, time: 468201600000, lon: 16, lat: 48, val: 154.83},
-{param: 'hgtprs', z: 100000, time: 468223200000, lon: 16, lat: 48, val: 154.35},
-{param: 'hgtprs', z: 100000, time: 468244800000, lon: 16, lat: 48, val: 150.44},
-{param: 'hgtprs', z: 100000, time: 468266400000, lon: 16, lat: 48, val: 153.39},
-{param: 'hgtprs', z: 100000, time: 468288000000, lon: 16, lat: 48, val: 154.74},
-{param: 'hgtprs', z: 100000, time: 468309600000, lon: 16, lat: 48, val: 154.22},
-{param: 'hgtprs', z: 100000, time: 468331200000, lon: 16, lat: 48, val: 150.34},
-{param: 'hgtprs', z: 100000, time: 468352800000, lon: 16, lat: 48, val: 153.33},
-{param: 'hgtprs', z: 100000, time: 468374400000, lon: 16, lat: 48, val: 154.63},
-{param: 'hgtprs', z: 100000, time: 468396000000, lon: 16, lat: 48, val: 154.09},
-{param: 'hgtprs', z: 100000, time: 468417600000, lon: 16, lat: 48, val: 150.24},
-{param: 'hgtprs', z: 100000, time: 468439200000, lon: 16, lat: 48, val: 153.28},
-{param: 'hgtprs', z: 100000, time: 468460800000, lon: 16, lat: 48, val: 154.53},
-{param: 'hgtprs', z: 100000, time: 468482400000, lon: 16, lat: 48, val: 153.96},
-{param: 'hgtprs', z: 100000, time: 468504000000, lon: 16, lat: 48, val: 150.14},
-{param: 'hgtprs', z: 100000, time: 468525600000, lon: 16, lat: 48, val: 153.22},
-{param: 'hgtprs', z: 100000, time: 468547200000, lon: 16, lat: 48, val: 154.43},
-{param: 'hgtprs', z: 100000, time: 468568800000, lon: 16, lat: 48, val: 153.81},
-{param: 'hgtprs', z: 100000, time: 468590400000, lon: 16, lat: 48, val: 150.02},
-{param: 'hgtprs', z: 100000, time: 468612000000, lon: 16, lat: 48, val: 153.16},
-{param: 'hgtprs', z: 100000, time: 468633600000, lon: 16, lat: 48, val: 154.32},
-{param: 'hgtprs', z: 100000, time: 468655200000, lon: 16, lat: 48, val: 153.68},
-{param: 'hgtprs', z: 100000, time: 468676800000, lon: 16, lat: 48, val: 149.92},
-{param: 'hgtprs', z: 100000, time: 468698400000, lon: 16, lat: 48, val: 153.1},
-{param: 'hgtprs', z: 100000, time: 468720000000, lon: 16, lat: 48, val: 154.21},
-{param: 'hgtprs', z: 100000, time: 468741600000, lon: 16, lat: 48, val: 153.53},
-{param: 'hgtprs', z: 100000, time: 468763200000, lon: 16, lat: 48, val: 149.83},
-{param: 'hgtprs', z: 100000, time: 468784800000, lon: 16, lat: 48, val: 153.04},
-{param: 'hgtprs', z: 100000, time: 468806400000, lon: 16, lat: 48, val: 154.1},
-{param: 'hgtprs', z: 100000, time: 468828000000, lon: 16, lat: 48, val: 153.4},
-{param: 'hgtprs', z: 100000, time: 468849600000, lon: 16, lat: 48, val: 149.74},
-{param: 'hgtprs', z: 100000, time: 468871200000, lon: 16, lat: 48, val: 152.97},
-{param: 'hgtprs', z: 100000, time: 468892800000, lon: 16, lat: 48, val: 153.99},
-{param: 'hgtprs', z: 100000, time: 468914400000, lon: 16, lat: 48, val: 153.25},
-{param: 'hgtprs', z: 100000, time: 468936000000, lon: 16, lat: 48, val: 149.65},
-{param: 'hgtprs', z: 100000, time: 468957600000, lon: 16, lat: 48, val: 152.91},
-{param: 'hgtprs', z: 100000, time: 468979200000, lon: 16, lat: 48, val: 153.88},
-{param: 'hgtprs', z: 100000, time: 469000800000, lon: 16, lat: 48, val: 153.11},
-{param: 'hgtprs', z: 100000, time: 469022400000, lon: 16, lat: 48, val: 149.57},
-{param: 'hgtprs', z: 100000, time: 469044000000, lon: 16, lat: 48, val: 152.86},
-{param: 'hgtprs', z: 100000, time: 469065600000, lon: 16, lat: 48, val: 153.78},
-{param: 'hgtprs', z: 100000, time: 469087200000, lon: 16, lat: 48, val: 152.98},
-{param: 'hgtprs', z: 100000, time: 469108800000, lon: 16, lat: 48, val: 149.49},
-{param: 'hgtprs', z: 100000, time: 469130400000, lon: 16, lat: 48, val: 152.8},
-{param: 'hgtprs', z: 100000, time: 469152000000, lon: 16, lat: 48, val: 153.69},
-{param: 'hgtprs', z: 100000, time: 469173600000, lon: 16, lat: 48, val: 152.86},
-{param: 'hgtprs', z: 100000, time: 469195200000, lon: 16, lat: 48, val: 149.42},
-{param: 'hgtprs', z: 100000, time: 469216800000, lon: 16, lat: 48, val: 152.76},
-{param: 'hgtprs', z: 100000, time: 469238400000, lon: 16, lat: 48, val: 153.58},
-{param: 'hgtprs', z: 100000, time: 469260000000, lon: 16, lat: 48, val: 152.73},
-{param: 'hgtprs', z: 100000, time: 469281600000, lon: 16, lat: 48, val: 149.36},
-{param: 'hgtprs', z: 100000, time: 469303200000, lon: 16, lat: 48, val: 152.72},
-{param: 'hgtprs', z: 100000, time: 469324800000, lon: 16, lat: 48, val: 153.49},
-{param: 'hgtprs', z: 100000, time: 469346400000, lon: 16, lat: 48, val: 152.61},
-{param: 'hgtprs', z: 100000, time: 469368000000, lon: 16, lat: 48, val: 149.31},
-{param: 'hgtprs', z: 100000, time: 469389600000, lon: 16, lat: 48, val: 152.68},
-{param: 'hgtprs', z: 100000, time: 469411200000, lon: 16, lat: 48, val: 153.4},
-{param: 'hgtprs', z: 100000, time: 469432800000, lon: 16, lat: 48, val: 152.5},
-{param: 'hgtprs', z: 100000, time: 469454400000, lon: 16, lat: 48, val: 149.27},
-{param: 'hgtprs', z: 100000, time: 469476000000, lon: 16, lat: 48, val: 152.66},
-{param: 'hgtprs', z: 100000, time: 469497600000, lon: 16, lat: 48, val: 153.33},
-{param: 'hgtprs', z: 100000, time: 469519200000, lon: 16, lat: 48, val: 152.4},
-{param: 'hgtprs', z: 100000, time: 469540800000, lon: 16, lat: 48, val: 149.23},
-{param: 'hgtprs', z: 100000, time: 469562400000, lon: 16, lat: 48, val: 152.64},
-{param: 'hgtprs', z: 100000, time: 469584000000, lon: 16, lat: 48, val: 153.26},
-{param: 'hgtprs', z: 100000, time: 469605600000, lon: 16, lat: 48, val: 152.3},
-{param: 'hgtprs', z: 100000, time: 469627200000, lon: 16, lat: 48, val: 149.21},
-{param: 'hgtprs', z: 100000, time: 469648800000, lon: 16, lat: 48, val: 152.63},
-{param: 'hgtprs', z: 100000, time: 469670400000, lon: 16, lat: 48, val: 153.2},
-{param: 'hgtprs', z: 100000, time: 469692000000, lon: 16, lat: 48, val: 152.22},
-{param: 'hgtprs', z: 100000, time: 469713600000, lon: 16, lat: 48, val: 149.2},
-{param: 'hgtprs', z: 100000, time: 469735200000, lon: 16, lat: 48, val: 152.63},
-{param: 'hgtprs', z: 100000, time: 469756800000, lon: 16, lat: 48, val: 153.15},
-{param: 'hgtprs', z: 100000, time: 469778400000, lon: 16, lat: 48, val: 152.14},
-{param: 'hgtprs', z: 100000, time: 469800000000, lon: 16, lat: 48, val: 149.2},
-{param: 'hgtprs', z: 100000, time: 469821600000, lon: 16, lat: 48, val: 152.64},
-{param: 'hgtprs', z: 100000, time: 469843200000, lon: 16, lat: 48, val: 153.11},
-{param: 'hgtprs', z: 100000, time: 469864800000, lon: 16, lat: 48, val: 152.08},
-{param: 'hgtprs', z: 100000, time: 469886400000, lon: 16, lat: 48, val: 149.21},
-{param: 'hgtprs', z: 100000, time: 469908000000, lon: 16, lat: 48, val: 152.66},
-{param: 'hgtprs', z: 100000, time: 469929600000, lon: 16, lat: 48, val: 153.07},
-{param: 'hgtprs', z: 100000, time: 469951200000, lon: 16, lat: 48, val: 152.02},
-{param: 'hgtprs', z: 100000, time: 469972800000, lon: 16, lat: 48, val: 149.24},
-{param: 'hgtprs', z: 100000, time: 469994400000, lon: 16, lat: 48, val: 152.7},
-{param: 'hgtprs', z: 100000, time: 470016000000, lon: 16, lat: 48, val: 153.06},
-{param: 'hgtprs', z: 100000, time: 470037600000, lon: 16, lat: 48, val: 151.99},
-{param: 'hgtprs', z: 100000, time: 470059200000, lon: 16, lat: 48, val: 149.28},
-{param: 'hgtprs', z: 100000, time: 470080800000, lon: 16, lat: 48, val: 152.75},
-{param: 'hgtprs', z: 100000, time: 470102400000, lon: 16, lat: 48, val: 153.06},
-{param: 'hgtprs', z: 100000, time: 470124000000, lon: 16, lat: 48, val: 151.97},
-{param: 'hgtprs', z: 100000, time: 470145600000, lon: 16, lat: 48, val: 149.35},
-{param: 'hgtprs', z: 100000, time: 470167200000, lon: 16, lat: 48, val: 152.8},
-{param: 'hgtprs', z: 100000, time: 470188800000, lon: 16, lat: 48, val: 153.07},
-{param: 'hgtprs', z: 100000, time: 470210400000, lon: 16, lat: 48, val: 151.96},
-{param: 'hgtprs', z: 100000, time: 470232000000, lon: 16, lat: 48, val: 149.42},
-{param: 'hgtprs', z: 100000, time: 470253600000, lon: 16, lat: 48, val: 152.87},
-{param: 'hgtprs', z: 100000, time: 470275200000, lon: 16, lat: 48, val: 153.09},
-{param: 'hgtprs', z: 100000, time: 470296800000, lon: 16, lat: 48, val: 151.97},
-{param: 'hgtprs', z: 100000, time: 470318400000, lon: 16, lat: 48, val: 149.5},
-{param: 'hgtprs', z: 100000, time: 470340000000, lon: 16, lat: 48, val: 152.96},
-{param: 'hgtprs', z: 100000, time: 470361600000, lon: 16, lat: 48, val: 153.13},
-{param: 'hgtprs', z: 100000, time: 470383200000, lon: 16, lat: 48, val: 152},
-{param: 'hgtprs', z: 100000, time: 470404800000, lon: 16, lat: 48, val: 149.6},
-{param: 'hgtprs', z: 100000, time: 470426400000, lon: 16, lat: 48, val: 153.06},
-{param: 'hgtprs', z: 100000, time: 470448000000, lon: 16, lat: 48, val: 153.18},
-{param: 'hgtprs', z: 100000, time: 470469600000, lon: 16, lat: 48, val: 152.02},
-{param: 'hgtprs', z: 100000, time: 470491200000, lon: 16, lat: 48, val: 149.72},
-{param: 'hgtprs', z: 100000, time: 470512800000, lon: 16, lat: 48, val: 153.18},
-{param: 'hgtprs', z: 100000, time: 470534400000, lon: 16, lat: 48, val: 153.25},
-{param: 'hgtprs', z: 100000, time: 470556000000, lon: 16, lat: 48, val: 152.09},
-{param: 'hgtprs', z: 100000, time: 470577600000, lon: 16, lat: 48, val: 149.85},
-{param: 'hgtprs', z: 100000, time: 470599200000, lon: 16, lat: 48, val: 153.31},
-{param: 'hgtprs', z: 100000, time: 470620800000, lon: 16, lat: 48, val: 153.34},
-{param: 'hgtprs', z: 100000, time: 470642400000, lon: 16, lat: 48, val: 152.16},
-{param: 'hgtprs', z: 100000, time: 470664000000, lon: 16, lat: 48, val: 149.99},
-{param: 'hgtprs', z: 100000, time: 470685600000, lon: 16, lat: 48, val: 153.45},
-{param: 'hgtprs', z: 100000, time: 470707200000, lon: 16, lat: 48, val: 153.44},
-{param: 'hgtprs', z: 100000, time: 470728800000, lon: 16, lat: 48, val: 152.25},
-{param: 'hgtprs', z: 100000, time: 470750400000, lon: 16, lat: 48, val: 150.16},
-{param: 'hgtprs', z: 100000, time: 470772000000, lon: 16, lat: 48, val: 153.61},
-{param: 'hgtprs', z: 100000, time: 470793600000, lon: 16, lat: 48, val: 153.56},
-{param: 'hgtprs', z: 100000, time: 470815200000, lon: 16, lat: 48, val: 152.35},
-{param: 'hgtprs', z: 100000, time: 470836800000, lon: 16, lat: 48, val: 150.34},
-{param: 'hgtprs', z: 100000, time: 470858400000, lon: 16, lat: 48, val: 153.78},
-{param: 'hgtprs', z: 100000, time: 470880000000, lon: 16, lat: 48, val: 153.7},
-{param: 'hgtprs', z: 100000, time: 470901600000, lon: 16, lat: 48, val: 152.48},
-{param: 'hgtprs', z: 100000, time: 470923200000, lon: 16, lat: 48, val: 150.54},
-{param: 'hgtprs', z: 100000, time: 470944800000, lon: 16, lat: 48, val: 153.98},
-{param: 'hgtprs', z: 100000, time: 470966400000, lon: 16, lat: 48, val: 153.86},
-{param: 'hgtprs', z: 100000, time: 470988000000, lon: 16, lat: 48, val: 152.62},
-{param: 'hgtprs', z: 100000, time: 471009600000, lon: 16, lat: 48, val: 150.75},
-{param: 'hgtprs', z: 100000, time: 471031200000, lon: 16, lat: 48, val: 154.19},
-{param: 'hgtprs', z: 100000, time: 471052800000, lon: 16, lat: 48, val: 154.03},
-{param: 'hgtprs', z: 100000, time: 471074400000, lon: 16, lat: 48, val: 152.78},
-{param: 'hgtprs', z: 100000, time: 471096000000, lon: 16, lat: 48, val: 150.98},
-{param: 'hgtprs', z: 100000, time: 471117600000, lon: 16, lat: 48, val: 154.41},
-{param: 'hgtprs', z: 100000, time: 471139200000, lon: 16, lat: 48, val: 154.21},
-{param: 'hgtprs', z: 100000, time: 471160800000, lon: 16, lat: 48, val: 152.96},
-{param: 'hgtprs', z: 100000, time: 471182400000, lon: 16, lat: 48, val: 151.23},
-{param: 'hgtprs', z: 100000, time: 471204000000, lon: 16, lat: 48, val: 154.64},
-{param: 'hgtprs', z: 100000, time: 471225600000, lon: 16, lat: 48, val: 154.42},
-{param: 'hgtprs', z: 100000, time: 471247200000, lon: 16, lat: 48, val: 153.16},
-{param: 'hgtprs', z: 100000, time: 471268800000, lon: 16, lat: 48, val: 151.48},
-{param: 'hgtprs', z: 100000, time: 471290400000, lon: 16, lat: 48, val: 154.9},
-{param: 'hgtprs', z: 100000, time: 471312000000, lon: 16, lat: 48, val: 154.64},
-{param: 'hgtprs', z: 100000, time: 471333600000, lon: 16, lat: 48, val: 153.37},
-{param: 'hgtprs', z: 100000, time: 471355200000, lon: 16, lat: 48, val: 151.76},
-{param: 'hgtprs', z: 100000, time: 471376800000, lon: 16, lat: 48, val: 155.17},
-{param: 'hgtprs', z: 100000, time: 471398400000, lon: 16, lat: 48, val: 154.88},
-{param: 'hgtprs', z: 100000, time: 471420000000, lon: 16, lat: 48, val: 153.59},
-{param: 'hgtprs', z: 100000, time: 471441600000, lon: 16, lat: 48, val: 152.05},
-{param: 'hgtprs', z: 100000, time: 471463200000, lon: 16, lat: 48, val: 155.44},
-{param: 'hgtprs', z: 100000, time: 471484800000, lon: 16, lat: 48, val: 155.13},
-{param: 'hgtprs', z: 100000, time: 471506400000, lon: 16, lat: 48, val: 153.85},
-{param: 'hgtprs', z: 100000, time: 471528000000, lon: 16, lat: 48, val: 152.35},
-{param: 'hgtprs', z: 100000, time: 471549600000, lon: 16, lat: 48, val: 155.74},
-{param: 'hgtprs', z: 100000, time: 471571200000, lon: 16, lat: 48, val: 155.4},
-{param: 'hgtprs', z: 100000, time: 471592800000, lon: 16, lat: 48, val: 154.1},
-{param: 'hgtprs', z: 100000, time: 471614400000, lon: 16, lat: 48, val: 152.67},
-{param: 'hgtprs', z: 100000, time: 471636000000, lon: 16, lat: 48, val: 156.05},
-{param: 'hgtprs', z: 100000, time: 471657600000, lon: 16, lat: 48, val: 155.69},
-{param: 'hgtprs', z: 100000, time: 471679200000, lon: 16, lat: 48, val: 154.39},
-{param: 'hgtprs', z: 100000, time: 471700800000, lon: 16, lat: 48, val: 153},
-{param: 'hgtprs', z: 100000, time: 471722400000, lon: 16, lat: 48, val: 156.37},
-{param: 'hgtprs', z: 100000, time: 471744000000, lon: 16, lat: 48, val: 155.99},
-{param: 'hgtprs', z: 100000, time: 471765600000, lon: 16, lat: 48, val: 154.68},
-{param: 'hgtprs', z: 100000, time: 471787200000, lon: 16, lat: 48, val: 153.34},
-{param: 'hgtprs', z: 100000, time: 471808800000, lon: 16, lat: 48, val: 156.71},
-{param: 'hgtprs', z: 100000, time: 471830400000, lon: 16, lat: 48, val: 156.31},
-{param: 'hgtprs', z: 100000, time: 471852000000, lon: 16, lat: 48, val: 155},
-{param: 'hgtprs', z: 100000, time: 471873600000, lon: 16, lat: 48, val: 153.7},
-{param: 'hgtprs', z: 100000, time: 471895200000, lon: 16, lat: 48, val: 157.05},
-{param: 'hgtprs', z: 100000, time: 471916800000, lon: 16, lat: 48, val: 156.64},
-{param: 'hgtprs', z: 100000, time: 471938400000, lon: 16, lat: 48, val: 155.33},
-{param: 'hgtprs', z: 100000, time: 471960000000, lon: 16, lat: 48, val: 154.07},
-{param: 'hgtprs', z: 100000, time: 471981600000, lon: 16, lat: 48, val: 157.4},
-{param: 'hgtprs', z: 100000, time: 472003200000, lon: 16, lat: 48, val: 156.99},
-{param: 'hgtprs', z: 100000, time: 472024800000, lon: 16, lat: 48, val: 155.66},
-{param: 'hgtprs', z: 100000, time: 472046400000, lon: 16, lat: 48, val: 154.45},
-{param: 'hgtprs', z: 100000, time: 472068000000, lon: 16, lat: 48, val: 157.77},
-{param: 'hgtprs', z: 100000, time: 472089600000, lon: 16, lat: 48, val: 157.35},
-{param: 'hgtprs', z: 100000, time: 472111200000, lon: 16, lat: 48, val: 156.02},
-{param: 'hgtprs', z: 100000, time: 472132800000, lon: 16, lat: 48, val: 154.83},
-{param: 'hgtprs', z: 100000, time: 472154400000, lon: 16, lat: 48, val: 158.15},
-{param: 'hgtprs', z: 100000, time: 472176000000, lon: 16, lat: 48, val: 157.71},
-{param: 'hgtprs', z: 100000, time: 472197600000, lon: 16, lat: 48, val: 156.38},
-{param: 'hgtprs', z: 100000, time: 472219200000, lon: 16, lat: 48, val: 155.22},
-{param: 'hgtprs', z: 100000, time: 472240800000, lon: 16, lat: 48, val: 158.54},
-{param: 'hgtprs', z: 100000, time: 472262400000, lon: 16, lat: 48, val: 158.09},
-{param: 'hgtprs', z: 100000, time: 472284000000, lon: 16, lat: 48, val: 156.75},
-{param: 'hgtprs', z: 100000, time: 472305600000, lon: 16, lat: 48, val: 155.63},
-{param: 'hgtprs', z: 100000, time: 472327200000, lon: 16, lat: 48, val: 158.93},
-{param: 'hgtprs', z: 100000, time: 472348800000, lon: 16, lat: 48, val: 158.48},
-{param: 'hgtprs', z: 100000, time: 472370400000, lon: 16, lat: 48, val: 157.14},
-{param: 'hgtprs', z: 100000, time: 472392000000, lon: 16, lat: 48, val: 156.04},
-{param: 'hgtprs', z: 100000, time: 472413600000, lon: 16, lat: 48, val: 159.34},
-{param: 'hgtprs', z: 100000, time: 472435200000, lon: 16, lat: 48, val: 158.9},
-{param: 'hgtprs', z: 100000, time: 472456800000, lon: 16, lat: 48, val: 157.53},
-{param: 'hgtprs', z: 100000, time: 472478400000, lon: 16, lat: 48, val: 156.45},
-{param: 'hgtprs', z: 100000, time: 472500000000, lon: 16, lat: 48, val: 159.73},
-{param: 'hgtprs', z: 100000, time: 472521600000, lon: 16, lat: 48, val: 159.3},
-{param: 'hgtprs', z: 100000, time: 472543200000, lon: 16, lat: 48, val: 157.94},
-{param: 'hgtprs', z: 100000, time: 472564800000, lon: 16, lat: 48, val: 156.88},
-{param: 'hgtprs', z: 100000, time: 472586400000, lon: 16, lat: 48, val: 160.14},
-{param: 'hgtprs', z: 100000, time: 472608000000, lon: 16, lat: 48, val: 159.72},
-{param: 'hgtprs', z: 100000, time: 472629600000, lon: 16, lat: 48, val: 158.35},
-{param: 'hgtprs', z: 100000, time: 472651200000, lon: 16, lat: 48, val: 157.3},
-{param: 'hgtprs', z: 100000, time: 472672800000, lon: 16, lat: 48, val: 160.57},
-{param: 'hgtprs', z: 100000, time: 472694400000, lon: 16, lat: 48, val: 160.14},
-{param: 'hgtprs', z: 100000, time: 472716000000, lon: 16, lat: 48, val: 158.76},
-{param: 'hgtprs', z: 100000, time: 472737600000, lon: 16, lat: 48, val: 157.73},
-{param: 'hgtprs', z: 100000, time: 472759200000, lon: 16, lat: 48, val: 160.99},
-{param: 'hgtprs', z: 100000, time: 472780800000, lon: 16, lat: 48, val: 160.58},
-{param: 'hgtprs', z: 100000, time: 472802400000, lon: 16, lat: 48, val: 159.19},
-{param: 'hgtprs', z: 100000, time: 472824000000, lon: 16, lat: 48, val: 158.16},
-{param: 'hgtprs', z: 100000, time: 472845600000, lon: 16, lat: 48, val: 161.41},
-{param: 'hgtprs', z: 100000, time: 472867200000, lon: 16, lat: 48, val: 161},
-{param: 'hgtprs', z: 100000, time: 472888800000, lon: 16, lat: 48, val: 159.61},
-{param: 'hgtprs', z: 100000, time: 472910400000, lon: 16, lat: 48, val: 158.58},
-{param: 'hgtprs', z: 100000, time: 472932000000, lon: 16, lat: 48, val: 161.83},
-{param: 'hgtprs', z: 100000, time: 472953600000, lon: 16, lat: 48, val: 161.43},
-{param: 'hgtprs', z: 100000, time: 472975200000, lon: 16, lat: 48, val: 160.04},
-{param: 'hgtprs', z: 100000, time: 472996800000, lon: 16, lat: 48, val: 159.01},
-{param: 'hgtprs', z: 100000, time: 473018400000, lon: 16, lat: 48, val: 162.25},
-{param: 'hgtprs', z: 100000, time: 473040000000, lon: 16, lat: 48, val: 161.87},
-{param: 'hgtprs', z: 100000, time: 473061600000, lon: 16, lat: 48, val: 160.47},
-{param: 'hgtprs', z: 100000, time: 473083200000, lon: 16, lat: 48, val: 159.44},
-{param: 'hgtprs', z: 100000, time: 473104800000, lon: 16, lat: 48, val: 162.67},
-{param: 'hgtprs', z: 100000, time: 473126400000, lon: 16, lat: 48, val: 162.32},
-{param: 'hgtprs', z: 100000, time: 473148000000, lon: 16, lat: 48, val: 160.89},
-{param: 'hgtprs', z: 100000, time: 473169600000, lon: 16, lat: 48, val: 159.86},
-{param: 'hgtprs', z: 100000, time: 473191200000, lon: 16, lat: 48, val: 163.08},
-{param: 'hgtprs', z: 100000, time: 473212800000, lon: 16, lat: 48, val: 162.75},
-{param: 'hgtprs', z: 100000, time: 473234400000, lon: 16, lat: 48, val: 161.32},
-{param: 'hgtprs', z: 100000, time: 473256000000, lon: 16, lat: 48, val: 160.28},
-{param: 'hgtprs', z: 100000, time: 473277600000, lon: 16, lat: 48, val: 163.49},
-{param: 'hgtprs', z: 100000, time: 473299200000, lon: 16, lat: 48, val: 163.18},
-{param: 'hgtprs', z: 100000, time: 473320800000, lon: 16, lat: 48, val: 161.74},
-{param: 'hgtprs', z: 100000, time: 473342400000, lon: 16, lat: 48, val: 160.7},
-{param: 'hgtprs', z: 100000, time: 473364000000, lon: 16, lat: 48, val: 163.91}
-];
+var cfsrMeansYear = 1984;
+var cfsrMeans = [];
+cfsrMeans[16] = [];	cfsrMeans[16][48] = [];	cfsrMeans[16][48]['tmpprs'] = [];	cfsrMeans[16][48]['tmpprs'][85000] = [];	cfsrMeans[16][48]['tmpprs'][85000][441763200000] = 270.79;
+				cfsrMeans[16][48]['tmpprs'][85000][441784800000] = 270.5;
+				cfsrMeans[16][48]['tmpprs'][85000][441806400000] = 270.71;
+				cfsrMeans[16][48]['tmpprs'][85000][441828000000] = 270.68;
+				cfsrMeans[16][48]['tmpprs'][85000][441849600000] = 270.77;
+				cfsrMeans[16][48]['tmpprs'][85000][441871200000] = 270.48;
+				cfsrMeans[16][48]['tmpprs'][85000][441892800000] = 270.69;
+				cfsrMeans[16][48]['tmpprs'][85000][441914400000] = 270.66;
+				cfsrMeans[16][48]['tmpprs'][85000][441936000000] = 270.75;
+				cfsrMeans[16][48]['tmpprs'][85000][441957600000] = 270.46;
+				cfsrMeans[16][48]['tmpprs'][85000][441979200000] = 270.67;
+				cfsrMeans[16][48]['tmpprs'][85000][442000800000] = 270.65;
+				cfsrMeans[16][48]['tmpprs'][85000][442022400000] = 270.74;
+				cfsrMeans[16][48]['tmpprs'][85000][442044000000] = 270.45;
+				cfsrMeans[16][48]['tmpprs'][85000][442065600000] = 270.65;
+				cfsrMeans[16][48]['tmpprs'][85000][442087200000] = 270.63;
+				cfsrMeans[16][48]['tmpprs'][85000][442108800000] = 270.72;
+				cfsrMeans[16][48]['tmpprs'][85000][442130400000] = 270.43;
+				cfsrMeans[16][48]['tmpprs'][85000][442152000000] = 270.64;
+				cfsrMeans[16][48]['tmpprs'][85000][442173600000] = 270.62;
+				cfsrMeans[16][48]['tmpprs'][85000][442195200000] = 270.71;
+				cfsrMeans[16][48]['tmpprs'][85000][442216800000] = 270.42;
+				cfsrMeans[16][48]['tmpprs'][85000][442238400000] = 270.63;
+				cfsrMeans[16][48]['tmpprs'][85000][442260000000] = 270.61;
+				cfsrMeans[16][48]['tmpprs'][85000][442281600000] = 270.7;
+				cfsrMeans[16][48]['tmpprs'][85000][442303200000] = 270.4;
+				cfsrMeans[16][48]['tmpprs'][85000][442324800000] = 270.61;
+				cfsrMeans[16][48]['tmpprs'][85000][442346400000] = 270.6;
+				cfsrMeans[16][48]['tmpprs'][85000][442368000000] = 270.69;
+				cfsrMeans[16][48]['tmpprs'][85000][442389600000] = 270.39;
+				cfsrMeans[16][48]['tmpprs'][85000][442411200000] = 270.6;
+				cfsrMeans[16][48]['tmpprs'][85000][442432800000] = 270.59;
+				cfsrMeans[16][48]['tmpprs'][85000][442454400000] = 270.67;
+				cfsrMeans[16][48]['tmpprs'][85000][442476000000] = 270.38;
+				cfsrMeans[16][48]['tmpprs'][85000][442497600000] = 270.59;
+				cfsrMeans[16][48]['tmpprs'][85000][442519200000] = 270.58;
+				cfsrMeans[16][48]['tmpprs'][85000][442540800000] = 270.66;
+				cfsrMeans[16][48]['tmpprs'][85000][442562400000] = 270.37;
+				cfsrMeans[16][48]['tmpprs'][85000][442584000000] = 270.58;
+				cfsrMeans[16][48]['tmpprs'][85000][442605600000] = 270.56;
+				cfsrMeans[16][48]['tmpprs'][85000][442627200000] = 270.65;
+				cfsrMeans[16][48]['tmpprs'][85000][442648800000] = 270.35;
+				cfsrMeans[16][48]['tmpprs'][85000][442670400000] = 270.56;
+				cfsrMeans[16][48]['tmpprs'][85000][442692000000] = 270.55;
+				cfsrMeans[16][48]['tmpprs'][85000][442713600000] = 270.64;
+				cfsrMeans[16][48]['tmpprs'][85000][442735200000] = 270.34;
+				cfsrMeans[16][48]['tmpprs'][85000][442756800000] = 270.55;
+				cfsrMeans[16][48]['tmpprs'][85000][442778400000] = 270.54;
+				cfsrMeans[16][48]['tmpprs'][85000][442800000000] = 270.63;
+				cfsrMeans[16][48]['tmpprs'][85000][442821600000] = 270.33;
+				cfsrMeans[16][48]['tmpprs'][85000][442843200000] = 270.54;
+				cfsrMeans[16][48]['tmpprs'][85000][442864800000] = 270.53;
+				cfsrMeans[16][48]['tmpprs'][85000][442886400000] = 270.61;
+				cfsrMeans[16][48]['tmpprs'][85000][442908000000] = 270.32;
+				cfsrMeans[16][48]['tmpprs'][85000][442929600000] = 270.53;
+				cfsrMeans[16][48]['tmpprs'][85000][442951200000] = 270.52;
+				cfsrMeans[16][48]['tmpprs'][85000][442972800000] = 270.6;
+				cfsrMeans[16][48]['tmpprs'][85000][442994400000] = 270.3;
+				cfsrMeans[16][48]['tmpprs'][85000][443016000000] = 270.52;
+				cfsrMeans[16][48]['tmpprs'][85000][443037600000] = 270.51;
+				cfsrMeans[16][48]['tmpprs'][85000][443059200000] = 270.59;
+				cfsrMeans[16][48]['tmpprs'][85000][443080800000] = 270.29;
+				cfsrMeans[16][48]['tmpprs'][85000][443102400000] = 270.51;
+				cfsrMeans[16][48]['tmpprs'][85000][443124000000] = 270.5;
+				cfsrMeans[16][48]['tmpprs'][85000][443145600000] = 270.57;
+				cfsrMeans[16][48]['tmpprs'][85000][443167200000] = 270.28;
+				cfsrMeans[16][48]['tmpprs'][85000][443188800000] = 270.49;
+				cfsrMeans[16][48]['tmpprs'][85000][443210400000] = 270.49;
+				cfsrMeans[16][48]['tmpprs'][85000][443232000000] = 270.56;
+				cfsrMeans[16][48]['tmpprs'][85000][443253600000] = 270.26;
+				cfsrMeans[16][48]['tmpprs'][85000][443275200000] = 270.48;
+				cfsrMeans[16][48]['tmpprs'][85000][443296800000] = 270.47;
+				cfsrMeans[16][48]['tmpprs'][85000][443318400000] = 270.54;
+				cfsrMeans[16][48]['tmpprs'][85000][443340000000] = 270.25;
+				cfsrMeans[16][48]['tmpprs'][85000][443361600000] = 270.47;
+				cfsrMeans[16][48]['tmpprs'][85000][443383200000] = 270.46;
+				cfsrMeans[16][48]['tmpprs'][85000][443404800000] = 270.53;
+				cfsrMeans[16][48]['tmpprs'][85000][443426400000] = 270.23;
+				cfsrMeans[16][48]['tmpprs'][85000][443448000000] = 270.45;
+				cfsrMeans[16][48]['tmpprs'][85000][443469600000] = 270.45;
+				cfsrMeans[16][48]['tmpprs'][85000][443491200000] = 270.51;
+				cfsrMeans[16][48]['tmpprs'][85000][443512800000] = 270.22;
+				cfsrMeans[16][48]['tmpprs'][85000][443534400000] = 270.44;
+				cfsrMeans[16][48]['tmpprs'][85000][443556000000] = 270.43;
+				cfsrMeans[16][48]['tmpprs'][85000][443577600000] = 270.49;
+				cfsrMeans[16][48]['tmpprs'][85000][443599200000] = 270.2;
+				cfsrMeans[16][48]['tmpprs'][85000][443620800000] = 270.42;
+				cfsrMeans[16][48]['tmpprs'][85000][443642400000] = 270.42;
+				cfsrMeans[16][48]['tmpprs'][85000][443664000000] = 270.47;
+				cfsrMeans[16][48]['tmpprs'][85000][443685600000] = 270.18;
+				cfsrMeans[16][48]['tmpprs'][85000][443707200000] = 270.41;
+				cfsrMeans[16][48]['tmpprs'][85000][443728800000] = 270.4;
+				cfsrMeans[16][48]['tmpprs'][85000][443750400000] = 270.45;
+				cfsrMeans[16][48]['tmpprs'][85000][443772000000] = 270.16;
+				cfsrMeans[16][48]['tmpprs'][85000][443793600000] = 270.39;
+				cfsrMeans[16][48]['tmpprs'][85000][443815200000] = 270.39;
+				cfsrMeans[16][48]['tmpprs'][85000][443836800000] = 270.44;
+				cfsrMeans[16][48]['tmpprs'][85000][443858400000] = 270.14;
+				cfsrMeans[16][48]['tmpprs'][85000][443880000000] = 270.37;
+				cfsrMeans[16][48]['tmpprs'][85000][443901600000] = 270.37;
+				cfsrMeans[16][48]['tmpprs'][85000][443923200000] = 270.42;
+				cfsrMeans[16][48]['tmpprs'][85000][443944800000] = 270.12;
+				cfsrMeans[16][48]['tmpprs'][85000][443966400000] = 270.36;
+				cfsrMeans[16][48]['tmpprs'][85000][443988000000] = 270.35;
+				cfsrMeans[16][48]['tmpprs'][85000][444009600000] = 270.39;
+				cfsrMeans[16][48]['tmpprs'][85000][444031200000] = 270.1;
+				cfsrMeans[16][48]['tmpprs'][85000][444052800000] = 270.34;
+				cfsrMeans[16][48]['tmpprs'][85000][444074400000] = 270.33;
+				cfsrMeans[16][48]['tmpprs'][85000][444096000000] = 270.37;
+				cfsrMeans[16][48]['tmpprs'][85000][444117600000] = 270.08;
+				cfsrMeans[16][48]['tmpprs'][85000][444139200000] = 270.32;
+				cfsrMeans[16][48]['tmpprs'][85000][444160800000] = 270.32;
+				cfsrMeans[16][48]['tmpprs'][85000][444182400000] = 270.35;
+				cfsrMeans[16][48]['tmpprs'][85000][444204000000] = 270.06;
+				cfsrMeans[16][48]['tmpprs'][85000][444225600000] = 270.3;
+				cfsrMeans[16][48]['tmpprs'][85000][444247200000] = 270.3;
+				cfsrMeans[16][48]['tmpprs'][85000][444268800000] = 270.33;
+				cfsrMeans[16][48]['tmpprs'][85000][444290400000] = 270.04;
+				cfsrMeans[16][48]['tmpprs'][85000][444312000000] = 270.28;
+				cfsrMeans[16][48]['tmpprs'][85000][444333600000] = 270.28;
+				cfsrMeans[16][48]['tmpprs'][85000][444355200000] = 270.31;
+				cfsrMeans[16][48]['tmpprs'][85000][444376800000] = 270.01;
+				cfsrMeans[16][48]['tmpprs'][85000][444398400000] = 270.26;
+				cfsrMeans[16][48]['tmpprs'][85000][444420000000] = 270.26;
+				cfsrMeans[16][48]['tmpprs'][85000][444441600000] = 270.28;
+				cfsrMeans[16][48]['tmpprs'][85000][444463200000] = 269.99;
+				cfsrMeans[16][48]['tmpprs'][85000][444484800000] = 270.24;
+				cfsrMeans[16][48]['tmpprs'][85000][444506400000] = 270.24;
+				cfsrMeans[16][48]['tmpprs'][85000][444528000000] = 270.26;
+				cfsrMeans[16][48]['tmpprs'][85000][444549600000] = 269.97;
+				cfsrMeans[16][48]['tmpprs'][85000][444571200000] = 270.22;
+				cfsrMeans[16][48]['tmpprs'][85000][444592800000] = 270.22;
+				cfsrMeans[16][48]['tmpprs'][85000][444614400000] = 270.24;
+				cfsrMeans[16][48]['tmpprs'][85000][444636000000] = 269.94;
+				cfsrMeans[16][48]['tmpprs'][85000][444657600000] = 270.2;
+				cfsrMeans[16][48]['tmpprs'][85000][444679200000] = 270.2;
+				cfsrMeans[16][48]['tmpprs'][85000][444700800000] = 270.21;
+				cfsrMeans[16][48]['tmpprs'][85000][444722400000] = 269.92;
+				cfsrMeans[16][48]['tmpprs'][85000][444744000000] = 270.18;
+				cfsrMeans[16][48]['tmpprs'][85000][444765600000] = 270.18;
+				cfsrMeans[16][48]['tmpprs'][85000][444787200000] = 270.19;
+				cfsrMeans[16][48]['tmpprs'][85000][444808800000] = 269.89;
+				cfsrMeans[16][48]['tmpprs'][85000][444830400000] = 270.16;
+				cfsrMeans[16][48]['tmpprs'][85000][444852000000] = 270.16;
+				cfsrMeans[16][48]['tmpprs'][85000][444873600000] = 270.17;
+				cfsrMeans[16][48]['tmpprs'][85000][444895200000] = 269.87;
+				cfsrMeans[16][48]['tmpprs'][85000][444916800000] = 270.13;
+				cfsrMeans[16][48]['tmpprs'][85000][444938400000] = 270.14;
+				cfsrMeans[16][48]['tmpprs'][85000][444960000000] = 270.15;
+				cfsrMeans[16][48]['tmpprs'][85000][444981600000] = 269.85;
+				cfsrMeans[16][48]['tmpprs'][85000][445003200000] = 270.12;
+				cfsrMeans[16][48]['tmpprs'][85000][445024800000] = 270.13;
+				cfsrMeans[16][48]['tmpprs'][85000][445046400000] = 270.12;
+				cfsrMeans[16][48]['tmpprs'][85000][445068000000] = 269.83;
+				cfsrMeans[16][48]['tmpprs'][85000][445089600000] = 270.1;
+				cfsrMeans[16][48]['tmpprs'][85000][445111200000] = 270.11;
+				cfsrMeans[16][48]['tmpprs'][85000][445132800000] = 270.1;
+				cfsrMeans[16][48]['tmpprs'][85000][445154400000] = 269.8;
+				cfsrMeans[16][48]['tmpprs'][85000][445176000000] = 270.08;
+				cfsrMeans[16][48]['tmpprs'][85000][445197600000] = 270.1;
+				cfsrMeans[16][48]['tmpprs'][85000][445219200000] = 270.09;
+				cfsrMeans[16][48]['tmpprs'][85000][445240800000] = 269.78;
+				cfsrMeans[16][48]['tmpprs'][85000][445262400000] = 270.06;
+				cfsrMeans[16][48]['tmpprs'][85000][445284000000] = 270.08;
+				cfsrMeans[16][48]['tmpprs'][85000][445305600000] = 270.07;
+				cfsrMeans[16][48]['tmpprs'][85000][445327200000] = 269.76;
+				cfsrMeans[16][48]['tmpprs'][85000][445348800000] = 270.04;
+				cfsrMeans[16][48]['tmpprs'][85000][445370400000] = 270.07;
+				cfsrMeans[16][48]['tmpprs'][85000][445392000000] = 270.05;
+				cfsrMeans[16][48]['tmpprs'][85000][445413600000] = 269.74;
+				cfsrMeans[16][48]['tmpprs'][85000][445435200000] = 270.03;
+				cfsrMeans[16][48]['tmpprs'][85000][445456800000] = 270.06;
+				cfsrMeans[16][48]['tmpprs'][85000][445478400000] = 270.04;
+				cfsrMeans[16][48]['tmpprs'][85000][445500000000] = 269.73;
+				cfsrMeans[16][48]['tmpprs'][85000][445521600000] = 270.01;
+				cfsrMeans[16][48]['tmpprs'][85000][445543200000] = 270.05;
+				cfsrMeans[16][48]['tmpprs'][85000][445564800000] = 270.02;
+				cfsrMeans[16][48]['tmpprs'][85000][445586400000] = 269.71;
+				cfsrMeans[16][48]['tmpprs'][85000][445608000000] = 270;
+				cfsrMeans[16][48]['tmpprs'][85000][445629600000] = 270.04;
+				cfsrMeans[16][48]['tmpprs'][85000][445651200000] = 270.01;
+				cfsrMeans[16][48]['tmpprs'][85000][445672800000] = 269.7;
+				cfsrMeans[16][48]['tmpprs'][85000][445694400000] = 269.99;
+				cfsrMeans[16][48]['tmpprs'][85000][445716000000] = 270.04;
+				cfsrMeans[16][48]['tmpprs'][85000][445737600000] = 270;
+				cfsrMeans[16][48]['tmpprs'][85000][445759200000] = 269.68;
+				cfsrMeans[16][48]['tmpprs'][85000][445780800000] = 269.98;
+				cfsrMeans[16][48]['tmpprs'][85000][445802400000] = 270.03;
+				cfsrMeans[16][48]['tmpprs'][85000][445824000000] = 270;
+				cfsrMeans[16][48]['tmpprs'][85000][445845600000] = 269.67;
+				cfsrMeans[16][48]['tmpprs'][85000][445867200000] = 269.98;
+				cfsrMeans[16][48]['tmpprs'][85000][445888800000] = 270.03;
+				cfsrMeans[16][48]['tmpprs'][85000][445910400000] = 270;
+				cfsrMeans[16][48]['tmpprs'][85000][445932000000] = 269.67;
+				cfsrMeans[16][48]['tmpprs'][85000][445953600000] = 269.97;
+				cfsrMeans[16][48]['tmpprs'][85000][445975200000] = 270.04;
+				cfsrMeans[16][48]['tmpprs'][85000][445996800000] = 269.99;
+				cfsrMeans[16][48]['tmpprs'][85000][446018400000] = 269.66;
+				cfsrMeans[16][48]['tmpprs'][85000][446040000000] = 269.97;
+				cfsrMeans[16][48]['tmpprs'][85000][446061600000] = 270.04;
+				cfsrMeans[16][48]['tmpprs'][85000][446083200000] = 270;
+				cfsrMeans[16][48]['tmpprs'][85000][446104800000] = 269.66;
+				cfsrMeans[16][48]['tmpprs'][85000][446126400000] = 269.97;
+				cfsrMeans[16][48]['tmpprs'][85000][446148000000] = 270.05;
+				cfsrMeans[16][48]['tmpprs'][85000][446169600000] = 270;
+				cfsrMeans[16][48]['tmpprs'][85000][446191200000] = 269.66;
+				cfsrMeans[16][48]['tmpprs'][85000][446212800000] = 269.98;
+				cfsrMeans[16][48]['tmpprs'][85000][446234400000] = 270.07;
+				cfsrMeans[16][48]['tmpprs'][85000][446256000000] = 270.01;
+				cfsrMeans[16][48]['tmpprs'][85000][446277600000] = 269.66;
+				cfsrMeans[16][48]['tmpprs'][85000][446299200000] = 269.99;
+				cfsrMeans[16][48]['tmpprs'][85000][446320800000] = 270.08;
+				cfsrMeans[16][48]['tmpprs'][85000][446342400000] = 270.02;
+				cfsrMeans[16][48]['tmpprs'][85000][446364000000] = 269.67;
+				cfsrMeans[16][48]['tmpprs'][85000][446385600000] = 270;
+				cfsrMeans[16][48]['tmpprs'][85000][446407200000] = 270.1;
+				cfsrMeans[16][48]['tmpprs'][85000][446428800000] = 270.04;
+				cfsrMeans[16][48]['tmpprs'][85000][446450400000] = 269.68;
+				cfsrMeans[16][48]['tmpprs'][85000][446472000000] = 270.01;
+				cfsrMeans[16][48]['tmpprs'][85000][446493600000] = 270.13;
+				cfsrMeans[16][48]['tmpprs'][85000][446515200000] = 270.06;
+				cfsrMeans[16][48]['tmpprs'][85000][446536800000] = 269.69;
+				cfsrMeans[16][48]['tmpprs'][85000][446558400000] = 270.03;
+				cfsrMeans[16][48]['tmpprs'][85000][446580000000] = 270.15;
+				cfsrMeans[16][48]['tmpprs'][85000][446601600000] = 270.08;
+				cfsrMeans[16][48]['tmpprs'][85000][446623200000] = 269.71;
+				cfsrMeans[16][48]['tmpprs'][85000][446644800000] = 270.05;
+				cfsrMeans[16][48]['tmpprs'][85000][446666400000] = 270.19;
+				cfsrMeans[16][48]['tmpprs'][85000][446688000000] = 270.11;
+				cfsrMeans[16][48]['tmpprs'][85000][446709600000] = 269.73;
+				cfsrMeans[16][48]['tmpprs'][85000][446731200000] = 270.08;
+				cfsrMeans[16][48]['tmpprs'][85000][446752800000] = 270.22;
+				cfsrMeans[16][48]['tmpprs'][85000][446774400000] = 270.14;
+				cfsrMeans[16][48]['tmpprs'][85000][446796000000] = 269.75;
+				cfsrMeans[16][48]['tmpprs'][85000][446817600000] = 270.11;
+				cfsrMeans[16][48]['tmpprs'][85000][446839200000] = 270.26;
+				cfsrMeans[16][48]['tmpprs'][85000][446860800000] = 270.16;
+				cfsrMeans[16][48]['tmpprs'][85000][446882400000] = 269.77;
+				cfsrMeans[16][48]['tmpprs'][85000][446904000000] = 270.13;
+				cfsrMeans[16][48]['tmpprs'][85000][446925600000] = 270.29;
+				cfsrMeans[16][48]['tmpprs'][85000][446947200000] = 270.18;
+				cfsrMeans[16][48]['tmpprs'][85000][446968800000] = 269.78;
+				cfsrMeans[16][48]['tmpprs'][85000][446990400000] = 270.14;
+				cfsrMeans[16][48]['tmpprs'][85000][447012000000] = 270.31;
+				cfsrMeans[16][48]['tmpprs'][85000][447033600000] = 270.22;
+				cfsrMeans[16][48]['tmpprs'][85000][447055200000] = 269.82;
+				cfsrMeans[16][48]['tmpprs'][85000][447076800000] = 270.18;
+				cfsrMeans[16][48]['tmpprs'][85000][447098400000] = 270.36;
+				cfsrMeans[16][48]['tmpprs'][85000][447120000000] = 270.27;
+				cfsrMeans[16][48]['tmpprs'][85000][447141600000] = 269.86;
+				cfsrMeans[16][48]['tmpprs'][85000][447163200000] = 270.22;
+				cfsrMeans[16][48]['tmpprs'][85000][447184800000] = 270.41;
+				cfsrMeans[16][48]['tmpprs'][85000][447206400000] = 270.32;
+				cfsrMeans[16][48]['tmpprs'][85000][447228000000] = 269.9;
+				cfsrMeans[16][48]['tmpprs'][85000][447249600000] = 270.27;
+				cfsrMeans[16][48]['tmpprs'][85000][447271200000] = 270.47;
+				cfsrMeans[16][48]['tmpprs'][85000][447292800000] = 270.38;
+				cfsrMeans[16][48]['tmpprs'][85000][447314400000] = 269.94;
+				cfsrMeans[16][48]['tmpprs'][85000][447336000000] = 270.33;
+				cfsrMeans[16][48]['tmpprs'][85000][447357600000] = 270.54;
+				cfsrMeans[16][48]['tmpprs'][85000][447379200000] = 270.44;
+				cfsrMeans[16][48]['tmpprs'][85000][447400800000] = 270;
+				cfsrMeans[16][48]['tmpprs'][85000][447422400000] = 270.38;
+				cfsrMeans[16][48]['tmpprs'][85000][447444000000] = 270.61;
+				cfsrMeans[16][48]['tmpprs'][85000][447465600000] = 270.5;
+				cfsrMeans[16][48]['tmpprs'][85000][447487200000] = 270.05;
+				cfsrMeans[16][48]['tmpprs'][85000][447508800000] = 270.44;
+				cfsrMeans[16][48]['tmpprs'][85000][447530400000] = 270.69;
+				cfsrMeans[16][48]['tmpprs'][85000][447552000000] = 270.57;
+				cfsrMeans[16][48]['tmpprs'][85000][447573600000] = 270.11;
+				cfsrMeans[16][48]['tmpprs'][85000][447595200000] = 270.51;
+				cfsrMeans[16][48]['tmpprs'][85000][447616800000] = 270.77;
+				cfsrMeans[16][48]['tmpprs'][85000][447638400000] = 270.65;
+				cfsrMeans[16][48]['tmpprs'][85000][447660000000] = 270.18;
+				cfsrMeans[16][48]['tmpprs'][85000][447681600000] = 270.58;
+				cfsrMeans[16][48]['tmpprs'][85000][447703200000] = 270.85;
+				cfsrMeans[16][48]['tmpprs'][85000][447724800000] = 270.73;
+				cfsrMeans[16][48]['tmpprs'][85000][447746400000] = 270.25;
+				cfsrMeans[16][48]['tmpprs'][85000][447768000000] = 270.66;
+				cfsrMeans[16][48]['tmpprs'][85000][447789600000] = 270.94;
+				cfsrMeans[16][48]['tmpprs'][85000][447811200000] = 270.82;
+				cfsrMeans[16][48]['tmpprs'][85000][447832800000] = 270.33;
+				cfsrMeans[16][48]['tmpprs'][85000][447854400000] = 270.74;
+				cfsrMeans[16][48]['tmpprs'][85000][447876000000] = 271.04;
+				cfsrMeans[16][48]['tmpprs'][85000][447897600000] = 270.91;
+				cfsrMeans[16][48]['tmpprs'][85000][447919200000] = 270.41;
+				cfsrMeans[16][48]['tmpprs'][85000][447940800000] = 270.83;
+				cfsrMeans[16][48]['tmpprs'][85000][447962400000] = 271.14;
+				cfsrMeans[16][48]['tmpprs'][85000][447984000000] = 271;
+				cfsrMeans[16][48]['tmpprs'][85000][448005600000] = 270.5;
+				cfsrMeans[16][48]['tmpprs'][85000][448027200000] = 270.92;
+				cfsrMeans[16][48]['tmpprs'][85000][448048800000] = 271.25;
+				cfsrMeans[16][48]['tmpprs'][85000][448070400000] = 271.11;
+				cfsrMeans[16][48]['tmpprs'][85000][448092000000] = 270.59;
+				cfsrMeans[16][48]['tmpprs'][85000][448113600000] = 271.02;
+				cfsrMeans[16][48]['tmpprs'][85000][448135200000] = 271.36;
+				cfsrMeans[16][48]['tmpprs'][85000][448156800000] = 271.21;
+				cfsrMeans[16][48]['tmpprs'][85000][448178400000] = 270.68;
+				cfsrMeans[16][48]['tmpprs'][85000][448200000000] = 271.12;
+				cfsrMeans[16][48]['tmpprs'][85000][448221600000] = 271.48;
+				cfsrMeans[16][48]['tmpprs'][85000][448243200000] = 271.32;
+				cfsrMeans[16][48]['tmpprs'][85000][448264800000] = 270.78;
+				cfsrMeans[16][48]['tmpprs'][85000][448286400000] = 271.23;
+				cfsrMeans[16][48]['tmpprs'][85000][448308000000] = 271.6;
+				cfsrMeans[16][48]['tmpprs'][85000][448329600000] = 271.44;
+				cfsrMeans[16][48]['tmpprs'][85000][448351200000] = 270.89;
+				cfsrMeans[16][48]['tmpprs'][85000][448372800000] = 271.34;
+				cfsrMeans[16][48]['tmpprs'][85000][448394400000] = 271.72;
+				cfsrMeans[16][48]['tmpprs'][85000][448416000000] = 271.56;
+				cfsrMeans[16][48]['tmpprs'][85000][448437600000] = 271;
+				cfsrMeans[16][48]['tmpprs'][85000][448459200000] = 271.46;
+				cfsrMeans[16][48]['tmpprs'][85000][448480800000] = 271.85;
+				cfsrMeans[16][48]['tmpprs'][85000][448502400000] = 271.69;
+				cfsrMeans[16][48]['tmpprs'][85000][448524000000] = 271.11;
+				cfsrMeans[16][48]['tmpprs'][85000][448545600000] = 271.58;
+				cfsrMeans[16][48]['tmpprs'][85000][448567200000] = 271.99;
+				cfsrMeans[16][48]['tmpprs'][85000][448588800000] = 271.82;
+				cfsrMeans[16][48]['tmpprs'][85000][448610400000] = 271.23;
+				cfsrMeans[16][48]['tmpprs'][85000][448632000000] = 271.71;
+				cfsrMeans[16][48]['tmpprs'][85000][448653600000] = 272.13;
+				cfsrMeans[16][48]['tmpprs'][85000][448675200000] = 271.95;
+				cfsrMeans[16][48]['tmpprs'][85000][448696800000] = 271.35;
+				cfsrMeans[16][48]['tmpprs'][85000][448718400000] = 271.84;
+				cfsrMeans[16][48]['tmpprs'][85000][448740000000] = 272.28;
+				cfsrMeans[16][48]['tmpprs'][85000][448761600000] = 272.09;
+				cfsrMeans[16][48]['tmpprs'][85000][448783200000] = 271.48;
+				cfsrMeans[16][48]['tmpprs'][85000][448804800000] = 271.98;
+				cfsrMeans[16][48]['tmpprs'][85000][448826400000] = 272.42;
+				cfsrMeans[16][48]['tmpprs'][85000][448848000000] = 272.23;
+				cfsrMeans[16][48]['tmpprs'][85000][448869600000] = 271.61;
+				cfsrMeans[16][48]['tmpprs'][85000][448891200000] = 272.11;
+				cfsrMeans[16][48]['tmpprs'][85000][448912800000] = 272.58;
+				cfsrMeans[16][48]['tmpprs'][85000][448934400000] = 272.38;
+				cfsrMeans[16][48]['tmpprs'][85000][448956000000] = 271.75;
+				cfsrMeans[16][48]['tmpprs'][85000][448977600000] = 272.26;
+				cfsrMeans[16][48]['tmpprs'][85000][448999200000] = 272.73;
+				cfsrMeans[16][48]['tmpprs'][85000][449020800000] = 272.53;
+				cfsrMeans[16][48]['tmpprs'][85000][449042400000] = 271.89;
+				cfsrMeans[16][48]['tmpprs'][85000][449064000000] = 272.41;
+				cfsrMeans[16][48]['tmpprs'][85000][449085600000] = 272.89;
+				cfsrMeans[16][48]['tmpprs'][85000][449107200000] = 272.68;
+				cfsrMeans[16][48]['tmpprs'][85000][449128800000] = 272.03;
+				cfsrMeans[16][48]['tmpprs'][85000][449150400000] = 272.56;
+				cfsrMeans[16][48]['tmpprs'][85000][449172000000] = 273.06;
+				cfsrMeans[16][48]['tmpprs'][85000][449193600000] = 272.84;
+				cfsrMeans[16][48]['tmpprs'][85000][449215200000] = 272.18;
+				cfsrMeans[16][48]['tmpprs'][85000][449236800000] = 272.71;
+				cfsrMeans[16][48]['tmpprs'][85000][449258400000] = 273.22;
+				cfsrMeans[16][48]['tmpprs'][85000][449280000000] = 273;
+				cfsrMeans[16][48]['tmpprs'][85000][449301600000] = 272.33;
+				cfsrMeans[16][48]['tmpprs'][85000][449323200000] = 272.87;
+				cfsrMeans[16][48]['tmpprs'][85000][449344800000] = 273.39;
+				cfsrMeans[16][48]['tmpprs'][85000][449366400000] = 273.16;
+				cfsrMeans[16][48]['tmpprs'][85000][449388000000] = 272.48;
+				cfsrMeans[16][48]['tmpprs'][85000][449409600000] = 273.03;
+				cfsrMeans[16][48]['tmpprs'][85000][449431200000] = 273.57;
+				cfsrMeans[16][48]['tmpprs'][85000][449452800000] = 273.33;
+				cfsrMeans[16][48]['tmpprs'][85000][449474400000] = 272.63;
+				cfsrMeans[16][48]['tmpprs'][85000][449496000000] = 273.2;
+				cfsrMeans[16][48]['tmpprs'][85000][449517600000] = 273.74;
+				cfsrMeans[16][48]['tmpprs'][85000][449539200000] = 273.5;
+				cfsrMeans[16][48]['tmpprs'][85000][449560800000] = 272.79;
+				cfsrMeans[16][48]['tmpprs'][85000][449582400000] = 273.36;
+				cfsrMeans[16][48]['tmpprs'][85000][449604000000] = 273.92;
+				cfsrMeans[16][48]['tmpprs'][85000][449625600000] = 273.67;
+				cfsrMeans[16][48]['tmpprs'][85000][449647200000] = 272.95;
+				cfsrMeans[16][48]['tmpprs'][85000][449668800000] = 273.53;
+				cfsrMeans[16][48]['tmpprs'][85000][449690400000] = 274.1;
+				cfsrMeans[16][48]['tmpprs'][85000][449712000000] = 273.84;
+				cfsrMeans[16][48]['tmpprs'][85000][449733600000] = 273.12;
+				cfsrMeans[16][48]['tmpprs'][85000][449755200000] = 273.71;
+				cfsrMeans[16][48]['tmpprs'][85000][449776800000] = 274.28;
+				cfsrMeans[16][48]['tmpprs'][85000][449798400000] = 274.01;
+				cfsrMeans[16][48]['tmpprs'][85000][449820000000] = 273.28;
+				cfsrMeans[16][48]['tmpprs'][85000][449841600000] = 273.88;
+				cfsrMeans[16][48]['tmpprs'][85000][449863200000] = 274.46;
+				cfsrMeans[16][48]['tmpprs'][85000][449884800000] = 274.19;
+				cfsrMeans[16][48]['tmpprs'][85000][449906400000] = 273.45;
+				cfsrMeans[16][48]['tmpprs'][85000][449928000000] = 274.06;
+				cfsrMeans[16][48]['tmpprs'][85000][449949600000] = 274.65;
+				cfsrMeans[16][48]['tmpprs'][85000][449971200000] = 274.36;
+				cfsrMeans[16][48]['tmpprs'][85000][449992800000] = 273.62;
+				cfsrMeans[16][48]['tmpprs'][85000][450014400000] = 274.23;
+				cfsrMeans[16][48]['tmpprs'][85000][450036000000] = 274.83;
+				cfsrMeans[16][48]['tmpprs'][85000][450057600000] = 274.54;
+				cfsrMeans[16][48]['tmpprs'][85000][450079200000] = 273.79;
+				cfsrMeans[16][48]['tmpprs'][85000][450100800000] = 274.41;
+				cfsrMeans[16][48]['tmpprs'][85000][450122400000] = 275.02;
+				cfsrMeans[16][48]['tmpprs'][85000][450144000000] = 274.72;
+				cfsrMeans[16][48]['tmpprs'][85000][450165600000] = 273.96;
+				cfsrMeans[16][48]['tmpprs'][85000][450187200000] = 274.59;
+				cfsrMeans[16][48]['tmpprs'][85000][450208800000] = 275.21;
+				cfsrMeans[16][48]['tmpprs'][85000][450230400000] = 274.9;
+				cfsrMeans[16][48]['tmpprs'][85000][450252000000] = 274.13;
+				cfsrMeans[16][48]['tmpprs'][85000][450273600000] = 274.77;
+				cfsrMeans[16][48]['tmpprs'][85000][450295200000] = 275.39;
+				cfsrMeans[16][48]['tmpprs'][85000][450316800000] = 275.08;
+				cfsrMeans[16][48]['tmpprs'][85000][450338400000] = 274.3;
+				cfsrMeans[16][48]['tmpprs'][85000][450360000000] = 274.95;
+				cfsrMeans[16][48]['tmpprs'][85000][450381600000] = 275.58;
+				cfsrMeans[16][48]['tmpprs'][85000][450403200000] = 275.26;
+				cfsrMeans[16][48]['tmpprs'][85000][450424800000] = 274.47;
+				cfsrMeans[16][48]['tmpprs'][85000][450446400000] = 275.14;
+				cfsrMeans[16][48]['tmpprs'][85000][450468000000] = 275.77;
+				cfsrMeans[16][48]['tmpprs'][85000][450489600000] = 275.44;
+				cfsrMeans[16][48]['tmpprs'][85000][450511200000] = 274.64;
+				cfsrMeans[16][48]['tmpprs'][85000][450532800000] = 275.32;
+				cfsrMeans[16][48]['tmpprs'][85000][450554400000] = 275.95;
+				cfsrMeans[16][48]['tmpprs'][85000][450576000000] = 275.62;
+				cfsrMeans[16][48]['tmpprs'][85000][450597600000] = 274.82;
+				cfsrMeans[16][48]['tmpprs'][85000][450619200000] = 275.5;
+				cfsrMeans[16][48]['tmpprs'][85000][450640800000] = 276.14;
+				cfsrMeans[16][48]['tmpprs'][85000][450662400000] = 275.8;
+				cfsrMeans[16][48]['tmpprs'][85000][450684000000] = 274.99;
+				cfsrMeans[16][48]['tmpprs'][85000][450705600000] = 275.68;
+				cfsrMeans[16][48]['tmpprs'][85000][450727200000] = 276.32;
+				cfsrMeans[16][48]['tmpprs'][85000][450748800000] = 275.97;
+				cfsrMeans[16][48]['tmpprs'][85000][450770400000] = 275.16;
+				cfsrMeans[16][48]['tmpprs'][85000][450792000000] = 275.86;
+				cfsrMeans[16][48]['tmpprs'][85000][450813600000] = 276.51;
+				cfsrMeans[16][48]['tmpprs'][85000][450835200000] = 276.15;
+				cfsrMeans[16][48]['tmpprs'][85000][450856800000] = 275.33;
+				cfsrMeans[16][48]['tmpprs'][85000][450878400000] = 276.04;
+				cfsrMeans[16][48]['tmpprs'][85000][450900000000] = 276.69;
+				cfsrMeans[16][48]['tmpprs'][85000][450921600000] = 276.33;
+				cfsrMeans[16][48]['tmpprs'][85000][450943200000] = 275.5;
+				cfsrMeans[16][48]['tmpprs'][85000][450964800000] = 276.22;
+				cfsrMeans[16][48]['tmpprs'][85000][450986400000] = 276.87;
+				cfsrMeans[16][48]['tmpprs'][85000][451008000000] = 276.5;
+				cfsrMeans[16][48]['tmpprs'][85000][451029600000] = 275.67;
+				cfsrMeans[16][48]['tmpprs'][85000][451051200000] = 276.4;
+				cfsrMeans[16][48]['tmpprs'][85000][451072800000] = 277.05;
+				cfsrMeans[16][48]['tmpprs'][85000][451094400000] = 276.67;
+				cfsrMeans[16][48]['tmpprs'][85000][451116000000] = 275.83;
+				cfsrMeans[16][48]['tmpprs'][85000][451137600000] = 276.58;
+				cfsrMeans[16][48]['tmpprs'][85000][451159200000] = 277.22;
+				cfsrMeans[16][48]['tmpprs'][85000][451180800000] = 276.84;
+				cfsrMeans[16][48]['tmpprs'][85000][451202400000] = 276;
+				cfsrMeans[16][48]['tmpprs'][85000][451224000000] = 276.75;
+				cfsrMeans[16][48]['tmpprs'][85000][451245600000] = 277.4;
+				cfsrMeans[16][48]['tmpprs'][85000][451267200000] = 277.01;
+				cfsrMeans[16][48]['tmpprs'][85000][451288800000] = 276.16;
+				cfsrMeans[16][48]['tmpprs'][85000][451310400000] = 276.92;
+				cfsrMeans[16][48]['tmpprs'][85000][451332000000] = 277.57;
+				cfsrMeans[16][48]['tmpprs'][85000][451353600000] = 277.17;
+				cfsrMeans[16][48]['tmpprs'][85000][451375200000] = 276.33;
+				cfsrMeans[16][48]['tmpprs'][85000][451396800000] = 277.1;
+				cfsrMeans[16][48]['tmpprs'][85000][451418400000] = 277.74;
+				cfsrMeans[16][48]['tmpprs'][85000][451440000000] = 277.34;
+				cfsrMeans[16][48]['tmpprs'][85000][451461600000] = 276.49;
+				cfsrMeans[16][48]['tmpprs'][85000][451483200000] = 277.26;
+				cfsrMeans[16][48]['tmpprs'][85000][451504800000] = 277.91;
+				cfsrMeans[16][48]['tmpprs'][85000][451526400000] = 277.5;
+				cfsrMeans[16][48]['tmpprs'][85000][451548000000] = 276.64;
+				cfsrMeans[16][48]['tmpprs'][85000][451569600000] = 277.43;
+				cfsrMeans[16][48]['tmpprs'][85000][451591200000] = 278.07;
+				cfsrMeans[16][48]['tmpprs'][85000][451612800000] = 277.66;
+				cfsrMeans[16][48]['tmpprs'][85000][451634400000] = 276.8;
+				cfsrMeans[16][48]['tmpprs'][85000][451656000000] = 277.6;
+				cfsrMeans[16][48]['tmpprs'][85000][451677600000] = 278.23;
+				cfsrMeans[16][48]['tmpprs'][85000][451699200000] = 277.81;
+				cfsrMeans[16][48]['tmpprs'][85000][451720800000] = 276.95;
+				cfsrMeans[16][48]['tmpprs'][85000][451742400000] = 277.76;
+				cfsrMeans[16][48]['tmpprs'][85000][451764000000] = 278.39;
+				cfsrMeans[16][48]['tmpprs'][85000][451785600000] = 277.97;
+				cfsrMeans[16][48]['tmpprs'][85000][451807200000] = 277.1;
+				cfsrMeans[16][48]['tmpprs'][85000][451828800000] = 277.92;
+				cfsrMeans[16][48]['tmpprs'][85000][451850400000] = 278.55;
+				cfsrMeans[16][48]['tmpprs'][85000][451872000000] = 278.12;
+				cfsrMeans[16][48]['tmpprs'][85000][451893600000] = 277.25;
+				cfsrMeans[16][48]['tmpprs'][85000][451915200000] = 278.07;
+				cfsrMeans[16][48]['tmpprs'][85000][451936800000] = 278.7;
+				cfsrMeans[16][48]['tmpprs'][85000][451958400000] = 278.26;
+				cfsrMeans[16][48]['tmpprs'][85000][451980000000] = 277.4;
+				cfsrMeans[16][48]['tmpprs'][85000][452001600000] = 278.23;
+				cfsrMeans[16][48]['tmpprs'][85000][452023200000] = 278.85;
+				cfsrMeans[16][48]['tmpprs'][85000][452044800000] = 278.41;
+				cfsrMeans[16][48]['tmpprs'][85000][452066400000] = 277.54;
+				cfsrMeans[16][48]['tmpprs'][85000][452088000000] = 278.38;
+				cfsrMeans[16][48]['tmpprs'][85000][452109600000] = 279;
+				cfsrMeans[16][48]['tmpprs'][85000][452131200000] = 278.55;
+				cfsrMeans[16][48]['tmpprs'][85000][452152800000] = 277.68;
+				cfsrMeans[16][48]['tmpprs'][85000][452174400000] = 278.53;
+				cfsrMeans[16][48]['tmpprs'][85000][452196000000] = 279.14;
+				cfsrMeans[16][48]['tmpprs'][85000][452217600000] = 278.69;
+				cfsrMeans[16][48]['tmpprs'][85000][452239200000] = 277.82;
+				cfsrMeans[16][48]['tmpprs'][85000][452260800000] = 278.67;
+				cfsrMeans[16][48]['tmpprs'][85000][452282400000] = 279.28;
+				cfsrMeans[16][48]['tmpprs'][85000][452304000000] = 278.82;
+				cfsrMeans[16][48]['tmpprs'][85000][452325600000] = 277.95;
+				cfsrMeans[16][48]['tmpprs'][85000][452347200000] = 278.82;
+				cfsrMeans[16][48]['tmpprs'][85000][452368800000] = 279.41;
+				cfsrMeans[16][48]['tmpprs'][85000][452390400000] = 278.95;
+				cfsrMeans[16][48]['tmpprs'][85000][452412000000] = 278.09;
+				cfsrMeans[16][48]['tmpprs'][85000][452433600000] = 278.95;
+				cfsrMeans[16][48]['tmpprs'][85000][452455200000] = 279.55;
+				cfsrMeans[16][48]['tmpprs'][85000][452476800000] = 279.08;
+				cfsrMeans[16][48]['tmpprs'][85000][452498400000] = 278.21;
+				cfsrMeans[16][48]['tmpprs'][85000][452520000000] = 279.09;
+				cfsrMeans[16][48]['tmpprs'][85000][452541600000] = 279.68;
+				cfsrMeans[16][48]['tmpprs'][85000][452563200000] = 279.21;
+				cfsrMeans[16][48]['tmpprs'][85000][452584800000] = 278.34;
+				cfsrMeans[16][48]['tmpprs'][85000][452606400000] = 279.22;
+				cfsrMeans[16][48]['tmpprs'][85000][452628000000] = 279.8;
+				cfsrMeans[16][48]['tmpprs'][85000][452649600000] = 279.33;
+				cfsrMeans[16][48]['tmpprs'][85000][452671200000] = 278.46;
+				cfsrMeans[16][48]['tmpprs'][85000][452692800000] = 279.35;
+				cfsrMeans[16][48]['tmpprs'][85000][452714400000] = 279.93;
+				cfsrMeans[16][48]['tmpprs'][85000][452736000000] = 279.45;
+				cfsrMeans[16][48]['tmpprs'][85000][452757600000] = 278.58;
+				cfsrMeans[16][48]['tmpprs'][85000][452779200000] = 279.48;
+				cfsrMeans[16][48]['tmpprs'][85000][452800800000] = 280.05;
+				cfsrMeans[16][48]['tmpprs'][85000][452822400000] = 279.56;
+				cfsrMeans[16][48]['tmpprs'][85000][452844000000] = 278.7;
+				cfsrMeans[16][48]['tmpprs'][85000][452865600000] = 279.6;
+				cfsrMeans[16][48]['tmpprs'][85000][452887200000] = 280.16;
+				cfsrMeans[16][48]['tmpprs'][85000][452908800000] = 279.68;
+				cfsrMeans[16][48]['tmpprs'][85000][452930400000] = 278.82;
+				cfsrMeans[16][48]['tmpprs'][85000][452952000000] = 279.73;
+				cfsrMeans[16][48]['tmpprs'][85000][452973600000] = 280.28;
+				cfsrMeans[16][48]['tmpprs'][85000][452995200000] = 279.79;
+				cfsrMeans[16][48]['tmpprs'][85000][453016800000] = 278.93;
+				cfsrMeans[16][48]['tmpprs'][85000][453038400000] = 279.84;
+				cfsrMeans[16][48]['tmpprs'][85000][453060000000] = 280.39;
+				cfsrMeans[16][48]['tmpprs'][85000][453081600000] = 279.9;
+				cfsrMeans[16][48]['tmpprs'][85000][453103200000] = 279.04;
+				cfsrMeans[16][48]['tmpprs'][85000][453124800000] = 279.96;
+				cfsrMeans[16][48]['tmpprs'][85000][453146400000] = 280.5;
+				cfsrMeans[16][48]['tmpprs'][85000][453168000000] = 280;
+				cfsrMeans[16][48]['tmpprs'][85000][453189600000] = 279.15;
+				cfsrMeans[16][48]['tmpprs'][85000][453211200000] = 280.07;
+				cfsrMeans[16][48]['tmpprs'][85000][453232800000] = 280.6;
+				cfsrMeans[16][48]['tmpprs'][85000][453254400000] = 280.1;
+				cfsrMeans[16][48]['tmpprs'][85000][453276000000] = 279.25;
+				cfsrMeans[16][48]['tmpprs'][85000][453297600000] = 280.18;
+				cfsrMeans[16][48]['tmpprs'][85000][453319200000] = 280.7;
+				cfsrMeans[16][48]['tmpprs'][85000][453340800000] = 280.2;
+				cfsrMeans[16][48]['tmpprs'][85000][453362400000] = 279.35;
+				cfsrMeans[16][48]['tmpprs'][85000][453384000000] = 280.29;
+				cfsrMeans[16][48]['tmpprs'][85000][453405600000] = 280.8;
+				cfsrMeans[16][48]['tmpprs'][85000][453427200000] = 280.3;
+				cfsrMeans[16][48]['tmpprs'][85000][453448800000] = 279.45;
+				cfsrMeans[16][48]['tmpprs'][85000][453470400000] = 280.39;
+				cfsrMeans[16][48]['tmpprs'][85000][453492000000] = 280.9;
+				cfsrMeans[16][48]['tmpprs'][85000][453513600000] = 280.4;
+				cfsrMeans[16][48]['tmpprs'][85000][453535200000] = 279.55;
+				cfsrMeans[16][48]['tmpprs'][85000][453556800000] = 280.5;
+				cfsrMeans[16][48]['tmpprs'][85000][453578400000] = 281;
+				cfsrMeans[16][48]['tmpprs'][85000][453600000000] = 280.49;
+				cfsrMeans[16][48]['tmpprs'][85000][453621600000] = 279.65;
+				cfsrMeans[16][48]['tmpprs'][85000][453643200000] = 280.6;
+				cfsrMeans[16][48]['tmpprs'][85000][453664800000] = 281.09;
+				cfsrMeans[16][48]['tmpprs'][85000][453686400000] = 280.58;
+				cfsrMeans[16][48]['tmpprs'][85000][453708000000] = 279.74;
+				cfsrMeans[16][48]['tmpprs'][85000][453729600000] = 280.7;
+				cfsrMeans[16][48]['tmpprs'][85000][453751200000] = 281.18;
+				cfsrMeans[16][48]['tmpprs'][85000][453772800000] = 280.67;
+				cfsrMeans[16][48]['tmpprs'][85000][453794400000] = 279.83;
+				cfsrMeans[16][48]['tmpprs'][85000][453816000000] = 280.79;
+				cfsrMeans[16][48]['tmpprs'][85000][453837600000] = 281.27;
+				cfsrMeans[16][48]['tmpprs'][85000][453859200000] = 280.76;
+				cfsrMeans[16][48]['tmpprs'][85000][453880800000] = 279.93;
+				cfsrMeans[16][48]['tmpprs'][85000][453902400000] = 280.89;
+				cfsrMeans[16][48]['tmpprs'][85000][453924000000] = 281.36;
+				cfsrMeans[16][48]['tmpprs'][85000][453945600000] = 280.85;
+				cfsrMeans[16][48]['tmpprs'][85000][453967200000] = 280.01;
+				cfsrMeans[16][48]['tmpprs'][85000][453988800000] = 280.98;
+				cfsrMeans[16][48]['tmpprs'][85000][454010400000] = 281.45;
+				cfsrMeans[16][48]['tmpprs'][85000][454032000000] = 280.93;
+				cfsrMeans[16][48]['tmpprs'][85000][454053600000] = 280.1;
+				cfsrMeans[16][48]['tmpprs'][85000][454075200000] = 281.07;
+				cfsrMeans[16][48]['tmpprs'][85000][454096800000] = 281.54;
+				cfsrMeans[16][48]['tmpprs'][85000][454118400000] = 281.02;
+				cfsrMeans[16][48]['tmpprs'][85000][454140000000] = 280.19;
+				cfsrMeans[16][48]['tmpprs'][85000][454161600000] = 281.16;
+				cfsrMeans[16][48]['tmpprs'][85000][454183200000] = 281.62;
+				cfsrMeans[16][48]['tmpprs'][85000][454204800000] = 281.1;
+				cfsrMeans[16][48]['tmpprs'][85000][454226400000] = 280.28;
+				cfsrMeans[16][48]['tmpprs'][85000][454248000000] = 281.25;
+				cfsrMeans[16][48]['tmpprs'][85000][454269600000] = 281.71;
+				cfsrMeans[16][48]['tmpprs'][85000][454291200000] = 281.19;
+				cfsrMeans[16][48]['tmpprs'][85000][454312800000] = 280.36;
+				cfsrMeans[16][48]['tmpprs'][85000][454334400000] = 281.34;
+				cfsrMeans[16][48]['tmpprs'][85000][454356000000] = 281.79;
+				cfsrMeans[16][48]['tmpprs'][85000][454377600000] = 281.27;
+				cfsrMeans[16][48]['tmpprs'][85000][454399200000] = 280.45;
+				cfsrMeans[16][48]['tmpprs'][85000][454420800000] = 281.42;
+				cfsrMeans[16][48]['tmpprs'][85000][454442400000] = 281.87;
+				cfsrMeans[16][48]['tmpprs'][85000][454464000000] = 281.35;
+				cfsrMeans[16][48]['tmpprs'][85000][454485600000] = 280.53;
+				cfsrMeans[16][48]['tmpprs'][85000][454507200000] = 281.51;
+				cfsrMeans[16][48]['tmpprs'][85000][454528800000] = 281.96;
+				cfsrMeans[16][48]['tmpprs'][85000][454550400000] = 281.43;
+				cfsrMeans[16][48]['tmpprs'][85000][454572000000] = 280.61;
+				cfsrMeans[16][48]['tmpprs'][85000][454593600000] = 281.6;
+				cfsrMeans[16][48]['tmpprs'][85000][454615200000] = 282.04;
+				cfsrMeans[16][48]['tmpprs'][85000][454636800000] = 281.51;
+				cfsrMeans[16][48]['tmpprs'][85000][454658400000] = 280.69;
+				cfsrMeans[16][48]['tmpprs'][85000][454680000000] = 281.68;
+				cfsrMeans[16][48]['tmpprs'][85000][454701600000] = 282.12;
+				cfsrMeans[16][48]['tmpprs'][85000][454723200000] = 281.59;
+				cfsrMeans[16][48]['tmpprs'][85000][454744800000] = 280.78;
+				cfsrMeans[16][48]['tmpprs'][85000][454766400000] = 281.76;
+				cfsrMeans[16][48]['tmpprs'][85000][454788000000] = 282.2;
+				cfsrMeans[16][48]['tmpprs'][85000][454809600000] = 281.67;
+				cfsrMeans[16][48]['tmpprs'][85000][454831200000] = 280.86;
+				cfsrMeans[16][48]['tmpprs'][85000][454852800000] = 281.85;
+				cfsrMeans[16][48]['tmpprs'][85000][454874400000] = 282.28;
+				cfsrMeans[16][48]['tmpprs'][85000][454896000000] = 281.75;
+				cfsrMeans[16][48]['tmpprs'][85000][454917600000] = 280.94;
+				cfsrMeans[16][48]['tmpprs'][85000][454939200000] = 281.93;
+				cfsrMeans[16][48]['tmpprs'][85000][454960800000] = 282.37;
+				cfsrMeans[16][48]['tmpprs'][85000][454982400000] = 281.83;
+				cfsrMeans[16][48]['tmpprs'][85000][455004000000] = 281.02;
+				cfsrMeans[16][48]['tmpprs'][85000][455025600000] = 282.01;
+				cfsrMeans[16][48]['tmpprs'][85000][455047200000] = 282.45;
+				cfsrMeans[16][48]['tmpprs'][85000][455068800000] = 281.91;
+				cfsrMeans[16][48]['tmpprs'][85000][455090400000] = 281.11;
+				cfsrMeans[16][48]['tmpprs'][85000][455112000000] = 282.1;
+				cfsrMeans[16][48]['tmpprs'][85000][455133600000] = 282.53;
+				cfsrMeans[16][48]['tmpprs'][85000][455155200000] = 281.99;
+				cfsrMeans[16][48]['tmpprs'][85000][455176800000] = 281.19;
+				cfsrMeans[16][48]['tmpprs'][85000][455198400000] = 282.18;
+				cfsrMeans[16][48]['tmpprs'][85000][455220000000] = 282.62;
+				cfsrMeans[16][48]['tmpprs'][85000][455241600000] = 282.08;
+				cfsrMeans[16][48]['tmpprs'][85000][455263200000] = 281.27;
+				cfsrMeans[16][48]['tmpprs'][85000][455284800000] = 282.27;
+				cfsrMeans[16][48]['tmpprs'][85000][455306400000] = 282.7;
+				cfsrMeans[16][48]['tmpprs'][85000][455328000000] = 282.16;
+				cfsrMeans[16][48]['tmpprs'][85000][455349600000] = 281.36;
+				cfsrMeans[16][48]['tmpprs'][85000][455371200000] = 282.35;
+				cfsrMeans[16][48]['tmpprs'][85000][455392800000] = 282.79;
+				cfsrMeans[16][48]['tmpprs'][85000][455414400000] = 282.24;
+				cfsrMeans[16][48]['tmpprs'][85000][455436000000] = 281.44;
+				cfsrMeans[16][48]['tmpprs'][85000][455457600000] = 282.44;
+				cfsrMeans[16][48]['tmpprs'][85000][455479200000] = 282.87;
+				cfsrMeans[16][48]['tmpprs'][85000][455500800000] = 282.32;
+				cfsrMeans[16][48]['tmpprs'][85000][455522400000] = 281.52;
+				cfsrMeans[16][48]['tmpprs'][85000][455544000000] = 282.52;
+				cfsrMeans[16][48]['tmpprs'][85000][455565600000] = 282.96;
+				cfsrMeans[16][48]['tmpprs'][85000][455587200000] = 282.41;
+				cfsrMeans[16][48]['tmpprs'][85000][455608800000] = 281.61;
+				cfsrMeans[16][48]['tmpprs'][85000][455630400000] = 282.61;
+				cfsrMeans[16][48]['tmpprs'][85000][455652000000] = 283.05;
+				cfsrMeans[16][48]['tmpprs'][85000][455673600000] = 282.49;
+				cfsrMeans[16][48]['tmpprs'][85000][455695200000] = 281.7;
+				cfsrMeans[16][48]['tmpprs'][85000][455716800000] = 282.69;
+				cfsrMeans[16][48]['tmpprs'][85000][455738400000] = 283.14;
+				cfsrMeans[16][48]['tmpprs'][85000][455760000000] = 282.58;
+				cfsrMeans[16][48]['tmpprs'][85000][455781600000] = 281.78;
+				cfsrMeans[16][48]['tmpprs'][85000][455803200000] = 282.78;
+				cfsrMeans[16][48]['tmpprs'][85000][455824800000] = 283.23;
+				cfsrMeans[16][48]['tmpprs'][85000][455846400000] = 282.67;
+				cfsrMeans[16][48]['tmpprs'][85000][455868000000] = 281.87;
+				cfsrMeans[16][48]['tmpprs'][85000][455889600000] = 282.87;
+				cfsrMeans[16][48]['tmpprs'][85000][455911200000] = 283.32;
+				cfsrMeans[16][48]['tmpprs'][85000][455932800000] = 282.76;
+				cfsrMeans[16][48]['tmpprs'][85000][455954400000] = 281.96;
+				cfsrMeans[16][48]['tmpprs'][85000][455976000000] = 282.95;
+				cfsrMeans[16][48]['tmpprs'][85000][455997600000] = 283.41;
+				cfsrMeans[16][48]['tmpprs'][85000][456019200000] = 282.84;
+				cfsrMeans[16][48]['tmpprs'][85000][456040800000] = 282.05;
+				cfsrMeans[16][48]['tmpprs'][85000][456062400000] = 283.04;
+				cfsrMeans[16][48]['tmpprs'][85000][456084000000] = 283.5;
+				cfsrMeans[16][48]['tmpprs'][85000][456105600000] = 282.93;
+				cfsrMeans[16][48]['tmpprs'][85000][456127200000] = 282.14;
+				cfsrMeans[16][48]['tmpprs'][85000][456148800000] = 283.13;
+				cfsrMeans[16][48]['tmpprs'][85000][456170400000] = 283.6;
+				cfsrMeans[16][48]['tmpprs'][85000][456192000000] = 283.02;
+				cfsrMeans[16][48]['tmpprs'][85000][456213600000] = 282.23;
+				cfsrMeans[16][48]['tmpprs'][85000][456235200000] = 283.22;
+				cfsrMeans[16][48]['tmpprs'][85000][456256800000] = 283.69;
+				cfsrMeans[16][48]['tmpprs'][85000][456278400000] = 283.12;
+				cfsrMeans[16][48]['tmpprs'][85000][456300000000] = 282.32;
+				cfsrMeans[16][48]['tmpprs'][85000][456321600000] = 283.31;
+				cfsrMeans[16][48]['tmpprs'][85000][456343200000] = 283.79;
+				cfsrMeans[16][48]['tmpprs'][85000][456364800000] = 283.21;
+				cfsrMeans[16][48]['tmpprs'][85000][456386400000] = 282.41;
+				cfsrMeans[16][48]['tmpprs'][85000][456408000000] = 283.4;
+				cfsrMeans[16][48]['tmpprs'][85000][456429600000] = 283.89;
+				cfsrMeans[16][48]['tmpprs'][85000][456451200000] = 283.3;
+				cfsrMeans[16][48]['tmpprs'][85000][456472800000] = 282.5;
+				cfsrMeans[16][48]['tmpprs'][85000][456494400000] = 283.5;
+				cfsrMeans[16][48]['tmpprs'][85000][456516000000] = 283.98;
+				cfsrMeans[16][48]['tmpprs'][85000][456537600000] = 283.39;
+				cfsrMeans[16][48]['tmpprs'][85000][456559200000] = 282.59;
+				cfsrMeans[16][48]['tmpprs'][85000][456580800000] = 283.59;
+				cfsrMeans[16][48]['tmpprs'][85000][456602400000] = 284.08;
+				cfsrMeans[16][48]['tmpprs'][85000][456624000000] = 283.49;
+				cfsrMeans[16][48]['tmpprs'][85000][456645600000] = 282.69;
+				cfsrMeans[16][48]['tmpprs'][85000][456667200000] = 283.68;
+				cfsrMeans[16][48]['tmpprs'][85000][456688800000] = 284.18;
+				cfsrMeans[16][48]['tmpprs'][85000][456710400000] = 283.58;
+				cfsrMeans[16][48]['tmpprs'][85000][456732000000] = 282.78;
+				cfsrMeans[16][48]['tmpprs'][85000][456753600000] = 283.77;
+				cfsrMeans[16][48]['tmpprs'][85000][456775200000] = 284.28;
+				cfsrMeans[16][48]['tmpprs'][85000][456796800000] = 283.67;
+				cfsrMeans[16][48]['tmpprs'][85000][456818400000] = 282.87;
+				cfsrMeans[16][48]['tmpprs'][85000][456840000000] = 283.87;
+				cfsrMeans[16][48]['tmpprs'][85000][456861600000] = 284.38;
+				cfsrMeans[16][48]['tmpprs'][85000][456883200000] = 283.77;
+				cfsrMeans[16][48]['tmpprs'][85000][456904800000] = 282.97;
+				cfsrMeans[16][48]['tmpprs'][85000][456926400000] = 283.96;
+				cfsrMeans[16][48]['tmpprs'][85000][456948000000] = 284.48;
+				cfsrMeans[16][48]['tmpprs'][85000][456969600000] = 283.86;
+				cfsrMeans[16][48]['tmpprs'][85000][456991200000] = 283.06;
+				cfsrMeans[16][48]['tmpprs'][85000][457012800000] = 284.05;
+				cfsrMeans[16][48]['tmpprs'][85000][457034400000] = 284.58;
+				cfsrMeans[16][48]['tmpprs'][85000][457056000000] = 283.96;
+				cfsrMeans[16][48]['tmpprs'][85000][457077600000] = 283.15;
+				cfsrMeans[16][48]['tmpprs'][85000][457099200000] = 284.14;
+				cfsrMeans[16][48]['tmpprs'][85000][457120800000] = 284.68;
+				cfsrMeans[16][48]['tmpprs'][85000][457142400000] = 284.05;
+				cfsrMeans[16][48]['tmpprs'][85000][457164000000] = 283.25;
+				cfsrMeans[16][48]['tmpprs'][85000][457185600000] = 284.24;
+				cfsrMeans[16][48]['tmpprs'][85000][457207200000] = 284.78;
+				cfsrMeans[16][48]['tmpprs'][85000][457228800000] = 284.15;
+				cfsrMeans[16][48]['tmpprs'][85000][457250400000] = 283.34;
+				cfsrMeans[16][48]['tmpprs'][85000][457272000000] = 284.33;
+				cfsrMeans[16][48]['tmpprs'][85000][457293600000] = 284.88;
+				cfsrMeans[16][48]['tmpprs'][85000][457315200000] = 284.24;
+				cfsrMeans[16][48]['tmpprs'][85000][457336800000] = 283.43;
+				cfsrMeans[16][48]['tmpprs'][85000][457358400000] = 284.42;
+				cfsrMeans[16][48]['tmpprs'][85000][457380000000] = 284.97;
+				cfsrMeans[16][48]['tmpprs'][85000][457401600000] = 284.33;
+				cfsrMeans[16][48]['tmpprs'][85000][457423200000] = 283.52;
+				cfsrMeans[16][48]['tmpprs'][85000][457444800000] = 284.51;
+				cfsrMeans[16][48]['tmpprs'][85000][457466400000] = 285.07;
+				cfsrMeans[16][48]['tmpprs'][85000][457488000000] = 284.43;
+				cfsrMeans[16][48]['tmpprs'][85000][457509600000] = 283.61;
+				cfsrMeans[16][48]['tmpprs'][85000][457531200000] = 284.6;
+				cfsrMeans[16][48]['tmpprs'][85000][457552800000] = 285.17;
+				cfsrMeans[16][48]['tmpprs'][85000][457574400000] = 284.52;
+				cfsrMeans[16][48]['tmpprs'][85000][457596000000] = 283.7;
+				cfsrMeans[16][48]['tmpprs'][85000][457617600000] = 284.69;
+				cfsrMeans[16][48]['tmpprs'][85000][457639200000] = 285.26;
+				cfsrMeans[16][48]['tmpprs'][85000][457660800000] = 284.61;
+				cfsrMeans[16][48]['tmpprs'][85000][457682400000] = 283.79;
+				cfsrMeans[16][48]['tmpprs'][85000][457704000000] = 284.77;
+				cfsrMeans[16][48]['tmpprs'][85000][457725600000] = 285.36;
+				cfsrMeans[16][48]['tmpprs'][85000][457747200000] = 284.7;
+				cfsrMeans[16][48]['tmpprs'][85000][457768800000] = 283.88;
+				cfsrMeans[16][48]['tmpprs'][85000][457790400000] = 284.86;
+				cfsrMeans[16][48]['tmpprs'][85000][457812000000] = 285.45;
+				cfsrMeans[16][48]['tmpprs'][85000][457833600000] = 284.78;
+				cfsrMeans[16][48]['tmpprs'][85000][457855200000] = 283.96;
+				cfsrMeans[16][48]['tmpprs'][85000][457876800000] = 284.94;
+				cfsrMeans[16][48]['tmpprs'][85000][457898400000] = 285.54;
+				cfsrMeans[16][48]['tmpprs'][85000][457920000000] = 284.87;
+				cfsrMeans[16][48]['tmpprs'][85000][457941600000] = 284.05;
+				cfsrMeans[16][48]['tmpprs'][85000][457963200000] = 285.03;
+				cfsrMeans[16][48]['tmpprs'][85000][457984800000] = 285.63;
+				cfsrMeans[16][48]['tmpprs'][85000][458006400000] = 284.95;
+				cfsrMeans[16][48]['tmpprs'][85000][458028000000] = 284.13;
+				cfsrMeans[16][48]['tmpprs'][85000][458049600000] = 285.11;
+				cfsrMeans[16][48]['tmpprs'][85000][458071200000] = 285.72;
+				cfsrMeans[16][48]['tmpprs'][85000][458092800000] = 285.04;
+				cfsrMeans[16][48]['tmpprs'][85000][458114400000] = 284.21;
+				cfsrMeans[16][48]['tmpprs'][85000][458136000000] = 285.19;
+				cfsrMeans[16][48]['tmpprs'][85000][458157600000] = 285.8;
+				cfsrMeans[16][48]['tmpprs'][85000][458179200000] = 285.12;
+				cfsrMeans[16][48]['tmpprs'][85000][458200800000] = 284.29;
+				cfsrMeans[16][48]['tmpprs'][85000][458222400000] = 285.26;
+				cfsrMeans[16][48]['tmpprs'][85000][458244000000] = 285.88;
+				cfsrMeans[16][48]['tmpprs'][85000][458265600000] = 285.19;
+				cfsrMeans[16][48]['tmpprs'][85000][458287200000] = 284.37;
+				cfsrMeans[16][48]['tmpprs'][85000][458308800000] = 285.33;
+				cfsrMeans[16][48]['tmpprs'][85000][458330400000] = 285.96;
+				cfsrMeans[16][48]['tmpprs'][85000][458352000000] = 285.27;
+				cfsrMeans[16][48]['tmpprs'][85000][458373600000] = 284.44;
+				cfsrMeans[16][48]['tmpprs'][85000][458395200000] = 285.41;
+				cfsrMeans[16][48]['tmpprs'][85000][458416800000] = 286.04;
+				cfsrMeans[16][48]['tmpprs'][85000][458438400000] = 285.34;
+				cfsrMeans[16][48]['tmpprs'][85000][458460000000] = 284.51;
+				cfsrMeans[16][48]['tmpprs'][85000][458481600000] = 285.47;
+				cfsrMeans[16][48]['tmpprs'][85000][458503200000] = 286.11;
+				cfsrMeans[16][48]['tmpprs'][85000][458524800000] = 285.41;
+				cfsrMeans[16][48]['tmpprs'][85000][458546400000] = 284.58;
+				cfsrMeans[16][48]['tmpprs'][85000][458568000000] = 285.54;
+				cfsrMeans[16][48]['tmpprs'][85000][458589600000] = 286.18;
+				cfsrMeans[16][48]['tmpprs'][85000][458611200000] = 285.47;
+				cfsrMeans[16][48]['tmpprs'][85000][458632800000] = 284.64;
+				cfsrMeans[16][48]['tmpprs'][85000][458654400000] = 285.6;
+				cfsrMeans[16][48]['tmpprs'][85000][458676000000] = 286.25;
+				cfsrMeans[16][48]['tmpprs'][85000][458697600000] = 285.54;
+				cfsrMeans[16][48]['tmpprs'][85000][458719200000] = 284.7;
+				cfsrMeans[16][48]['tmpprs'][85000][458740800000] = 285.66;
+				cfsrMeans[16][48]['tmpprs'][85000][458762400000] = 286.31;
+				cfsrMeans[16][48]['tmpprs'][85000][458784000000] = 285.6;
+				cfsrMeans[16][48]['tmpprs'][85000][458805600000] = 284.76;
+				cfsrMeans[16][48]['tmpprs'][85000][458827200000] = 285.71;
+				cfsrMeans[16][48]['tmpprs'][85000][458848800000] = 286.37;
+				cfsrMeans[16][48]['tmpprs'][85000][458870400000] = 285.65;
+				cfsrMeans[16][48]['tmpprs'][85000][458892000000] = 284.82;
+				cfsrMeans[16][48]['tmpprs'][85000][458913600000] = 285.76;
+				cfsrMeans[16][48]['tmpprs'][85000][458935200000] = 286.42;
+				cfsrMeans[16][48]['tmpprs'][85000][458956800000] = 285.7;
+				cfsrMeans[16][48]['tmpprs'][85000][458978400000] = 284.87;
+				cfsrMeans[16][48]['tmpprs'][85000][459000000000] = 285.81;
+				cfsrMeans[16][48]['tmpprs'][85000][459021600000] = 286.47;
+				cfsrMeans[16][48]['tmpprs'][85000][459043200000] = 285.75;
+				cfsrMeans[16][48]['tmpprs'][85000][459064800000] = 284.92;
+				cfsrMeans[16][48]['tmpprs'][85000][459086400000] = 285.85;
+				cfsrMeans[16][48]['tmpprs'][85000][459108000000] = 286.52;
+				cfsrMeans[16][48]['tmpprs'][85000][459129600000] = 285.8;
+				cfsrMeans[16][48]['tmpprs'][85000][459151200000] = 284.96;
+				cfsrMeans[16][48]['tmpprs'][85000][459172800000] = 285.89;
+				cfsrMeans[16][48]['tmpprs'][85000][459194400000] = 286.56;
+				cfsrMeans[16][48]['tmpprs'][85000][459216000000] = 285.84;
+				cfsrMeans[16][48]['tmpprs'][85000][459237600000] = 285;
+				cfsrMeans[16][48]['tmpprs'][85000][459259200000] = 285.93;
+				cfsrMeans[16][48]['tmpprs'][85000][459280800000] = 286.6;
+				cfsrMeans[16][48]['tmpprs'][85000][459302400000] = 285.87;
+				cfsrMeans[16][48]['tmpprs'][85000][459324000000] = 285.04;
+				cfsrMeans[16][48]['tmpprs'][85000][459345600000] = 285.96;
+				cfsrMeans[16][48]['tmpprs'][85000][459367200000] = 286.63;
+				cfsrMeans[16][48]['tmpprs'][85000][459388800000] = 285.91;
+				cfsrMeans[16][48]['tmpprs'][85000][459410400000] = 285.07;
+				cfsrMeans[16][48]['tmpprs'][85000][459432000000] = 285.99;
+				cfsrMeans[16][48]['tmpprs'][85000][459453600000] = 286.66;
+				cfsrMeans[16][48]['tmpprs'][85000][459475200000] = 285.93;
+				cfsrMeans[16][48]['tmpprs'][85000][459496800000] = 285.09;
+				cfsrMeans[16][48]['tmpprs'][85000][459518400000] = 286.01;
+				cfsrMeans[16][48]['tmpprs'][85000][459540000000] = 286.68;
+				cfsrMeans[16][48]['tmpprs'][85000][459561600000] = 285.96;
+				cfsrMeans[16][48]['tmpprs'][85000][459583200000] = 285.12;
+				cfsrMeans[16][48]['tmpprs'][85000][459604800000] = 286.03;
+				cfsrMeans[16][48]['tmpprs'][85000][459626400000] = 286.7;
+				cfsrMeans[16][48]['tmpprs'][85000][459648000000] = 285.98;
+				cfsrMeans[16][48]['tmpprs'][85000][459669600000] = 285.14;
+				cfsrMeans[16][48]['tmpprs'][85000][459691200000] = 286.04;
+				cfsrMeans[16][48]['tmpprs'][85000][459712800000] = 286.71;
+				cfsrMeans[16][48]['tmpprs'][85000][459734400000] = 285.99;
+				cfsrMeans[16][48]['tmpprs'][85000][459756000000] = 285.15;
+				cfsrMeans[16][48]['tmpprs'][85000][459777600000] = 286.05;
+				cfsrMeans[16][48]['tmpprs'][85000][459799200000] = 286.72;
+				cfsrMeans[16][48]['tmpprs'][85000][459820800000] = 286;
+				cfsrMeans[16][48]['tmpprs'][85000][459842400000] = 285.16;
+				cfsrMeans[16][48]['tmpprs'][85000][459864000000] = 286.05;
+				cfsrMeans[16][48]['tmpprs'][85000][459885600000] = 286.73;
+				cfsrMeans[16][48]['tmpprs'][85000][459907200000] = 286;
+				cfsrMeans[16][48]['tmpprs'][85000][459928800000] = 285.17;
+				cfsrMeans[16][48]['tmpprs'][85000][459950400000] = 286.05;
+				cfsrMeans[16][48]['tmpprs'][85000][459972000000] = 286.72;
+				cfsrMeans[16][48]['tmpprs'][85000][459993600000] = 286;
+				cfsrMeans[16][48]['tmpprs'][85000][460015200000] = 285.17;
+				cfsrMeans[16][48]['tmpprs'][85000][460036800000] = 286.04;
+				cfsrMeans[16][48]['tmpprs'][85000][460058400000] = 286.72;
+				cfsrMeans[16][48]['tmpprs'][85000][460080000000] = 286;
+				cfsrMeans[16][48]['tmpprs'][85000][460101600000] = 285.16;
+				cfsrMeans[16][48]['tmpprs'][85000][460123200000] = 286.03;
+				cfsrMeans[16][48]['tmpprs'][85000][460144800000] = 286.7;
+				cfsrMeans[16][48]['tmpprs'][85000][460166400000] = 285.99;
+				cfsrMeans[16][48]['tmpprs'][85000][460188000000] = 285.16;
+				cfsrMeans[16][48]['tmpprs'][85000][460209600000] = 286.01;
+				cfsrMeans[16][48]['tmpprs'][85000][460231200000] = 286.69;
+				cfsrMeans[16][48]['tmpprs'][85000][460252800000] = 285.98;
+				cfsrMeans[16][48]['tmpprs'][85000][460274400000] = 285.14;
+				cfsrMeans[16][48]['tmpprs'][85000][460296000000] = 285.99;
+				cfsrMeans[16][48]['tmpprs'][85000][460317600000] = 286.66;
+				cfsrMeans[16][48]['tmpprs'][85000][460339200000] = 285.96;
+				cfsrMeans[16][48]['tmpprs'][85000][460360800000] = 285.13;
+				cfsrMeans[16][48]['tmpprs'][85000][460382400000] = 285.97;
+				cfsrMeans[16][48]['tmpprs'][85000][460404000000] = 286.64;
+				cfsrMeans[16][48]['tmpprs'][85000][460425600000] = 285.94;
+				cfsrMeans[16][48]['tmpprs'][85000][460447200000] = 285.11;
+				cfsrMeans[16][48]['tmpprs'][85000][460468800000] = 285.94;
+				cfsrMeans[16][48]['tmpprs'][85000][460490400000] = 286.6;
+				cfsrMeans[16][48]['tmpprs'][85000][460512000000] = 285.91;
+				cfsrMeans[16][48]['tmpprs'][85000][460533600000] = 285.08;
+				cfsrMeans[16][48]['tmpprs'][85000][460555200000] = 285.9;
+				cfsrMeans[16][48]['tmpprs'][85000][460576800000] = 286.57;
+				cfsrMeans[16][48]['tmpprs'][85000][460598400000] = 285.88;
+				cfsrMeans[16][48]['tmpprs'][85000][460620000000] = 285.05;
+				cfsrMeans[16][48]['tmpprs'][85000][460641600000] = 285.86;
+				cfsrMeans[16][48]['tmpprs'][85000][460663200000] = 286.52;
+				cfsrMeans[16][48]['tmpprs'][85000][460684800000] = 285.84;
+				cfsrMeans[16][48]['tmpprs'][85000][460706400000] = 285.02;
+				cfsrMeans[16][48]['tmpprs'][85000][460728000000] = 285.82;
+				cfsrMeans[16][48]['tmpprs'][85000][460749600000] = 286.48;
+				cfsrMeans[16][48]['tmpprs'][85000][460771200000] = 285.8;
+				cfsrMeans[16][48]['tmpprs'][85000][460792800000] = 284.98;
+				cfsrMeans[16][48]['tmpprs'][85000][460814400000] = 285.77;
+				cfsrMeans[16][48]['tmpprs'][85000][460836000000] = 286.43;
+				cfsrMeans[16][48]['tmpprs'][85000][460857600000] = 285.76;
+				cfsrMeans[16][48]['tmpprs'][85000][460879200000] = 284.94;
+				cfsrMeans[16][48]['tmpprs'][85000][460900800000] = 285.72;
+				cfsrMeans[16][48]['tmpprs'][85000][460922400000] = 286.37;
+				cfsrMeans[16][48]['tmpprs'][85000][460944000000] = 285.71;
+				cfsrMeans[16][48]['tmpprs'][85000][460965600000] = 284.89;
+				cfsrMeans[16][48]['tmpprs'][85000][460987200000] = 285.66;
+				cfsrMeans[16][48]['tmpprs'][85000][461008800000] = 286.31;
+				cfsrMeans[16][48]['tmpprs'][85000][461030400000] = 285.66;
+				cfsrMeans[16][48]['tmpprs'][85000][461052000000] = 284.84;
+				cfsrMeans[16][48]['tmpprs'][85000][461073600000] = 285.6;
+				cfsrMeans[16][48]['tmpprs'][85000][461095200000] = 286.24;
+				cfsrMeans[16][48]['tmpprs'][85000][461116800000] = 285.6;
+				cfsrMeans[16][48]['tmpprs'][85000][461138400000] = 284.79;
+				cfsrMeans[16][48]['tmpprs'][85000][461160000000] = 285.53;
+				cfsrMeans[16][48]['tmpprs'][85000][461181600000] = 286.17;
+				cfsrMeans[16][48]['tmpprs'][85000][461203200000] = 285.54;
+				cfsrMeans[16][48]['tmpprs'][85000][461224800000] = 284.73;
+				cfsrMeans[16][48]['tmpprs'][85000][461246400000] = 285.46;
+				cfsrMeans[16][48]['tmpprs'][85000][461268000000] = 286.1;
+				cfsrMeans[16][48]['tmpprs'][85000][461289600000] = 285.47;
+				cfsrMeans[16][48]['tmpprs'][85000][461311200000] = 284.67;
+				cfsrMeans[16][48]['tmpprs'][85000][461332800000] = 285.39;
+				cfsrMeans[16][48]['tmpprs'][85000][461354400000] = 286.02;
+				cfsrMeans[16][48]['tmpprs'][85000][461376000000] = 285.41;
+				cfsrMeans[16][48]['tmpprs'][85000][461397600000] = 284.6;
+				cfsrMeans[16][48]['tmpprs'][85000][461419200000] = 285.31;
+				cfsrMeans[16][48]['tmpprs'][85000][461440800000] = 285.94;
+				cfsrMeans[16][48]['tmpprs'][85000][461462400000] = 285.33;
+				cfsrMeans[16][48]['tmpprs'][85000][461484000000] = 284.53;
+				cfsrMeans[16][48]['tmpprs'][85000][461505600000] = 285.23;
+				cfsrMeans[16][48]['tmpprs'][85000][461527200000] = 285.85;
+				cfsrMeans[16][48]['tmpprs'][85000][461548800000] = 285.26;
+				cfsrMeans[16][48]['tmpprs'][85000][461570400000] = 284.46;
+				cfsrMeans[16][48]['tmpprs'][85000][461592000000] = 285.15;
+				cfsrMeans[16][48]['tmpprs'][85000][461613600000] = 285.76;
+				cfsrMeans[16][48]['tmpprs'][85000][461635200000] = 285.18;
+				cfsrMeans[16][48]['tmpprs'][85000][461656800000] = 284.39;
+				cfsrMeans[16][48]['tmpprs'][85000][461678400000] = 285.06;
+				cfsrMeans[16][48]['tmpprs'][85000][461700000000] = 285.67;
+				cfsrMeans[16][48]['tmpprs'][85000][461721600000] = 285.1;
+				cfsrMeans[16][48]['tmpprs'][85000][461743200000] = 284.31;
+				cfsrMeans[16][48]['tmpprs'][85000][461764800000] = 284.97;
+				cfsrMeans[16][48]['tmpprs'][85000][461786400000] = 285.58;
+				cfsrMeans[16][48]['tmpprs'][85000][461808000000] = 285.02;
+				cfsrMeans[16][48]['tmpprs'][85000][461829600000] = 284.23;
+				cfsrMeans[16][48]['tmpprs'][85000][461851200000] = 284.87;
+				cfsrMeans[16][48]['tmpprs'][85000][461872800000] = 285.48;
+				cfsrMeans[16][48]['tmpprs'][85000][461894400000] = 284.93;
+				cfsrMeans[16][48]['tmpprs'][85000][461916000000] = 284.15;
+				cfsrMeans[16][48]['tmpprs'][85000][461937600000] = 284.78;
+				cfsrMeans[16][48]['tmpprs'][85000][461959200000] = 285.38;
+				cfsrMeans[16][48]['tmpprs'][85000][461980800000] = 284.84;
+				cfsrMeans[16][48]['tmpprs'][85000][462002400000] = 284.07;
+				cfsrMeans[16][48]['tmpprs'][85000][462024000000] = 284.68;
+				cfsrMeans[16][48]['tmpprs'][85000][462045600000] = 285.27;
+				cfsrMeans[16][48]['tmpprs'][85000][462067200000] = 284.75;
+				cfsrMeans[16][48]['tmpprs'][85000][462088800000] = 283.98;
+				cfsrMeans[16][48]['tmpprs'][85000][462110400000] = 284.58;
+				cfsrMeans[16][48]['tmpprs'][85000][462132000000] = 285.17;
+				cfsrMeans[16][48]['tmpprs'][85000][462153600000] = 284.66;
+				cfsrMeans[16][48]['tmpprs'][85000][462175200000] = 283.89;
+				cfsrMeans[16][48]['tmpprs'][85000][462196800000] = 284.47;
+				cfsrMeans[16][48]['tmpprs'][85000][462218400000] = 285.06;
+				cfsrMeans[16][48]['tmpprs'][85000][462240000000] = 284.56;
+				cfsrMeans[16][48]['tmpprs'][85000][462261600000] = 283.8;
+				cfsrMeans[16][48]['tmpprs'][85000][462283200000] = 284.37;
+				cfsrMeans[16][48]['tmpprs'][85000][462304800000] = 284.95;
+				cfsrMeans[16][48]['tmpprs'][85000][462326400000] = 284.47;
+				cfsrMeans[16][48]['tmpprs'][85000][462348000000] = 283.71;
+				cfsrMeans[16][48]['tmpprs'][85000][462369600000] = 284.26;
+				cfsrMeans[16][48]['tmpprs'][85000][462391200000] = 284.84;
+				cfsrMeans[16][48]['tmpprs'][85000][462412800000] = 284.37;
+				cfsrMeans[16][48]['tmpprs'][85000][462434400000] = 283.61;
+				cfsrMeans[16][48]['tmpprs'][85000][462456000000] = 284.15;
+				cfsrMeans[16][48]['tmpprs'][85000][462477600000] = 284.72;
+				cfsrMeans[16][48]['tmpprs'][85000][462499200000] = 284.27;
+				cfsrMeans[16][48]['tmpprs'][85000][462520800000] = 283.52;
+				cfsrMeans[16][48]['tmpprs'][85000][462542400000] = 284.04;
+				cfsrMeans[16][48]['tmpprs'][85000][462564000000] = 284.61;
+				cfsrMeans[16][48]['tmpprs'][85000][462585600000] = 284.17;
+				cfsrMeans[16][48]['tmpprs'][85000][462607200000] = 283.42;
+				cfsrMeans[16][48]['tmpprs'][85000][462628800000] = 283.93;
+				cfsrMeans[16][48]['tmpprs'][85000][462650400000] = 284.49;
+				cfsrMeans[16][48]['tmpprs'][85000][462672000000] = 284.06;
+				cfsrMeans[16][48]['tmpprs'][85000][462693600000] = 283.32;
+				cfsrMeans[16][48]['tmpprs'][85000][462715200000] = 283.82;
+				cfsrMeans[16][48]['tmpprs'][85000][462736800000] = 284.37;
+				cfsrMeans[16][48]['tmpprs'][85000][462758400000] = 283.96;
+				cfsrMeans[16][48]['tmpprs'][85000][462780000000] = 283.22;
+				cfsrMeans[16][48]['tmpprs'][85000][462801600000] = 283.7;
+				cfsrMeans[16][48]['tmpprs'][85000][462823200000] = 284.26;
+				cfsrMeans[16][48]['tmpprs'][85000][462844800000] = 283.85;
+				cfsrMeans[16][48]['tmpprs'][85000][462866400000] = 283.12;
+				cfsrMeans[16][48]['tmpprs'][85000][462888000000] = 283.59;
+				cfsrMeans[16][48]['tmpprs'][85000][462909600000] = 284.14;
+				cfsrMeans[16][48]['tmpprs'][85000][462931200000] = 283.75;
+				cfsrMeans[16][48]['tmpprs'][85000][462952800000] = 283.02;
+				cfsrMeans[16][48]['tmpprs'][85000][462974400000] = 283.47;
+				cfsrMeans[16][48]['tmpprs'][85000][462996000000] = 284.02;
+				cfsrMeans[16][48]['tmpprs'][85000][463017600000] = 283.64;
+				cfsrMeans[16][48]['tmpprs'][85000][463039200000] = 282.92;
+				cfsrMeans[16][48]['tmpprs'][85000][463060800000] = 283.36;
+				cfsrMeans[16][48]['tmpprs'][85000][463082400000] = 283.89;
+				cfsrMeans[16][48]['tmpprs'][85000][463104000000] = 283.53;
+				cfsrMeans[16][48]['tmpprs'][85000][463125600000] = 282.82;
+				cfsrMeans[16][48]['tmpprs'][85000][463147200000] = 283.24;
+				cfsrMeans[16][48]['tmpprs'][85000][463168800000] = 283.77;
+				cfsrMeans[16][48]['tmpprs'][85000][463190400000] = 283.43;
+				cfsrMeans[16][48]['tmpprs'][85000][463212000000] = 282.71;
+				cfsrMeans[16][48]['tmpprs'][85000][463233600000] = 283.12;
+				cfsrMeans[16][48]['tmpprs'][85000][463255200000] = 283.65;
+				cfsrMeans[16][48]['tmpprs'][85000][463276800000] = 283.32;
+				cfsrMeans[16][48]['tmpprs'][85000][463298400000] = 282.61;
+				cfsrMeans[16][48]['tmpprs'][85000][463320000000] = 283.01;
+				cfsrMeans[16][48]['tmpprs'][85000][463341600000] = 283.53;
+				cfsrMeans[16][48]['tmpprs'][85000][463363200000] = 283.21;
+				cfsrMeans[16][48]['tmpprs'][85000][463384800000] = 282.51;
+				cfsrMeans[16][48]['tmpprs'][85000][463406400000] = 282.89;
+				cfsrMeans[16][48]['tmpprs'][85000][463428000000] = 283.41;
+				cfsrMeans[16][48]['tmpprs'][85000][463449600000] = 283.1;
+				cfsrMeans[16][48]['tmpprs'][85000][463471200000] = 282.41;
+				cfsrMeans[16][48]['tmpprs'][85000][463492800000] = 282.77;
+				cfsrMeans[16][48]['tmpprs'][85000][463514400000] = 283.29;
+				cfsrMeans[16][48]['tmpprs'][85000][463536000000] = 282.99;
+				cfsrMeans[16][48]['tmpprs'][85000][463557600000] = 282.3;
+				cfsrMeans[16][48]['tmpprs'][85000][463579200000] = 282.66;
+				cfsrMeans[16][48]['tmpprs'][85000][463600800000] = 283.16;
+				cfsrMeans[16][48]['tmpprs'][85000][463622400000] = 282.88;
+				cfsrMeans[16][48]['tmpprs'][85000][463644000000] = 282.2;
+				cfsrMeans[16][48]['tmpprs'][85000][463665600000] = 282.54;
+				cfsrMeans[16][48]['tmpprs'][85000][463687200000] = 283.04;
+				cfsrMeans[16][48]['tmpprs'][85000][463708800000] = 282.77;
+				cfsrMeans[16][48]['tmpprs'][85000][463730400000] = 282.1;
+				cfsrMeans[16][48]['tmpprs'][85000][463752000000] = 282.42;
+				cfsrMeans[16][48]['tmpprs'][85000][463773600000] = 282.92;
+				cfsrMeans[16][48]['tmpprs'][85000][463795200000] = 282.66;
+				cfsrMeans[16][48]['tmpprs'][85000][463816800000] = 281.99;
+				cfsrMeans[16][48]['tmpprs'][85000][463838400000] = 282.31;
+				cfsrMeans[16][48]['tmpprs'][85000][463860000000] = 282.8;
+				cfsrMeans[16][48]['tmpprs'][85000][463881600000] = 282.56;
+				cfsrMeans[16][48]['tmpprs'][85000][463903200000] = 281.89;
+				cfsrMeans[16][48]['tmpprs'][85000][463924800000] = 282.19;
+				cfsrMeans[16][48]['tmpprs'][85000][463946400000] = 282.68;
+				cfsrMeans[16][48]['tmpprs'][85000][463968000000] = 282.45;
+				cfsrMeans[16][48]['tmpprs'][85000][463989600000] = 281.79;
+				cfsrMeans[16][48]['tmpprs'][85000][464011200000] = 282.08;
+				cfsrMeans[16][48]['tmpprs'][85000][464032800000] = 282.56;
+				cfsrMeans[16][48]['tmpprs'][85000][464054400000] = 282.34;
+				cfsrMeans[16][48]['tmpprs'][85000][464076000000] = 281.69;
+				cfsrMeans[16][48]['tmpprs'][85000][464097600000] = 281.96;
+				cfsrMeans[16][48]['tmpprs'][85000][464119200000] = 282.44;
+				cfsrMeans[16][48]['tmpprs'][85000][464140800000] = 282.23;
+				cfsrMeans[16][48]['tmpprs'][85000][464162400000] = 281.58;
+				cfsrMeans[16][48]['tmpprs'][85000][464184000000] = 281.85;
+				cfsrMeans[16][48]['tmpprs'][85000][464205600000] = 282.32;
+				cfsrMeans[16][48]['tmpprs'][85000][464227200000] = 282.12;
+				cfsrMeans[16][48]['tmpprs'][85000][464248800000] = 281.48;
+				cfsrMeans[16][48]['tmpprs'][85000][464270400000] = 281.74;
+				cfsrMeans[16][48]['tmpprs'][85000][464292000000] = 282.2;
+				cfsrMeans[16][48]['tmpprs'][85000][464313600000] = 282.01;
+				cfsrMeans[16][48]['tmpprs'][85000][464335200000] = 281.38;
+				cfsrMeans[16][48]['tmpprs'][85000][464356800000] = 281.62;
+				cfsrMeans[16][48]['tmpprs'][85000][464378400000] = 282.08;
+				cfsrMeans[16][48]['tmpprs'][85000][464400000000] = 281.91;
+				cfsrMeans[16][48]['tmpprs'][85000][464421600000] = 281.28;
+				cfsrMeans[16][48]['tmpprs'][85000][464443200000] = 281.51;
+				cfsrMeans[16][48]['tmpprs'][85000][464464800000] = 281.97;
+				cfsrMeans[16][48]['tmpprs'][85000][464486400000] = 281.8;
+				cfsrMeans[16][48]['tmpprs'][85000][464508000000] = 281.18;
+				cfsrMeans[16][48]['tmpprs'][85000][464529600000] = 281.4;
+				cfsrMeans[16][48]['tmpprs'][85000][464551200000] = 281.85;
+				cfsrMeans[16][48]['tmpprs'][85000][464572800000] = 281.69;
+				cfsrMeans[16][48]['tmpprs'][85000][464594400000] = 281.08;
+				cfsrMeans[16][48]['tmpprs'][85000][464616000000] = 281.29;
+				cfsrMeans[16][48]['tmpprs'][85000][464637600000] = 281.73;
+				cfsrMeans[16][48]['tmpprs'][85000][464659200000] = 281.58;
+				cfsrMeans[16][48]['tmpprs'][85000][464680800000] = 280.98;
+				cfsrMeans[16][48]['tmpprs'][85000][464702400000] = 281.18;
+				cfsrMeans[16][48]['tmpprs'][85000][464724000000] = 281.62;
+				cfsrMeans[16][48]['tmpprs'][85000][464745600000] = 281.48;
+				cfsrMeans[16][48]['tmpprs'][85000][464767200000] = 280.88;
+				cfsrMeans[16][48]['tmpprs'][85000][464788800000] = 281.07;
+				cfsrMeans[16][48]['tmpprs'][85000][464810400000] = 281.5;
+				cfsrMeans[16][48]['tmpprs'][85000][464832000000] = 281.37;
+				cfsrMeans[16][48]['tmpprs'][85000][464853600000] = 280.78;
+				cfsrMeans[16][48]['tmpprs'][85000][464875200000] = 280.96;
+				cfsrMeans[16][48]['tmpprs'][85000][464896800000] = 281.39;
+				cfsrMeans[16][48]['tmpprs'][85000][464918400000] = 281.26;
+				cfsrMeans[16][48]['tmpprs'][85000][464940000000] = 280.68;
+				cfsrMeans[16][48]['tmpprs'][85000][464961600000] = 280.85;
+				cfsrMeans[16][48]['tmpprs'][85000][464983200000] = 281.28;
+				cfsrMeans[16][48]['tmpprs'][85000][465004800000] = 281.16;
+				cfsrMeans[16][48]['tmpprs'][85000][465026400000] = 280.58;
+				cfsrMeans[16][48]['tmpprs'][85000][465048000000] = 280.75;
+				cfsrMeans[16][48]['tmpprs'][85000][465069600000] = 281.16;
+				cfsrMeans[16][48]['tmpprs'][85000][465091200000] = 281.05;
+				cfsrMeans[16][48]['tmpprs'][85000][465112800000] = 280.48;
+				cfsrMeans[16][48]['tmpprs'][85000][465134400000] = 280.64;
+				cfsrMeans[16][48]['tmpprs'][85000][465156000000] = 281.05;
+				cfsrMeans[16][48]['tmpprs'][85000][465177600000] = 280.94;
+				cfsrMeans[16][48]['tmpprs'][85000][465199200000] = 280.38;
+				cfsrMeans[16][48]['tmpprs'][85000][465220800000] = 280.53;
+				cfsrMeans[16][48]['tmpprs'][85000][465242400000] = 280.93;
+				cfsrMeans[16][48]['tmpprs'][85000][465264000000] = 280.83;
+				cfsrMeans[16][48]['tmpprs'][85000][465285600000] = 280.28;
+				cfsrMeans[16][48]['tmpprs'][85000][465307200000] = 280.43;
+				cfsrMeans[16][48]['tmpprs'][85000][465328800000] = 280.82;
+				cfsrMeans[16][48]['tmpprs'][85000][465350400000] = 280.73;
+				cfsrMeans[16][48]['tmpprs'][85000][465372000000] = 280.18;
+				cfsrMeans[16][48]['tmpprs'][85000][465393600000] = 280.32;
+				cfsrMeans[16][48]['tmpprs'][85000][465415200000] = 280.71;
+				cfsrMeans[16][48]['tmpprs'][85000][465436800000] = 280.62;
+				cfsrMeans[16][48]['tmpprs'][85000][465458400000] = 280.08;
+				cfsrMeans[16][48]['tmpprs'][85000][465480000000] = 280.21;
+				cfsrMeans[16][48]['tmpprs'][85000][465501600000] = 280.59;
+				cfsrMeans[16][48]['tmpprs'][85000][465523200000] = 280.51;
+				cfsrMeans[16][48]['tmpprs'][85000][465544800000] = 279.97;
+				cfsrMeans[16][48]['tmpprs'][85000][465566400000] = 280.11;
+				cfsrMeans[16][48]['tmpprs'][85000][465588000000] = 280.48;
+				cfsrMeans[16][48]['tmpprs'][85000][465609600000] = 280.4;
+				cfsrMeans[16][48]['tmpprs'][85000][465631200000] = 279.87;
+				cfsrMeans[16][48]['tmpprs'][85000][465652800000] = 280;
+				cfsrMeans[16][48]['tmpprs'][85000][465674400000] = 280.37;
+				cfsrMeans[16][48]['tmpprs'][85000][465696000000] = 280.29;
+				cfsrMeans[16][48]['tmpprs'][85000][465717600000] = 279.77;
+				cfsrMeans[16][48]['tmpprs'][85000][465739200000] = 279.9;
+				cfsrMeans[16][48]['tmpprs'][85000][465760800000] = 280.25;
+				cfsrMeans[16][48]['tmpprs'][85000][465782400000] = 280.18;
+				cfsrMeans[16][48]['tmpprs'][85000][465804000000] = 279.67;
+				cfsrMeans[16][48]['tmpprs'][85000][465825600000] = 279.79;
+				cfsrMeans[16][48]['tmpprs'][85000][465847200000] = 280.14;
+				cfsrMeans[16][48]['tmpprs'][85000][465868800000] = 280.07;
+				cfsrMeans[16][48]['tmpprs'][85000][465890400000] = 279.56;
+				cfsrMeans[16][48]['tmpprs'][85000][465912000000] = 279.68;
+				cfsrMeans[16][48]['tmpprs'][85000][465933600000] = 280.02;
+				cfsrMeans[16][48]['tmpprs'][85000][465955200000] = 279.96;
+				cfsrMeans[16][48]['tmpprs'][85000][465976800000] = 279.46;
+				cfsrMeans[16][48]['tmpprs'][85000][465998400000] = 279.58;
+				cfsrMeans[16][48]['tmpprs'][85000][466020000000] = 279.91;
+				cfsrMeans[16][48]['tmpprs'][85000][466041600000] = 279.84;
+				cfsrMeans[16][48]['tmpprs'][85000][466063200000] = 279.35;
+				cfsrMeans[16][48]['tmpprs'][85000][466084800000] = 279.47;
+				cfsrMeans[16][48]['tmpprs'][85000][466106400000] = 279.79;
+				cfsrMeans[16][48]['tmpprs'][85000][466128000000] = 279.73;
+				cfsrMeans[16][48]['tmpprs'][85000][466149600000] = 279.25;
+				cfsrMeans[16][48]['tmpprs'][85000][466171200000] = 279.36;
+				cfsrMeans[16][48]['tmpprs'][85000][466192800000] = 279.67;
+				cfsrMeans[16][48]['tmpprs'][85000][466214400000] = 279.61;
+				cfsrMeans[16][48]['tmpprs'][85000][466236000000] = 279.14;
+				cfsrMeans[16][48]['tmpprs'][85000][466257600000] = 279.25;
+				cfsrMeans[16][48]['tmpprs'][85000][466279200000] = 279.56;
+				cfsrMeans[16][48]['tmpprs'][85000][466300800000] = 279.5;
+				cfsrMeans[16][48]['tmpprs'][85000][466322400000] = 279.03;
+				cfsrMeans[16][48]['tmpprs'][85000][466344000000] = 279.14;
+				cfsrMeans[16][48]['tmpprs'][85000][466365600000] = 279.44;
+				cfsrMeans[16][48]['tmpprs'][85000][466387200000] = 279.38;
+				cfsrMeans[16][48]['tmpprs'][85000][466408800000] = 278.92;
+				cfsrMeans[16][48]['tmpprs'][85000][466430400000] = 279.03;
+				cfsrMeans[16][48]['tmpprs'][85000][466452000000] = 279.32;
+				cfsrMeans[16][48]['tmpprs'][85000][466473600000] = 279.26;
+				cfsrMeans[16][48]['tmpprs'][85000][466495200000] = 278.81;
+				cfsrMeans[16][48]['tmpprs'][85000][466516800000] = 278.92;
+				cfsrMeans[16][48]['tmpprs'][85000][466538400000] = 279.2;
+				cfsrMeans[16][48]['tmpprs'][85000][466560000000] = 279.14;
+				cfsrMeans[16][48]['tmpprs'][85000][466581600000] = 278.7;
+				cfsrMeans[16][48]['tmpprs'][85000][466603200000] = 278.81;
+				cfsrMeans[16][48]['tmpprs'][85000][466624800000] = 279.08;
+				cfsrMeans[16][48]['tmpprs'][85000][466646400000] = 279.02;
+				cfsrMeans[16][48]['tmpprs'][85000][466668000000] = 278.58;
+				cfsrMeans[16][48]['tmpprs'][85000][466689600000] = 278.69;
+				cfsrMeans[16][48]['tmpprs'][85000][466711200000] = 278.95;
+				cfsrMeans[16][48]['tmpprs'][85000][466732800000] = 278.9;
+				cfsrMeans[16][48]['tmpprs'][85000][466754400000] = 278.47;
+				cfsrMeans[16][48]['tmpprs'][85000][466776000000] = 278.58;
+				cfsrMeans[16][48]['tmpprs'][85000][466797600000] = 278.83;
+				cfsrMeans[16][48]['tmpprs'][85000][466819200000] = 278.77;
+				cfsrMeans[16][48]['tmpprs'][85000][466840800000] = 278.35;
+				cfsrMeans[16][48]['tmpprs'][85000][466862400000] = 278.46;
+				cfsrMeans[16][48]['tmpprs'][85000][466884000000] = 278.7;
+				cfsrMeans[16][48]['tmpprs'][85000][466905600000] = 278.65;
+				cfsrMeans[16][48]['tmpprs'][85000][466927200000] = 278.23;
+				cfsrMeans[16][48]['tmpprs'][85000][466948800000] = 278.35;
+				cfsrMeans[16][48]['tmpprs'][85000][466970400000] = 278.58;
+				cfsrMeans[16][48]['tmpprs'][85000][466992000000] = 278.52;
+				cfsrMeans[16][48]['tmpprs'][85000][467013600000] = 278.11;
+				cfsrMeans[16][48]['tmpprs'][85000][467035200000] = 278.23;
+				cfsrMeans[16][48]['tmpprs'][85000][467056800000] = 278.45;
+				cfsrMeans[16][48]['tmpprs'][85000][467078400000] = 278.39;
+				cfsrMeans[16][48]['tmpprs'][85000][467100000000] = 277.99;
+				cfsrMeans[16][48]['tmpprs'][85000][467121600000] = 278.11;
+				cfsrMeans[16][48]['tmpprs'][85000][467143200000] = 278.32;
+				cfsrMeans[16][48]['tmpprs'][85000][467164800000] = 278.26;
+				cfsrMeans[16][48]['tmpprs'][85000][467186400000] = 277.87;
+				cfsrMeans[16][48]['tmpprs'][85000][467208000000] = 277.99;
+				cfsrMeans[16][48]['tmpprs'][85000][467229600000] = 278.19;
+				cfsrMeans[16][48]['tmpprs'][85000][467251200000] = 278.13;
+				cfsrMeans[16][48]['tmpprs'][85000][467272800000] = 277.74;
+				cfsrMeans[16][48]['tmpprs'][85000][467294400000] = 277.87;
+				cfsrMeans[16][48]['tmpprs'][85000][467316000000] = 278.05;
+				cfsrMeans[16][48]['tmpprs'][85000][467337600000] = 277.99;
+				cfsrMeans[16][48]['tmpprs'][85000][467359200000] = 277.62;
+				cfsrMeans[16][48]['tmpprs'][85000][467380800000] = 277.74;
+				cfsrMeans[16][48]['tmpprs'][85000][467402400000] = 277.92;
+				cfsrMeans[16][48]['tmpprs'][85000][467424000000] = 277.86;
+				cfsrMeans[16][48]['tmpprs'][85000][467445600000] = 277.49;
+				cfsrMeans[16][48]['tmpprs'][85000][467467200000] = 277.62;
+				cfsrMeans[16][48]['tmpprs'][85000][467488800000] = 277.79;
+				cfsrMeans[16][48]['tmpprs'][85000][467510400000] = 277.72;
+				cfsrMeans[16][48]['tmpprs'][85000][467532000000] = 277.36;
+				cfsrMeans[16][48]['tmpprs'][85000][467553600000] = 277.49;
+				cfsrMeans[16][48]['tmpprs'][85000][467575200000] = 277.65;
+				cfsrMeans[16][48]['tmpprs'][85000][467596800000] = 277.58;
+				cfsrMeans[16][48]['tmpprs'][85000][467618400000] = 277.23;
+				cfsrMeans[16][48]['tmpprs'][85000][467640000000] = 277.36;
+				cfsrMeans[16][48]['tmpprs'][85000][467661600000] = 277.51;
+				cfsrMeans[16][48]['tmpprs'][85000][467683200000] = 277.45;
+				cfsrMeans[16][48]['tmpprs'][85000][467704800000] = 277.1;
+				cfsrMeans[16][48]['tmpprs'][85000][467726400000] = 277.24;
+				cfsrMeans[16][48]['tmpprs'][85000][467748000000] = 277.37;
+				cfsrMeans[16][48]['tmpprs'][85000][467769600000] = 277.3;
+				cfsrMeans[16][48]['tmpprs'][85000][467791200000] = 276.96;
+				cfsrMeans[16][48]['tmpprs'][85000][467812800000] = 277.11;
+				cfsrMeans[16][48]['tmpprs'][85000][467834400000] = 277.23;
+				cfsrMeans[16][48]['tmpprs'][85000][467856000000] = 277.16;
+				cfsrMeans[16][48]['tmpprs'][85000][467877600000] = 276.83;
+				cfsrMeans[16][48]['tmpprs'][85000][467899200000] = 276.97;
+				cfsrMeans[16][48]['tmpprs'][85000][467920800000] = 277.09;
+				cfsrMeans[16][48]['tmpprs'][85000][467942400000] = 277.02;
+				cfsrMeans[16][48]['tmpprs'][85000][467964000000] = 276.69;
+				cfsrMeans[16][48]['tmpprs'][85000][467985600000] = 276.84;
+				cfsrMeans[16][48]['tmpprs'][85000][468007200000] = 276.94;
+				cfsrMeans[16][48]['tmpprs'][85000][468028800000] = 276.88;
+				cfsrMeans[16][48]['tmpprs'][85000][468050400000] = 276.55;
+				cfsrMeans[16][48]['tmpprs'][85000][468072000000] = 276.71;
+				cfsrMeans[16][48]['tmpprs'][85000][468093600000] = 276.8;
+				cfsrMeans[16][48]['tmpprs'][85000][468115200000] = 276.73;
+				cfsrMeans[16][48]['tmpprs'][85000][468136800000] = 276.41;
+				cfsrMeans[16][48]['tmpprs'][85000][468158400000] = 276.57;
+				cfsrMeans[16][48]['tmpprs'][85000][468180000000] = 276.66;
+				cfsrMeans[16][48]['tmpprs'][85000][468201600000] = 276.59;
+				cfsrMeans[16][48]['tmpprs'][85000][468223200000] = 276.27;
+				cfsrMeans[16][48]['tmpprs'][85000][468244800000] = 276.44;
+				cfsrMeans[16][48]['tmpprs'][85000][468266400000] = 276.51;
+				cfsrMeans[16][48]['tmpprs'][85000][468288000000] = 276.44;
+				cfsrMeans[16][48]['tmpprs'][85000][468309600000] = 276.13;
+				cfsrMeans[16][48]['tmpprs'][85000][468331200000] = 276.3;
+				cfsrMeans[16][48]['tmpprs'][85000][468352800000] = 276.36;
+				cfsrMeans[16][48]['tmpprs'][85000][468374400000] = 276.29;
+				cfsrMeans[16][48]['tmpprs'][85000][468396000000] = 275.99;
+				cfsrMeans[16][48]['tmpprs'][85000][468417600000] = 276.16;
+				cfsrMeans[16][48]['tmpprs'][85000][468439200000] = 276.21;
+				cfsrMeans[16][48]['tmpprs'][85000][468460800000] = 276.14;
+				cfsrMeans[16][48]['tmpprs'][85000][468482400000] = 275.85;
+				cfsrMeans[16][48]['tmpprs'][85000][468504000000] = 276.02;
+				cfsrMeans[16][48]['tmpprs'][85000][468525600000] = 276.07;
+				cfsrMeans[16][48]['tmpprs'][85000][468547200000] = 275.99;
+				cfsrMeans[16][48]['tmpprs'][85000][468568800000] = 275.7;
+				cfsrMeans[16][48]['tmpprs'][85000][468590400000] = 275.88;
+				cfsrMeans[16][48]['tmpprs'][85000][468612000000] = 275.92;
+				cfsrMeans[16][48]['tmpprs'][85000][468633600000] = 275.85;
+				cfsrMeans[16][48]['tmpprs'][85000][468655200000] = 275.56;
+				cfsrMeans[16][48]['tmpprs'][85000][468676800000] = 275.74;
+				cfsrMeans[16][48]['tmpprs'][85000][468698400000] = 275.77;
+				cfsrMeans[16][48]['tmpprs'][85000][468720000000] = 275.7;
+				cfsrMeans[16][48]['tmpprs'][85000][468741600000] = 275.41;
+				cfsrMeans[16][48]['tmpprs'][85000][468763200000] = 275.6;
+				cfsrMeans[16][48]['tmpprs'][85000][468784800000] = 275.62;
+				cfsrMeans[16][48]['tmpprs'][85000][468806400000] = 275.55;
+				cfsrMeans[16][48]['tmpprs'][85000][468828000000] = 275.27;
+				cfsrMeans[16][48]['tmpprs'][85000][468849600000] = 275.46;
+				cfsrMeans[16][48]['tmpprs'][85000][468871200000] = 275.47;
+				cfsrMeans[16][48]['tmpprs'][85000][468892800000] = 275.4;
+				cfsrMeans[16][48]['tmpprs'][85000][468914400000] = 275.12;
+				cfsrMeans[16][48]['tmpprs'][85000][468936000000] = 275.32;
+				cfsrMeans[16][48]['tmpprs'][85000][468957600000] = 275.32;
+				cfsrMeans[16][48]['tmpprs'][85000][468979200000] = 275.25;
+				cfsrMeans[16][48]['tmpprs'][85000][469000800000] = 274.98;
+				cfsrMeans[16][48]['tmpprs'][85000][469022400000] = 275.18;
+				cfsrMeans[16][48]['tmpprs'][85000][469044000000] = 275.17;
+				cfsrMeans[16][48]['tmpprs'][85000][469065600000] = 275.1;
+				cfsrMeans[16][48]['tmpprs'][85000][469087200000] = 274.83;
+				cfsrMeans[16][48]['tmpprs'][85000][469108800000] = 275.04;
+				cfsrMeans[16][48]['tmpprs'][85000][469130400000] = 275.02;
+				cfsrMeans[16][48]['tmpprs'][85000][469152000000] = 274.95;
+				cfsrMeans[16][48]['tmpprs'][85000][469173600000] = 274.69;
+				cfsrMeans[16][48]['tmpprs'][85000][469195200000] = 274.9;
+				cfsrMeans[16][48]['tmpprs'][85000][469216800000] = 274.87;
+				cfsrMeans[16][48]['tmpprs'][85000][469238400000] = 274.81;
+				cfsrMeans[16][48]['tmpprs'][85000][469260000000] = 274.55;
+				cfsrMeans[16][48]['tmpprs'][85000][469281600000] = 274.76;
+				cfsrMeans[16][48]['tmpprs'][85000][469303200000] = 274.73;
+				cfsrMeans[16][48]['tmpprs'][85000][469324800000] = 274.66;
+				cfsrMeans[16][48]['tmpprs'][85000][469346400000] = 274.4;
+				cfsrMeans[16][48]['tmpprs'][85000][469368000000] = 274.62;
+				cfsrMeans[16][48]['tmpprs'][85000][469389600000] = 274.58;
+				cfsrMeans[16][48]['tmpprs'][85000][469411200000] = 274.52;
+				cfsrMeans[16][48]['tmpprs'][85000][469432800000] = 274.26;
+				cfsrMeans[16][48]['tmpprs'][85000][469454400000] = 274.48;
+				cfsrMeans[16][48]['tmpprs'][85000][469476000000] = 274.43;
+				cfsrMeans[16][48]['tmpprs'][85000][469497600000] = 274.37;
+				cfsrMeans[16][48]['tmpprs'][85000][469519200000] = 274.12;
+				cfsrMeans[16][48]['tmpprs'][85000][469540800000] = 274.34;
+				cfsrMeans[16][48]['tmpprs'][85000][469562400000] = 274.29;
+				cfsrMeans[16][48]['tmpprs'][85000][469584000000] = 274.23;
+				cfsrMeans[16][48]['tmpprs'][85000][469605600000] = 273.98;
+				cfsrMeans[16][48]['tmpprs'][85000][469627200000] = 274.2;
+				cfsrMeans[16][48]['tmpprs'][85000][469648800000] = 274.15;
+				cfsrMeans[16][48]['tmpprs'][85000][469670400000] = 274.09;
+				cfsrMeans[16][48]['tmpprs'][85000][469692000000] = 273.84;
+				cfsrMeans[16][48]['tmpprs'][85000][469713600000] = 274.07;
+				cfsrMeans[16][48]['tmpprs'][85000][469735200000] = 274;
+				cfsrMeans[16][48]['tmpprs'][85000][469756800000] = 273.95;
+				cfsrMeans[16][48]['tmpprs'][85000][469778400000] = 273.7;
+				cfsrMeans[16][48]['tmpprs'][85000][469800000000] = 273.93;
+				cfsrMeans[16][48]['tmpprs'][85000][469821600000] = 273.86;
+				cfsrMeans[16][48]['tmpprs'][85000][469843200000] = 273.81;
+				cfsrMeans[16][48]['tmpprs'][85000][469864800000] = 273.57;
+				cfsrMeans[16][48]['tmpprs'][85000][469886400000] = 273.8;
+				cfsrMeans[16][48]['tmpprs'][85000][469908000000] = 273.73;
+				cfsrMeans[16][48]['tmpprs'][85000][469929600000] = 273.68;
+				cfsrMeans[16][48]['tmpprs'][85000][469951200000] = 273.44;
+				cfsrMeans[16][48]['tmpprs'][85000][469972800000] = 273.67;
+				cfsrMeans[16][48]['tmpprs'][85000][469994400000] = 273.59;
+				cfsrMeans[16][48]['tmpprs'][85000][470016000000] = 273.55;
+				cfsrMeans[16][48]['tmpprs'][85000][470037600000] = 273.3;
+				cfsrMeans[16][48]['tmpprs'][85000][470059200000] = 273.54;
+				cfsrMeans[16][48]['tmpprs'][85000][470080800000] = 273.46;
+				cfsrMeans[16][48]['tmpprs'][85000][470102400000] = 273.42;
+				cfsrMeans[16][48]['tmpprs'][85000][470124000000] = 273.17;
+				cfsrMeans[16][48]['tmpprs'][85000][470145600000] = 273.41;
+				cfsrMeans[16][48]['tmpprs'][85000][470167200000] = 273.32;
+				cfsrMeans[16][48]['tmpprs'][85000][470188800000] = 273.29;
+				cfsrMeans[16][48]['tmpprs'][85000][470210400000] = 273.05;
+				cfsrMeans[16][48]['tmpprs'][85000][470232000000] = 273.28;
+				cfsrMeans[16][48]['tmpprs'][85000][470253600000] = 273.2;
+				cfsrMeans[16][48]['tmpprs'][85000][470275200000] = 273.16;
+				cfsrMeans[16][48]['tmpprs'][85000][470296800000] = 272.92;
+				cfsrMeans[16][48]['tmpprs'][85000][470318400000] = 273.16;
+				cfsrMeans[16][48]['tmpprs'][85000][470340000000] = 273.07;
+				cfsrMeans[16][48]['tmpprs'][85000][470361600000] = 273.04;
+				cfsrMeans[16][48]['tmpprs'][85000][470383200000] = 272.8;
+				cfsrMeans[16][48]['tmpprs'][85000][470404800000] = 273.04;
+				cfsrMeans[16][48]['tmpprs'][85000][470426400000] = 272.94;
+				cfsrMeans[16][48]['tmpprs'][85000][470448000000] = 272.92;
+				cfsrMeans[16][48]['tmpprs'][85000][470469600000] = 272.68;
+				cfsrMeans[16][48]['tmpprs'][85000][470491200000] = 272.92;
+				cfsrMeans[16][48]['tmpprs'][85000][470512800000] = 272.82;
+				cfsrMeans[16][48]['tmpprs'][85000][470534400000] = 272.8;
+				cfsrMeans[16][48]['tmpprs'][85000][470556000000] = 272.56;
+				cfsrMeans[16][48]['tmpprs'][85000][470577600000] = 272.8;
+				cfsrMeans[16][48]['tmpprs'][85000][470599200000] = 272.71;
+				cfsrMeans[16][48]['tmpprs'][85000][470620800000] = 272.69;
+				cfsrMeans[16][48]['tmpprs'][85000][470642400000] = 272.45;
+				cfsrMeans[16][48]['tmpprs'][85000][470664000000] = 272.69;
+				cfsrMeans[16][48]['tmpprs'][85000][470685600000] = 272.59;
+				cfsrMeans[16][48]['tmpprs'][85000][470707200000] = 272.58;
+				cfsrMeans[16][48]['tmpprs'][85000][470728800000] = 272.34;
+				cfsrMeans[16][48]['tmpprs'][85000][470750400000] = 272.58;
+				cfsrMeans[16][48]['tmpprs'][85000][470772000000] = 272.48;
+				cfsrMeans[16][48]['tmpprs'][85000][470793600000] = 272.47;
+				cfsrMeans[16][48]['tmpprs'][85000][470815200000] = 272.23;
+				cfsrMeans[16][48]['tmpprs'][85000][470836800000] = 272.47;
+				cfsrMeans[16][48]['tmpprs'][85000][470858400000] = 272.37;
+				cfsrMeans[16][48]['tmpprs'][85000][470880000000] = 272.37;
+				cfsrMeans[16][48]['tmpprs'][85000][470901600000] = 272.12;
+				cfsrMeans[16][48]['tmpprs'][85000][470923200000] = 272.36;
+				cfsrMeans[16][48]['tmpprs'][85000][470944800000] = 272.27;
+				cfsrMeans[16][48]['tmpprs'][85000][470966400000] = 272.27;
+				cfsrMeans[16][48]['tmpprs'][85000][470988000000] = 272.02;
+				cfsrMeans[16][48]['tmpprs'][85000][471009600000] = 272.26;
+				cfsrMeans[16][48]['tmpprs'][85000][471031200000] = 272.16;
+				cfsrMeans[16][48]['tmpprs'][85000][471052800000] = 272.17;
+				cfsrMeans[16][48]['tmpprs'][85000][471074400000] = 271.92;
+				cfsrMeans[16][48]['tmpprs'][85000][471096000000] = 272.16;
+				cfsrMeans[16][48]['tmpprs'][85000][471117600000] = 272.07;
+				cfsrMeans[16][48]['tmpprs'][85000][471139200000] = 272.07;
+				cfsrMeans[16][48]['tmpprs'][85000][471160800000] = 271.83;
+				cfsrMeans[16][48]['tmpprs'][85000][471182400000] = 272.07;
+				cfsrMeans[16][48]['tmpprs'][85000][471204000000] = 271.97;
+				cfsrMeans[16][48]['tmpprs'][85000][471225600000] = 271.98;
+				cfsrMeans[16][48]['tmpprs'][85000][471247200000] = 271.74;
+				cfsrMeans[16][48]['tmpprs'][85000][471268800000] = 271.98;
+				cfsrMeans[16][48]['tmpprs'][85000][471290400000] = 271.88;
+				cfsrMeans[16][48]['tmpprs'][85000][471312000000] = 271.9;
+				cfsrMeans[16][48]['tmpprs'][85000][471333600000] = 271.65;
+				cfsrMeans[16][48]['tmpprs'][85000][471355200000] = 271.89;
+				cfsrMeans[16][48]['tmpprs'][85000][471376800000] = 271.79;
+				cfsrMeans[16][48]['tmpprs'][85000][471398400000] = 271.82;
+				cfsrMeans[16][48]['tmpprs'][85000][471420000000] = 271.56;
+				cfsrMeans[16][48]['tmpprs'][85000][471441600000] = 271.8;
+				cfsrMeans[16][48]['tmpprs'][85000][471463200000] = 271.71;
+				cfsrMeans[16][48]['tmpprs'][85000][471484800000] = 271.74;
+				cfsrMeans[16][48]['tmpprs'][85000][471506400000] = 271.48;
+				cfsrMeans[16][48]['tmpprs'][85000][471528000000] = 271.72;
+				cfsrMeans[16][48]['tmpprs'][85000][471549600000] = 271.63;
+				cfsrMeans[16][48]['tmpprs'][85000][471571200000] = 271.66;
+				cfsrMeans[16][48]['tmpprs'][85000][471592800000] = 271.41;
+				cfsrMeans[16][48]['tmpprs'][85000][471614400000] = 271.64;
+				cfsrMeans[16][48]['tmpprs'][85000][471636000000] = 271.55;
+				cfsrMeans[16][48]['tmpprs'][85000][471657600000] = 271.59;
+				cfsrMeans[16][48]['tmpprs'][85000][471679200000] = 271.33;
+				cfsrMeans[16][48]['tmpprs'][85000][471700800000] = 271.57;
+				cfsrMeans[16][48]['tmpprs'][85000][471722400000] = 271.48;
+				cfsrMeans[16][48]['tmpprs'][85000][471744000000] = 271.52;
+				cfsrMeans[16][48]['tmpprs'][85000][471765600000] = 271.26;
+				cfsrMeans[16][48]['tmpprs'][85000][471787200000] = 271.49;
+				cfsrMeans[16][48]['tmpprs'][85000][471808800000] = 271.41;
+				cfsrMeans[16][48]['tmpprs'][85000][471830400000] = 271.45;
+				cfsrMeans[16][48]['tmpprs'][85000][471852000000] = 271.19;
+				cfsrMeans[16][48]['tmpprs'][85000][471873600000] = 271.43;
+				cfsrMeans[16][48]['tmpprs'][85000][471895200000] = 271.35;
+				cfsrMeans[16][48]['tmpprs'][85000][471916800000] = 271.39;
+				cfsrMeans[16][48]['tmpprs'][85000][471938400000] = 271.13;
+				cfsrMeans[16][48]['tmpprs'][85000][471960000000] = 271.36;
+				cfsrMeans[16][48]['tmpprs'][85000][471981600000] = 271.28;
+				cfsrMeans[16][48]['tmpprs'][85000][472003200000] = 271.33;
+				cfsrMeans[16][48]['tmpprs'][85000][472024800000] = 271.07;
+				cfsrMeans[16][48]['tmpprs'][85000][472046400000] = 271.3;
+				cfsrMeans[16][48]['tmpprs'][85000][472068000000] = 271.22;
+				cfsrMeans[16][48]['tmpprs'][85000][472089600000] = 271.28;
+				cfsrMeans[16][48]['tmpprs'][85000][472111200000] = 271.01;
+				cfsrMeans[16][48]['tmpprs'][85000][472132800000] = 271.24;
+				cfsrMeans[16][48]['tmpprs'][85000][472154400000] = 271.17;
+				cfsrMeans[16][48]['tmpprs'][85000][472176000000] = 271.23;
+				cfsrMeans[16][48]['tmpprs'][85000][472197600000] = 270.96;
+				cfsrMeans[16][48]['tmpprs'][85000][472219200000] = 271.19;
+				cfsrMeans[16][48]['tmpprs'][85000][472240800000] = 271.12;
+				cfsrMeans[16][48]['tmpprs'][85000][472262400000] = 271.18;
+				cfsrMeans[16][48]['tmpprs'][85000][472284000000] = 270.91;
+				cfsrMeans[16][48]['tmpprs'][85000][472305600000] = 271.14;
+				cfsrMeans[16][48]['tmpprs'][85000][472327200000] = 271.07;
+				cfsrMeans[16][48]['tmpprs'][85000][472348800000] = 271.13;
+				cfsrMeans[16][48]['tmpprs'][85000][472370400000] = 270.86;
+				cfsrMeans[16][48]['tmpprs'][85000][472392000000] = 271.09;
+				cfsrMeans[16][48]['tmpprs'][85000][472413600000] = 271.02;
+				cfsrMeans[16][48]['tmpprs'][85000][472435200000] = 271.09;
+				cfsrMeans[16][48]['tmpprs'][85000][472456800000] = 270.82;
+				cfsrMeans[16][48]['tmpprs'][85000][472478400000] = 271.04;
+				cfsrMeans[16][48]['tmpprs'][85000][472500000000] = 270.98;
+				cfsrMeans[16][48]['tmpprs'][85000][472521600000] = 271.05;
+				cfsrMeans[16][48]['tmpprs'][85000][472543200000] = 270.78;
+				cfsrMeans[16][48]['tmpprs'][85000][472564800000] = 271;
+				cfsrMeans[16][48]['tmpprs'][85000][472586400000] = 270.94;
+				cfsrMeans[16][48]['tmpprs'][85000][472608000000] = 271.02;
+				cfsrMeans[16][48]['tmpprs'][85000][472629600000] = 270.74;
+				cfsrMeans[16][48]['tmpprs'][85000][472651200000] = 270.96;
+				cfsrMeans[16][48]['tmpprs'][85000][472672800000] = 270.9;
+				cfsrMeans[16][48]['tmpprs'][85000][472694400000] = 270.98;
+				cfsrMeans[16][48]['tmpprs'][85000][472716000000] = 270.7;
+				cfsrMeans[16][48]['tmpprs'][85000][472737600000] = 270.92;
+				cfsrMeans[16][48]['tmpprs'][85000][472759200000] = 270.87;
+				cfsrMeans[16][48]['tmpprs'][85000][472780800000] = 270.95;
+				cfsrMeans[16][48]['tmpprs'][85000][472802400000] = 270.67;
+				cfsrMeans[16][48]['tmpprs'][85000][472824000000] = 270.89;
+				cfsrMeans[16][48]['tmpprs'][85000][472845600000] = 270.84;
+				cfsrMeans[16][48]['tmpprs'][85000][472867200000] = 270.92;
+				cfsrMeans[16][48]['tmpprs'][85000][472888800000] = 270.64;
+				cfsrMeans[16][48]['tmpprs'][85000][472910400000] = 270.85;
+				cfsrMeans[16][48]['tmpprs'][85000][472932000000] = 270.81;
+				cfsrMeans[16][48]['tmpprs'][85000][472953600000] = 270.89;
+				cfsrMeans[16][48]['tmpprs'][85000][472975200000] = 270.61;
+				cfsrMeans[16][48]['tmpprs'][85000][472996800000] = 270.82;
+				cfsrMeans[16][48]['tmpprs'][85000][473018400000] = 270.78;
+				cfsrMeans[16][48]['tmpprs'][85000][473040000000] = 270.87;
+				cfsrMeans[16][48]['tmpprs'][85000][473061600000] = 270.58;
+				cfsrMeans[16][48]['tmpprs'][85000][473083200000] = 270.8;
+				cfsrMeans[16][48]['tmpprs'][85000][473104800000] = 270.76;
+				cfsrMeans[16][48]['tmpprs'][85000][473126400000] = 270.85;
+				cfsrMeans[16][48]['tmpprs'][85000][473148000000] = 270.56;
+				cfsrMeans[16][48]['tmpprs'][85000][473169600000] = 270.77;
+				cfsrMeans[16][48]['tmpprs'][85000][473191200000] = 270.74;
+				cfsrMeans[16][48]['tmpprs'][85000][473212800000] = 270.82;
+				cfsrMeans[16][48]['tmpprs'][85000][473234400000] = 270.54;
+				cfsrMeans[16][48]['tmpprs'][85000][473256000000] = 270.75;
+				cfsrMeans[16][48]['tmpprs'][85000][473277600000] = 270.72;
+				cfsrMeans[16][48]['tmpprs'][85000][473299200000] = 270.8;
+				cfsrMeans[16][48]['tmpprs'][85000][473320800000] = 270.52;
+				cfsrMeans[16][48]['tmpprs'][85000][473342400000] = 270.73;
+				cfsrMeans[16][48]['tmpprs'][85000][473364000000] = 270.7;
+		cfsrMeans[16][48]['hgtprs'] = [];	cfsrMeans[16][48]['hgtprs'][50000] = [];	cfsrMeans[16][48]['hgtprs'][50000][441763200000] = 5506.79;
+				cfsrMeans[16][48]['hgtprs'][50000][441784800000] = 5500.83;
+				cfsrMeans[16][48]['hgtprs'][50000][441806400000] = 5506.24;
+				cfsrMeans[16][48]['hgtprs'][50000][441828000000] = 5506.92;
+				cfsrMeans[16][48]['hgtprs'][50000][441849600000] = 5506.82;
+				cfsrMeans[16][48]['hgtprs'][50000][441871200000] = 5500.85;
+				cfsrMeans[16][48]['hgtprs'][50000][441892800000] = 5506.27;
+				cfsrMeans[16][48]['hgtprs'][50000][441914400000] = 5506.96;
+				cfsrMeans[16][48]['hgtprs'][50000][441936000000] = 5506.86;
+				cfsrMeans[16][48]['hgtprs'][50000][441957600000] = 5500.88;
+				cfsrMeans[16][48]['hgtprs'][50000][441979200000] = 5506.32;
+				cfsrMeans[16][48]['hgtprs'][50000][442000800000] = 5507.03;
+				cfsrMeans[16][48]['hgtprs'][50000][442022400000] = 5506.91;
+				cfsrMeans[16][48]['hgtprs'][50000][442044000000] = 5500.91;
+				cfsrMeans[16][48]['hgtprs'][50000][442065600000] = 5506.39;
+				cfsrMeans[16][48]['hgtprs'][50000][442087200000] = 5507.09;
+				cfsrMeans[16][48]['hgtprs'][50000][442108800000] = 5506.97;
+				cfsrMeans[16][48]['hgtprs'][50000][442130400000] = 5500.96;
+				cfsrMeans[16][48]['hgtprs'][50000][442152000000] = 5506.47;
+				cfsrMeans[16][48]['hgtprs'][50000][442173600000] = 5507.17;
+				cfsrMeans[16][48]['hgtprs'][50000][442195200000] = 5507.06;
+				cfsrMeans[16][48]['hgtprs'][50000][442216800000] = 5501;
+				cfsrMeans[16][48]['hgtprs'][50000][442238400000] = 5506.55;
+				cfsrMeans[16][48]['hgtprs'][50000][442260000000] = 5507.25;
+				cfsrMeans[16][48]['hgtprs'][50000][442281600000] = 5507.12;
+				cfsrMeans[16][48]['hgtprs'][50000][442303200000] = 5501.06;
+				cfsrMeans[16][48]['hgtprs'][50000][442324800000] = 5506.64;
+				cfsrMeans[16][48]['hgtprs'][50000][442346400000] = 5507.32;
+				cfsrMeans[16][48]['hgtprs'][50000][442368000000] = 5507.2;
+				cfsrMeans[16][48]['hgtprs'][50000][442389600000] = 5501.11;
+				cfsrMeans[16][48]['hgtprs'][50000][442411200000] = 5506.73;
+				cfsrMeans[16][48]['hgtprs'][50000][442432800000] = 5507.39;
+				cfsrMeans[16][48]['hgtprs'][50000][442454400000] = 5507.26;
+				cfsrMeans[16][48]['hgtprs'][50000][442476000000] = 5501.15;
+				cfsrMeans[16][48]['hgtprs'][50000][442497600000] = 5506.82;
+				cfsrMeans[16][48]['hgtprs'][50000][442519200000] = 5507.45;
+				cfsrMeans[16][48]['hgtprs'][50000][442540800000] = 5507.31;
+				cfsrMeans[16][48]['hgtprs'][50000][442562400000] = 5501.18;
+				cfsrMeans[16][48]['hgtprs'][50000][442584000000] = 5506.89;
+				cfsrMeans[16][48]['hgtprs'][50000][442605600000] = 5507.5;
+				cfsrMeans[16][48]['hgtprs'][50000][442627200000] = 5507.35;
+				cfsrMeans[16][48]['hgtprs'][50000][442648800000] = 5501.19;
+				cfsrMeans[16][48]['hgtprs'][50000][442670400000] = 5506.94;
+				cfsrMeans[16][48]['hgtprs'][50000][442692000000] = 5507.54;
+				cfsrMeans[16][48]['hgtprs'][50000][442713600000] = 5507.38;
+				cfsrMeans[16][48]['hgtprs'][50000][442735200000] = 5501.2;
+				cfsrMeans[16][48]['hgtprs'][50000][442756800000] = 5506.98;
+				cfsrMeans[16][48]['hgtprs'][50000][442778400000] = 5507.55;
+				cfsrMeans[16][48]['hgtprs'][50000][442800000000] = 5507.38;
+				cfsrMeans[16][48]['hgtprs'][50000][442821600000] = 5501.17;
+				cfsrMeans[16][48]['hgtprs'][50000][442843200000] = 5507.01;
+				cfsrMeans[16][48]['hgtprs'][50000][442864800000] = 5507.55;
+				cfsrMeans[16][48]['hgtprs'][50000][442886400000] = 5507.37;
+				cfsrMeans[16][48]['hgtprs'][50000][442908000000] = 5501.13;
+				cfsrMeans[16][48]['hgtprs'][50000][442929600000] = 5507;
+				cfsrMeans[16][48]['hgtprs'][50000][442951200000] = 5507.52;
+				cfsrMeans[16][48]['hgtprs'][50000][442972800000] = 5507.32;
+				cfsrMeans[16][48]['hgtprs'][50000][442994400000] = 5501.05;
+				cfsrMeans[16][48]['hgtprs'][50000][443016000000] = 5506.98;
+				cfsrMeans[16][48]['hgtprs'][50000][443037600000] = 5507.45;
+				cfsrMeans[16][48]['hgtprs'][50000][443059200000] = 5507.25;
+				cfsrMeans[16][48]['hgtprs'][50000][443080800000] = 5500.96;
+				cfsrMeans[16][48]['hgtprs'][50000][443102400000] = 5506.93;
+				cfsrMeans[16][48]['hgtprs'][50000][443124000000] = 5507.37;
+				cfsrMeans[16][48]['hgtprs'][50000][443145600000] = 5507.15;
+				cfsrMeans[16][48]['hgtprs'][50000][443167200000] = 5500.82;
+				cfsrMeans[16][48]['hgtprs'][50000][443188800000] = 5506.85;
+				cfsrMeans[16][48]['hgtprs'][50000][443210400000] = 5507.24;
+				cfsrMeans[16][48]['hgtprs'][50000][443232000000] = 5507.02;
+				cfsrMeans[16][48]['hgtprs'][50000][443253600000] = 5500.66;
+				cfsrMeans[16][48]['hgtprs'][50000][443275200000] = 5506.71;
+				cfsrMeans[16][48]['hgtprs'][50000][443296800000] = 5507.09;
+				cfsrMeans[16][48]['hgtprs'][50000][443318400000] = 5506.83;
+				cfsrMeans[16][48]['hgtprs'][50000][443340000000] = 5500.45;
+				cfsrMeans[16][48]['hgtprs'][50000][443361600000] = 5506.57;
+				cfsrMeans[16][48]['hgtprs'][50000][443383200000] = 5506.88;
+				cfsrMeans[16][48]['hgtprs'][50000][443404800000] = 5506.63;
+				cfsrMeans[16][48]['hgtprs'][50000][443426400000] = 5500.21;
+				cfsrMeans[16][48]['hgtprs'][50000][443448000000] = 5506.39;
+				cfsrMeans[16][48]['hgtprs'][50000][443469600000] = 5506.66;
+				cfsrMeans[16][48]['hgtprs'][50000][443491200000] = 5506.39;
+				cfsrMeans[16][48]['hgtprs'][50000][443512800000] = 5499.92;
+				cfsrMeans[16][48]['hgtprs'][50000][443534400000] = 5506.15;
+				cfsrMeans[16][48]['hgtprs'][50000][443556000000] = 5506.39;
+				cfsrMeans[16][48]['hgtprs'][50000][443577600000] = 5506.1;
+				cfsrMeans[16][48]['hgtprs'][50000][443599200000] = 5499.6;
+				cfsrMeans[16][48]['hgtprs'][50000][443620800000] = 5505.89;
+				cfsrMeans[16][48]['hgtprs'][50000][443642400000] = 5506.07;
+				cfsrMeans[16][48]['hgtprs'][50000][443664000000] = 5505.76;
+				cfsrMeans[16][48]['hgtprs'][50000][443685600000] = 5499.23;
+				cfsrMeans[16][48]['hgtprs'][50000][443707200000] = 5505.59;
+				cfsrMeans[16][48]['hgtprs'][50000][443728800000] = 5505.73;
+				cfsrMeans[16][48]['hgtprs'][50000][443750400000] = 5505.4;
+				cfsrMeans[16][48]['hgtprs'][50000][443772000000] = 5498.83;
+				cfsrMeans[16][48]['hgtprs'][50000][443793600000] = 5505.24;
+				cfsrMeans[16][48]['hgtprs'][50000][443815200000] = 5505.34;
+				cfsrMeans[16][48]['hgtprs'][50000][443836800000] = 5504.99;
+				cfsrMeans[16][48]['hgtprs'][50000][443858400000] = 5498.38;
+				cfsrMeans[16][48]['hgtprs'][50000][443880000000] = 5504.87;
+				cfsrMeans[16][48]['hgtprs'][50000][443901600000] = 5504.9;
+				cfsrMeans[16][48]['hgtprs'][50000][443923200000] = 5504.53;
+				cfsrMeans[16][48]['hgtprs'][50000][443944800000] = 5497.88;
+				cfsrMeans[16][48]['hgtprs'][50000][443966400000] = 5504.43;
+				cfsrMeans[16][48]['hgtprs'][50000][443988000000] = 5504.43;
+				cfsrMeans[16][48]['hgtprs'][50000][444009600000] = 5504.05;
+				cfsrMeans[16][48]['hgtprs'][50000][444031200000] = 5497.36;
+				cfsrMeans[16][48]['hgtprs'][50000][444052800000] = 5503.96;
+				cfsrMeans[16][48]['hgtprs'][50000][444074400000] = 5503.91;
+				cfsrMeans[16][48]['hgtprs'][50000][444096000000] = 5503.52;
+				cfsrMeans[16][48]['hgtprs'][50000][444117600000] = 5496.78;
+				cfsrMeans[16][48]['hgtprs'][50000][444139200000] = 5503.47;
+				cfsrMeans[16][48]['hgtprs'][50000][444160800000] = 5503.35;
+				cfsrMeans[16][48]['hgtprs'][50000][444182400000] = 5502.94;
+				cfsrMeans[16][48]['hgtprs'][50000][444204000000] = 5496.16;
+				cfsrMeans[16][48]['hgtprs'][50000][444225600000] = 5502.92;
+				cfsrMeans[16][48]['hgtprs'][50000][444247200000] = 5502.76;
+				cfsrMeans[16][48]['hgtprs'][50000][444268800000] = 5502.32;
+				cfsrMeans[16][48]['hgtprs'][50000][444290400000] = 5495.52;
+				cfsrMeans[16][48]['hgtprs'][50000][444312000000] = 5502.34;
+				cfsrMeans[16][48]['hgtprs'][50000][444333600000] = 5502.14;
+				cfsrMeans[16][48]['hgtprs'][50000][444355200000] = 5501.66;
+				cfsrMeans[16][48]['hgtprs'][50000][444376800000] = 5494.81;
+				cfsrMeans[16][48]['hgtprs'][50000][444398400000] = 5501.71;
+				cfsrMeans[16][48]['hgtprs'][50000][444420000000] = 5501.47;
+				cfsrMeans[16][48]['hgtprs'][50000][444441600000] = 5500.98;
+				cfsrMeans[16][48]['hgtprs'][50000][444463200000] = 5494.08;
+				cfsrMeans[16][48]['hgtprs'][50000][444484800000] = 5501.05;
+				cfsrMeans[16][48]['hgtprs'][50000][444506400000] = 5500.75;
+				cfsrMeans[16][48]['hgtprs'][50000][444528000000] = 5500.25;
+				cfsrMeans[16][48]['hgtprs'][50000][444549600000] = 5493.32;
+				cfsrMeans[16][48]['hgtprs'][50000][444571200000] = 5500.36;
+				cfsrMeans[16][48]['hgtprs'][50000][444592800000] = 5500.02;
+				cfsrMeans[16][48]['hgtprs'][50000][444614400000] = 5499.49;
+				cfsrMeans[16][48]['hgtprs'][50000][444636000000] = 5492.52;
+				cfsrMeans[16][48]['hgtprs'][50000][444657600000] = 5499.64;
+				cfsrMeans[16][48]['hgtprs'][50000][444679200000] = 5499.25;
+				cfsrMeans[16][48]['hgtprs'][50000][444700800000] = 5498.7;
+				cfsrMeans[16][48]['hgtprs'][50000][444722400000] = 5491.68;
+				cfsrMeans[16][48]['hgtprs'][50000][444744000000] = 5498.88;
+				cfsrMeans[16][48]['hgtprs'][50000][444765600000] = 5498.46;
+				cfsrMeans[16][48]['hgtprs'][50000][444787200000] = 5497.9;
+				cfsrMeans[16][48]['hgtprs'][50000][444808800000] = 5490.82;
+				cfsrMeans[16][48]['hgtprs'][50000][444830400000] = 5498.1;
+				cfsrMeans[16][48]['hgtprs'][50000][444852000000] = 5497.64;
+				cfsrMeans[16][48]['hgtprs'][50000][444873600000] = 5497.05;
+				cfsrMeans[16][48]['hgtprs'][50000][444895200000] = 5489.93;
+				cfsrMeans[16][48]['hgtprs'][50000][444916800000] = 5497.29;
+				cfsrMeans[16][48]['hgtprs'][50000][444938400000] = 5496.79;
+				cfsrMeans[16][48]['hgtprs'][50000][444960000000] = 5496.18;
+				cfsrMeans[16][48]['hgtprs'][50000][444981600000] = 5489.02;
+				cfsrMeans[16][48]['hgtprs'][50000][445003200000] = 5496.47;
+				cfsrMeans[16][48]['hgtprs'][50000][445024800000] = 5495.94;
+				cfsrMeans[16][48]['hgtprs'][50000][445046400000] = 5495.3;
+				cfsrMeans[16][48]['hgtprs'][50000][445068000000] = 5488.08;
+				cfsrMeans[16][48]['hgtprs'][50000][445089600000] = 5495.64;
+				cfsrMeans[16][48]['hgtprs'][50000][445111200000] = 5495.05;
+				cfsrMeans[16][48]['hgtprs'][50000][445132800000] = 5494.4;
+				cfsrMeans[16][48]['hgtprs'][50000][445154400000] = 5487.14;
+				cfsrMeans[16][48]['hgtprs'][50000][445176000000] = 5494.77;
+				cfsrMeans[16][48]['hgtprs'][50000][445197600000] = 5494.16;
+				cfsrMeans[16][48]['hgtprs'][50000][445219200000] = 5493.49;
+				cfsrMeans[16][48]['hgtprs'][50000][445240800000] = 5486.18;
+				cfsrMeans[16][48]['hgtprs'][50000][445262400000] = 5493.91;
+				cfsrMeans[16][48]['hgtprs'][50000][445284000000] = 5493.26;
+				cfsrMeans[16][48]['hgtprs'][50000][445305600000] = 5492.56;
+				cfsrMeans[16][48]['hgtprs'][50000][445327200000] = 5485.21;
+				cfsrMeans[16][48]['hgtprs'][50000][445348800000] = 5493.03;
+				cfsrMeans[16][48]['hgtprs'][50000][445370400000] = 5492.37;
+				cfsrMeans[16][48]['hgtprs'][50000][445392000000] = 5491.64;
+				cfsrMeans[16][48]['hgtprs'][50000][445413600000] = 5484.25;
+				cfsrMeans[16][48]['hgtprs'][50000][445435200000] = 5492.14;
+				cfsrMeans[16][48]['hgtprs'][50000][445456800000] = 5491.46;
+				cfsrMeans[16][48]['hgtprs'][50000][445478400000] = 5490.71;
+				cfsrMeans[16][48]['hgtprs'][50000][445500000000] = 5483.27;
+				cfsrMeans[16][48]['hgtprs'][50000][445521600000] = 5491.27;
+				cfsrMeans[16][48]['hgtprs'][50000][445543200000] = 5490.55;
+				cfsrMeans[16][48]['hgtprs'][50000][445564800000] = 5489.78;
+				cfsrMeans[16][48]['hgtprs'][50000][445586400000] = 5482.28;
+				cfsrMeans[16][48]['hgtprs'][50000][445608000000] = 5490.4;
+				cfsrMeans[16][48]['hgtprs'][50000][445629600000] = 5489.65;
+				cfsrMeans[16][48]['hgtprs'][50000][445651200000] = 5488.86;
+				cfsrMeans[16][48]['hgtprs'][50000][445672800000] = 5481.33;
+				cfsrMeans[16][48]['hgtprs'][50000][445694400000] = 5489.53;
+				cfsrMeans[16][48]['hgtprs'][50000][445716000000] = 5488.77;
+				cfsrMeans[16][48]['hgtprs'][50000][445737600000] = 5487.96;
+				cfsrMeans[16][48]['hgtprs'][50000][445759200000] = 5480.37;
+				cfsrMeans[16][48]['hgtprs'][50000][445780800000] = 5488.67;
+				cfsrMeans[16][48]['hgtprs'][50000][445802400000] = 5487.9;
+				cfsrMeans[16][48]['hgtprs'][50000][445824000000] = 5487.06;
+				cfsrMeans[16][48]['hgtprs'][50000][445845600000] = 5479.42;
+				cfsrMeans[16][48]['hgtprs'][50000][445867200000] = 5487.83;
+				cfsrMeans[16][48]['hgtprs'][50000][445888800000] = 5487.04;
+				cfsrMeans[16][48]['hgtprs'][50000][445910400000] = 5486.2;
+				cfsrMeans[16][48]['hgtprs'][50000][445932000000] = 5478.5;
+				cfsrMeans[16][48]['hgtprs'][50000][445953600000] = 5487.02;
+				cfsrMeans[16][48]['hgtprs'][50000][445975200000] = 5486.21;
+				cfsrMeans[16][48]['hgtprs'][50000][445996800000] = 5485.35;
+				cfsrMeans[16][48]['hgtprs'][50000][446018400000] = 5477.6;
+				cfsrMeans[16][48]['hgtprs'][50000][446040000000] = 5486.22;
+				cfsrMeans[16][48]['hgtprs'][50000][446061600000] = 5485.42;
+				cfsrMeans[16][48]['hgtprs'][50000][446083200000] = 5484.51;
+				cfsrMeans[16][48]['hgtprs'][50000][446104800000] = 5476.73;
+				cfsrMeans[16][48]['hgtprs'][50000][446126400000] = 5485.46;
+				cfsrMeans[16][48]['hgtprs'][50000][446148000000] = 5484.64;
+				cfsrMeans[16][48]['hgtprs'][50000][446169600000] = 5483.73;
+				cfsrMeans[16][48]['hgtprs'][50000][446191200000] = 5475.9;
+				cfsrMeans[16][48]['hgtprs'][50000][446212800000] = 5484.73;
+				cfsrMeans[16][48]['hgtprs'][50000][446234400000] = 5483.92;
+				cfsrMeans[16][48]['hgtprs'][50000][446256000000] = 5482.98;
+				cfsrMeans[16][48]['hgtprs'][50000][446277600000] = 5475.09;
+				cfsrMeans[16][48]['hgtprs'][50000][446299200000] = 5484.03;
+				cfsrMeans[16][48]['hgtprs'][50000][446320800000] = 5483.23;
+				cfsrMeans[16][48]['hgtprs'][50000][446342400000] = 5482.28;
+				cfsrMeans[16][48]['hgtprs'][50000][446364000000] = 5474.33;
+				cfsrMeans[16][48]['hgtprs'][50000][446385600000] = 5483.4;
+				cfsrMeans[16][48]['hgtprs'][50000][446407200000] = 5482.59;
+				cfsrMeans[16][48]['hgtprs'][50000][446428800000] = 5481.61;
+				cfsrMeans[16][48]['hgtprs'][50000][446450400000] = 5473.63;
+				cfsrMeans[16][48]['hgtprs'][50000][446472000000] = 5482.78;
+				cfsrMeans[16][48]['hgtprs'][50000][446493600000] = 5481.99;
+				cfsrMeans[16][48]['hgtprs'][50000][446515200000] = 5481;
+				cfsrMeans[16][48]['hgtprs'][50000][446536800000] = 5472.97;
+				cfsrMeans[16][48]['hgtprs'][50000][446558400000] = 5482.23;
+				cfsrMeans[16][48]['hgtprs'][50000][446580000000] = 5481.45;
+				cfsrMeans[16][48]['hgtprs'][50000][446601600000] = 5480.44;
+				cfsrMeans[16][48]['hgtprs'][50000][446623200000] = 5472.36;
+				cfsrMeans[16][48]['hgtprs'][50000][446644800000] = 5481.73;
+				cfsrMeans[16][48]['hgtprs'][50000][446666400000] = 5480.97;
+				cfsrMeans[16][48]['hgtprs'][50000][446688000000] = 5479.95;
+				cfsrMeans[16][48]['hgtprs'][50000][446709600000] = 5471.81;
+				cfsrMeans[16][48]['hgtprs'][50000][446731200000] = 5481.31;
+				cfsrMeans[16][48]['hgtprs'][50000][446752800000] = 5480.55;
+				cfsrMeans[16][48]['hgtprs'][50000][446774400000] = 5479.49;
+				cfsrMeans[16][48]['hgtprs'][50000][446796000000] = 5471.32;
+				cfsrMeans[16][48]['hgtprs'][50000][446817600000] = 5480.93;
+				cfsrMeans[16][48]['hgtprs'][50000][446839200000] = 5480.18;
+				cfsrMeans[16][48]['hgtprs'][50000][446860800000] = 5479.3;
+				cfsrMeans[16][48]['hgtprs'][50000][446882400000] = 5471.1;
+				cfsrMeans[16][48]['hgtprs'][50000][446904000000] = 5480.78;
+				cfsrMeans[16][48]['hgtprs'][50000][446925600000] = 5480.05;
+				cfsrMeans[16][48]['hgtprs'][50000][446947200000] = 5479.13;
+				cfsrMeans[16][48]['hgtprs'][50000][446968800000] = 5470.9;
+				cfsrMeans[16][48]['hgtprs'][50000][446990400000] = 5480.63;
+				cfsrMeans[16][48]['hgtprs'][50000][447012000000] = 5479.91;
+				cfsrMeans[16][48]['hgtprs'][50000][447033600000] = 5478.81;
+				cfsrMeans[16][48]['hgtprs'][50000][447055200000] = 5470.54;
+				cfsrMeans[16][48]['hgtprs'][50000][447076800000] = 5480.39;
+				cfsrMeans[16][48]['hgtprs'][50000][447098400000] = 5479.7;
+				cfsrMeans[16][48]['hgtprs'][50000][447120000000] = 5478.58;
+				cfsrMeans[16][48]['hgtprs'][50000][447141600000] = 5470.27;
+				cfsrMeans[16][48]['hgtprs'][50000][447163200000] = 5480.22;
+				cfsrMeans[16][48]['hgtprs'][50000][447184800000] = 5479.54;
+				cfsrMeans[16][48]['hgtprs'][50000][447206400000] = 5478.43;
+				cfsrMeans[16][48]['hgtprs'][50000][447228000000] = 5470.07;
+				cfsrMeans[16][48]['hgtprs'][50000][447249600000] = 5480.14;
+				cfsrMeans[16][48]['hgtprs'][50000][447271200000] = 5479.49;
+				cfsrMeans[16][48]['hgtprs'][50000][447292800000] = 5478.35;
+				cfsrMeans[16][48]['hgtprs'][50000][447314400000] = 5469.95;
+				cfsrMeans[16][48]['hgtprs'][50000][447336000000] = 5480.13;
+				cfsrMeans[16][48]['hgtprs'][50000][447357600000] = 5479.51;
+				cfsrMeans[16][48]['hgtprs'][50000][447379200000] = 5478.36;
+				cfsrMeans[16][48]['hgtprs'][50000][447400800000] = 5469.9;
+				cfsrMeans[16][48]['hgtprs'][50000][447422400000] = 5480.2;
+				cfsrMeans[16][48]['hgtprs'][50000][447444000000] = 5479.61;
+				cfsrMeans[16][48]['hgtprs'][50000][447465600000] = 5478.44;
+				cfsrMeans[16][48]['hgtprs'][50000][447487200000] = 5469.95;
+				cfsrMeans[16][48]['hgtprs'][50000][447508800000] = 5480.35;
+				cfsrMeans[16][48]['hgtprs'][50000][447530400000] = 5479.79;
+				cfsrMeans[16][48]['hgtprs'][50000][447552000000] = 5478.62;
+				cfsrMeans[16][48]['hgtprs'][50000][447573600000] = 5470.07;
+				cfsrMeans[16][48]['hgtprs'][50000][447595200000] = 5480.6;
+				cfsrMeans[16][48]['hgtprs'][50000][447616800000] = 5480.08;
+				cfsrMeans[16][48]['hgtprs'][50000][447638400000] = 5478.87;
+				cfsrMeans[16][48]['hgtprs'][50000][447660000000] = 5470.29;
+				cfsrMeans[16][48]['hgtprs'][50000][447681600000] = 5480.94;
+				cfsrMeans[16][48]['hgtprs'][50000][447703200000] = 5480.44;
+				cfsrMeans[16][48]['hgtprs'][50000][447724800000] = 5479.23;
+				cfsrMeans[16][48]['hgtprs'][50000][447746400000] = 5470.61;
+				cfsrMeans[16][48]['hgtprs'][50000][447768000000] = 5481.37;
+				cfsrMeans[16][48]['hgtprs'][50000][447789600000] = 5480.92;
+				cfsrMeans[16][48]['hgtprs'][50000][447811200000] = 5479.67;
+				cfsrMeans[16][48]['hgtprs'][50000][447832800000] = 5471.01;
+				cfsrMeans[16][48]['hgtprs'][50000][447854400000] = 5481.88;
+				cfsrMeans[16][48]['hgtprs'][50000][447876000000] = 5481.46;
+				cfsrMeans[16][48]['hgtprs'][50000][447897600000] = 5480.21;
+				cfsrMeans[16][48]['hgtprs'][50000][447919200000] = 5471.52;
+				cfsrMeans[16][48]['hgtprs'][50000][447940800000] = 5482.49;
+				cfsrMeans[16][48]['hgtprs'][50000][447962400000] = 5482.11;
+				cfsrMeans[16][48]['hgtprs'][50000][447984000000] = 5480.85;
+				cfsrMeans[16][48]['hgtprs'][50000][448005600000] = 5472.1;
+				cfsrMeans[16][48]['hgtprs'][50000][448027200000] = 5483.21;
+				cfsrMeans[16][48]['hgtprs'][50000][448048800000] = 5482.85;
+				cfsrMeans[16][48]['hgtprs'][50000][448070400000] = 5481.58;
+				cfsrMeans[16][48]['hgtprs'][50000][448092000000] = 5472.8;
+				cfsrMeans[16][48]['hgtprs'][50000][448113600000] = 5484.02;
+				cfsrMeans[16][48]['hgtprs'][50000][448135200000] = 5483.7;
+				cfsrMeans[16][48]['hgtprs'][50000][448156800000] = 5482.4;
+				cfsrMeans[16][48]['hgtprs'][50000][448178400000] = 5473.59;
+				cfsrMeans[16][48]['hgtprs'][50000][448200000000] = 5484.91;
+				cfsrMeans[16][48]['hgtprs'][50000][448221600000] = 5484.64;
+				cfsrMeans[16][48]['hgtprs'][50000][448243200000] = 5483.33;
+				cfsrMeans[16][48]['hgtprs'][50000][448264800000] = 5474.48;
+				cfsrMeans[16][48]['hgtprs'][50000][448286400000] = 5485.92;
+				cfsrMeans[16][48]['hgtprs'][50000][448308000000] = 5485.68;
+				cfsrMeans[16][48]['hgtprs'][50000][448329600000] = 5484.34;
+				cfsrMeans[16][48]['hgtprs'][50000][448351200000] = 5475.47;
+				cfsrMeans[16][48]['hgtprs'][50000][448372800000] = 5487.01;
+				cfsrMeans[16][48]['hgtprs'][50000][448394400000] = 5486.81;
+				cfsrMeans[16][48]['hgtprs'][50000][448416000000] = 5485.46;
+				cfsrMeans[16][48]['hgtprs'][50000][448437600000] = 5476.55;
+				cfsrMeans[16][48]['hgtprs'][50000][448459200000] = 5488.2;
+				cfsrMeans[16][48]['hgtprs'][50000][448480800000] = 5488.04;
+				cfsrMeans[16][48]['hgtprs'][50000][448502400000] = 5486.68;
+				cfsrMeans[16][48]['hgtprs'][50000][448524000000] = 5477.74;
+				cfsrMeans[16][48]['hgtprs'][50000][448545600000] = 5489.51;
+				cfsrMeans[16][48]['hgtprs'][50000][448567200000] = 5489.38;
+				cfsrMeans[16][48]['hgtprs'][50000][448588800000] = 5487.99;
+				cfsrMeans[16][48]['hgtprs'][50000][448610400000] = 5479.02;
+				cfsrMeans[16][48]['hgtprs'][50000][448632000000] = 5490.89;
+				cfsrMeans[16][48]['hgtprs'][50000][448653600000] = 5490.79;
+				cfsrMeans[16][48]['hgtprs'][50000][448675200000] = 5489.39;
+				cfsrMeans[16][48]['hgtprs'][50000][448696800000] = 5480.41;
+				cfsrMeans[16][48]['hgtprs'][50000][448718400000] = 5492.37;
+				cfsrMeans[16][48]['hgtprs'][50000][448740000000] = 5492.31;
+				cfsrMeans[16][48]['hgtprs'][50000][448761600000] = 5490.9;
+				cfsrMeans[16][48]['hgtprs'][50000][448783200000] = 5481.88;
+				cfsrMeans[16][48]['hgtprs'][50000][448804800000] = 5493.94;
+				cfsrMeans[16][48]['hgtprs'][50000][448826400000] = 5493.92;
+				cfsrMeans[16][48]['hgtprs'][50000][448848000000] = 5492.49;
+				cfsrMeans[16][48]['hgtprs'][50000][448869600000] = 5483.44;
+				cfsrMeans[16][48]['hgtprs'][50000][448891200000] = 5495.63;
+				cfsrMeans[16][48]['hgtprs'][50000][448912800000] = 5495.62;
+				cfsrMeans[16][48]['hgtprs'][50000][448934400000] = 5494.18;
+				cfsrMeans[16][48]['hgtprs'][50000][448956000000] = 5485.11;
+				cfsrMeans[16][48]['hgtprs'][50000][448977600000] = 5497.39;
+				cfsrMeans[16][48]['hgtprs'][50000][448999200000] = 5497.41;
+				cfsrMeans[16][48]['hgtprs'][50000][449020800000] = 5495.96;
+				cfsrMeans[16][48]['hgtprs'][50000][449042400000] = 5486.87;
+				cfsrMeans[16][48]['hgtprs'][50000][449064000000] = 5499.24;
+				cfsrMeans[16][48]['hgtprs'][50000][449085600000] = 5499.29;
+				cfsrMeans[16][48]['hgtprs'][50000][449107200000] = 5497.82;
+				cfsrMeans[16][48]['hgtprs'][50000][449128800000] = 5488.7;
+				cfsrMeans[16][48]['hgtprs'][50000][449150400000] = 5501.18;
+				cfsrMeans[16][48]['hgtprs'][50000][449172000000] = 5501.25;
+				cfsrMeans[16][48]['hgtprs'][50000][449193600000] = 5499.76;
+				cfsrMeans[16][48]['hgtprs'][50000][449215200000] = 5490.64;
+				cfsrMeans[16][48]['hgtprs'][50000][449236800000] = 5503.2;
+				cfsrMeans[16][48]['hgtprs'][50000][449258400000] = 5503.29;
+				cfsrMeans[16][48]['hgtprs'][50000][449280000000] = 5501.79;
+				cfsrMeans[16][48]['hgtprs'][50000][449301600000] = 5492.66;
+				cfsrMeans[16][48]['hgtprs'][50000][449323200000] = 5505.31;
+				cfsrMeans[16][48]['hgtprs'][50000][449344800000] = 5505.43;
+				cfsrMeans[16][48]['hgtprs'][50000][449366400000] = 5503.91;
+				cfsrMeans[16][48]['hgtprs'][50000][449388000000] = 5494.76;
+				cfsrMeans[16][48]['hgtprs'][50000][449409600000] = 5507.5;
+				cfsrMeans[16][48]['hgtprs'][50000][449431200000] = 5507.64;
+				cfsrMeans[16][48]['hgtprs'][50000][449452800000] = 5506.09;
+				cfsrMeans[16][48]['hgtprs'][50000][449474400000] = 5496.94;
+				cfsrMeans[16][48]['hgtprs'][50000][449496000000] = 5509.77;
+				cfsrMeans[16][48]['hgtprs'][50000][449517600000] = 5509.92;
+				cfsrMeans[16][48]['hgtprs'][50000][449539200000] = 5508.35;
+				cfsrMeans[16][48]['hgtprs'][50000][449560800000] = 5499.18;
+				cfsrMeans[16][48]['hgtprs'][50000][449582400000] = 5512.1;
+				cfsrMeans[16][48]['hgtprs'][50000][449604000000] = 5512.27;
+				cfsrMeans[16][48]['hgtprs'][50000][449625600000] = 5510.7;
+				cfsrMeans[16][48]['hgtprs'][50000][449647200000] = 5501.51;
+				cfsrMeans[16][48]['hgtprs'][50000][449668800000] = 5514.51;
+				cfsrMeans[16][48]['hgtprs'][50000][449690400000] = 5514.7;
+				cfsrMeans[16][48]['hgtprs'][50000][449712000000] = 5513.1;
+				cfsrMeans[16][48]['hgtprs'][50000][449733600000] = 5503.92;
+				cfsrMeans[16][48]['hgtprs'][50000][449755200000] = 5516.99;
+				cfsrMeans[16][48]['hgtprs'][50000][449776800000] = 5517.19;
+				cfsrMeans[16][48]['hgtprs'][50000][449798400000] = 5515.56;
+				cfsrMeans[16][48]['hgtprs'][50000][449820000000] = 5506.38;
+				cfsrMeans[16][48]['hgtprs'][50000][449841600000] = 5519.55;
+				cfsrMeans[16][48]['hgtprs'][50000][449863200000] = 5519.74;
+				cfsrMeans[16][48]['hgtprs'][50000][449884800000] = 5518.1;
+				cfsrMeans[16][48]['hgtprs'][50000][449906400000] = 5508.91;
+				cfsrMeans[16][48]['hgtprs'][50000][449928000000] = 5522.15;
+				cfsrMeans[16][48]['hgtprs'][50000][449949600000] = 5522.35;
+				cfsrMeans[16][48]['hgtprs'][50000][449971200000] = 5520.68;
+				cfsrMeans[16][48]['hgtprs'][50000][449992800000] = 5511.51;
+				cfsrMeans[16][48]['hgtprs'][50000][450014400000] = 5524.81;
+				cfsrMeans[16][48]['hgtprs'][50000][450036000000] = 5525.02;
+				cfsrMeans[16][48]['hgtprs'][50000][450057600000] = 5523.33;
+				cfsrMeans[16][48]['hgtprs'][50000][450079200000] = 5514.15;
+				cfsrMeans[16][48]['hgtprs'][50000][450100800000] = 5527.54;
+				cfsrMeans[16][48]['hgtprs'][50000][450122400000] = 5527.73;
+				cfsrMeans[16][48]['hgtprs'][50000][450144000000] = 5526.03;
+				cfsrMeans[16][48]['hgtprs'][50000][450165600000] = 5516.86;
+				cfsrMeans[16][48]['hgtprs'][50000][450187200000] = 5530.32;
+				cfsrMeans[16][48]['hgtprs'][50000][450208800000] = 5530.49;
+				cfsrMeans[16][48]['hgtprs'][50000][450230400000] = 5528.77;
+				cfsrMeans[16][48]['hgtprs'][50000][450252000000] = 5519.61;
+				cfsrMeans[16][48]['hgtprs'][50000][450273600000] = 5533.14;
+				cfsrMeans[16][48]['hgtprs'][50000][450295200000] = 5533.31;
+				cfsrMeans[16][48]['hgtprs'][50000][450316800000] = 5531.57;
+				cfsrMeans[16][48]['hgtprs'][50000][450338400000] = 5522.41;
+				cfsrMeans[16][48]['hgtprs'][50000][450360000000] = 5536;
+				cfsrMeans[16][48]['hgtprs'][50000][450381600000] = 5536.16;
+				cfsrMeans[16][48]['hgtprs'][50000][450403200000] = 5534.39;
+				cfsrMeans[16][48]['hgtprs'][50000][450424800000] = 5525.24;
+				cfsrMeans[16][48]['hgtprs'][50000][450446400000] = 5538.89;
+				cfsrMeans[16][48]['hgtprs'][50000][450468000000] = 5539.05;
+				cfsrMeans[16][48]['hgtprs'][50000][450489600000] = 5537.25;
+				cfsrMeans[16][48]['hgtprs'][50000][450511200000] = 5528.12;
+				cfsrMeans[16][48]['hgtprs'][50000][450532800000] = 5541.84;
+				cfsrMeans[16][48]['hgtprs'][50000][450554400000] = 5541.98;
+				cfsrMeans[16][48]['hgtprs'][50000][450576000000] = 5540.16;
+				cfsrMeans[16][48]['hgtprs'][50000][450597600000] = 5531.04;
+				cfsrMeans[16][48]['hgtprs'][50000][450619200000] = 5544.8;
+				cfsrMeans[16][48]['hgtprs'][50000][450640800000] = 5544.92;
+				cfsrMeans[16][48]['hgtprs'][50000][450662400000] = 5543.08;
+				cfsrMeans[16][48]['hgtprs'][50000][450684000000] = 5533.98;
+				cfsrMeans[16][48]['hgtprs'][50000][450705600000] = 5547.8;
+				cfsrMeans[16][48]['hgtprs'][50000][450727200000] = 5547.9;
+				cfsrMeans[16][48]['hgtprs'][50000][450748800000] = 5546.04;
+				cfsrMeans[16][48]['hgtprs'][50000][450770400000] = 5536.96;
+				cfsrMeans[16][48]['hgtprs'][50000][450792000000] = 5550.82;
+				cfsrMeans[16][48]['hgtprs'][50000][450813600000] = 5550.91;
+				cfsrMeans[16][48]['hgtprs'][50000][450835200000] = 5549.01;
+				cfsrMeans[16][48]['hgtprs'][50000][450856800000] = 5539.94;
+				cfsrMeans[16][48]['hgtprs'][50000][450878400000] = 5553.86;
+				cfsrMeans[16][48]['hgtprs'][50000][450900000000] = 5553.93;
+				cfsrMeans[16][48]['hgtprs'][50000][450921600000] = 5552;
+				cfsrMeans[16][48]['hgtprs'][50000][450943200000] = 5542.96;
+				cfsrMeans[16][48]['hgtprs'][50000][450964800000] = 5556.94;
+				cfsrMeans[16][48]['hgtprs'][50000][450986400000] = 5556.97;
+				cfsrMeans[16][48]['hgtprs'][50000][451008000000] = 5555.01;
+				cfsrMeans[16][48]['hgtprs'][50000][451029600000] = 5545.99;
+				cfsrMeans[16][48]['hgtprs'][50000][451051200000] = 5560.01;
+				cfsrMeans[16][48]['hgtprs'][50000][451072800000] = 5560;
+				cfsrMeans[16][48]['hgtprs'][50000][451094400000] = 5558.04;
+				cfsrMeans[16][48]['hgtprs'][50000][451116000000] = 5549.04;
+				cfsrMeans[16][48]['hgtprs'][50000][451137600000] = 5563.1;
+				cfsrMeans[16][48]['hgtprs'][50000][451159200000] = 5563.06;
+				cfsrMeans[16][48]['hgtprs'][50000][451180800000] = 5561.07;
+				cfsrMeans[16][48]['hgtprs'][50000][451202400000] = 5552.09;
+				cfsrMeans[16][48]['hgtprs'][50000][451224000000] = 5566.19;
+				cfsrMeans[16][48]['hgtprs'][50000][451245600000] = 5566.13;
+				cfsrMeans[16][48]['hgtprs'][50000][451267200000] = 5564.1;
+				cfsrMeans[16][48]['hgtprs'][50000][451288800000] = 5555.16;
+				cfsrMeans[16][48]['hgtprs'][50000][451310400000] = 5569.29;
+				cfsrMeans[16][48]['hgtprs'][50000][451332000000] = 5569.19;
+				cfsrMeans[16][48]['hgtprs'][50000][451353600000] = 5567.14;
+				cfsrMeans[16][48]['hgtprs'][50000][451375200000] = 5558.23;
+				cfsrMeans[16][48]['hgtprs'][50000][451396800000] = 5572.38;
+				cfsrMeans[16][48]['hgtprs'][50000][451418400000] = 5572.24;
+				cfsrMeans[16][48]['hgtprs'][50000][451440000000] = 5570.17;
+				cfsrMeans[16][48]['hgtprs'][50000][451461600000] = 5561.29;
+				cfsrMeans[16][48]['hgtprs'][50000][451483200000] = 5575.49;
+				cfsrMeans[16][48]['hgtprs'][50000][451504800000] = 5575.3;
+				cfsrMeans[16][48]['hgtprs'][50000][451526400000] = 5573.21;
+				cfsrMeans[16][48]['hgtprs'][50000][451548000000] = 5564.36;
+				cfsrMeans[16][48]['hgtprs'][50000][451569600000] = 5578.58;
+				cfsrMeans[16][48]['hgtprs'][50000][451591200000] = 5578.37;
+				cfsrMeans[16][48]['hgtprs'][50000][451612800000] = 5576.23;
+				cfsrMeans[16][48]['hgtprs'][50000][451634400000] = 5567.42;
+				cfsrMeans[16][48]['hgtprs'][50000][451656000000] = 5581.67;
+				cfsrMeans[16][48]['hgtprs'][50000][451677600000] = 5581.41;
+				cfsrMeans[16][48]['hgtprs'][50000][451699200000] = 5579.25;
+				cfsrMeans[16][48]['hgtprs'][50000][451720800000] = 5570.47;
+				cfsrMeans[16][48]['hgtprs'][50000][451742400000] = 5584.75;
+				cfsrMeans[16][48]['hgtprs'][50000][451764000000] = 5584.45;
+				cfsrMeans[16][48]['hgtprs'][50000][451785600000] = 5582.26;
+				cfsrMeans[16][48]['hgtprs'][50000][451807200000] = 5573.52;
+				cfsrMeans[16][48]['hgtprs'][50000][451828800000] = 5587.81;
+				cfsrMeans[16][48]['hgtprs'][50000][451850400000] = 5587.47;
+				cfsrMeans[16][48]['hgtprs'][50000][451872000000] = 5585.26;
+				cfsrMeans[16][48]['hgtprs'][50000][451893600000] = 5576.55;
+				cfsrMeans[16][48]['hgtprs'][50000][451915200000] = 5590.87;
+				cfsrMeans[16][48]['hgtprs'][50000][451936800000] = 5590.49;
+				cfsrMeans[16][48]['hgtprs'][50000][451958400000] = 5588.23;
+				cfsrMeans[16][48]['hgtprs'][50000][451980000000] = 5579.57;
+				cfsrMeans[16][48]['hgtprs'][50000][452001600000] = 5593.9;
+				cfsrMeans[16][48]['hgtprs'][50000][452023200000] = 5593.47;
+				cfsrMeans[16][48]['hgtprs'][50000][452044800000] = 5591.2;
+				cfsrMeans[16][48]['hgtprs'][50000][452066400000] = 5582.57;
+				cfsrMeans[16][48]['hgtprs'][50000][452088000000] = 5596.92;
+				cfsrMeans[16][48]['hgtprs'][50000][452109600000] = 5596.44;
+				cfsrMeans[16][48]['hgtprs'][50000][452131200000] = 5594.14;
+				cfsrMeans[16][48]['hgtprs'][50000][452152800000] = 5585.55;
+				cfsrMeans[16][48]['hgtprs'][50000][452174400000] = 5599.91;
+				cfsrMeans[16][48]['hgtprs'][50000][452196000000] = 5599.4;
+				cfsrMeans[16][48]['hgtprs'][50000][452217600000] = 5597.06;
+				cfsrMeans[16][48]['hgtprs'][50000][452239200000] = 5588.52;
+				cfsrMeans[16][48]['hgtprs'][50000][452260800000] = 5602.88;
+				cfsrMeans[16][48]['hgtprs'][50000][452282400000] = 5602.33;
+				cfsrMeans[16][48]['hgtprs'][50000][452304000000] = 5599.98;
+				cfsrMeans[16][48]['hgtprs'][50000][452325600000] = 5591.46;
+				cfsrMeans[16][48]['hgtprs'][50000][452347200000] = 5605.83;
+				cfsrMeans[16][48]['hgtprs'][50000][452368800000] = 5605.24;
+				cfsrMeans[16][48]['hgtprs'][50000][452390400000] = 5602.85;
+				cfsrMeans[16][48]['hgtprs'][50000][452412000000] = 5594.39;
+				cfsrMeans[16][48]['hgtprs'][50000][452433600000] = 5608.76;
+				cfsrMeans[16][48]['hgtprs'][50000][452455200000] = 5608.12;
+				cfsrMeans[16][48]['hgtprs'][50000][452476800000] = 5605.71;
+				cfsrMeans[16][48]['hgtprs'][50000][452498400000] = 5597.28;
+				cfsrMeans[16][48]['hgtprs'][50000][452520000000] = 5611.67;
+				cfsrMeans[16][48]['hgtprs'][50000][452541600000] = 5610.98;
+				cfsrMeans[16][48]['hgtprs'][50000][452563200000] = 5608.55;
+				cfsrMeans[16][48]['hgtprs'][50000][452584800000] = 5600.16;
+				cfsrMeans[16][48]['hgtprs'][50000][452606400000] = 5614.54;
+				cfsrMeans[16][48]['hgtprs'][50000][452628000000] = 5613.83;
+				cfsrMeans[16][48]['hgtprs'][50000][452649600000] = 5611.36;
+				cfsrMeans[16][48]['hgtprs'][50000][452671200000] = 5603;
+				cfsrMeans[16][48]['hgtprs'][50000][452692800000] = 5617.39;
+				cfsrMeans[16][48]['hgtprs'][50000][452714400000] = 5616.64;
+				cfsrMeans[16][48]['hgtprs'][50000][452736000000] = 5614.15;
+				cfsrMeans[16][48]['hgtprs'][50000][452757600000] = 5605.84;
+				cfsrMeans[16][48]['hgtprs'][50000][452779200000] = 5620.21;
+				cfsrMeans[16][48]['hgtprs'][50000][452800800000] = 5619.43;
+				cfsrMeans[16][48]['hgtprs'][50000][452822400000] = 5616.9;
+				cfsrMeans[16][48]['hgtprs'][50000][452844000000] = 5608.63;
+				cfsrMeans[16][48]['hgtprs'][50000][452865600000] = 5623.02;
+				cfsrMeans[16][48]['hgtprs'][50000][452887200000] = 5622.18;
+				cfsrMeans[16][48]['hgtprs'][50000][452908800000] = 5619.63;
+				cfsrMeans[16][48]['hgtprs'][50000][452930400000] = 5611.41;
+				cfsrMeans[16][48]['hgtprs'][50000][452952000000] = 5625.78;
+				cfsrMeans[16][48]['hgtprs'][50000][452973600000] = 5624.92;
+				cfsrMeans[16][48]['hgtprs'][50000][452995200000] = 5622.35;
+				cfsrMeans[16][48]['hgtprs'][50000][453016800000] = 5614.15;
+				cfsrMeans[16][48]['hgtprs'][50000][453038400000] = 5628.52;
+				cfsrMeans[16][48]['hgtprs'][50000][453060000000] = 5627.62;
+				cfsrMeans[16][48]['hgtprs'][50000][453081600000] = 5625.03;
+				cfsrMeans[16][48]['hgtprs'][50000][453103200000] = 5616.88;
+				cfsrMeans[16][48]['hgtprs'][50000][453124800000] = 5631.24;
+				cfsrMeans[16][48]['hgtprs'][50000][453146400000] = 5630.32;
+				cfsrMeans[16][48]['hgtprs'][50000][453168000000] = 5627.69;
+				cfsrMeans[16][48]['hgtprs'][50000][453189600000] = 5619.58;
+				cfsrMeans[16][48]['hgtprs'][50000][453211200000] = 5633.92;
+				cfsrMeans[16][48]['hgtprs'][50000][453232800000] = 5632.98;
+				cfsrMeans[16][48]['hgtprs'][50000][453254400000] = 5630.32;
+				cfsrMeans[16][48]['hgtprs'][50000][453276000000] = 5622.23;
+				cfsrMeans[16][48]['hgtprs'][50000][453297600000] = 5636.58;
+				cfsrMeans[16][48]['hgtprs'][50000][453319200000] = 5635.6;
+				cfsrMeans[16][48]['hgtprs'][50000][453340800000] = 5632.92;
+				cfsrMeans[16][48]['hgtprs'][50000][453362400000] = 5624.89;
+				cfsrMeans[16][48]['hgtprs'][50000][453384000000] = 5639.21;
+				cfsrMeans[16][48]['hgtprs'][50000][453405600000] = 5638.22;
+				cfsrMeans[16][48]['hgtprs'][50000][453427200000] = 5635.51;
+				cfsrMeans[16][48]['hgtprs'][50000][453448800000] = 5627.49;
+				cfsrMeans[16][48]['hgtprs'][50000][453470400000] = 5641.81;
+				cfsrMeans[16][48]['hgtprs'][50000][453492000000] = 5640.8;
+				cfsrMeans[16][48]['hgtprs'][50000][453513600000] = 5638.07;
+				cfsrMeans[16][48]['hgtprs'][50000][453535200000] = 5630.09;
+				cfsrMeans[16][48]['hgtprs'][50000][453556800000] = 5644.4;
+				cfsrMeans[16][48]['hgtprs'][50000][453578400000] = 5643.36;
+				cfsrMeans[16][48]['hgtprs'][50000][453600000000] = 5640.61;
+				cfsrMeans[16][48]['hgtprs'][50000][453621600000] = 5632.68;
+				cfsrMeans[16][48]['hgtprs'][50000][453643200000] = 5646.94;
+				cfsrMeans[16][48]['hgtprs'][50000][453664800000] = 5645.9;
+				cfsrMeans[16][48]['hgtprs'][50000][453686400000] = 5643.13;
+				cfsrMeans[16][48]['hgtprs'][50000][453708000000] = 5635.21;
+				cfsrMeans[16][48]['hgtprs'][50000][453729600000] = 5649.48;
+				cfsrMeans[16][48]['hgtprs'][50000][453751200000] = 5648.42;
+				cfsrMeans[16][48]['hgtprs'][50000][453772800000] = 5645.63;
+				cfsrMeans[16][48]['hgtprs'][50000][453794400000] = 5637.75;
+				cfsrMeans[16][48]['hgtprs'][50000][453816000000] = 5651.98;
+				cfsrMeans[16][48]['hgtprs'][50000][453837600000] = 5650.91;
+				cfsrMeans[16][48]['hgtprs'][50000][453859200000] = 5648.1;
+				cfsrMeans[16][48]['hgtprs'][50000][453880800000] = 5640.25;
+				cfsrMeans[16][48]['hgtprs'][50000][453902400000] = 5654.47;
+				cfsrMeans[16][48]['hgtprs'][50000][453924000000] = 5653.4;
+				cfsrMeans[16][48]['hgtprs'][50000][453945600000] = 5650.56;
+				cfsrMeans[16][48]['hgtprs'][50000][453967200000] = 5642.73;
+				cfsrMeans[16][48]['hgtprs'][50000][453988800000] = 5656.92;
+				cfsrMeans[16][48]['hgtprs'][50000][454010400000] = 5655.87;
+				cfsrMeans[16][48]['hgtprs'][50000][454032000000] = 5653.01;
+				cfsrMeans[16][48]['hgtprs'][50000][454053600000] = 5645.19;
+				cfsrMeans[16][48]['hgtprs'][50000][454075200000] = 5659.38;
+				cfsrMeans[16][48]['hgtprs'][50000][454096800000] = 5658.3;
+				cfsrMeans[16][48]['hgtprs'][50000][454118400000] = 5655.43;
+				cfsrMeans[16][48]['hgtprs'][50000][454140000000] = 5647.65;
+				cfsrMeans[16][48]['hgtprs'][50000][454161600000] = 5661.79;
+				cfsrMeans[16][48]['hgtprs'][50000][454183200000] = 5660.74;
+				cfsrMeans[16][48]['hgtprs'][50000][454204800000] = 5657.84;
+				cfsrMeans[16][48]['hgtprs'][50000][454226400000] = 5650.08;
+				cfsrMeans[16][48]['hgtprs'][50000][454248000000] = 5664.19;
+				cfsrMeans[16][48]['hgtprs'][50000][454269600000] = 5663.15;
+				cfsrMeans[16][48]['hgtprs'][50000][454291200000] = 5660.22;
+				cfsrMeans[16][48]['hgtprs'][50000][454312800000] = 5652.49;
+				cfsrMeans[16][48]['hgtprs'][50000][454334400000] = 5666.59;
+				cfsrMeans[16][48]['hgtprs'][50000][454356000000] = 5665.54;
+				cfsrMeans[16][48]['hgtprs'][50000][454377600000] = 5662.6;
+				cfsrMeans[16][48]['hgtprs'][50000][454399200000] = 5654.89;
+				cfsrMeans[16][48]['hgtprs'][50000][454420800000] = 5668.95;
+				cfsrMeans[16][48]['hgtprs'][50000][454442400000] = 5667.93;
+				cfsrMeans[16][48]['hgtprs'][50000][454464000000] = 5664.98;
+				cfsrMeans[16][48]['hgtprs'][50000][454485600000] = 5657.27;
+				cfsrMeans[16][48]['hgtprs'][50000][454507200000] = 5671.31;
+				cfsrMeans[16][48]['hgtprs'][50000][454528800000] = 5670.31;
+				cfsrMeans[16][48]['hgtprs'][50000][454550400000] = 5667.34;
+				cfsrMeans[16][48]['hgtprs'][50000][454572000000] = 5659.65;
+				cfsrMeans[16][48]['hgtprs'][50000][454593600000] = 5673.65;
+				cfsrMeans[16][48]['hgtprs'][50000][454615200000] = 5672.66;
+				cfsrMeans[16][48]['hgtprs'][50000][454636800000] = 5669.68;
+				cfsrMeans[16][48]['hgtprs'][50000][454658400000] = 5662;
+				cfsrMeans[16][48]['hgtprs'][50000][454680000000] = 5675.98;
+				cfsrMeans[16][48]['hgtprs'][50000][454701600000] = 5675.01;
+				cfsrMeans[16][48]['hgtprs'][50000][454723200000] = 5672.03;
+				cfsrMeans[16][48]['hgtprs'][50000][454744800000] = 5664.35;
+				cfsrMeans[16][48]['hgtprs'][50000][454766400000] = 5678.29;
+				cfsrMeans[16][48]['hgtprs'][50000][454788000000] = 5677.36;
+				cfsrMeans[16][48]['hgtprs'][50000][454809600000] = 5674.34;
+				cfsrMeans[16][48]['hgtprs'][50000][454831200000] = 5666.68;
+				cfsrMeans[16][48]['hgtprs'][50000][454852800000] = 5680.61;
+				cfsrMeans[16][48]['hgtprs'][50000][454874400000] = 5679.7;
+				cfsrMeans[16][48]['hgtprs'][50000][454896000000] = 5676.66;
+				cfsrMeans[16][48]['hgtprs'][50000][454917600000] = 5669;
+				cfsrMeans[16][48]['hgtprs'][50000][454939200000] = 5682.9;
+				cfsrMeans[16][48]['hgtprs'][50000][454960800000] = 5682.01;
+				cfsrMeans[16][48]['hgtprs'][50000][454982400000] = 5678.98;
+				cfsrMeans[16][48]['hgtprs'][50000][455004000000] = 5671.31;
+				cfsrMeans[16][48]['hgtprs'][50000][455025600000] = 5685.18;
+				cfsrMeans[16][48]['hgtprs'][50000][455047200000] = 5684.33;
+				cfsrMeans[16][48]['hgtprs'][50000][455068800000] = 5681.28;
+				cfsrMeans[16][48]['hgtprs'][50000][455090400000] = 5673.62;
+				cfsrMeans[16][48]['hgtprs'][50000][455112000000] = 5687.46;
+				cfsrMeans[16][48]['hgtprs'][50000][455133600000] = 5686.64;
+				cfsrMeans[16][48]['hgtprs'][50000][455155200000] = 5683.59;
+				cfsrMeans[16][48]['hgtprs'][50000][455176800000] = 5675.91;
+				cfsrMeans[16][48]['hgtprs'][50000][455198400000] = 5689.72;
+				cfsrMeans[16][48]['hgtprs'][50000][455220000000] = 5688.95;
+				cfsrMeans[16][48]['hgtprs'][50000][455241600000] = 5685.88;
+				cfsrMeans[16][48]['hgtprs'][50000][455263200000] = 5678.2;
+				cfsrMeans[16][48]['hgtprs'][50000][455284800000] = 5691.97;
+				cfsrMeans[16][48]['hgtprs'][50000][455306400000] = 5691.24;
+				cfsrMeans[16][48]['hgtprs'][50000][455328000000] = 5688.16;
+				cfsrMeans[16][48]['hgtprs'][50000][455349600000] = 5680.49;
+				cfsrMeans[16][48]['hgtprs'][50000][455371200000] = 5694.22;
+				cfsrMeans[16][48]['hgtprs'][50000][455392800000] = 5693.53;
+				cfsrMeans[16][48]['hgtprs'][50000][455414400000] = 5690.44;
+				cfsrMeans[16][48]['hgtprs'][50000][455436000000] = 5682.75;
+				cfsrMeans[16][48]['hgtprs'][50000][455457600000] = 5696.44;
+				cfsrMeans[16][48]['hgtprs'][50000][455479200000] = 5695.82;
+				cfsrMeans[16][48]['hgtprs'][50000][455500800000] = 5692.71;
+				cfsrMeans[16][48]['hgtprs'][50000][455522400000] = 5685.01;
+				cfsrMeans[16][48]['hgtprs'][50000][455544000000] = 5698.69;
+				cfsrMeans[16][48]['hgtprs'][50000][455565600000] = 5698.08;
+				cfsrMeans[16][48]['hgtprs'][50000][455587200000] = 5694.98;
+				cfsrMeans[16][48]['hgtprs'][50000][455608800000] = 5687.27;
+				cfsrMeans[16][48]['hgtprs'][50000][455630400000] = 5700.91;
+				cfsrMeans[16][48]['hgtprs'][50000][455652000000] = 5700.36;
+				cfsrMeans[16][48]['hgtprs'][50000][455673600000] = 5697.24;
+				cfsrMeans[16][48]['hgtprs'][50000][455695200000] = 5689.51;
+				cfsrMeans[16][48]['hgtprs'][50000][455716800000] = 5703.12;
+				cfsrMeans[16][48]['hgtprs'][50000][455738400000] = 5702.62;
+				cfsrMeans[16][48]['hgtprs'][50000][455760000000] = 5699.5;
+				cfsrMeans[16][48]['hgtprs'][50000][455781600000] = 5691.75;
+				cfsrMeans[16][48]['hgtprs'][50000][455803200000] = 5705.32;
+				cfsrMeans[16][48]['hgtprs'][50000][455824800000] = 5704.87;
+				cfsrMeans[16][48]['hgtprs'][50000][455846400000] = 5701.75;
+				cfsrMeans[16][48]['hgtprs'][50000][455868000000] = 5693.97;
+				cfsrMeans[16][48]['hgtprs'][50000][455889600000] = 5707.51;
+				cfsrMeans[16][48]['hgtprs'][50000][455911200000] = 5707.12;
+				cfsrMeans[16][48]['hgtprs'][50000][455932800000] = 5703.98;
+				cfsrMeans[16][48]['hgtprs'][50000][455954400000] = 5696.19;
+				cfsrMeans[16][48]['hgtprs'][50000][455976000000] = 5709.69;
+				cfsrMeans[16][48]['hgtprs'][50000][455997600000] = 5709.35;
+				cfsrMeans[16][48]['hgtprs'][50000][456019200000] = 5706.21;
+				cfsrMeans[16][48]['hgtprs'][50000][456040800000] = 5698.39;
+				cfsrMeans[16][48]['hgtprs'][50000][456062400000] = 5711.86;
+				cfsrMeans[16][48]['hgtprs'][50000][456084000000] = 5711.57;
+				cfsrMeans[16][48]['hgtprs'][50000][456105600000] = 5708.43;
+				cfsrMeans[16][48]['hgtprs'][50000][456127200000] = 5700.59;
+				cfsrMeans[16][48]['hgtprs'][50000][456148800000] = 5714.02;
+				cfsrMeans[16][48]['hgtprs'][50000][456170400000] = 5713.79;
+				cfsrMeans[16][48]['hgtprs'][50000][456192000000] = 5710.64;
+				cfsrMeans[16][48]['hgtprs'][50000][456213600000] = 5702.77;
+				cfsrMeans[16][48]['hgtprs'][50000][456235200000] = 5716.18;
+				cfsrMeans[16][48]['hgtprs'][50000][456256800000] = 5715.98;
+				cfsrMeans[16][48]['hgtprs'][50000][456278400000] = 5712.85;
+				cfsrMeans[16][48]['hgtprs'][50000][456300000000] = 5704.94;
+				cfsrMeans[16][48]['hgtprs'][50000][456321600000] = 5718.3;
+				cfsrMeans[16][48]['hgtprs'][50000][456343200000] = 5718.17;
+				cfsrMeans[16][48]['hgtprs'][50000][456364800000] = 5715.03;
+				cfsrMeans[16][48]['hgtprs'][50000][456386400000] = 5707.09;
+				cfsrMeans[16][48]['hgtprs'][50000][456408000000] = 5720.43;
+				cfsrMeans[16][48]['hgtprs'][50000][456429600000] = 5720.35;
+				cfsrMeans[16][48]['hgtprs'][50000][456451200000] = 5717.2;
+				cfsrMeans[16][48]['hgtprs'][50000][456472800000] = 5709.22;
+				cfsrMeans[16][48]['hgtprs'][50000][456494400000] = 5722.52;
+				cfsrMeans[16][48]['hgtprs'][50000][456516000000] = 5722.5;
+				cfsrMeans[16][48]['hgtprs'][50000][456537600000] = 5719.36;
+				cfsrMeans[16][48]['hgtprs'][50000][456559200000] = 5711.35;
+				cfsrMeans[16][48]['hgtprs'][50000][456580800000] = 5724.64;
+				cfsrMeans[16][48]['hgtprs'][50000][456602400000] = 5724.65;
+				cfsrMeans[16][48]['hgtprs'][50000][456624000000] = 5721.49;
+				cfsrMeans[16][48]['hgtprs'][50000][456645600000] = 5713.44;
+				cfsrMeans[16][48]['hgtprs'][50000][456667200000] = 5726.68;
+				cfsrMeans[16][48]['hgtprs'][50000][456688800000] = 5726.75;
+				cfsrMeans[16][48]['hgtprs'][50000][456710400000] = 5723.61;
+				cfsrMeans[16][48]['hgtprs'][50000][456732000000] = 5715.51;
+				cfsrMeans[16][48]['hgtprs'][50000][456753600000] = 5728.75;
+				cfsrMeans[16][48]['hgtprs'][50000][456775200000] = 5728.85;
+				cfsrMeans[16][48]['hgtprs'][50000][456796800000] = 5725.72;
+				cfsrMeans[16][48]['hgtprs'][50000][456818400000] = 5717.58;
+				cfsrMeans[16][48]['hgtprs'][50000][456840000000] = 5730.78;
+				cfsrMeans[16][48]['hgtprs'][50000][456861600000] = 5730.94;
+				cfsrMeans[16][48]['hgtprs'][50000][456883200000] = 5727.77;
+				cfsrMeans[16][48]['hgtprs'][50000][456904800000] = 5719.59;
+				cfsrMeans[16][48]['hgtprs'][50000][456926400000] = 5732.77;
+				cfsrMeans[16][48]['hgtprs'][50000][456948000000] = 5732.97;
+				cfsrMeans[16][48]['hgtprs'][50000][456969600000] = 5729.81;
+				cfsrMeans[16][48]['hgtprs'][50000][456991200000] = 5721.6;
+				cfsrMeans[16][48]['hgtprs'][50000][457012800000] = 5734.74;
+				cfsrMeans[16][48]['hgtprs'][50000][457034400000] = 5735.01;
+				cfsrMeans[16][48]['hgtprs'][50000][457056000000] = 5731.83;
+				cfsrMeans[16][48]['hgtprs'][50000][457077600000] = 5723.57;
+				cfsrMeans[16][48]['hgtprs'][50000][457099200000] = 5736.69;
+				cfsrMeans[16][48]['hgtprs'][50000][457120800000] = 5736.98;
+				cfsrMeans[16][48]['hgtprs'][50000][457142400000] = 5733.82;
+				cfsrMeans[16][48]['hgtprs'][50000][457164000000] = 5725.5;
+				cfsrMeans[16][48]['hgtprs'][50000][457185600000] = 5738.61;
+				cfsrMeans[16][48]['hgtprs'][50000][457207200000] = 5738.94;
+				cfsrMeans[16][48]['hgtprs'][50000][457228800000] = 5735.8;
+				cfsrMeans[16][48]['hgtprs'][50000][457250400000] = 5727.43;
+				cfsrMeans[16][48]['hgtprs'][50000][457272000000] = 5740.48;
+				cfsrMeans[16][48]['hgtprs'][50000][457293600000] = 5740.87;
+				cfsrMeans[16][48]['hgtprs'][50000][457315200000] = 5737.72;
+				cfsrMeans[16][48]['hgtprs'][50000][457336800000] = 5729.31;
+				cfsrMeans[16][48]['hgtprs'][50000][457358400000] = 5742.33;
+				cfsrMeans[16][48]['hgtprs'][50000][457380000000] = 5742.75;
+				cfsrMeans[16][48]['hgtprs'][50000][457401600000] = 5739.6;
+				cfsrMeans[16][48]['hgtprs'][50000][457423200000] = 5731.14;
+				cfsrMeans[16][48]['hgtprs'][50000][457444800000] = 5744.17;
+				cfsrMeans[16][48]['hgtprs'][50000][457466400000] = 5744.59;
+				cfsrMeans[16][48]['hgtprs'][50000][457488000000] = 5741.44;
+				cfsrMeans[16][48]['hgtprs'][50000][457509600000] = 5732.94;
+				cfsrMeans[16][48]['hgtprs'][50000][457531200000] = 5745.94;
+				cfsrMeans[16][48]['hgtprs'][50000][457552800000] = 5746.39;
+				cfsrMeans[16][48]['hgtprs'][50000][457574400000] = 5743.26;
+				cfsrMeans[16][48]['hgtprs'][50000][457596000000] = 5734.68;
+				cfsrMeans[16][48]['hgtprs'][50000][457617600000] = 5747.68;
+				cfsrMeans[16][48]['hgtprs'][50000][457639200000] = 5748.15;
+				cfsrMeans[16][48]['hgtprs'][50000][457660800000] = 5745.02;
+				cfsrMeans[16][48]['hgtprs'][50000][457682400000] = 5736.4;
+				cfsrMeans[16][48]['hgtprs'][50000][457704000000] = 5749.35;
+				cfsrMeans[16][48]['hgtprs'][50000][457725600000] = 5749.86;
+				cfsrMeans[16][48]['hgtprs'][50000][457747200000] = 5746.72;
+				cfsrMeans[16][48]['hgtprs'][50000][457768800000] = 5738.05;
+				cfsrMeans[16][48]['hgtprs'][50000][457790400000] = 5751.01;
+				cfsrMeans[16][48]['hgtprs'][50000][457812000000] = 5751.54;
+				cfsrMeans[16][48]['hgtprs'][50000][457833600000] = 5748.4;
+				cfsrMeans[16][48]['hgtprs'][50000][457855200000] = 5739.69;
+				cfsrMeans[16][48]['hgtprs'][50000][457876800000] = 5752.6;
+				cfsrMeans[16][48]['hgtprs'][50000][457898400000] = 5753.13;
+				cfsrMeans[16][48]['hgtprs'][50000][457920000000] = 5750.02;
+				cfsrMeans[16][48]['hgtprs'][50000][457941600000] = 5741.24;
+				cfsrMeans[16][48]['hgtprs'][50000][457963200000] = 5754.13;
+				cfsrMeans[16][48]['hgtprs'][50000][457984800000] = 5754.71;
+				cfsrMeans[16][48]['hgtprs'][50000][458006400000] = 5751.57;
+				cfsrMeans[16][48]['hgtprs'][50000][458028000000] = 5742.74;
+				cfsrMeans[16][48]['hgtprs'][50000][458049600000] = 5755.65;
+				cfsrMeans[16][48]['hgtprs'][50000][458071200000] = 5756.22;
+				cfsrMeans[16][48]['hgtprs'][50000][458092800000] = 5753.08;
+				cfsrMeans[16][48]['hgtprs'][50000][458114400000] = 5744.21;
+				cfsrMeans[16][48]['hgtprs'][50000][458136000000] = 5757.08;
+				cfsrMeans[16][48]['hgtprs'][50000][458157600000] = 5757.66;
+				cfsrMeans[16][48]['hgtprs'][50000][458179200000] = 5754.54;
+				cfsrMeans[16][48]['hgtprs'][50000][458200800000] = 5745.6;
+				cfsrMeans[16][48]['hgtprs'][50000][458222400000] = 5758.47;
+				cfsrMeans[16][48]['hgtprs'][50000][458244000000] = 5759.06;
+				cfsrMeans[16][48]['hgtprs'][50000][458265600000] = 5755.91;
+				cfsrMeans[16][48]['hgtprs'][50000][458287200000] = 5746.94;
+				cfsrMeans[16][48]['hgtprs'][50000][458308800000] = 5759.79;
+				cfsrMeans[16][48]['hgtprs'][50000][458330400000] = 5760.39;
+				cfsrMeans[16][48]['hgtprs'][50000][458352000000] = 5757.26;
+				cfsrMeans[16][48]['hgtprs'][50000][458373600000] = 5748.22;
+				cfsrMeans[16][48]['hgtprs'][50000][458395200000] = 5761.07;
+				cfsrMeans[16][48]['hgtprs'][50000][458416800000] = 5761.64;
+				cfsrMeans[16][48]['hgtprs'][50000][458438400000] = 5758.52;
+				cfsrMeans[16][48]['hgtprs'][50000][458460000000] = 5749.45;
+				cfsrMeans[16][48]['hgtprs'][50000][458481600000] = 5762.28;
+				cfsrMeans[16][48]['hgtprs'][50000][458503200000] = 5762.85;
+				cfsrMeans[16][48]['hgtprs'][50000][458524800000] = 5759.73;
+				cfsrMeans[16][48]['hgtprs'][50000][458546400000] = 5750.58;
+				cfsrMeans[16][48]['hgtprs'][50000][458568000000] = 5763.42;
+				cfsrMeans[16][48]['hgtprs'][50000][458589600000] = 5763.98;
+				cfsrMeans[16][48]['hgtprs'][50000][458611200000] = 5760.84;
+				cfsrMeans[16][48]['hgtprs'][50000][458632800000] = 5751.68;
+				cfsrMeans[16][48]['hgtprs'][50000][458654400000] = 5764.48;
+				cfsrMeans[16][48]['hgtprs'][50000][458676000000] = 5765.02;
+				cfsrMeans[16][48]['hgtprs'][50000][458697600000] = 5761.91;
+				cfsrMeans[16][48]['hgtprs'][50000][458719200000] = 5752.7;
+				cfsrMeans[16][48]['hgtprs'][50000][458740800000] = 5765.5;
+				cfsrMeans[16][48]['hgtprs'][50000][458762400000] = 5766.03;
+				cfsrMeans[16][48]['hgtprs'][50000][458784000000] = 5762.93;
+				cfsrMeans[16][48]['hgtprs'][50000][458805600000] = 5753.64;
+				cfsrMeans[16][48]['hgtprs'][50000][458827200000] = 5766.44;
+				cfsrMeans[16][48]['hgtprs'][50000][458848800000] = 5766.95;
+				cfsrMeans[16][48]['hgtprs'][50000][458870400000] = 5763.83;
+				cfsrMeans[16][48]['hgtprs'][50000][458892000000] = 5754.52;
+				cfsrMeans[16][48]['hgtprs'][50000][458913600000] = 5767.33;
+				cfsrMeans[16][48]['hgtprs'][50000][458935200000] = 5767.81;
+				cfsrMeans[16][48]['hgtprs'][50000][458956800000] = 5764.7;
+				cfsrMeans[16][48]['hgtprs'][50000][458978400000] = 5755.32;
+				cfsrMeans[16][48]['hgtprs'][50000][459000000000] = 5768.13;
+				cfsrMeans[16][48]['hgtprs'][50000][459021600000] = 5768.58;
+				cfsrMeans[16][48]['hgtprs'][50000][459043200000] = 5765.48;
+				cfsrMeans[16][48]['hgtprs'][50000][459064800000] = 5756.06;
+				cfsrMeans[16][48]['hgtprs'][50000][459086400000] = 5768.86;
+				cfsrMeans[16][48]['hgtprs'][50000][459108000000] = 5769.28;
+				cfsrMeans[16][48]['hgtprs'][50000][459129600000] = 5766.19;
+				cfsrMeans[16][48]['hgtprs'][50000][459151200000] = 5756.71;
+				cfsrMeans[16][48]['hgtprs'][50000][459172800000] = 5769.54;
+				cfsrMeans[16][48]['hgtprs'][50000][459194400000] = 5769.92;
+				cfsrMeans[16][48]['hgtprs'][50000][459216000000] = 5766.8;
+				cfsrMeans[16][48]['hgtprs'][50000][459237600000] = 5757.32;
+				cfsrMeans[16][48]['hgtprs'][50000][459259200000] = 5770.14;
+				cfsrMeans[16][48]['hgtprs'][50000][459280800000] = 5770.46;
+				cfsrMeans[16][48]['hgtprs'][50000][459302400000] = 5767.37;
+				cfsrMeans[16][48]['hgtprs'][50000][459324000000] = 5757.81;
+				cfsrMeans[16][48]['hgtprs'][50000][459345600000] = 5770.63;
+				cfsrMeans[16][48]['hgtprs'][50000][459367200000] = 5770.93;
+				cfsrMeans[16][48]['hgtprs'][50000][459388800000] = 5767.84;
+				cfsrMeans[16][48]['hgtprs'][50000][459410400000] = 5758.28;
+				cfsrMeans[16][48]['hgtprs'][50000][459432000000] = 5771.08;
+				cfsrMeans[16][48]['hgtprs'][50000][459453600000] = 5771.33;
+				cfsrMeans[16][48]['hgtprs'][50000][459475200000] = 5768.23;
+				cfsrMeans[16][48]['hgtprs'][50000][459496800000] = 5758.62;
+				cfsrMeans[16][48]['hgtprs'][50000][459518400000] = 5771.44;
+				cfsrMeans[16][48]['hgtprs'][50000][459540000000] = 5771.67;
+				cfsrMeans[16][48]['hgtprs'][50000][459561600000] = 5768.55;
+				cfsrMeans[16][48]['hgtprs'][50000][459583200000] = 5758.9;
+				cfsrMeans[16][48]['hgtprs'][50000][459604800000] = 5771.75;
+				cfsrMeans[16][48]['hgtprs'][50000][459626400000] = 5771.93;
+				cfsrMeans[16][48]['hgtprs'][50000][459648000000] = 5768.8;
+				cfsrMeans[16][48]['hgtprs'][50000][459669600000] = 5759.13;
+				cfsrMeans[16][48]['hgtprs'][50000][459691200000] = 5771.97;
+				cfsrMeans[16][48]['hgtprs'][50000][459712800000] = 5772.1;
+				cfsrMeans[16][48]['hgtprs'][50000][459734400000] = 5768.97;
+				cfsrMeans[16][48]['hgtprs'][50000][459756000000] = 5759.28;
+				cfsrMeans[16][48]['hgtprs'][50000][459777600000] = 5772.11;
+				cfsrMeans[16][48]['hgtprs'][50000][459799200000] = 5772.19;
+				cfsrMeans[16][48]['hgtprs'][50000][459820800000] = 5769.09;
+				cfsrMeans[16][48]['hgtprs'][50000][459842400000] = 5759.33;
+				cfsrMeans[16][48]['hgtprs'][50000][459864000000] = 5772.2;
+				cfsrMeans[16][48]['hgtprs'][50000][459885600000] = 5772.19;
+				cfsrMeans[16][48]['hgtprs'][50000][459907200000] = 5769.09;
+				cfsrMeans[16][48]['hgtprs'][50000][459928800000] = 5759.32;
+				cfsrMeans[16][48]['hgtprs'][50000][459950400000] = 5772.21;
+				cfsrMeans[16][48]['hgtprs'][50000][459972000000] = 5772.16;
+				cfsrMeans[16][48]['hgtprs'][50000][459993600000] = 5769.06;
+				cfsrMeans[16][48]['hgtprs'][50000][460015200000] = 5759.25;
+				cfsrMeans[16][48]['hgtprs'][50000][460036800000] = 5772.14;
+				cfsrMeans[16][48]['hgtprs'][50000][460058400000] = 5772.02;
+				cfsrMeans[16][48]['hgtprs'][50000][460080000000] = 5768.92;
+				cfsrMeans[16][48]['hgtprs'][50000][460101600000] = 5759.09;
+				cfsrMeans[16][48]['hgtprs'][50000][460123200000] = 5771.98;
+				cfsrMeans[16][48]['hgtprs'][50000][460144800000] = 5771.85;
+				cfsrMeans[16][48]['hgtprs'][50000][460166400000] = 5768.72;
+				cfsrMeans[16][48]['hgtprs'][50000][460188000000] = 5758.88;
+				cfsrMeans[16][48]['hgtprs'][50000][460209600000] = 5771.78;
+				cfsrMeans[16][48]['hgtprs'][50000][460231200000] = 5771.57;
+				cfsrMeans[16][48]['hgtprs'][50000][460252800000] = 5768.46;
+				cfsrMeans[16][48]['hgtprs'][50000][460274400000] = 5758.58;
+				cfsrMeans[16][48]['hgtprs'][50000][460296000000] = 5771.49;
+				cfsrMeans[16][48]['hgtprs'][50000][460317600000] = 5771.24;
+				cfsrMeans[16][48]['hgtprs'][50000][460339200000] = 5768.12;
+				cfsrMeans[16][48]['hgtprs'][50000][460360800000] = 5758.24;
+				cfsrMeans[16][48]['hgtprs'][50000][460382400000] = 5771.17;
+				cfsrMeans[16][48]['hgtprs'][50000][460404000000] = 5770.81;
+				cfsrMeans[16][48]['hgtprs'][50000][460425600000] = 5767.72;
+				cfsrMeans[16][48]['hgtprs'][50000][460447200000] = 5757.8;
+				cfsrMeans[16][48]['hgtprs'][50000][460468800000] = 5770.75;
+				cfsrMeans[16][48]['hgtprs'][50000][460490400000] = 5770.34;
+				cfsrMeans[16][48]['hgtprs'][50000][460512000000] = 5767.25;
+				cfsrMeans[16][48]['hgtprs'][50000][460533600000] = 5757.32;
+				cfsrMeans[16][48]['hgtprs'][50000][460555200000] = 5770.3;
+				cfsrMeans[16][48]['hgtprs'][50000][460576800000] = 5769.8;
+				cfsrMeans[16][48]['hgtprs'][50000][460598400000] = 5766.71;
+				cfsrMeans[16][48]['hgtprs'][50000][460620000000] = 5756.77;
+				cfsrMeans[16][48]['hgtprs'][50000][460641600000] = 5769.74;
+				cfsrMeans[16][48]['hgtprs'][50000][460663200000] = 5769.2;
+				cfsrMeans[16][48]['hgtprs'][50000][460684800000] = 5766.13;
+				cfsrMeans[16][48]['hgtprs'][50000][460706400000] = 5756.16;
+				cfsrMeans[16][48]['hgtprs'][50000][460728000000] = 5769.15;
+				cfsrMeans[16][48]['hgtprs'][50000][460749600000] = 5768.56;
+				cfsrMeans[16][48]['hgtprs'][50000][460771200000] = 5765.47;
+				cfsrMeans[16][48]['hgtprs'][50000][460792800000] = 5755.51;
+				cfsrMeans[16][48]['hgtprs'][50000][460814400000] = 5768.49;
+				cfsrMeans[16][48]['hgtprs'][50000][460836000000] = 5767.82;
+				cfsrMeans[16][48]['hgtprs'][50000][460857600000] = 5764.75;
+				cfsrMeans[16][48]['hgtprs'][50000][460879200000] = 5754.76;
+				cfsrMeans[16][48]['hgtprs'][50000][460900800000] = 5767.78;
+				cfsrMeans[16][48]['hgtprs'][50000][460922400000] = 5767.07;
+				cfsrMeans[16][48]['hgtprs'][50000][460944000000] = 5763.96;
+				cfsrMeans[16][48]['hgtprs'][50000][460965600000] = 5754.01;
+				cfsrMeans[16][48]['hgtprs'][50000][460987200000] = 5767.03;
+				cfsrMeans[16][48]['hgtprs'][50000][461008800000] = 5766.24;
+				cfsrMeans[16][48]['hgtprs'][50000][461030400000] = 5763.15;
+				cfsrMeans[16][48]['hgtprs'][50000][461052000000] = 5753.16;
+				cfsrMeans[16][48]['hgtprs'][50000][461073600000] = 5766.21;
+				cfsrMeans[16][48]['hgtprs'][50000][461095200000] = 5765.34;
+				cfsrMeans[16][48]['hgtprs'][50000][461116800000] = 5762.25;
+				cfsrMeans[16][48]['hgtprs'][50000][461138400000] = 5752.3;
+				cfsrMeans[16][48]['hgtprs'][50000][461160000000] = 5765.35;
+				cfsrMeans[16][48]['hgtprs'][50000][461181600000] = 5764.43;
+				cfsrMeans[16][48]['hgtprs'][50000][461203200000] = 5761.34;
+				cfsrMeans[16][48]['hgtprs'][50000][461224800000] = 5751.36;
+				cfsrMeans[16][48]['hgtprs'][50000][461246400000] = 5764.45;
+				cfsrMeans[16][48]['hgtprs'][50000][461268000000] = 5763.44;
+				cfsrMeans[16][48]['hgtprs'][50000][461289600000] = 5760.38;
+				cfsrMeans[16][48]['hgtprs'][50000][461311200000] = 5750.38;
+				cfsrMeans[16][48]['hgtprs'][50000][461332800000] = 5763.47;
+				cfsrMeans[16][48]['hgtprs'][50000][461354400000] = 5762.44;
+				cfsrMeans[16][48]['hgtprs'][50000][461376000000] = 5759.37;
+				cfsrMeans[16][48]['hgtprs'][50000][461397600000] = 5749.38;
+				cfsrMeans[16][48]['hgtprs'][50000][461419200000] = 5762.47;
+				cfsrMeans[16][48]['hgtprs'][50000][461440800000] = 5761.35;
+				cfsrMeans[16][48]['hgtprs'][50000][461462400000] = 5758.31;
+				cfsrMeans[16][48]['hgtprs'][50000][461484000000] = 5748.31;
+				cfsrMeans[16][48]['hgtprs'][50000][461505600000] = 5761.46;
+				cfsrMeans[16][48]['hgtprs'][50000][461527200000] = 5760.25;
+				cfsrMeans[16][48]['hgtprs'][50000][461548800000] = 5757.2;
+				cfsrMeans[16][48]['hgtprs'][50000][461570400000] = 5747.22;
+				cfsrMeans[16][48]['hgtprs'][50000][461592000000] = 5760.35;
+				cfsrMeans[16][48]['hgtprs'][50000][461613600000] = 5759.12;
+				cfsrMeans[16][48]['hgtprs'][50000][461635200000] = 5756.07;
+				cfsrMeans[16][48]['hgtprs'][50000][461656800000] = 5746.11;
+				cfsrMeans[16][48]['hgtprs'][50000][461678400000] = 5759.25;
+				cfsrMeans[16][48]['hgtprs'][50000][461700000000] = 5757.97;
+				cfsrMeans[16][48]['hgtprs'][50000][461721600000] = 5754.91;
+				cfsrMeans[16][48]['hgtprs'][50000][461743200000] = 5744.94;
+				cfsrMeans[16][48]['hgtprs'][50000][461764800000] = 5758.12;
+				cfsrMeans[16][48]['hgtprs'][50000][461786400000] = 5756.76;
+				cfsrMeans[16][48]['hgtprs'][50000][461808000000] = 5753.72;
+				cfsrMeans[16][48]['hgtprs'][50000][461829600000] = 5743.75;
+				cfsrMeans[16][48]['hgtprs'][50000][461851200000] = 5756.93;
+				cfsrMeans[16][48]['hgtprs'][50000][461872800000] = 5755.54;
+				cfsrMeans[16][48]['hgtprs'][50000][461894400000] = 5752.5;
+				cfsrMeans[16][48]['hgtprs'][50000][461916000000] = 5742.56;
+				cfsrMeans[16][48]['hgtprs'][50000][461937600000] = 5755.74;
+				cfsrMeans[16][48]['hgtprs'][50000][461959200000] = 5754.28;
+				cfsrMeans[16][48]['hgtprs'][50000][461980800000] = 5751.24;
+				cfsrMeans[16][48]['hgtprs'][50000][462002400000] = 5741.33;
+				cfsrMeans[16][48]['hgtprs'][50000][462024000000] = 5754.51;
+				cfsrMeans[16][48]['hgtprs'][50000][462045600000] = 5752.99;
+				cfsrMeans[16][48]['hgtprs'][50000][462067200000] = 5749.96;
+				cfsrMeans[16][48]['hgtprs'][50000][462088800000] = 5740.06;
+				cfsrMeans[16][48]['hgtprs'][50000][462110400000] = 5753.24;
+				cfsrMeans[16][48]['hgtprs'][50000][462132000000] = 5751.68;
+				cfsrMeans[16][48]['hgtprs'][50000][462153600000] = 5748.68;
+				cfsrMeans[16][48]['hgtprs'][50000][462175200000] = 5738.78;
+				cfsrMeans[16][48]['hgtprs'][50000][462196800000] = 5751.98;
+				cfsrMeans[16][48]['hgtprs'][50000][462218400000] = 5750.36;
+				cfsrMeans[16][48]['hgtprs'][50000][462240000000] = 5747.35;
+				cfsrMeans[16][48]['hgtprs'][50000][462261600000] = 5737.49;
+				cfsrMeans[16][48]['hgtprs'][50000][462283200000] = 5750.68;
+				cfsrMeans[16][48]['hgtprs'][50000][462304800000] = 5749.02;
+				cfsrMeans[16][48]['hgtprs'][50000][462326400000] = 5746.02;
+				cfsrMeans[16][48]['hgtprs'][50000][462348000000] = 5736.18;
+				cfsrMeans[16][48]['hgtprs'][50000][462369600000] = 5749.36;
+				cfsrMeans[16][48]['hgtprs'][50000][462391200000] = 5747.65;
+				cfsrMeans[16][48]['hgtprs'][50000][462412800000] = 5744.67;
+				cfsrMeans[16][48]['hgtprs'][50000][462434400000] = 5734.85;
+				cfsrMeans[16][48]['hgtprs'][50000][462456000000] = 5748.04;
+				cfsrMeans[16][48]['hgtprs'][50000][462477600000] = 5746.3;
+				cfsrMeans[16][48]['hgtprs'][50000][462499200000] = 5743.33;
+				cfsrMeans[16][48]['hgtprs'][50000][462520800000] = 5733.52;
+				cfsrMeans[16][48]['hgtprs'][50000][462542400000] = 5746.69;
+				cfsrMeans[16][48]['hgtprs'][50000][462564000000] = 5744.94;
+				cfsrMeans[16][48]['hgtprs'][50000][462585600000] = 5741.95;
+				cfsrMeans[16][48]['hgtprs'][50000][462607200000] = 5732.16;
+				cfsrMeans[16][48]['hgtprs'][50000][462628800000] = 5745.34;
+				cfsrMeans[16][48]['hgtprs'][50000][462650400000] = 5743.54;
+				cfsrMeans[16][48]['hgtprs'][50000][462672000000] = 5740.6;
+				cfsrMeans[16][48]['hgtprs'][50000][462693600000] = 5730.8;
+				cfsrMeans[16][48]['hgtprs'][50000][462715200000] = 5743.99;
+				cfsrMeans[16][48]['hgtprs'][50000][462736800000] = 5742.14;
+				cfsrMeans[16][48]['hgtprs'][50000][462758400000] = 5739.2;
+				cfsrMeans[16][48]['hgtprs'][50000][462780000000] = 5729.43;
+				cfsrMeans[16][48]['hgtprs'][50000][462801600000] = 5742.62;
+				cfsrMeans[16][48]['hgtprs'][50000][462823200000] = 5740.73;
+				cfsrMeans[16][48]['hgtprs'][50000][462844800000] = 5737.8;
+				cfsrMeans[16][48]['hgtprs'][50000][462866400000] = 5728.09;
+				cfsrMeans[16][48]['hgtprs'][50000][462888000000] = 5741.21;
+				cfsrMeans[16][48]['hgtprs'][50000][462909600000] = 5739.31;
+				cfsrMeans[16][48]['hgtprs'][50000][462931200000] = 5736.4;
+				cfsrMeans[16][48]['hgtprs'][50000][462952800000] = 5726.69;
+				cfsrMeans[16][48]['hgtprs'][50000][462974400000] = 5739.85;
+				cfsrMeans[16][48]['hgtprs'][50000][462996000000] = 5737.9;
+				cfsrMeans[16][48]['hgtprs'][50000][463017600000] = 5735;
+				cfsrMeans[16][48]['hgtprs'][50000][463039200000] = 5725.34;
+				cfsrMeans[16][48]['hgtprs'][50000][463060800000] = 5738.44;
+				cfsrMeans[16][48]['hgtprs'][50000][463082400000] = 5736.49;
+				cfsrMeans[16][48]['hgtprs'][50000][463104000000] = 5733.61;
+				cfsrMeans[16][48]['hgtprs'][50000][463125600000] = 5723.97;
+				cfsrMeans[16][48]['hgtprs'][50000][463147200000] = 5737.04;
+				cfsrMeans[16][48]['hgtprs'][50000][463168800000] = 5735.07;
+				cfsrMeans[16][48]['hgtprs'][50000][463190400000] = 5732.21;
+				cfsrMeans[16][48]['hgtprs'][50000][463212000000] = 5722.58;
+				cfsrMeans[16][48]['hgtprs'][50000][463233600000] = 5735.63;
+				cfsrMeans[16][48]['hgtprs'][50000][463255200000] = 5733.65;
+				cfsrMeans[16][48]['hgtprs'][50000][463276800000] = 5730.79;
+				cfsrMeans[16][48]['hgtprs'][50000][463298400000] = 5721.22;
+				cfsrMeans[16][48]['hgtprs'][50000][463320000000] = 5734.24;
+				cfsrMeans[16][48]['hgtprs'][50000][463341600000] = 5732.22;
+				cfsrMeans[16][48]['hgtprs'][50000][463363200000] = 5729.39;
+				cfsrMeans[16][48]['hgtprs'][50000][463384800000] = 5719.82;
+				cfsrMeans[16][48]['hgtprs'][50000][463406400000] = 5732.84;
+				cfsrMeans[16][48]['hgtprs'][50000][463428000000] = 5730.8;
+				cfsrMeans[16][48]['hgtprs'][50000][463449600000] = 5727.99;
+				cfsrMeans[16][48]['hgtprs'][50000][463471200000] = 5718.46;
+				cfsrMeans[16][48]['hgtprs'][50000][463492800000] = 5731.44;
+				cfsrMeans[16][48]['hgtprs'][50000][463514400000] = 5729.38;
+				cfsrMeans[16][48]['hgtprs'][50000][463536000000] = 5726.58;
+				cfsrMeans[16][48]['hgtprs'][50000][463557600000] = 5717.08;
+				cfsrMeans[16][48]['hgtprs'][50000][463579200000] = 5730.03;
+				cfsrMeans[16][48]['hgtprs'][50000][463600800000] = 5727.95;
+				cfsrMeans[16][48]['hgtprs'][50000][463622400000] = 5725.15;
+				cfsrMeans[16][48]['hgtprs'][50000][463644000000] = 5715.68;
+				cfsrMeans[16][48]['hgtprs'][50000][463665600000] = 5728.58;
+				cfsrMeans[16][48]['hgtprs'][50000][463687200000] = 5726.51;
+				cfsrMeans[16][48]['hgtprs'][50000][463708800000] = 5723.75;
+				cfsrMeans[16][48]['hgtprs'][50000][463730400000] = 5714.32;
+				cfsrMeans[16][48]['hgtprs'][50000][463752000000] = 5727.17;
+				cfsrMeans[16][48]['hgtprs'][50000][463773600000] = 5725.08;
+				cfsrMeans[16][48]['hgtprs'][50000][463795200000] = 5722.36;
+				cfsrMeans[16][48]['hgtprs'][50000][463816800000] = 5712.92;
+				cfsrMeans[16][48]['hgtprs'][50000][463838400000] = 5725.77;
+				cfsrMeans[16][48]['hgtprs'][50000][463860000000] = 5723.65;
+				cfsrMeans[16][48]['hgtprs'][50000][463881600000] = 5720.93;
+				cfsrMeans[16][48]['hgtprs'][50000][463903200000] = 5711.56;
+				cfsrMeans[16][48]['hgtprs'][50000][463924800000] = 5724.32;
+				cfsrMeans[16][48]['hgtprs'][50000][463946400000] = 5722.22;
+				cfsrMeans[16][48]['hgtprs'][50000][463968000000] = 5719.54;
+				cfsrMeans[16][48]['hgtprs'][50000][463989600000] = 5710.19;
+				cfsrMeans[16][48]['hgtprs'][50000][464011200000] = 5722.89;
+				cfsrMeans[16][48]['hgtprs'][50000][464032800000] = 5720.75;
+				cfsrMeans[16][48]['hgtprs'][50000][464054400000] = 5718.1;
+				cfsrMeans[16][48]['hgtprs'][50000][464076000000] = 5708.79;
+				cfsrMeans[16][48]['hgtprs'][50000][464097600000] = 5721.44;
+				cfsrMeans[16][48]['hgtprs'][50000][464119200000] = 5719.33;
+				cfsrMeans[16][48]['hgtprs'][50000][464140800000] = 5716.67;
+				cfsrMeans[16][48]['hgtprs'][50000][464162400000] = 5707.42;
+				cfsrMeans[16][48]['hgtprs'][50000][464184000000] = 5720.01;
+				cfsrMeans[16][48]['hgtprs'][50000][464205600000] = 5717.89;
+				cfsrMeans[16][48]['hgtprs'][50000][464227200000] = 5715.26;
+				cfsrMeans[16][48]['hgtprs'][50000][464248800000] = 5706.02;
+				cfsrMeans[16][48]['hgtprs'][50000][464270400000] = 5718.56;
+				cfsrMeans[16][48]['hgtprs'][50000][464292000000] = 5716.43;
+				cfsrMeans[16][48]['hgtprs'][50000][464313600000] = 5713.81;
+				cfsrMeans[16][48]['hgtprs'][50000][464335200000] = 5704.6;
+				cfsrMeans[16][48]['hgtprs'][50000][464356800000] = 5717.09;
+				cfsrMeans[16][48]['hgtprs'][50000][464378400000] = 5714.95;
+				cfsrMeans[16][48]['hgtprs'][50000][464400000000] = 5712.38;
+				cfsrMeans[16][48]['hgtprs'][50000][464421600000] = 5703.2;
+				cfsrMeans[16][48]['hgtprs'][50000][464443200000] = 5715.6;
+				cfsrMeans[16][48]['hgtprs'][50000][464464800000] = 5713.48;
+				cfsrMeans[16][48]['hgtprs'][50000][464486400000] = 5710.93;
+				cfsrMeans[16][48]['hgtprs'][50000][464508000000] = 5701.77;
+				cfsrMeans[16][48]['hgtprs'][50000][464529600000] = 5714.13;
+				cfsrMeans[16][48]['hgtprs'][50000][464551200000] = 5712;
+				cfsrMeans[16][48]['hgtprs'][50000][464572800000] = 5709.46;
+				cfsrMeans[16][48]['hgtprs'][50000][464594400000] = 5700.37;
+				cfsrMeans[16][48]['hgtprs'][50000][464616000000] = 5712.64;
+				cfsrMeans[16][48]['hgtprs'][50000][464637600000] = 5710.47;
+				cfsrMeans[16][48]['hgtprs'][50000][464659200000] = 5708;
+				cfsrMeans[16][48]['hgtprs'][50000][464680800000] = 5698.91;
+				cfsrMeans[16][48]['hgtprs'][50000][464702400000] = 5711.1;
+				cfsrMeans[16][48]['hgtprs'][50000][464724000000] = 5708.96;
+				cfsrMeans[16][48]['hgtprs'][50000][464745600000] = 5706.5;
+				cfsrMeans[16][48]['hgtprs'][50000][464767200000] = 5697.47;
+				cfsrMeans[16][48]['hgtprs'][50000][464788800000] = 5709.58;
+				cfsrMeans[16][48]['hgtprs'][50000][464810400000] = 5707.45;
+				cfsrMeans[16][48]['hgtprs'][50000][464832000000] = 5704.99;
+				cfsrMeans[16][48]['hgtprs'][50000][464853600000] = 5695.99;
+				cfsrMeans[16][48]['hgtprs'][50000][464875200000] = 5708.01;
+				cfsrMeans[16][48]['hgtprs'][50000][464896800000] = 5705.9;
+				cfsrMeans[16][48]['hgtprs'][50000][464918400000] = 5703.47;
+				cfsrMeans[16][48]['hgtprs'][50000][464940000000] = 5694.51;
+				cfsrMeans[16][48]['hgtprs'][50000][464961600000] = 5706.43;
+				cfsrMeans[16][48]['hgtprs'][50000][464983200000] = 5704.31;
+				cfsrMeans[16][48]['hgtprs'][50000][465004800000] = 5701.91;
+				cfsrMeans[16][48]['hgtprs'][50000][465026400000] = 5693.01;
+				cfsrMeans[16][48]['hgtprs'][50000][465048000000] = 5704.85;
+				cfsrMeans[16][48]['hgtprs'][50000][465069600000] = 5702.73;
+				cfsrMeans[16][48]['hgtprs'][50000][465091200000] = 5700.35;
+				cfsrMeans[16][48]['hgtprs'][50000][465112800000] = 5691.47;
+				cfsrMeans[16][48]['hgtprs'][50000][465134400000] = 5703.23;
+				cfsrMeans[16][48]['hgtprs'][50000][465156000000] = 5701.11;
+				cfsrMeans[16][48]['hgtprs'][50000][465177600000] = 5698.75;
+				cfsrMeans[16][48]['hgtprs'][50000][465199200000] = 5689.93;
+				cfsrMeans[16][48]['hgtprs'][50000][465220800000] = 5701.57;
+				cfsrMeans[16][48]['hgtprs'][50000][465242400000] = 5699.47;
+				cfsrMeans[16][48]['hgtprs'][50000][465264000000] = 5697.16;
+				cfsrMeans[16][48]['hgtprs'][50000][465285600000] = 5688.33;
+				cfsrMeans[16][48]['hgtprs'][50000][465307200000] = 5699.9;
+				cfsrMeans[16][48]['hgtprs'][50000][465328800000] = 5697.79;
+				cfsrMeans[16][48]['hgtprs'][50000][465350400000] = 5695.51;
+				cfsrMeans[16][48]['hgtprs'][50000][465372000000] = 5686.73;
+				cfsrMeans[16][48]['hgtprs'][50000][465393600000] = 5698.19;
+				cfsrMeans[16][48]['hgtprs'][50000][465415200000] = 5696.09;
+				cfsrMeans[16][48]['hgtprs'][50000][465436800000] = 5693.83;
+				cfsrMeans[16][48]['hgtprs'][50000][465458400000] = 5685.08;
+				cfsrMeans[16][48]['hgtprs'][50000][465480000000] = 5696.45;
+				cfsrMeans[16][48]['hgtprs'][50000][465501600000] = 5694.34;
+				cfsrMeans[16][48]['hgtprs'][50000][465523200000] = 5692.11;
+				cfsrMeans[16][48]['hgtprs'][50000][465544800000] = 5683.41;
+				cfsrMeans[16][48]['hgtprs'][50000][465566400000] = 5694.67;
+				cfsrMeans[16][48]['hgtprs'][50000][465588000000] = 5692.57;
+				cfsrMeans[16][48]['hgtprs'][50000][465609600000] = 5690.38;
+				cfsrMeans[16][48]['hgtprs'][50000][465631200000] = 5681.72;
+				cfsrMeans[16][48]['hgtprs'][50000][465652800000] = 5692.87;
+				cfsrMeans[16][48]['hgtprs'][50000][465674400000] = 5690.76;
+				cfsrMeans[16][48]['hgtprs'][50000][465696000000] = 5688.6;
+				cfsrMeans[16][48]['hgtprs'][50000][465717600000] = 5679.96;
+				cfsrMeans[16][48]['hgtprs'][50000][465739200000] = 5690.99;
+				cfsrMeans[16][48]['hgtprs'][50000][465760800000] = 5688.91;
+				cfsrMeans[16][48]['hgtprs'][50000][465782400000] = 5686.75;
+				cfsrMeans[16][48]['hgtprs'][50000][465804000000] = 5678.19;
+				cfsrMeans[16][48]['hgtprs'][50000][465825600000] = 5689.12;
+				cfsrMeans[16][48]['hgtprs'][50000][465847200000] = 5687.02;
+				cfsrMeans[16][48]['hgtprs'][50000][465868800000] = 5684.9;
+				cfsrMeans[16][48]['hgtprs'][50000][465890400000] = 5676.38;
+				cfsrMeans[16][48]['hgtprs'][50000][465912000000] = 5687.17;
+				cfsrMeans[16][48]['hgtprs'][50000][465933600000] = 5685.07;
+				cfsrMeans[16][48]['hgtprs'][50000][465955200000] = 5682.99;
+				cfsrMeans[16][48]['hgtprs'][50000][465976800000] = 5674.51;
+				cfsrMeans[16][48]['hgtprs'][50000][465998400000] = 5685.2;
+				cfsrMeans[16][48]['hgtprs'][50000][466020000000] = 5683.1;
+				cfsrMeans[16][48]['hgtprs'][50000][466041600000] = 5681.06;
+				cfsrMeans[16][48]['hgtprs'][50000][466063200000] = 5672.59;
+				cfsrMeans[16][48]['hgtprs'][50000][466084800000] = 5683.18;
+				cfsrMeans[16][48]['hgtprs'][50000][466106400000] = 5681.11;
+				cfsrMeans[16][48]['hgtprs'][50000][466128000000] = 5679.07;
+				cfsrMeans[16][48]['hgtprs'][50000][466149600000] = 5670.64;
+				cfsrMeans[16][48]['hgtprs'][50000][466171200000] = 5681.1;
+				cfsrMeans[16][48]['hgtprs'][50000][466192800000] = 5679.03;
+				cfsrMeans[16][48]['hgtprs'][50000][466214400000] = 5677.04;
+				cfsrMeans[16][48]['hgtprs'][50000][466236000000] = 5668.64;
+				cfsrMeans[16][48]['hgtprs'][50000][466257600000] = 5678.98;
+				cfsrMeans[16][48]['hgtprs'][50000][466279200000] = 5676.92;
+				cfsrMeans[16][48]['hgtprs'][50000][466300800000] = 5674.96;
+				cfsrMeans[16][48]['hgtprs'][50000][466322400000] = 5666.6;
+				cfsrMeans[16][48]['hgtprs'][50000][466344000000] = 5676.82;
+				cfsrMeans[16][48]['hgtprs'][50000][466365600000] = 5674.76;
+				cfsrMeans[16][48]['hgtprs'][50000][466387200000] = 5672.81;
+				cfsrMeans[16][48]['hgtprs'][50000][466408800000] = 5664.51;
+				cfsrMeans[16][48]['hgtprs'][50000][466430400000] = 5674.62;
+				cfsrMeans[16][48]['hgtprs'][50000][466452000000] = 5672.54;
+				cfsrMeans[16][48]['hgtprs'][50000][466473600000] = 5670.64;
+				cfsrMeans[16][48]['hgtprs'][50000][466495200000] = 5662.39;
+				cfsrMeans[16][48]['hgtprs'][50000][466516800000] = 5672.35;
+				cfsrMeans[16][48]['hgtprs'][50000][466538400000] = 5670.29;
+				cfsrMeans[16][48]['hgtprs'][50000][466560000000] = 5668.41;
+				cfsrMeans[16][48]['hgtprs'][50000][466581600000] = 5660.18;
+				cfsrMeans[16][48]['hgtprs'][50000][466603200000] = 5670.03;
+				cfsrMeans[16][48]['hgtprs'][50000][466624800000] = 5667.96;
+				cfsrMeans[16][48]['hgtprs'][50000][466646400000] = 5666.13;
+				cfsrMeans[16][48]['hgtprs'][50000][466668000000] = 5657.94;
+				cfsrMeans[16][48]['hgtprs'][50000][466689600000] = 5667.68;
+				cfsrMeans[16][48]['hgtprs'][50000][466711200000] = 5665.6;
+				cfsrMeans[16][48]['hgtprs'][50000][466732800000] = 5663.8;
+				cfsrMeans[16][48]['hgtprs'][50000][466754400000] = 5655.65;
+				cfsrMeans[16][48]['hgtprs'][50000][466776000000] = 5665.24;
+				cfsrMeans[16][48]['hgtprs'][50000][466797600000] = 5663.19;
+				cfsrMeans[16][48]['hgtprs'][50000][466819200000] = 5661.4;
+				cfsrMeans[16][48]['hgtprs'][50000][466840800000] = 5653.31;
+				cfsrMeans[16][48]['hgtprs'][50000][466862400000] = 5662.8;
+				cfsrMeans[16][48]['hgtprs'][50000][466884000000] = 5660.72;
+				cfsrMeans[16][48]['hgtprs'][50000][466905600000] = 5658.96;
+				cfsrMeans[16][48]['hgtprs'][50000][466927200000] = 5650.93;
+				cfsrMeans[16][48]['hgtprs'][50000][466948800000] = 5660.27;
+				cfsrMeans[16][48]['hgtprs'][50000][466970400000] = 5658.21;
+				cfsrMeans[16][48]['hgtprs'][50000][466992000000] = 5656.48;
+				cfsrMeans[16][48]['hgtprs'][50000][467013600000] = 5648.48;
+				cfsrMeans[16][48]['hgtprs'][50000][467035200000] = 5657.71;
+				cfsrMeans[16][48]['hgtprs'][50000][467056800000] = 5655.63;
+				cfsrMeans[16][48]['hgtprs'][50000][467078400000] = 5653.94;
+				cfsrMeans[16][48]['hgtprs'][50000][467100000000] = 5645.99;
+				cfsrMeans[16][48]['hgtprs'][50000][467121600000] = 5655.07;
+				cfsrMeans[16][48]['hgtprs'][50000][467143200000] = 5653.01;
+				cfsrMeans[16][48]['hgtprs'][50000][467164800000] = 5651.36;
+				cfsrMeans[16][48]['hgtprs'][50000][467186400000] = 5643.45;
+				cfsrMeans[16][48]['hgtprs'][50000][467208000000] = 5652.41;
+				cfsrMeans[16][48]['hgtprs'][50000][467229600000] = 5650.36;
+				cfsrMeans[16][48]['hgtprs'][50000][467251200000] = 5648.72;
+				cfsrMeans[16][48]['hgtprs'][50000][467272800000] = 5640.84;
+				cfsrMeans[16][48]['hgtprs'][50000][467294400000] = 5649.69;
+				cfsrMeans[16][48]['hgtprs'][50000][467316000000] = 5647.65;
+				cfsrMeans[16][48]['hgtprs'][50000][467337600000] = 5646.04;
+				cfsrMeans[16][48]['hgtprs'][50000][467359200000] = 5638.2;
+				cfsrMeans[16][48]['hgtprs'][50000][467380800000] = 5646.92;
+				cfsrMeans[16][48]['hgtprs'][50000][467402400000] = 5644.88;
+				cfsrMeans[16][48]['hgtprs'][50000][467424000000] = 5643.31;
+				cfsrMeans[16][48]['hgtprs'][50000][467445600000] = 5635.52;
+				cfsrMeans[16][48]['hgtprs'][50000][467467200000] = 5644.11;
+				cfsrMeans[16][48]['hgtprs'][50000][467488800000] = 5642.07;
+				cfsrMeans[16][48]['hgtprs'][50000][467510400000] = 5640.53;
+				cfsrMeans[16][48]['hgtprs'][50000][467532000000] = 5632.79;
+				cfsrMeans[16][48]['hgtprs'][50000][467553600000] = 5641.26;
+				cfsrMeans[16][48]['hgtprs'][50000][467575200000] = 5639.23;
+				cfsrMeans[16][48]['hgtprs'][50000][467596800000] = 5637.7;
+				cfsrMeans[16][48]['hgtprs'][50000][467618400000] = 5630.02;
+				cfsrMeans[16][48]['hgtprs'][50000][467640000000] = 5638.36;
+				cfsrMeans[16][48]['hgtprs'][50000][467661600000] = 5636.35;
+				cfsrMeans[16][48]['hgtprs'][50000][467683200000] = 5634.85;
+				cfsrMeans[16][48]['hgtprs'][50000][467704800000] = 5627.21;
+				cfsrMeans[16][48]['hgtprs'][50000][467726400000] = 5635.42;
+				cfsrMeans[16][48]['hgtprs'][50000][467748000000] = 5633.4;
+				cfsrMeans[16][48]['hgtprs'][50000][467769600000] = 5631.95;
+				cfsrMeans[16][48]['hgtprs'][50000][467791200000] = 5624.35;
+				cfsrMeans[16][48]['hgtprs'][50000][467812800000] = 5632.45;
+				cfsrMeans[16][48]['hgtprs'][50000][467834400000] = 5630.45;
+				cfsrMeans[16][48]['hgtprs'][50000][467856000000] = 5629;
+				cfsrMeans[16][48]['hgtprs'][50000][467877600000] = 5621.47;
+				cfsrMeans[16][48]['hgtprs'][50000][467899200000] = 5629.45;
+				cfsrMeans[16][48]['hgtprs'][50000][467920800000] = 5627.44;
+				cfsrMeans[16][48]['hgtprs'][50000][467942400000] = 5626.03;
+				cfsrMeans[16][48]['hgtprs'][50000][467964000000] = 5618.53;
+				cfsrMeans[16][48]['hgtprs'][50000][467985600000] = 5626.4;
+				cfsrMeans[16][48]['hgtprs'][50000][468007200000] = 5624.42;
+				cfsrMeans[16][48]['hgtprs'][50000][468028800000] = 5623.04;
+				cfsrMeans[16][48]['hgtprs'][50000][468050400000] = 5615.58;
+				cfsrMeans[16][48]['hgtprs'][50000][468072000000] = 5623.33;
+				cfsrMeans[16][48]['hgtprs'][50000][468093600000] = 5621.36;
+				cfsrMeans[16][48]['hgtprs'][50000][468115200000] = 5620;
+				cfsrMeans[16][48]['hgtprs'][50000][468136800000] = 5612.6;
+				cfsrMeans[16][48]['hgtprs'][50000][468158400000] = 5620.22;
+				cfsrMeans[16][48]['hgtprs'][50000][468180000000] = 5618.27;
+				cfsrMeans[16][48]['hgtprs'][50000][468201600000] = 5616.95;
+				cfsrMeans[16][48]['hgtprs'][50000][468223200000] = 5609.58;
+				cfsrMeans[16][48]['hgtprs'][50000][468244800000] = 5617.11;
+				cfsrMeans[16][48]['hgtprs'][50000][468266400000] = 5615.16;
+				cfsrMeans[16][48]['hgtprs'][50000][468288000000] = 5613.87;
+				cfsrMeans[16][48]['hgtprs'][50000][468309600000] = 5606.54;
+				cfsrMeans[16][48]['hgtprs'][50000][468331200000] = 5613.97;
+				cfsrMeans[16][48]['hgtprs'][50000][468352800000] = 5612.02;
+				cfsrMeans[16][48]['hgtprs'][50000][468374400000] = 5610.76;
+				cfsrMeans[16][48]['hgtprs'][50000][468396000000] = 5603.49;
+				cfsrMeans[16][48]['hgtprs'][50000][468417600000] = 5610.8;
+				cfsrMeans[16][48]['hgtprs'][50000][468439200000] = 5608.89;
+				cfsrMeans[16][48]['hgtprs'][50000][468460800000] = 5607.66;
+				cfsrMeans[16][48]['hgtprs'][50000][468482400000] = 5600.42;
+				cfsrMeans[16][48]['hgtprs'][50000][468504000000] = 5607.62;
+				cfsrMeans[16][48]['hgtprs'][50000][468525600000] = 5605.74;
+				cfsrMeans[16][48]['hgtprs'][50000][468547200000] = 5604.54;
+				cfsrMeans[16][48]['hgtprs'][50000][468568800000] = 5597.34;
+				cfsrMeans[16][48]['hgtprs'][50000][468590400000] = 5604.44;
+				cfsrMeans[16][48]['hgtprs'][50000][468612000000] = 5602.58;
+				cfsrMeans[16][48]['hgtprs'][50000][468633600000] = 5601.39;
+				cfsrMeans[16][48]['hgtprs'][50000][468655200000] = 5594.26;
+				cfsrMeans[16][48]['hgtprs'][50000][468676800000] = 5601.24;
+				cfsrMeans[16][48]['hgtprs'][50000][468698400000] = 5599.41;
+				cfsrMeans[16][48]['hgtprs'][50000][468720000000] = 5598.26;
+				cfsrMeans[16][48]['hgtprs'][50000][468741600000] = 5591.16;
+				cfsrMeans[16][48]['hgtprs'][50000][468763200000] = 5598.06;
+				cfsrMeans[16][48]['hgtprs'][50000][468784800000] = 5596.24;
+				cfsrMeans[16][48]['hgtprs'][50000][468806400000] = 5595.12;
+				cfsrMeans[16][48]['hgtprs'][50000][468828000000] = 5588.07;
+				cfsrMeans[16][48]['hgtprs'][50000][468849600000] = 5594.86;
+				cfsrMeans[16][48]['hgtprs'][50000][468871200000] = 5593.07;
+				cfsrMeans[16][48]['hgtprs'][50000][468892800000] = 5591.99;
+				cfsrMeans[16][48]['hgtprs'][50000][468914400000] = 5584.98;
+				cfsrMeans[16][48]['hgtprs'][50000][468936000000] = 5591.67;
+				cfsrMeans[16][48]['hgtprs'][50000][468957600000] = 5589.93;
+				cfsrMeans[16][48]['hgtprs'][50000][468979200000] = 5588.85;
+				cfsrMeans[16][48]['hgtprs'][50000][469000800000] = 5581.9;
+				cfsrMeans[16][48]['hgtprs'][50000][469022400000] = 5588.5;
+				cfsrMeans[16][48]['hgtprs'][50000][469044000000] = 5586.78;
+				cfsrMeans[16][48]['hgtprs'][50000][469065600000] = 5585.75;
+				cfsrMeans[16][48]['hgtprs'][50000][469087200000] = 5578.82;
+				cfsrMeans[16][48]['hgtprs'][50000][469108800000] = 5585.34;
+				cfsrMeans[16][48]['hgtprs'][50000][469130400000] = 5583.66;
+				cfsrMeans[16][48]['hgtprs'][50000][469152000000] = 5582.64;
+				cfsrMeans[16][48]['hgtprs'][50000][469173600000] = 5575.77;
+				cfsrMeans[16][48]['hgtprs'][50000][469195200000] = 5582.21;
+				cfsrMeans[16][48]['hgtprs'][50000][469216800000] = 5580.55;
+				cfsrMeans[16][48]['hgtprs'][50000][469238400000] = 5579.57;
+				cfsrMeans[16][48]['hgtprs'][50000][469260000000] = 5572.74;
+				cfsrMeans[16][48]['hgtprs'][50000][469281600000] = 5579.08;
+				cfsrMeans[16][48]['hgtprs'][50000][469303200000] = 5577.47;
+				cfsrMeans[16][48]['hgtprs'][50000][469324800000] = 5576.51;
+				cfsrMeans[16][48]['hgtprs'][50000][469346400000] = 5569.72;
+				cfsrMeans[16][48]['hgtprs'][50000][469368000000] = 5576;
+				cfsrMeans[16][48]['hgtprs'][50000][469389600000] = 5574.42;
+				cfsrMeans[16][48]['hgtprs'][50000][469411200000] = 5573.5;
+				cfsrMeans[16][48]['hgtprs'][50000][469432800000] = 5566.74;
+				cfsrMeans[16][48]['hgtprs'][50000][469454400000] = 5572.94;
+				cfsrMeans[16][48]['hgtprs'][50000][469476000000] = 5571.41;
+				cfsrMeans[16][48]['hgtprs'][50000][469497600000] = 5570.5;
+				cfsrMeans[16][48]['hgtprs'][50000][469519200000] = 5563.79;
+				cfsrMeans[16][48]['hgtprs'][50000][469540800000] = 5569.92;
+				cfsrMeans[16][48]['hgtprs'][50000][469562400000] = 5568.42;
+				cfsrMeans[16][48]['hgtprs'][50000][469584000000] = 5567.55;
+				cfsrMeans[16][48]['hgtprs'][50000][469605600000] = 5560.89;
+				cfsrMeans[16][48]['hgtprs'][50000][469627200000] = 5566.93;
+				cfsrMeans[16][48]['hgtprs'][50000][469648800000] = 5565.48;
+				cfsrMeans[16][48]['hgtprs'][50000][469670400000] = 5564.63;
+				cfsrMeans[16][48]['hgtprs'][50000][469692000000] = 5558.01;
+				cfsrMeans[16][48]['hgtprs'][50000][469713600000] = 5563.98;
+				cfsrMeans[16][48]['hgtprs'][50000][469735200000] = 5562.58;
+				cfsrMeans[16][48]['hgtprs'][50000][469756800000] = 5561.77;
+				cfsrMeans[16][48]['hgtprs'][50000][469778400000] = 5555.19;
+				cfsrMeans[16][48]['hgtprs'][50000][469800000000] = 5561.09;
+				cfsrMeans[16][48]['hgtprs'][50000][469821600000] = 5559.74;
+				cfsrMeans[16][48]['hgtprs'][50000][469843200000] = 5558.95;
+				cfsrMeans[16][48]['hgtprs'][50000][469864800000] = 5552.4;
+				cfsrMeans[16][48]['hgtprs'][50000][469886400000] = 5558.25;
+				cfsrMeans[16][48]['hgtprs'][50000][469908000000] = 5556.95;
+				cfsrMeans[16][48]['hgtprs'][50000][469929600000] = 5556.18;
+				cfsrMeans[16][48]['hgtprs'][50000][469951200000] = 5549.67;
+				cfsrMeans[16][48]['hgtprs'][50000][469972800000] = 5555.47;
+				cfsrMeans[16][48]['hgtprs'][50000][469994400000] = 5554.21;
+				cfsrMeans[16][48]['hgtprs'][50000][470016000000] = 5553.48;
+				cfsrMeans[16][48]['hgtprs'][50000][470037600000] = 5547.01;
+				cfsrMeans[16][48]['hgtprs'][50000][470059200000] = 5552.73;
+				cfsrMeans[16][48]['hgtprs'][50000][470080800000] = 5551.53;
+				cfsrMeans[16][48]['hgtprs'][50000][470102400000] = 5550.83;
+				cfsrMeans[16][48]['hgtprs'][50000][470124000000] = 5544.4;
+				cfsrMeans[16][48]['hgtprs'][50000][470145600000] = 5550.08;
+				cfsrMeans[16][48]['hgtprs'][50000][470167200000] = 5548.93;
+				cfsrMeans[16][48]['hgtprs'][50000][470188800000] = 5548.24;
+				cfsrMeans[16][48]['hgtprs'][50000][470210400000] = 5541.85;
+				cfsrMeans[16][48]['hgtprs'][50000][470232000000] = 5547.46;
+				cfsrMeans[16][48]['hgtprs'][50000][470253600000] = 5546.38;
+				cfsrMeans[16][48]['hgtprs'][50000][470275200000] = 5545.73;
+				cfsrMeans[16][48]['hgtprs'][50000][470296800000] = 5539.36;
+				cfsrMeans[16][48]['hgtprs'][50000][470318400000] = 5544.94;
+				cfsrMeans[16][48]['hgtprs'][50000][470340000000] = 5543.91;
+				cfsrMeans[16][48]['hgtprs'][50000][470361600000] = 5543.28;
+				cfsrMeans[16][48]['hgtprs'][50000][470383200000] = 5536.94;
+				cfsrMeans[16][48]['hgtprs'][50000][470404800000] = 5542.47;
+				cfsrMeans[16][48]['hgtprs'][50000][470426400000] = 5541.51;
+				cfsrMeans[16][48]['hgtprs'][50000][470448000000] = 5540.89;
+				cfsrMeans[16][48]['hgtprs'][50000][470469600000] = 5534.6;
+				cfsrMeans[16][48]['hgtprs'][50000][470491200000] = 5540.08;
+				cfsrMeans[16][48]['hgtprs'][50000][470512800000] = 5539.18;
+				cfsrMeans[16][48]['hgtprs'][50000][470534400000] = 5538.59;
+				cfsrMeans[16][48]['hgtprs'][50000][470556000000] = 5532.33;
+				cfsrMeans[16][48]['hgtprs'][50000][470577600000] = 5537.78;
+				cfsrMeans[16][48]['hgtprs'][50000][470599200000] = 5536.93;
+				cfsrMeans[16][48]['hgtprs'][50000][470620800000] = 5536.36;
+				cfsrMeans[16][48]['hgtprs'][50000][470642400000] = 5530.13;
+				cfsrMeans[16][48]['hgtprs'][50000][470664000000] = 5535.53;
+				cfsrMeans[16][48]['hgtprs'][50000][470685600000] = 5534.75;
+				cfsrMeans[16][48]['hgtprs'][50000][470707200000] = 5534.21;
+				cfsrMeans[16][48]['hgtprs'][50000][470728800000] = 5528.01;
+				cfsrMeans[16][48]['hgtprs'][50000][470750400000] = 5533.39;
+				cfsrMeans[16][48]['hgtprs'][50000][470772000000] = 5532.67;
+				cfsrMeans[16][48]['hgtprs'][50000][470793600000] = 5532.15;
+				cfsrMeans[16][48]['hgtprs'][50000][470815200000] = 5525.97;
+				cfsrMeans[16][48]['hgtprs'][50000][470836800000] = 5531.32;
+				cfsrMeans[16][48]['hgtprs'][50000][470858400000] = 5530.67;
+				cfsrMeans[16][48]['hgtprs'][50000][470880000000] = 5530.16;
+				cfsrMeans[16][48]['hgtprs'][50000][470901600000] = 5524.02;
+				cfsrMeans[16][48]['hgtprs'][50000][470923200000] = 5529.33;
+				cfsrMeans[16][48]['hgtprs'][50000][470944800000] = 5528.73;
+				cfsrMeans[16][48]['hgtprs'][50000][470966400000] = 5528.27;
+				cfsrMeans[16][48]['hgtprs'][50000][470988000000] = 5522.14;
+				cfsrMeans[16][48]['hgtprs'][50000][471009600000] = 5527.43;
+				cfsrMeans[16][48]['hgtprs'][50000][471031200000] = 5526.9;
+				cfsrMeans[16][48]['hgtprs'][50000][471052800000] = 5526.46;
+				cfsrMeans[16][48]['hgtprs'][50000][471074400000] = 5520.35;
+				cfsrMeans[16][48]['hgtprs'][50000][471096000000] = 5525.61;
+				cfsrMeans[16][48]['hgtprs'][50000][471117600000] = 5525.15;
+				cfsrMeans[16][48]['hgtprs'][50000][471139200000] = 5524.73;
+				cfsrMeans[16][48]['hgtprs'][50000][471160800000] = 5518.65;
+				cfsrMeans[16][48]['hgtprs'][50000][471182400000] = 5523.89;
+				cfsrMeans[16][48]['hgtprs'][50000][471204000000] = 5523.49;
+				cfsrMeans[16][48]['hgtprs'][50000][471225600000] = 5523.09;
+				cfsrMeans[16][48]['hgtprs'][50000][471247200000] = 5517.03;
+				cfsrMeans[16][48]['hgtprs'][50000][471268800000] = 5522.25;
+				cfsrMeans[16][48]['hgtprs'][50000][471290400000] = 5521.92;
+				cfsrMeans[16][48]['hgtprs'][50000][471312000000] = 5521.53;
+				cfsrMeans[16][48]['hgtprs'][50000][471333600000] = 5515.5;
+				cfsrMeans[16][48]['hgtprs'][50000][471355200000] = 5520.71;
+				cfsrMeans[16][48]['hgtprs'][50000][471376800000] = 5520.44;
+				cfsrMeans[16][48]['hgtprs'][50000][471398400000] = 5520.06;
+				cfsrMeans[16][48]['hgtprs'][50000][471420000000] = 5514.05;
+				cfsrMeans[16][48]['hgtprs'][50000][471441600000] = 5519.24;
+				cfsrMeans[16][48]['hgtprs'][50000][471463200000] = 5519.04;
+				cfsrMeans[16][48]['hgtprs'][50000][471484800000] = 5518.68;
+				cfsrMeans[16][48]['hgtprs'][50000][471506400000] = 5512.7;
+				cfsrMeans[16][48]['hgtprs'][50000][471528000000] = 5517.86;
+				cfsrMeans[16][48]['hgtprs'][50000][471549600000] = 5517.72;
+				cfsrMeans[16][48]['hgtprs'][50000][471571200000] = 5517.38;
+				cfsrMeans[16][48]['hgtprs'][50000][471592800000] = 5511.42;
+				cfsrMeans[16][48]['hgtprs'][50000][471614400000] = 5516.58;
+				cfsrMeans[16][48]['hgtprs'][50000][471636000000] = 5516.49;
+				cfsrMeans[16][48]['hgtprs'][50000][471657600000] = 5516.18;
+				cfsrMeans[16][48]['hgtprs'][50000][471679200000] = 5510.22;
+				cfsrMeans[16][48]['hgtprs'][50000][471700800000] = 5515.37;
+				cfsrMeans[16][48]['hgtprs'][50000][471722400000] = 5515.35;
+				cfsrMeans[16][48]['hgtprs'][50000][471744000000] = 5515.05;
+				cfsrMeans[16][48]['hgtprs'][50000][471765600000] = 5509.11;
+				cfsrMeans[16][48]['hgtprs'][50000][471787200000] = 5514.27;
+				cfsrMeans[16][48]['hgtprs'][50000][471808800000] = 5514.3;
+				cfsrMeans[16][48]['hgtprs'][50000][471830400000] = 5514.03;
+				cfsrMeans[16][48]['hgtprs'][50000][471852000000] = 5508.08;
+				cfsrMeans[16][48]['hgtprs'][50000][471873600000] = 5513.23;
+				cfsrMeans[16][48]['hgtprs'][50000][471895200000] = 5513.32;
+				cfsrMeans[16][48]['hgtprs'][50000][471916800000] = 5513.06;
+				cfsrMeans[16][48]['hgtprs'][50000][471938400000] = 5507.14;
+				cfsrMeans[16][48]['hgtprs'][50000][471960000000] = 5512.28;
+				cfsrMeans[16][48]['hgtprs'][50000][471981600000] = 5512.44;
+				cfsrMeans[16][48]['hgtprs'][50000][472003200000] = 5512.19;
+				cfsrMeans[16][48]['hgtprs'][50000][472024800000] = 5506.26;
+				cfsrMeans[16][48]['hgtprs'][50000][472046400000] = 5511.41;
+				cfsrMeans[16][48]['hgtprs'][50000][472068000000] = 5511.62;
+				cfsrMeans[16][48]['hgtprs'][50000][472089600000] = 5511.38;
+				cfsrMeans[16][48]['hgtprs'][50000][472111200000] = 5505.48;
+				cfsrMeans[16][48]['hgtprs'][50000][472132800000] = 5510.63;
+				cfsrMeans[16][48]['hgtprs'][50000][472154400000] = 5510.88;
+				cfsrMeans[16][48]['hgtprs'][50000][472176000000] = 5510.66;
+				cfsrMeans[16][48]['hgtprs'][50000][472197600000] = 5504.76;
+				cfsrMeans[16][48]['hgtprs'][50000][472219200000] = 5509.92;
+				cfsrMeans[16][48]['hgtprs'][50000][472240800000] = 5510.21;
+				cfsrMeans[16][48]['hgtprs'][50000][472262400000] = 5510.02;
+				cfsrMeans[16][48]['hgtprs'][50000][472284000000] = 5504.11;
+				cfsrMeans[16][48]['hgtprs'][50000][472305600000] = 5509.28;
+				cfsrMeans[16][48]['hgtprs'][50000][472327200000] = 5509.62;
+				cfsrMeans[16][48]['hgtprs'][50000][472348800000] = 5509.43;
+				cfsrMeans[16][48]['hgtprs'][50000][472370400000] = 5503.54;
+				cfsrMeans[16][48]['hgtprs'][50000][472392000000] = 5508.72;
+				cfsrMeans[16][48]['hgtprs'][50000][472413600000] = 5509.1;
+				cfsrMeans[16][48]['hgtprs'][50000][472435200000] = 5508.92;
+				cfsrMeans[16][48]['hgtprs'][50000][472456800000] = 5503.03;
+				cfsrMeans[16][48]['hgtprs'][50000][472478400000] = 5508.22;
+				cfsrMeans[16][48]['hgtprs'][50000][472500000000] = 5508.65;
+				cfsrMeans[16][48]['hgtprs'][50000][472521600000] = 5508.48;
+				cfsrMeans[16][48]['hgtprs'][50000][472543200000] = 5502.59;
+				cfsrMeans[16][48]['hgtprs'][50000][472564800000] = 5507.78;
+				cfsrMeans[16][48]['hgtprs'][50000][472586400000] = 5508.26;
+				cfsrMeans[16][48]['hgtprs'][50000][472608000000] = 5508.09;
+				cfsrMeans[16][48]['hgtprs'][50000][472629600000] = 5502.2;
+				cfsrMeans[16][48]['hgtprs'][50000][472651200000] = 5507.42;
+				cfsrMeans[16][48]['hgtprs'][50000][472672800000] = 5507.92;
+				cfsrMeans[16][48]['hgtprs'][50000][472694400000] = 5507.77;
+				cfsrMeans[16][48]['hgtprs'][50000][472716000000] = 5501.87;
+				cfsrMeans[16][48]['hgtprs'][50000][472737600000] = 5507.1;
+				cfsrMeans[16][48]['hgtprs'][50000][472759200000] = 5507.63;
+				cfsrMeans[16][48]['hgtprs'][50000][472780800000] = 5507.5;
+				cfsrMeans[16][48]['hgtprs'][50000][472802400000] = 5501.6;
+				cfsrMeans[16][48]['hgtprs'][50000][472824000000] = 5506.84;
+				cfsrMeans[16][48]['hgtprs'][50000][472845600000] = 5507.41;
+				cfsrMeans[16][48]['hgtprs'][50000][472867200000] = 5507.28;
+				cfsrMeans[16][48]['hgtprs'][50000][472888800000] = 5501.38;
+				cfsrMeans[16][48]['hgtprs'][50000][472910400000] = 5506.63;
+				cfsrMeans[16][48]['hgtprs'][50000][472932000000] = 5507.23;
+				cfsrMeans[16][48]['hgtprs'][50000][472953600000] = 5507.1;
+				cfsrMeans[16][48]['hgtprs'][50000][472975200000] = 5501.19;
+				cfsrMeans[16][48]['hgtprs'][50000][472996800000] = 5506.47;
+				cfsrMeans[16][48]['hgtprs'][50000][473018400000] = 5507.09;
+				cfsrMeans[16][48]['hgtprs'][50000][473040000000] = 5506.97;
+				cfsrMeans[16][48]['hgtprs'][50000][473061600000] = 5501.05;
+				cfsrMeans[16][48]['hgtprs'][50000][473083200000] = 5506.35;
+				cfsrMeans[16][48]['hgtprs'][50000][473104800000] = 5506.99;
+				cfsrMeans[16][48]['hgtprs'][50000][473126400000] = 5506.88;
+				cfsrMeans[16][48]['hgtprs'][50000][473148000000] = 5500.95;
+				cfsrMeans[16][48]['hgtprs'][50000][473169600000] = 5506.27;
+				cfsrMeans[16][48]['hgtprs'][50000][473191200000] = 5506.94;
+				cfsrMeans[16][48]['hgtprs'][50000][473212800000] = 5506.83;
+				cfsrMeans[16][48]['hgtprs'][50000][473234400000] = 5500.88;
+				cfsrMeans[16][48]['hgtprs'][50000][473256000000] = 5506.23;
+				cfsrMeans[16][48]['hgtprs'][50000][473277600000] = 5506.91;
+				cfsrMeans[16][48]['hgtprs'][50000][473299200000] = 5506.79;
+				cfsrMeans[16][48]['hgtprs'][50000][473320800000] = 5500.85;
+				cfsrMeans[16][48]['hgtprs'][50000][473342400000] = 5506.23;
+				cfsrMeans[16][48]['hgtprs'][50000][473364000000] = 5506.91;
+			cfsrMeans[16][48]['hgtprs'][100000] = [];	cfsrMeans[16][48]['hgtprs'][100000][441763200000] = 163.613;
+				cfsrMeans[16][48]['hgtprs'][100000][441784800000] = 162.16;
+				cfsrMeans[16][48]['hgtprs'][100000][441806400000] = 161.103;
+				cfsrMeans[16][48]['hgtprs'][100000][441828000000] = 164.296;
+				cfsrMeans[16][48]['hgtprs'][100000][441849600000] = 164.031;
+				cfsrMeans[16][48]['hgtprs'][100000][441871200000] = 162.577;
+				cfsrMeans[16][48]['hgtprs'][100000][441892800000] = 161.5;
+				cfsrMeans[16][48]['hgtprs'][100000][441914400000] = 164.696;
+				cfsrMeans[16][48]['hgtprs'][100000][441936000000] = 164.448;
+				cfsrMeans[16][48]['hgtprs'][100000][441957600000] = 162.983;
+				cfsrMeans[16][48]['hgtprs'][100000][441979200000] = 161.888;
+				cfsrMeans[16][48]['hgtprs'][100000][442000800000] = 165.082;
+				cfsrMeans[16][48]['hgtprs'][100000][442022400000] = 164.865;
+				cfsrMeans[16][48]['hgtprs'][100000][442044000000] = 163.377;
+				cfsrMeans[16][48]['hgtprs'][100000][442065600000] = 162.268;
+				cfsrMeans[16][48]['hgtprs'][100000][442087200000] = 165.445;
+				cfsrMeans[16][48]['hgtprs'][100000][442108800000] = 165.266;
+				cfsrMeans[16][48]['hgtprs'][100000][442130400000] = 163.768;
+				cfsrMeans[16][48]['hgtprs'][100000][442152000000] = 162.636;
+				cfsrMeans[16][48]['hgtprs'][100000][442173600000] = 165.81;
+				cfsrMeans[16][48]['hgtprs'][100000][442195200000] = 165.655;
+				cfsrMeans[16][48]['hgtprs'][100000][442216800000] = 164.146;
+				cfsrMeans[16][48]['hgtprs'][100000][442238400000] = 162.994;
+				cfsrMeans[16][48]['hgtprs'][100000][442260000000] = 166.163;
+				cfsrMeans[16][48]['hgtprs'][100000][442281600000] = 166.036;
+				cfsrMeans[16][48]['hgtprs'][100000][442303200000] = 164.513;
+				cfsrMeans[16][48]['hgtprs'][100000][442324800000] = 163.335;
+				cfsrMeans[16][48]['hgtprs'][100000][442346400000] = 166.49;
+				cfsrMeans[16][48]['hgtprs'][100000][442368000000] = 166.403;
+				cfsrMeans[16][48]['hgtprs'][100000][442389600000] = 164.86;
+				cfsrMeans[16][48]['hgtprs'][100000][442411200000] = 163.655;
+				cfsrMeans[16][48]['hgtprs'][100000][442432800000] = 166.812;
+				cfsrMeans[16][48]['hgtprs'][100000][442454400000] = 166.754;
+				cfsrMeans[16][48]['hgtprs'][100000][442476000000] = 165.199;
+				cfsrMeans[16][48]['hgtprs'][100000][442497600000] = 163.965;
+				cfsrMeans[16][48]['hgtprs'][100000][442519200000] = 167.108;
+				cfsrMeans[16][48]['hgtprs'][100000][442540800000] = 167.09;
+				cfsrMeans[16][48]['hgtprs'][100000][442562400000] = 165.517;
+				cfsrMeans[16][48]['hgtprs'][100000][442584000000] = 164.26;
+				cfsrMeans[16][48]['hgtprs'][100000][442605600000] = 167.393;
+				cfsrMeans[16][48]['hgtprs'][100000][442627200000] = 167.414;
+				cfsrMeans[16][48]['hgtprs'][100000][442648800000] = 165.818;
+				cfsrMeans[16][48]['hgtprs'][100000][442670400000] = 164.529;
+				cfsrMeans[16][48]['hgtprs'][100000][442692000000] = 167.667;
+				cfsrMeans[16][48]['hgtprs'][100000][442713600000] = 167.715;
+				cfsrMeans[16][48]['hgtprs'][100000][442735200000] = 166.103;
+				cfsrMeans[16][48]['hgtprs'][100000][442756800000] = 164.782;
+				cfsrMeans[16][48]['hgtprs'][100000][442778400000] = 167.909;
+				cfsrMeans[16][48]['hgtprs'][100000][442800000000] = 167.995;
+				cfsrMeans[16][48]['hgtprs'][100000][442821600000] = 166.366;
+				cfsrMeans[16][48]['hgtprs'][100000][442843200000] = 165.012;
+				cfsrMeans[16][48]['hgtprs'][100000][442864800000] = 168.126;
+				cfsrMeans[16][48]['hgtprs'][100000][442886400000] = 168.257;
+				cfsrMeans[16][48]['hgtprs'][100000][442908000000] = 166.608;
+				cfsrMeans[16][48]['hgtprs'][100000][442929600000] = 165.224;
+				cfsrMeans[16][48]['hgtprs'][100000][442951200000] = 168.328;
+				cfsrMeans[16][48]['hgtprs'][100000][442972800000] = 168.496;
+				cfsrMeans[16][48]['hgtprs'][100000][442994400000] = 166.83;
+				cfsrMeans[16][48]['hgtprs'][100000][443016000000] = 165.415;
+				cfsrMeans[16][48]['hgtprs'][100000][443037600000] = 168.518;
+				cfsrMeans[16][48]['hgtprs'][100000][443059200000] = 168.706;
+				cfsrMeans[16][48]['hgtprs'][100000][443080800000] = 167.026;
+				cfsrMeans[16][48]['hgtprs'][100000][443102400000] = 165.58;
+				cfsrMeans[16][48]['hgtprs'][100000][443124000000] = 168.673;
+				cfsrMeans[16][48]['hgtprs'][100000][443145600000] = 168.906;
+				cfsrMeans[16][48]['hgtprs'][100000][443167200000] = 167.199;
+				cfsrMeans[16][48]['hgtprs'][100000][443188800000] = 165.717;
+				cfsrMeans[16][48]['hgtprs'][100000][443210400000] = 168.795;
+				cfsrMeans[16][48]['hgtprs'][100000][443232000000] = 169.072;
+				cfsrMeans[16][48]['hgtprs'][100000][443253600000] = 167.345;
+				cfsrMeans[16][48]['hgtprs'][100000][443275200000] = 165.833;
+				cfsrMeans[16][48]['hgtprs'][100000][443296800000] = 168.906;
+				cfsrMeans[16][48]['hgtprs'][100000][443318400000] = 169.21;
+				cfsrMeans[16][48]['hgtprs'][100000][443340000000] = 167.467;
+				cfsrMeans[16][48]['hgtprs'][100000][443361600000] = 165.919;
+				cfsrMeans[16][48]['hgtprs'][100000][443383200000] = 168.98;
+				cfsrMeans[16][48]['hgtprs'][100000][443404800000] = 169.334;
+				cfsrMeans[16][48]['hgtprs'][100000][443426400000] = 167.56;
+				cfsrMeans[16][48]['hgtprs'][100000][443448000000] = 165.984;
+				cfsrMeans[16][48]['hgtprs'][100000][443469600000] = 169.022;
+				cfsrMeans[16][48]['hgtprs'][100000][443491200000] = 169.415;
+				cfsrMeans[16][48]['hgtprs'][100000][443512800000] = 167.628;
+				cfsrMeans[16][48]['hgtprs'][100000][443534400000] = 166.017;
+				cfsrMeans[16][48]['hgtprs'][100000][443556000000] = 169.043;
+				cfsrMeans[16][48]['hgtprs'][100000][443577600000] = 169.482;
+				cfsrMeans[16][48]['hgtprs'][100000][443599200000] = 167.668;
+				cfsrMeans[16][48]['hgtprs'][100000][443620800000] = 166.025;
+				cfsrMeans[16][48]['hgtprs'][100000][443642400000] = 169.037;
+				cfsrMeans[16][48]['hgtprs'][100000][443664000000] = 169.511;
+				cfsrMeans[16][48]['hgtprs'][100000][443685600000] = 167.676;
+				cfsrMeans[16][48]['hgtprs'][100000][443707200000] = 165.999;
+				cfsrMeans[16][48]['hgtprs'][100000][443728800000] = 169.007;
+				cfsrMeans[16][48]['hgtprs'][100000][443750400000] = 169.518;
+				cfsrMeans[16][48]['hgtprs'][100000][443772000000] = 167.655;
+				cfsrMeans[16][48]['hgtprs'][100000][443793600000] = 165.952;
+				cfsrMeans[16][48]['hgtprs'][100000][443815200000] = 168.931;
+				cfsrMeans[16][48]['hgtprs'][100000][443836800000] = 169.48;
+				cfsrMeans[16][48]['hgtprs'][100000][443858400000] = 167.61;
+				cfsrMeans[16][48]['hgtprs'][100000][443880000000] = 165.872;
+				cfsrMeans[16][48]['hgtprs'][100000][443901600000] = 168.835;
+				cfsrMeans[16][48]['hgtprs'][100000][443923200000] = 169.423;
+				cfsrMeans[16][48]['hgtprs'][100000][443944800000] = 167.526;
+				cfsrMeans[16][48]['hgtprs'][100000][443966400000] = 165.756;
+				cfsrMeans[16][48]['hgtprs'][100000][443988000000] = 168.71;
+				cfsrMeans[16][48]['hgtprs'][100000][444009600000] = 169.339;
+				cfsrMeans[16][48]['hgtprs'][100000][444031200000] = 167.415;
+				cfsrMeans[16][48]['hgtprs'][100000][444052800000] = 165.618;
+				cfsrMeans[16][48]['hgtprs'][100000][444074400000] = 168.55;
+				cfsrMeans[16][48]['hgtprs'][100000][444096000000] = 169.215;
+				cfsrMeans[16][48]['hgtprs'][100000][444117600000] = 167.27;
+				cfsrMeans[16][48]['hgtprs'][100000][444139200000] = 165.448;
+				cfsrMeans[16][48]['hgtprs'][100000][444160800000] = 168.357;
+				cfsrMeans[16][48]['hgtprs'][100000][444182400000] = 169.067;
+				cfsrMeans[16][48]['hgtprs'][100000][444204000000] = 167.102;
+				cfsrMeans[16][48]['hgtprs'][100000][444225600000] = 165.248;
+				cfsrMeans[16][48]['hgtprs'][100000][444247200000] = 168.133;
+				cfsrMeans[16][48]['hgtprs'][100000][444268800000] = 168.883;
+				cfsrMeans[16][48]['hgtprs'][100000][444290400000] = 166.893;
+				cfsrMeans[16][48]['hgtprs'][100000][444312000000] = 165.012;
+				cfsrMeans[16][48]['hgtprs'][100000][444333600000] = 167.88;
+				cfsrMeans[16][48]['hgtprs'][100000][444355200000] = 168.666;
+				cfsrMeans[16][48]['hgtprs'][100000][444376800000] = 166.663;
+				cfsrMeans[16][48]['hgtprs'][100000][444398400000] = 164.75;
+				cfsrMeans[16][48]['hgtprs'][100000][444420000000] = 167.592;
+				cfsrMeans[16][48]['hgtprs'][100000][444441600000] = 168.411;
+				cfsrMeans[16][48]['hgtprs'][100000][444463200000] = 166.394;
+				cfsrMeans[16][48]['hgtprs'][100000][444484800000] = 164.456;
+				cfsrMeans[16][48]['hgtprs'][100000][444506400000] = 167.271;
+				cfsrMeans[16][48]['hgtprs'][100000][444528000000] = 168.139;
+				cfsrMeans[16][48]['hgtprs'][100000][444549600000] = 166.094;
+				cfsrMeans[16][48]['hgtprs'][100000][444571200000] = 164.137;
+				cfsrMeans[16][48]['hgtprs'][100000][444592800000] = 166.915;
+				cfsrMeans[16][48]['hgtprs'][100000][444614400000] = 167.827;
+				cfsrMeans[16][48]['hgtprs'][100000][444636000000] = 165.765;
+				cfsrMeans[16][48]['hgtprs'][100000][444657600000] = 163.781;
+				cfsrMeans[16][48]['hgtprs'][100000][444679200000] = 166.532;
+				cfsrMeans[16][48]['hgtprs'][100000][444700800000] = 167.475;
+				cfsrMeans[16][48]['hgtprs'][100000][444722400000] = 165.406;
+				cfsrMeans[16][48]['hgtprs'][100000][444744000000] = 163.393;
+				cfsrMeans[16][48]['hgtprs'][100000][444765600000] = 166.119;
+				cfsrMeans[16][48]['hgtprs'][100000][444787200000] = 167.097;
+				cfsrMeans[16][48]['hgtprs'][100000][444808800000] = 165.015;
+				cfsrMeans[16][48]['hgtprs'][100000][444830400000] = 162.982;
+				cfsrMeans[16][48]['hgtprs'][100000][444852000000] = 165.669;
+				cfsrMeans[16][48]['hgtprs'][100000][444873600000] = 166.692;
+				cfsrMeans[16][48]['hgtprs'][100000][444895200000] = 164.598;
+				cfsrMeans[16][48]['hgtprs'][100000][444916800000] = 162.538;
+				cfsrMeans[16][48]['hgtprs'][100000][444938400000] = 165.189;
+				cfsrMeans[16][48]['hgtprs'][100000][444960000000] = 166.252;
+				cfsrMeans[16][48]['hgtprs'][100000][444981600000] = 164.148;
+				cfsrMeans[16][48]['hgtprs'][100000][445003200000] = 162.065;
+				cfsrMeans[16][48]['hgtprs'][100000][445024800000] = 164.681;
+				cfsrMeans[16][48]['hgtprs'][100000][445046400000] = 165.795;
+				cfsrMeans[16][48]['hgtprs'][100000][445068000000] = 163.667;
+				cfsrMeans[16][48]['hgtprs'][100000][445089600000] = 161.568;
+				cfsrMeans[16][48]['hgtprs'][100000][445111200000] = 164.139;
+				cfsrMeans[16][48]['hgtprs'][100000][445132800000] = 165.297;
+				cfsrMeans[16][48]['hgtprs'][100000][445154400000] = 163.166;
+				cfsrMeans[16][48]['hgtprs'][100000][445176000000] = 161.035;
+				cfsrMeans[16][48]['hgtprs'][100000][445197600000] = 163.572;
+				cfsrMeans[16][48]['hgtprs'][100000][445219200000] = 164.76;
+				cfsrMeans[16][48]['hgtprs'][100000][445240800000] = 162.632;
+				cfsrMeans[16][48]['hgtprs'][100000][445262400000] = 160.482;
+				cfsrMeans[16][48]['hgtprs'][100000][445284000000] = 162.969;
+				cfsrMeans[16][48]['hgtprs'][100000][445305600000] = 164.202;
+				cfsrMeans[16][48]['hgtprs'][100000][445327200000] = 162.067;
+				cfsrMeans[16][48]['hgtprs'][100000][445348800000] = 159.899;
+				cfsrMeans[16][48]['hgtprs'][100000][445370400000] = 162.344;
+				cfsrMeans[16][48]['hgtprs'][100000][445392000000] = 163.626;
+				cfsrMeans[16][48]['hgtprs'][100000][445413600000] = 161.481;
+				cfsrMeans[16][48]['hgtprs'][100000][445435200000] = 159.288;
+				cfsrMeans[16][48]['hgtprs'][100000][445456800000] = 161.693;
+				cfsrMeans[16][48]['hgtprs'][100000][445478400000] = 163.009;
+				cfsrMeans[16][48]['hgtprs'][100000][445500000000] = 160.869;
+				cfsrMeans[16][48]['hgtprs'][100000][445521600000] = 158.654;
+				cfsrMeans[16][48]['hgtprs'][100000][445543200000] = 160.999;
+				cfsrMeans[16][48]['hgtprs'][100000][445564800000] = 162.372;
+				cfsrMeans[16][48]['hgtprs'][100000][445586400000] = 160.234;
+				cfsrMeans[16][48]['hgtprs'][100000][445608000000] = 157.998;
+				cfsrMeans[16][48]['hgtprs'][100000][445629600000] = 160.291;
+				cfsrMeans[16][48]['hgtprs'][100000][445651200000] = 161.719;
+				cfsrMeans[16][48]['hgtprs'][100000][445672800000] = 159.58;
+				cfsrMeans[16][48]['hgtprs'][100000][445694400000] = 157.313;
+				cfsrMeans[16][48]['hgtprs'][100000][445716000000] = 159.557;
+				cfsrMeans[16][48]['hgtprs'][100000][445737600000] = 161.028;
+				cfsrMeans[16][48]['hgtprs'][100000][445759200000] = 158.901;
+				cfsrMeans[16][48]['hgtprs'][100000][445780800000] = 156.615;
+				cfsrMeans[16][48]['hgtprs'][100000][445802400000] = 158.8;
+				cfsrMeans[16][48]['hgtprs'][100000][445824000000] = 160.312;
+				cfsrMeans[16][48]['hgtprs'][100000][445845600000] = 158.198;
+				cfsrMeans[16][48]['hgtprs'][100000][445867200000] = 155.886;
+				cfsrMeans[16][48]['hgtprs'][100000][445888800000] = 158.01;
+				cfsrMeans[16][48]['hgtprs'][100000][445910400000] = 159.587;
+				cfsrMeans[16][48]['hgtprs'][100000][445932000000] = 157.481;
+				cfsrMeans[16][48]['hgtprs'][100000][445953600000] = 155.141;
+				cfsrMeans[16][48]['hgtprs'][100000][445975200000] = 157.213;
+				cfsrMeans[16][48]['hgtprs'][100000][445996800000] = 158.829;
+				cfsrMeans[16][48]['hgtprs'][100000][446018400000] = 156.738;
+				cfsrMeans[16][48]['hgtprs'][100000][446040000000] = 154.375;
+				cfsrMeans[16][48]['hgtprs'][100000][446061600000] = 156.382;
+				cfsrMeans[16][48]['hgtprs'][100000][446083200000] = 158.065;
+				cfsrMeans[16][48]['hgtprs'][100000][446104800000] = 155.984;
+				cfsrMeans[16][48]['hgtprs'][100000][446126400000] = 153.59;
+				cfsrMeans[16][48]['hgtprs'][100000][446148000000] = 155.526;
+				cfsrMeans[16][48]['hgtprs'][100000][446169600000] = 157.271;
+				cfsrMeans[16][48]['hgtprs'][100000][446191200000] = 155.214;
+				cfsrMeans[16][48]['hgtprs'][100000][446212800000] = 152.787;
+				cfsrMeans[16][48]['hgtprs'][100000][446234400000] = 154.668;
+				cfsrMeans[16][48]['hgtprs'][100000][446256000000] = 156.462;
+				cfsrMeans[16][48]['hgtprs'][100000][446277600000] = 154.428;
+				cfsrMeans[16][48]['hgtprs'][100000][446299200000] = 151.975;
+				cfsrMeans[16][48]['hgtprs'][100000][446320800000] = 153.783;
+				cfsrMeans[16][48]['hgtprs'][100000][446342400000] = 155.626;
+				cfsrMeans[16][48]['hgtprs'][100000][446364000000] = 153.63;
+				cfsrMeans[16][48]['hgtprs'][100000][446385600000] = 151.142;
+				cfsrMeans[16][48]['hgtprs'][100000][446407200000] = 152.873;
+				cfsrMeans[16][48]['hgtprs'][100000][446428800000] = 154.79;
+				cfsrMeans[16][48]['hgtprs'][100000][446450400000] = 152.813;
+				cfsrMeans[16][48]['hgtprs'][100000][446472000000] = 150.294;
+				cfsrMeans[16][48]['hgtprs'][100000][446493600000] = 151.952;
+				cfsrMeans[16][48]['hgtprs'][100000][446515200000] = 153.938;
+				cfsrMeans[16][48]['hgtprs'][100000][446536800000] = 151.992;
+				cfsrMeans[16][48]['hgtprs'][100000][446558400000] = 149.441;
+				cfsrMeans[16][48]['hgtprs'][100000][446580000000] = 151.018;
+				cfsrMeans[16][48]['hgtprs'][100000][446601600000] = 153.066;
+				cfsrMeans[16][48]['hgtprs'][100000][446623200000] = 151.166;
+				cfsrMeans[16][48]['hgtprs'][100000][446644800000] = 148.57;
+				cfsrMeans[16][48]['hgtprs'][100000][446666400000] = 150.079;
+				cfsrMeans[16][48]['hgtprs'][100000][446688000000] = 152.196;
+				cfsrMeans[16][48]['hgtprs'][100000][446709600000] = 150.322;
+				cfsrMeans[16][48]['hgtprs'][100000][446731200000] = 147.694;
+				cfsrMeans[16][48]['hgtprs'][100000][446752800000] = 149.113;
+				cfsrMeans[16][48]['hgtprs'][100000][446774400000] = 151.305;
+				cfsrMeans[16][48]['hgtprs'][100000][446796000000] = 149.478;
+				cfsrMeans[16][48]['hgtprs'][100000][446817600000] = 146.808;
+				cfsrMeans[16][48]['hgtprs'][100000][446839200000] = 148.152;
+				cfsrMeans[16][48]['hgtprs'][100000][446860800000] = 150.855;
+				cfsrMeans[16][48]['hgtprs'][100000][446882400000] = 149.052;
+				cfsrMeans[16][48]['hgtprs'][100000][446904000000] = 146.357;
+				cfsrMeans[16][48]['hgtprs'][100000][446925600000] = 147.654;
+				cfsrMeans[16][48]['hgtprs'][100000][446947200000] = 150.402;
+				cfsrMeans[16][48]['hgtprs'][100000][446968800000] = 148.626;
+				cfsrMeans[16][48]['hgtprs'][100000][446990400000] = 145.912;
+				cfsrMeans[16][48]['hgtprs'][100000][447012000000] = 147.17;
+				cfsrMeans[16][48]['hgtprs'][100000][447033600000] = 149.499;
+				cfsrMeans[16][48]['hgtprs'][100000][447055200000] = 147.773;
+				cfsrMeans[16][48]['hgtprs'][100000][447076800000] = 145.013;
+				cfsrMeans[16][48]['hgtprs'][100000][447098400000] = 146.181;
+				cfsrMeans[16][48]['hgtprs'][100000][447120000000] = 148.601;
+				cfsrMeans[16][48]['hgtprs'][100000][447141600000] = 146.919;
+				cfsrMeans[16][48]['hgtprs'][100000][447163200000] = 144.111;
+				cfsrMeans[16][48]['hgtprs'][100000][447184800000] = 145.197;
+				cfsrMeans[16][48]['hgtprs'][100000][447206400000] = 147.681;
+				cfsrMeans[16][48]['hgtprs'][100000][447228000000] = 146.064;
+				cfsrMeans[16][48]['hgtprs'][100000][447249600000] = 143.2;
+				cfsrMeans[16][48]['hgtprs'][100000][447271200000] = 144.193;
+				cfsrMeans[16][48]['hgtprs'][100000][447292800000] = 146.765;
+				cfsrMeans[16][48]['hgtprs'][100000][447314400000] = 145.209;
+				cfsrMeans[16][48]['hgtprs'][100000][447336000000] = 142.294;
+				cfsrMeans[16][48]['hgtprs'][100000][447357600000] = 143.195;
+				cfsrMeans[16][48]['hgtprs'][100000][447379200000] = 145.855;
+				cfsrMeans[16][48]['hgtprs'][100000][447400800000] = 144.352;
+				cfsrMeans[16][48]['hgtprs'][100000][447422400000] = 141.386;
+				cfsrMeans[16][48]['hgtprs'][100000][447444000000] = 142.202;
+				cfsrMeans[16][48]['hgtprs'][100000][447465600000] = 144.936;
+				cfsrMeans[16][48]['hgtprs'][100000][447487200000] = 143.502;
+				cfsrMeans[16][48]['hgtprs'][100000][447508800000] = 140.482;
+				cfsrMeans[16][48]['hgtprs'][100000][447530400000] = 141.195;
+				cfsrMeans[16][48]['hgtprs'][100000][447552000000] = 144.021;
+				cfsrMeans[16][48]['hgtprs'][100000][447573600000] = 142.657;
+				cfsrMeans[16][48]['hgtprs'][100000][447595200000] = 139.576;
+				cfsrMeans[16][48]['hgtprs'][100000][447616800000] = 140.193;
+				cfsrMeans[16][48]['hgtprs'][100000][447638400000] = 143.111;
+				cfsrMeans[16][48]['hgtprs'][100000][447660000000] = 141.817;
+				cfsrMeans[16][48]['hgtprs'][100000][447681600000] = 138.674;
+				cfsrMeans[16][48]['hgtprs'][100000][447703200000] = 139.196;
+				cfsrMeans[16][48]['hgtprs'][100000][447724800000] = 142.205;
+				cfsrMeans[16][48]['hgtprs'][100000][447746400000] = 140.982;
+				cfsrMeans[16][48]['hgtprs'][100000][447768000000] = 137.776;
+				cfsrMeans[16][48]['hgtprs'][100000][447789600000] = 138.197;
+				cfsrMeans[16][48]['hgtprs'][100000][447811200000] = 141.315;
+				cfsrMeans[16][48]['hgtprs'][100000][447832800000] = 140.158;
+				cfsrMeans[16][48]['hgtprs'][100000][447854400000] = 136.887;
+				cfsrMeans[16][48]['hgtprs'][100000][447876000000] = 137.202;
+				cfsrMeans[16][48]['hgtprs'][100000][447897600000] = 140.415;
+				cfsrMeans[16][48]['hgtprs'][100000][447919200000] = 139.343;
+				cfsrMeans[16][48]['hgtprs'][100000][447940800000] = 136.002;
+				cfsrMeans[16][48]['hgtprs'][100000][447962400000] = 136.217;
+				cfsrMeans[16][48]['hgtprs'][100000][447984000000] = 139.531;
+				cfsrMeans[16][48]['hgtprs'][100000][448005600000] = 138.544;
+				cfsrMeans[16][48]['hgtprs'][100000][448027200000] = 135.131;
+				cfsrMeans[16][48]['hgtprs'][100000][448048800000] = 135.241;
+				cfsrMeans[16][48]['hgtprs'][100000][448070400000] = 138.661;
+				cfsrMeans[16][48]['hgtprs'][100000][448092000000] = 137.753;
+				cfsrMeans[16][48]['hgtprs'][100000][448113600000] = 134.262;
+				cfsrMeans[16][48]['hgtprs'][100000][448135200000] = 134.273;
+				cfsrMeans[16][48]['hgtprs'][100000][448156800000] = 137.792;
+				cfsrMeans[16][48]['hgtprs'][100000][448178400000] = 136.977;
+				cfsrMeans[16][48]['hgtprs'][100000][448200000000] = 133.414;
+				cfsrMeans[16][48]['hgtprs'][100000][448221600000] = 133.313;
+				cfsrMeans[16][48]['hgtprs'][100000][448243200000] = 136.943;
+				cfsrMeans[16][48]['hgtprs'][100000][448264800000] = 136.213;
+				cfsrMeans[16][48]['hgtprs'][100000][448286400000] = 132.572;
+				cfsrMeans[16][48]['hgtprs'][100000][448308000000] = 132.365;
+				cfsrMeans[16][48]['hgtprs'][100000][448329600000] = 136.098;
+				cfsrMeans[16][48]['hgtprs'][100000][448351200000] = 135.467;
+				cfsrMeans[16][48]['hgtprs'][100000][448372800000] = 131.742;
+				cfsrMeans[16][48]['hgtprs'][100000][448394400000] = 131.43;
+				cfsrMeans[16][48]['hgtprs'][100000][448416000000] = 135.274;
+				cfsrMeans[16][48]['hgtprs'][100000][448437600000] = 134.732;
+				cfsrMeans[16][48]['hgtprs'][100000][448459200000] = 130.929;
+				cfsrMeans[16][48]['hgtprs'][100000][448480800000] = 130.511;
+				cfsrMeans[16][48]['hgtprs'][100000][448502400000] = 134.464;
+				cfsrMeans[16][48]['hgtprs'][100000][448524000000] = 134.018;
+				cfsrMeans[16][48]['hgtprs'][100000][448545600000] = 130.133;
+				cfsrMeans[16][48]['hgtprs'][100000][448567200000] = 129.609;
+				cfsrMeans[16][48]['hgtprs'][100000][448588800000] = 133.676;
+				cfsrMeans[16][48]['hgtprs'][100000][448610400000] = 133.324;
+				cfsrMeans[16][48]['hgtprs'][100000][448632000000] = 129.352;
+				cfsrMeans[16][48]['hgtprs'][100000][448653600000] = 128.713;
+				cfsrMeans[16][48]['hgtprs'][100000][448675200000] = 132.901;
+				cfsrMeans[16][48]['hgtprs'][100000][448696800000] = 132.647;
+				cfsrMeans[16][48]['hgtprs'][100000][448718400000] = 128.593;
+				cfsrMeans[16][48]['hgtprs'][100000][448740000000] = 127.84;
+				cfsrMeans[16][48]['hgtprs'][100000][448761600000] = 132.135;
+				cfsrMeans[16][48]['hgtprs'][100000][448783200000] = 131.995;
+				cfsrMeans[16][48]['hgtprs'][100000][448804800000] = 127.846;
+				cfsrMeans[16][48]['hgtprs'][100000][448826400000] = 126.989;
+				cfsrMeans[16][48]['hgtprs'][100000][448848000000] = 131.404;
+				cfsrMeans[16][48]['hgtprs'][100000][448869600000] = 131.359;
+				cfsrMeans[16][48]['hgtprs'][100000][448891200000] = 127.119;
+				cfsrMeans[16][48]['hgtprs'][100000][448912800000] = 126.151;
+				cfsrMeans[16][48]['hgtprs'][100000][448934400000] = 130.682;
+				cfsrMeans[16][48]['hgtprs'][100000][448956000000] = 130.748;
+				cfsrMeans[16][48]['hgtprs'][100000][448977600000] = 126.415;
+				cfsrMeans[16][48]['hgtprs'][100000][448999200000] = 125.338;
+				cfsrMeans[16][48]['hgtprs'][100000][449020800000] = 129.982;
+				cfsrMeans[16][48]['hgtprs'][100000][449042400000] = 130.156;
+				cfsrMeans[16][48]['hgtprs'][100000][449064000000] = 125.733;
+				cfsrMeans[16][48]['hgtprs'][100000][449085600000] = 124.543;
+				cfsrMeans[16][48]['hgtprs'][100000][449107200000] = 129.314;
+				cfsrMeans[16][48]['hgtprs'][100000][449128800000] = 129.587;
+				cfsrMeans[16][48]['hgtprs'][100000][449150400000] = 125.07;
+				cfsrMeans[16][48]['hgtprs'][100000][449172000000] = 123.77;
+				cfsrMeans[16][48]['hgtprs'][100000][449193600000] = 128.665;
+				cfsrMeans[16][48]['hgtprs'][100000][449215200000] = 129.04;
+				cfsrMeans[16][48]['hgtprs'][100000][449236800000] = 124.437;
+				cfsrMeans[16][48]['hgtprs'][100000][449258400000] = 123.02;
+				cfsrMeans[16][48]['hgtprs'][100000][449280000000] = 128.035;
+				cfsrMeans[16][48]['hgtprs'][100000][449301600000] = 128.514;
+				cfsrMeans[16][48]['hgtprs'][100000][449323200000] = 123.82;
+				cfsrMeans[16][48]['hgtprs'][100000][449344800000] = 122.296;
+				cfsrMeans[16][48]['hgtprs'][100000][449366400000] = 127.421;
+				cfsrMeans[16][48]['hgtprs'][100000][449388000000] = 128.015;
+				cfsrMeans[16][48]['hgtprs'][100000][449409600000] = 123.225;
+				cfsrMeans[16][48]['hgtprs'][100000][449431200000] = 121.598;
+				cfsrMeans[16][48]['hgtprs'][100000][449452800000] = 126.836;
+				cfsrMeans[16][48]['hgtprs'][100000][449474400000] = 127.54;
+				cfsrMeans[16][48]['hgtprs'][100000][449496000000] = 122.658;
+				cfsrMeans[16][48]['hgtprs'][100000][449517600000] = 120.918;
+				cfsrMeans[16][48]['hgtprs'][100000][449539200000] = 126.279;
+				cfsrMeans[16][48]['hgtprs'][100000][449560800000] = 127.096;
+				cfsrMeans[16][48]['hgtprs'][100000][449582400000] = 122.116;
+				cfsrMeans[16][48]['hgtprs'][100000][449604000000] = 120.271;
+				cfsrMeans[16][48]['hgtprs'][100000][449625600000] = 125.749;
+				cfsrMeans[16][48]['hgtprs'][100000][449647200000] = 126.667;
+				cfsrMeans[16][48]['hgtprs'][100000][449668800000] = 121.6;
+				cfsrMeans[16][48]['hgtprs'][100000][449690400000] = 119.642;
+				cfsrMeans[16][48]['hgtprs'][100000][449712000000] = 125.244;
+				cfsrMeans[16][48]['hgtprs'][100000][449733600000] = 126.267;
+				cfsrMeans[16][48]['hgtprs'][100000][449755200000] = 121.107;
+				cfsrMeans[16][48]['hgtprs'][100000][449776800000] = 119.046;
+				cfsrMeans[16][48]['hgtprs'][100000][449798400000] = 124.764;
+				cfsrMeans[16][48]['hgtprs'][100000][449820000000] = 125.894;
+				cfsrMeans[16][48]['hgtprs'][100000][449841600000] = 120.644;
+				cfsrMeans[16][48]['hgtprs'][100000][449863200000] = 118.474;
+				cfsrMeans[16][48]['hgtprs'][100000][449884800000] = 124.308;
+				cfsrMeans[16][48]['hgtprs'][100000][449906400000] = 125.548;
+				cfsrMeans[16][48]['hgtprs'][100000][449928000000] = 120.206;
+				cfsrMeans[16][48]['hgtprs'][100000][449949600000] = 117.934;
+				cfsrMeans[16][48]['hgtprs'][100000][449971200000] = 123.875;
+				cfsrMeans[16][48]['hgtprs'][100000][449992800000] = 125.224;
+				cfsrMeans[16][48]['hgtprs'][100000][450014400000] = 119.797;
+				cfsrMeans[16][48]['hgtprs'][100000][450036000000] = 117.418;
+				cfsrMeans[16][48]['hgtprs'][100000][450057600000] = 123.474;
+				cfsrMeans[16][48]['hgtprs'][100000][450079200000] = 124.925;
+				cfsrMeans[16][48]['hgtprs'][100000][450100800000] = 119.406;
+				cfsrMeans[16][48]['hgtprs'][100000][450122400000] = 116.928;
+				cfsrMeans[16][48]['hgtprs'][100000][450144000000] = 123.106;
+				cfsrMeans[16][48]['hgtprs'][100000][450165600000] = 124.648;
+				cfsrMeans[16][48]['hgtprs'][100000][450187200000] = 119.051;
+				cfsrMeans[16][48]['hgtprs'][100000][450208800000] = 116.473;
+				cfsrMeans[16][48]['hgtprs'][100000][450230400000] = 122.749;
+				cfsrMeans[16][48]['hgtprs'][100000][450252000000] = 124.401;
+				cfsrMeans[16][48]['hgtprs'][100000][450273600000] = 118.72;
+				cfsrMeans[16][48]['hgtprs'][100000][450295200000] = 116.044;
+				cfsrMeans[16][48]['hgtprs'][100000][450316800000] = 122.432;
+				cfsrMeans[16][48]['hgtprs'][100000][450338400000] = 124.18;
+				cfsrMeans[16][48]['hgtprs'][100000][450360000000] = 118.416;
+				cfsrMeans[16][48]['hgtprs'][100000][450381600000] = 115.642;
+				cfsrMeans[16][48]['hgtprs'][100000][450403200000] = 122.13;
+				cfsrMeans[16][48]['hgtprs'][100000][450424800000] = 123.982;
+				cfsrMeans[16][48]['hgtprs'][100000][450446400000] = 118.143;
+				cfsrMeans[16][48]['hgtprs'][100000][450468000000] = 115.27;
+				cfsrMeans[16][48]['hgtprs'][100000][450489600000] = 121.859;
+				cfsrMeans[16][48]['hgtprs'][100000][450511200000] = 123.808;
+				cfsrMeans[16][48]['hgtprs'][100000][450532800000] = 117.894;
+				cfsrMeans[16][48]['hgtprs'][100000][450554400000] = 114.925;
+				cfsrMeans[16][48]['hgtprs'][100000][450576000000] = 121.622;
+				cfsrMeans[16][48]['hgtprs'][100000][450597600000] = 123.654;
+				cfsrMeans[16][48]['hgtprs'][100000][450619200000] = 117.667;
+				cfsrMeans[16][48]['hgtprs'][100000][450640800000] = 114.615;
+				cfsrMeans[16][48]['hgtprs'][100000][450662400000] = 121.408;
+				cfsrMeans[16][48]['hgtprs'][100000][450684000000] = 123.529;
+				cfsrMeans[16][48]['hgtprs'][100000][450705600000] = 117.477;
+				cfsrMeans[16][48]['hgtprs'][100000][450727200000] = 114.328;
+				cfsrMeans[16][48]['hgtprs'][100000][450748800000] = 121.218;
+				cfsrMeans[16][48]['hgtprs'][100000][450770400000] = 123.428;
+				cfsrMeans[16][48]['hgtprs'][100000][450792000000] = 117.305;
+				cfsrMeans[16][48]['hgtprs'][100000][450813600000] = 114.068;
+				cfsrMeans[16][48]['hgtprs'][100000][450835200000] = 121.055;
+				cfsrMeans[16][48]['hgtprs'][100000][450856800000] = 123.352;
+				cfsrMeans[16][48]['hgtprs'][100000][450878400000] = 117.167;
+				cfsrMeans[16][48]['hgtprs'][100000][450900000000] = 113.841;
+				cfsrMeans[16][48]['hgtprs'][100000][450921600000] = 120.906;
+				cfsrMeans[16][48]['hgtprs'][100000][450943200000] = 123.296;
+				cfsrMeans[16][48]['hgtprs'][100000][450964800000] = 117.051;
+				cfsrMeans[16][48]['hgtprs'][100000][450986400000] = 113.644;
+				cfsrMeans[16][48]['hgtprs'][100000][451008000000] = 120.8;
+				cfsrMeans[16][48]['hgtprs'][100000][451029600000] = 123.262;
+				cfsrMeans[16][48]['hgtprs'][100000][451051200000] = 116.958;
+				cfsrMeans[16][48]['hgtprs'][100000][451072800000] = 113.471;
+				cfsrMeans[16][48]['hgtprs'][100000][451094400000] = 120.711;
+				cfsrMeans[16][48]['hgtprs'][100000][451116000000] = 123.251;
+				cfsrMeans[16][48]['hgtprs'][100000][451137600000] = 116.891;
+				cfsrMeans[16][48]['hgtprs'][100000][451159200000] = 113.329;
+				cfsrMeans[16][48]['hgtprs'][100000][451180800000] = 120.641;
+				cfsrMeans[16][48]['hgtprs'][100000][451202400000] = 123.259;
+				cfsrMeans[16][48]['hgtprs'][100000][451224000000] = 116.855;
+				cfsrMeans[16][48]['hgtprs'][100000][451245600000] = 113.214;
+				cfsrMeans[16][48]['hgtprs'][100000][451267200000] = 120.603;
+				cfsrMeans[16][48]['hgtprs'][100000][451288800000] = 123.285;
+				cfsrMeans[16][48]['hgtprs'][100000][451310400000] = 116.84;
+				cfsrMeans[16][48]['hgtprs'][100000][451332000000] = 113.125;
+				cfsrMeans[16][48]['hgtprs'][100000][451353600000] = 120.586;
+				cfsrMeans[16][48]['hgtprs'][100000][451375200000] = 123.338;
+				cfsrMeans[16][48]['hgtprs'][100000][451396800000] = 116.851;
+				cfsrMeans[16][48]['hgtprs'][100000][451418400000] = 113.063;
+				cfsrMeans[16][48]['hgtprs'][100000][451440000000] = 120.588;
+				cfsrMeans[16][48]['hgtprs'][100000][451461600000] = 123.403;
+				cfsrMeans[16][48]['hgtprs'][100000][451483200000] = 116.883;
+				cfsrMeans[16][48]['hgtprs'][100000][451504800000] = 113.023;
+				cfsrMeans[16][48]['hgtprs'][100000][451526400000] = 120.624;
+				cfsrMeans[16][48]['hgtprs'][100000][451548000000] = 123.496;
+				cfsrMeans[16][48]['hgtprs'][100000][451569600000] = 116.936;
+				cfsrMeans[16][48]['hgtprs'][100000][451591200000] = 113.016;
+				cfsrMeans[16][48]['hgtprs'][100000][451612800000] = 120.666;
+				cfsrMeans[16][48]['hgtprs'][100000][451634400000] = 123.602;
+				cfsrMeans[16][48]['hgtprs'][100000][451656000000] = 117.016;
+				cfsrMeans[16][48]['hgtprs'][100000][451677600000] = 113.03;
+				cfsrMeans[16][48]['hgtprs'][100000][451699200000] = 120.742;
+				cfsrMeans[16][48]['hgtprs'][100000][451720800000] = 123.728;
+				cfsrMeans[16][48]['hgtprs'][100000][451742400000] = 117.115;
+				cfsrMeans[16][48]['hgtprs'][100000][451764000000] = 113.064;
+				cfsrMeans[16][48]['hgtprs'][100000][451785600000] = 120.83;
+				cfsrMeans[16][48]['hgtprs'][100000][451807200000] = 123.866;
+				cfsrMeans[16][48]['hgtprs'][100000][451828800000] = 117.235;
+				cfsrMeans[16][48]['hgtprs'][100000][451850400000] = 113.13;
+				cfsrMeans[16][48]['hgtprs'][100000][451872000000] = 120.943;
+				cfsrMeans[16][48]['hgtprs'][100000][451893600000] = 124.023;
+				cfsrMeans[16][48]['hgtprs'][100000][451915200000] = 117.379;
+				cfsrMeans[16][48]['hgtprs'][100000][451936800000] = 113.215;
+				cfsrMeans[16][48]['hgtprs'][100000][451958400000] = 121.074;
+				cfsrMeans[16][48]['hgtprs'][100000][451980000000] = 124.197;
+				cfsrMeans[16][48]['hgtprs'][100000][452001600000] = 117.54;
+				cfsrMeans[16][48]['hgtprs'][100000][452023200000] = 113.323;
+				cfsrMeans[16][48]['hgtprs'][100000][452044800000] = 121.226;
+				cfsrMeans[16][48]['hgtprs'][100000][452066400000] = 124.387;
+				cfsrMeans[16][48]['hgtprs'][100000][452088000000] = 117.724;
+				cfsrMeans[16][48]['hgtprs'][100000][452109600000] = 113.454;
+				cfsrMeans[16][48]['hgtprs'][100000][452131200000] = 121.393;
+				cfsrMeans[16][48]['hgtprs'][100000][452152800000] = 124.586;
+				cfsrMeans[16][48]['hgtprs'][100000][452174400000] = 117.922;
+				cfsrMeans[16][48]['hgtprs'][100000][452196000000] = 113.603;
+				cfsrMeans[16][48]['hgtprs'][100000][452217600000] = 121.579;
+				cfsrMeans[16][48]['hgtprs'][100000][452239200000] = 124.804;
+				cfsrMeans[16][48]['hgtprs'][100000][452260800000] = 118.138;
+				cfsrMeans[16][48]['hgtprs'][100000][452282400000] = 113.773;
+				cfsrMeans[16][48]['hgtprs'][100000][452304000000] = 121.781;
+				cfsrMeans[16][48]['hgtprs'][100000][452325600000] = 125.032;
+				cfsrMeans[16][48]['hgtprs'][100000][452347200000] = 118.371;
+				cfsrMeans[16][48]['hgtprs'][100000][452368800000] = 113.965;
+				cfsrMeans[16][48]['hgtprs'][100000][452390400000] = 121.998;
+				cfsrMeans[16][48]['hgtprs'][100000][452412000000] = 125.269;
+				cfsrMeans[16][48]['hgtprs'][100000][452433600000] = 118.62;
+				cfsrMeans[16][48]['hgtprs'][100000][452455200000] = 114.174;
+				cfsrMeans[16][48]['hgtprs'][100000][452476800000] = 122.233;
+				cfsrMeans[16][48]['hgtprs'][100000][452498400000] = 125.519;
+				cfsrMeans[16][48]['hgtprs'][100000][452520000000] = 118.886;
+				cfsrMeans[16][48]['hgtprs'][100000][452541600000] = 114.401;
+				cfsrMeans[16][48]['hgtprs'][100000][452563200000] = 122.478;
+				cfsrMeans[16][48]['hgtprs'][100000][452584800000] = 125.785;
+				cfsrMeans[16][48]['hgtprs'][100000][452606400000] = 119.16;
+				cfsrMeans[16][48]['hgtprs'][100000][452628000000] = 114.644;
+				cfsrMeans[16][48]['hgtprs'][100000][452649600000] = 122.736;
+				cfsrMeans[16][48]['hgtprs'][100000][452671200000] = 126.054;
+				cfsrMeans[16][48]['hgtprs'][100000][452692800000] = 119.452;
+				cfsrMeans[16][48]['hgtprs'][100000][452714400000] = 114.901;
+				cfsrMeans[16][48]['hgtprs'][100000][452736000000] = 123.01;
+				cfsrMeans[16][48]['hgtprs'][100000][452757600000] = 126.339;
+				cfsrMeans[16][48]['hgtprs'][100000][452779200000] = 119.758;
+				cfsrMeans[16][48]['hgtprs'][100000][452800800000] = 115.171;
+				cfsrMeans[16][48]['hgtprs'][100000][452822400000] = 123.297;
+				cfsrMeans[16][48]['hgtprs'][100000][452844000000] = 126.629;
+				cfsrMeans[16][48]['hgtprs'][100000][452865600000] = 120.076;
+				cfsrMeans[16][48]['hgtprs'][100000][452887200000] = 115.464;
+				cfsrMeans[16][48]['hgtprs'][100000][452908800000] = 123.593;
+				cfsrMeans[16][48]['hgtprs'][100000][452930400000] = 126.925;
+				cfsrMeans[16][48]['hgtprs'][100000][452952000000] = 120.401;
+				cfsrMeans[16][48]['hgtprs'][100000][452973600000] = 115.763;
+				cfsrMeans[16][48]['hgtprs'][100000][452995200000] = 123.901;
+				cfsrMeans[16][48]['hgtprs'][100000][453016800000] = 127.231;
+				cfsrMeans[16][48]['hgtprs'][100000][453038400000] = 120.736;
+				cfsrMeans[16][48]['hgtprs'][100000][453060000000] = 116.078;
+				cfsrMeans[16][48]['hgtprs'][100000][453081600000] = 124.217;
+				cfsrMeans[16][48]['hgtprs'][100000][453103200000] = 127.537;
+				cfsrMeans[16][48]['hgtprs'][100000][453124800000] = 121.082;
+				cfsrMeans[16][48]['hgtprs'][100000][453146400000] = 116.399;
+				cfsrMeans[16][48]['hgtprs'][100000][453168000000] = 124.541;
+				cfsrMeans[16][48]['hgtprs'][100000][453189600000] = 127.858;
+				cfsrMeans[16][48]['hgtprs'][100000][453211200000] = 121.437;
+				cfsrMeans[16][48]['hgtprs'][100000][453232800000] = 116.735;
+				cfsrMeans[16][48]['hgtprs'][100000][453254400000] = 124.876;
+				cfsrMeans[16][48]['hgtprs'][100000][453276000000] = 128.178;
+				cfsrMeans[16][48]['hgtprs'][100000][453297600000] = 121.8;
+				cfsrMeans[16][48]['hgtprs'][100000][453319200000] = 117.083;
+				cfsrMeans[16][48]['hgtprs'][100000][453340800000] = 125.219;
+				cfsrMeans[16][48]['hgtprs'][100000][453362400000] = 128.504;
+				cfsrMeans[16][48]['hgtprs'][100000][453384000000] = 122.166;
+				cfsrMeans[16][48]['hgtprs'][100000][453405600000] = 117.433;
+				cfsrMeans[16][48]['hgtprs'][100000][453427200000] = 125.564;
+				cfsrMeans[16][48]['hgtprs'][100000][453448800000] = 128.834;
+				cfsrMeans[16][48]['hgtprs'][100000][453470400000] = 122.538;
+				cfsrMeans[16][48]['hgtprs'][100000][453492000000] = 117.792;
+				cfsrMeans[16][48]['hgtprs'][100000][453513600000] = 125.916;
+				cfsrMeans[16][48]['hgtprs'][100000][453535200000] = 129.165;
+				cfsrMeans[16][48]['hgtprs'][100000][453556800000] = 122.918;
+				cfsrMeans[16][48]['hgtprs'][100000][453578400000] = 118.165;
+				cfsrMeans[16][48]['hgtprs'][100000][453600000000] = 126.275;
+				cfsrMeans[16][48]['hgtprs'][100000][453621600000] = 129.503;
+				cfsrMeans[16][48]['hgtprs'][100000][453643200000] = 123.302;
+				cfsrMeans[16][48]['hgtprs'][100000][453664800000] = 118.532;
+				cfsrMeans[16][48]['hgtprs'][100000][453686400000] = 126.639;
+				cfsrMeans[16][48]['hgtprs'][100000][453708000000] = 129.842;
+				cfsrMeans[16][48]['hgtprs'][100000][453729600000] = 123.687;
+				cfsrMeans[16][48]['hgtprs'][100000][453751200000] = 118.914;
+				cfsrMeans[16][48]['hgtprs'][100000][453772800000] = 127.004;
+				cfsrMeans[16][48]['hgtprs'][100000][453794400000] = 130.179;
+				cfsrMeans[16][48]['hgtprs'][100000][453816000000] = 124.074;
+				cfsrMeans[16][48]['hgtprs'][100000][453837600000] = 119.295;
+				cfsrMeans[16][48]['hgtprs'][100000][453859200000] = 127.371;
+				cfsrMeans[16][48]['hgtprs'][100000][453880800000] = 130.518;
+				cfsrMeans[16][48]['hgtprs'][100000][453902400000] = 124.461;
+				cfsrMeans[16][48]['hgtprs'][100000][453924000000] = 119.678;
+				cfsrMeans[16][48]['hgtprs'][100000][453945600000] = 127.744;
+				cfsrMeans[16][48]['hgtprs'][100000][453967200000] = 130.854;
+				cfsrMeans[16][48]['hgtprs'][100000][453988800000] = 124.846;
+				cfsrMeans[16][48]['hgtprs'][100000][454010400000] = 120.064;
+				cfsrMeans[16][48]['hgtprs'][100000][454032000000] = 128.12;
+				cfsrMeans[16][48]['hgtprs'][100000][454053600000] = 131.194;
+				cfsrMeans[16][48]['hgtprs'][100000][454075200000] = 125.238;
+				cfsrMeans[16][48]['hgtprs'][100000][454096800000] = 120.449;
+				cfsrMeans[16][48]['hgtprs'][100000][454118400000] = 128.494;
+				cfsrMeans[16][48]['hgtprs'][100000][454140000000] = 131.532;
+				cfsrMeans[16][48]['hgtprs'][100000][454161600000] = 125.625;
+				cfsrMeans[16][48]['hgtprs'][100000][454183200000] = 120.837;
+				cfsrMeans[16][48]['hgtprs'][100000][454204800000] = 128.867;
+				cfsrMeans[16][48]['hgtprs'][100000][454226400000] = 131.867;
+				cfsrMeans[16][48]['hgtprs'][100000][454248000000] = 126.01;
+				cfsrMeans[16][48]['hgtprs'][100000][454269600000] = 121.224;
+				cfsrMeans[16][48]['hgtprs'][100000][454291200000] = 129.234;
+				cfsrMeans[16][48]['hgtprs'][100000][454312800000] = 132.203;
+				cfsrMeans[16][48]['hgtprs'][100000][454334400000] = 126.39;
+				cfsrMeans[16][48]['hgtprs'][100000][454356000000] = 121.612;
+				cfsrMeans[16][48]['hgtprs'][100000][454377600000] = 129.608;
+				cfsrMeans[16][48]['hgtprs'][100000][454399200000] = 132.531;
+				cfsrMeans[16][48]['hgtprs'][100000][454420800000] = 126.769;
+				cfsrMeans[16][48]['hgtprs'][100000][454442400000] = 121.992;
+				cfsrMeans[16][48]['hgtprs'][100000][454464000000] = 129.974;
+				cfsrMeans[16][48]['hgtprs'][100000][454485600000] = 132.864;
+				cfsrMeans[16][48]['hgtprs'][100000][454507200000] = 127.145;
+				cfsrMeans[16][48]['hgtprs'][100000][454528800000] = 122.372;
+				cfsrMeans[16][48]['hgtprs'][100000][454550400000] = 130.345;
+				cfsrMeans[16][48]['hgtprs'][100000][454572000000] = 133.186;
+				cfsrMeans[16][48]['hgtprs'][100000][454593600000] = 127.513;
+				cfsrMeans[16][48]['hgtprs'][100000][454615200000] = 122.744;
+				cfsrMeans[16][48]['hgtprs'][100000][454636800000] = 130.705;
+				cfsrMeans[16][48]['hgtprs'][100000][454658400000] = 133.51;
+				cfsrMeans[16][48]['hgtprs'][100000][454680000000] = 127.88;
+				cfsrMeans[16][48]['hgtprs'][100000][454701600000] = 123.119;
+				cfsrMeans[16][48]['hgtprs'][100000][454723200000] = 131.066;
+				cfsrMeans[16][48]['hgtprs'][100000][454744800000] = 133.827;
+				cfsrMeans[16][48]['hgtprs'][100000][454766400000] = 128.243;
+				cfsrMeans[16][48]['hgtprs'][100000][454788000000] = 123.48;
+				cfsrMeans[16][48]['hgtprs'][100000][454809600000] = 131.422;
+				cfsrMeans[16][48]['hgtprs'][100000][454831200000] = 134.137;
+				cfsrMeans[16][48]['hgtprs'][100000][454852800000] = 128.592;
+				cfsrMeans[16][48]['hgtprs'][100000][454874400000] = 123.84;
+				cfsrMeans[16][48]['hgtprs'][100000][454896000000] = 131.771;
+				cfsrMeans[16][48]['hgtprs'][100000][454917600000] = 134.444;
+				cfsrMeans[16][48]['hgtprs'][100000][454939200000] = 128.938;
+				cfsrMeans[16][48]['hgtprs'][100000][454960800000] = 124.197;
+				cfsrMeans[16][48]['hgtprs'][100000][454982400000] = 132.118;
+				cfsrMeans[16][48]['hgtprs'][100000][455004000000] = 134.744;
+				cfsrMeans[16][48]['hgtprs'][100000][455025600000] = 129.275;
+				cfsrMeans[16][48]['hgtprs'][100000][455047200000] = 124.537;
+				cfsrMeans[16][48]['hgtprs'][100000][455068800000] = 132.456;
+				cfsrMeans[16][48]['hgtprs'][100000][455090400000] = 135.039;
+				cfsrMeans[16][48]['hgtprs'][100000][455112000000] = 129.609;
+				cfsrMeans[16][48]['hgtprs'][100000][455133600000] = 124.88;
+				cfsrMeans[16][48]['hgtprs'][100000][455155200000] = 132.785;
+				cfsrMeans[16][48]['hgtprs'][100000][455176800000] = 135.336;
+				cfsrMeans[16][48]['hgtprs'][100000][455198400000] = 129.927;
+				cfsrMeans[16][48]['hgtprs'][100000][455220000000] = 125.204;
+				cfsrMeans[16][48]['hgtprs'][100000][455241600000] = 133.115;
+				cfsrMeans[16][48]['hgtprs'][100000][455263200000] = 135.609;
+				cfsrMeans[16][48]['hgtprs'][100000][455284800000] = 130.236;
+				cfsrMeans[16][48]['hgtprs'][100000][455306400000] = 125.522;
+				cfsrMeans[16][48]['hgtprs'][100000][455328000000] = 133.434;
+				cfsrMeans[16][48]['hgtprs'][100000][455349600000] = 135.896;
+				cfsrMeans[16][48]['hgtprs'][100000][455371200000] = 130.542;
+				cfsrMeans[16][48]['hgtprs'][100000][455392800000] = 125.835;
+				cfsrMeans[16][48]['hgtprs'][100000][455414400000] = 133.748;
+				cfsrMeans[16][48]['hgtprs'][100000][455436000000] = 136.157;
+				cfsrMeans[16][48]['hgtprs'][100000][455457600000] = 130.839;
+				cfsrMeans[16][48]['hgtprs'][100000][455479200000] = 126.135;
+				cfsrMeans[16][48]['hgtprs'][100000][455500800000] = 134.051;
+				cfsrMeans[16][48]['hgtprs'][100000][455522400000] = 136.418;
+				cfsrMeans[16][48]['hgtprs'][100000][455544000000] = 131.113;
+				cfsrMeans[16][48]['hgtprs'][100000][455565600000] = 126.423;
+				cfsrMeans[16][48]['hgtprs'][100000][455587200000] = 134.342;
+				cfsrMeans[16][48]['hgtprs'][100000][455608800000] = 136.679;
+				cfsrMeans[16][48]['hgtprs'][100000][455630400000] = 131.389;
+				cfsrMeans[16][48]['hgtprs'][100000][455652000000] = 126.699;
+				cfsrMeans[16][48]['hgtprs'][100000][455673600000] = 134.621;
+				cfsrMeans[16][48]['hgtprs'][100000][455695200000] = 136.913;
+				cfsrMeans[16][48]['hgtprs'][100000][455716800000] = 131.656;
+				cfsrMeans[16][48]['hgtprs'][100000][455738400000] = 126.969;
+				cfsrMeans[16][48]['hgtprs'][100000][455760000000] = 134.9;
+				cfsrMeans[16][48]['hgtprs'][100000][455781600000] = 137.16;
+				cfsrMeans[16][48]['hgtprs'][100000][455803200000] = 131.9;
+				cfsrMeans[16][48]['hgtprs'][100000][455824800000] = 127.221;
+				cfsrMeans[16][48]['hgtprs'][100000][455846400000] = 135.167;
+				cfsrMeans[16][48]['hgtprs'][100000][455868000000] = 137.38;
+				cfsrMeans[16][48]['hgtprs'][100000][455889600000] = 132.133;
+				cfsrMeans[16][48]['hgtprs'][100000][455911200000] = 127.467;
+				cfsrMeans[16][48]['hgtprs'][100000][455932800000] = 135.422;
+				cfsrMeans[16][48]['hgtprs'][100000][455954400000] = 137.6;
+				cfsrMeans[16][48]['hgtprs'][100000][455976000000] = 132.368;
+				cfsrMeans[16][48]['hgtprs'][100000][455997600000] = 127.695;
+				cfsrMeans[16][48]['hgtprs'][100000][456019200000] = 135.665;
+				cfsrMeans[16][48]['hgtprs'][100000][456040800000] = 137.819;
+				cfsrMeans[16][48]['hgtprs'][100000][456062400000] = 132.58;
+				cfsrMeans[16][48]['hgtprs'][100000][456084000000] = 127.911;
+				cfsrMeans[16][48]['hgtprs'][100000][456105600000] = 135.909;
+				cfsrMeans[16][48]['hgtprs'][100000][456127200000] = 138.024;
+				cfsrMeans[16][48]['hgtprs'][100000][456148800000] = 132.782;
+				cfsrMeans[16][48]['hgtprs'][100000][456170400000] = 128.123;
+				cfsrMeans[16][48]['hgtprs'][100000][456192000000] = 136.128;
+				cfsrMeans[16][48]['hgtprs'][100000][456213600000] = 138.217;
+				cfsrMeans[16][48]['hgtprs'][100000][456235200000] = 132.973;
+				cfsrMeans[16][48]['hgtprs'][100000][456256800000] = 128.312;
+				cfsrMeans[16][48]['hgtprs'][100000][456278400000] = 136.348;
+				cfsrMeans[16][48]['hgtprs'][100000][456300000000] = 138.397;
+				cfsrMeans[16][48]['hgtprs'][100000][456321600000] = 133.152;
+				cfsrMeans[16][48]['hgtprs'][100000][456343200000] = 128.491;
+				cfsrMeans[16][48]['hgtprs'][100000][456364800000] = 136.545;
+				cfsrMeans[16][48]['hgtprs'][100000][456386400000] = 138.578;
+				cfsrMeans[16][48]['hgtprs'][100000][456408000000] = 133.321;
+				cfsrMeans[16][48]['hgtprs'][100000][456429600000] = 128.661;
+				cfsrMeans[16][48]['hgtprs'][100000][456451200000] = 136.731;
+				cfsrMeans[16][48]['hgtprs'][100000][456472800000] = 138.735;
+				cfsrMeans[16][48]['hgtprs'][100000][456494400000] = 133.474;
+				cfsrMeans[16][48]['hgtprs'][100000][456516000000] = 128.81;
+				cfsrMeans[16][48]['hgtprs'][100000][456537600000] = 136.92;
+				cfsrMeans[16][48]['hgtprs'][100000][456559200000] = 138.894;
+				cfsrMeans[16][48]['hgtprs'][100000][456580800000] = 133.616;
+				cfsrMeans[16][48]['hgtprs'][100000][456602400000] = 128.951;
+				cfsrMeans[16][48]['hgtprs'][100000][456624000000] = 137.086;
+				cfsrMeans[16][48]['hgtprs'][100000][456645600000] = 139.043;
+				cfsrMeans[16][48]['hgtprs'][100000][456667200000] = 133.75;
+				cfsrMeans[16][48]['hgtprs'][100000][456688800000] = 129.085;
+				cfsrMeans[16][48]['hgtprs'][100000][456710400000] = 137.245;
+				cfsrMeans[16][48]['hgtprs'][100000][456732000000] = 139.183;
+				cfsrMeans[16][48]['hgtprs'][100000][456753600000] = 133.877;
+				cfsrMeans[16][48]['hgtprs'][100000][456775200000] = 129.201;
+				cfsrMeans[16][48]['hgtprs'][100000][456796800000] = 137.395;
+				cfsrMeans[16][48]['hgtprs'][100000][456818400000] = 139.314;
+				cfsrMeans[16][48]['hgtprs'][100000][456840000000] = 133.984;
+				cfsrMeans[16][48]['hgtprs'][100000][456861600000] = 129.303;
+				cfsrMeans[16][48]['hgtprs'][100000][456883200000] = 137.526;
+				cfsrMeans[16][48]['hgtprs'][100000][456904800000] = 139.425;
+				cfsrMeans[16][48]['hgtprs'][100000][456926400000] = 134.074;
+				cfsrMeans[16][48]['hgtprs'][100000][456948000000] = 129.396;
+				cfsrMeans[16][48]['hgtprs'][100000][456969600000] = 137.651;
+				cfsrMeans[16][48]['hgtprs'][100000][456991200000] = 139.543;
+				cfsrMeans[16][48]['hgtprs'][100000][457012800000] = 134.16;
+				cfsrMeans[16][48]['hgtprs'][100000][457034400000] = 129.472;
+				cfsrMeans[16][48]['hgtprs'][100000][457056000000] = 137.759;
+				cfsrMeans[16][48]['hgtprs'][100000][457077600000] = 139.642;
+				cfsrMeans[16][48]['hgtprs'][100000][457099200000] = 134.243;
+				cfsrMeans[16][48]['hgtprs'][100000][457120800000] = 129.548;
+				cfsrMeans[16][48]['hgtprs'][100000][457142400000] = 137.862;
+				cfsrMeans[16][48]['hgtprs'][100000][457164000000] = 139.738;
+				cfsrMeans[16][48]['hgtprs'][100000][457185600000] = 134.299;
+				cfsrMeans[16][48]['hgtprs'][100000][457207200000] = 129.596;
+				cfsrMeans[16][48]['hgtprs'][100000][457228800000] = 137.963;
+				cfsrMeans[16][48]['hgtprs'][100000][457250400000] = 139.818;
+				cfsrMeans[16][48]['hgtprs'][100000][457272000000] = 134.356;
+				cfsrMeans[16][48]['hgtprs'][100000][457293600000] = 129.646;
+				cfsrMeans[16][48]['hgtprs'][100000][457315200000] = 138.036;
+				cfsrMeans[16][48]['hgtprs'][100000][457336800000] = 139.883;
+				cfsrMeans[16][48]['hgtprs'][100000][457358400000] = 134.401;
+				cfsrMeans[16][48]['hgtprs'][100000][457380000000] = 129.678;
+				cfsrMeans[16][48]['hgtprs'][100000][457401600000] = 138.109;
+				cfsrMeans[16][48]['hgtprs'][100000][457423200000] = 139.948;
+				cfsrMeans[16][48]['hgtprs'][100000][457444800000] = 134.436;
+				cfsrMeans[16][48]['hgtprs'][100000][457466400000] = 129.703;
+				cfsrMeans[16][48]['hgtprs'][100000][457488000000] = 138.17;
+				cfsrMeans[16][48]['hgtprs'][100000][457509600000] = 140.013;
+				cfsrMeans[16][48]['hgtprs'][100000][457531200000] = 134.463;
+				cfsrMeans[16][48]['hgtprs'][100000][457552800000] = 129.707;
+				cfsrMeans[16][48]['hgtprs'][100000][457574400000] = 138.208;
+				cfsrMeans[16][48]['hgtprs'][100000][457596000000] = 140.056;
+				cfsrMeans[16][48]['hgtprs'][100000][457617600000] = 134.469;
+				cfsrMeans[16][48]['hgtprs'][100000][457639200000] = 129.717;
+				cfsrMeans[16][48]['hgtprs'][100000][457660800000] = 138.248;
+				cfsrMeans[16][48]['hgtprs'][100000][457682400000] = 140.089;
+				cfsrMeans[16][48]['hgtprs'][100000][457704000000] = 134.483;
+				cfsrMeans[16][48]['hgtprs'][100000][457725600000] = 129.708;
+				cfsrMeans[16][48]['hgtprs'][100000][457747200000] = 138.281;
+				cfsrMeans[16][48]['hgtprs'][100000][457768800000] = 140.128;
+				cfsrMeans[16][48]['hgtprs'][100000][457790400000] = 134.481;
+				cfsrMeans[16][48]['hgtprs'][100000][457812000000] = 129.691;
+				cfsrMeans[16][48]['hgtprs'][100000][457833600000] = 138.294;
+				cfsrMeans[16][48]['hgtprs'][100000][457855200000] = 140.147;
+				cfsrMeans[16][48]['hgtprs'][100000][457876800000] = 134.475;
+				cfsrMeans[16][48]['hgtprs'][100000][457898400000] = 129.669;
+				cfsrMeans[16][48]['hgtprs'][100000][457920000000] = 138.314;
+				cfsrMeans[16][48]['hgtprs'][100000][457941600000] = 140.161;
+				cfsrMeans[16][48]['hgtprs'][100000][457963200000] = 134.462;
+				cfsrMeans[16][48]['hgtprs'][100000][457984800000] = 129.632;
+				cfsrMeans[16][48]['hgtprs'][100000][458006400000] = 138.317;
+				cfsrMeans[16][48]['hgtprs'][100000][458028000000] = 140.172;
+				cfsrMeans[16][48]['hgtprs'][100000][458049600000] = 134.436;
+				cfsrMeans[16][48]['hgtprs'][100000][458071200000] = 129.596;
+				cfsrMeans[16][48]['hgtprs'][100000][458092800000] = 138.304;
+				cfsrMeans[16][48]['hgtprs'][100000][458114400000] = 140.168;
+				cfsrMeans[16][48]['hgtprs'][100000][458136000000] = 134.412;
+				cfsrMeans[16][48]['hgtprs'][100000][458157600000] = 129.556;
+				cfsrMeans[16][48]['hgtprs'][100000][458179200000] = 138.288;
+				cfsrMeans[16][48]['hgtprs'][100000][458200800000] = 140.163;
+				cfsrMeans[16][48]['hgtprs'][100000][458222400000] = 134.378;
+				cfsrMeans[16][48]['hgtprs'][100000][458244000000] = 129.509;
+				cfsrMeans[16][48]['hgtprs'][100000][458265600000] = 138.267;
+				cfsrMeans[16][48]['hgtprs'][100000][458287200000] = 140.16;
+				cfsrMeans[16][48]['hgtprs'][100000][458308800000] = 134.339;
+				cfsrMeans[16][48]['hgtprs'][100000][458330400000] = 129.448;
+				cfsrMeans[16][48]['hgtprs'][100000][458352000000] = 138.235;
+				cfsrMeans[16][48]['hgtprs'][100000][458373600000] = 140.132;
+				cfsrMeans[16][48]['hgtprs'][100000][458395200000] = 134.3;
+				cfsrMeans[16][48]['hgtprs'][100000][458416800000] = 129.389;
+				cfsrMeans[16][48]['hgtprs'][100000][458438400000] = 138.206;
+				cfsrMeans[16][48]['hgtprs'][100000][458460000000] = 140.109;
+				cfsrMeans[16][48]['hgtprs'][100000][458481600000] = 134.255;
+				cfsrMeans[16][48]['hgtprs'][100000][458503200000] = 129.331;
+				cfsrMeans[16][48]['hgtprs'][100000][458524800000] = 138.154;
+				cfsrMeans[16][48]['hgtprs'][100000][458546400000] = 140.09;
+				cfsrMeans[16][48]['hgtprs'][100000][458568000000] = 134.205;
+				cfsrMeans[16][48]['hgtprs'][100000][458589600000] = 129.265;
+				cfsrMeans[16][48]['hgtprs'][100000][458611200000] = 138.108;
+				cfsrMeans[16][48]['hgtprs'][100000][458632800000] = 140.051;
+				cfsrMeans[16][48]['hgtprs'][100000][458654400000] = 134.158;
+				cfsrMeans[16][48]['hgtprs'][100000][458676000000] = 129.196;
+				cfsrMeans[16][48]['hgtprs'][100000][458697600000] = 138.055;
+				cfsrMeans[16][48]['hgtprs'][100000][458719200000] = 140.021;
+				cfsrMeans[16][48]['hgtprs'][100000][458740800000] = 134.103;
+				cfsrMeans[16][48]['hgtprs'][100000][458762400000] = 129.123;
+				cfsrMeans[16][48]['hgtprs'][100000][458784000000] = 137.997;
+				cfsrMeans[16][48]['hgtprs'][100000][458805600000] = 139.973;
+				cfsrMeans[16][48]['hgtprs'][100000][458827200000] = 134.052;
+				cfsrMeans[16][48]['hgtprs'][100000][458848800000] = 129.05;
+				cfsrMeans[16][48]['hgtprs'][100000][458870400000] = 137.935;
+				cfsrMeans[16][48]['hgtprs'][100000][458892000000] = 139.935;
+				cfsrMeans[16][48]['hgtprs'][100000][458913600000] = 133.996;
+				cfsrMeans[16][48]['hgtprs'][100000][458935200000] = 128.979;
+				cfsrMeans[16][48]['hgtprs'][100000][458956800000] = 137.87;
+				cfsrMeans[16][48]['hgtprs'][100000][458978400000] = 139.883;
+				cfsrMeans[16][48]['hgtprs'][100000][459000000000] = 133.94;
+				cfsrMeans[16][48]['hgtprs'][100000][459021600000] = 128.914;
+				cfsrMeans[16][48]['hgtprs'][100000][459043200000] = 137.803;
+				cfsrMeans[16][48]['hgtprs'][100000][459064800000] = 139.83;
+				cfsrMeans[16][48]['hgtprs'][100000][459086400000] = 133.892;
+				cfsrMeans[16][48]['hgtprs'][100000][459108000000] = 128.844;
+				cfsrMeans[16][48]['hgtprs'][100000][459129600000] = 137.73;
+				cfsrMeans[16][48]['hgtprs'][100000][459151200000] = 139.777;
+				cfsrMeans[16][48]['hgtprs'][100000][459172800000] = 133.84;
+				cfsrMeans[16][48]['hgtprs'][100000][459194400000] = 128.784;
+				cfsrMeans[16][48]['hgtprs'][100000][459216000000] = 137.66;
+				cfsrMeans[16][48]['hgtprs'][100000][459237600000] = 139.726;
+				cfsrMeans[16][48]['hgtprs'][100000][459259200000] = 133.786;
+				cfsrMeans[16][48]['hgtprs'][100000][459280800000] = 128.722;
+				cfsrMeans[16][48]['hgtprs'][100000][459302400000] = 137.586;
+				cfsrMeans[16][48]['hgtprs'][100000][459324000000] = 139.677;
+				cfsrMeans[16][48]['hgtprs'][100000][459345600000] = 133.742;
+				cfsrMeans[16][48]['hgtprs'][100000][459367200000] = 128.655;
+				cfsrMeans[16][48]['hgtprs'][100000][459388800000] = 137.52;
+				cfsrMeans[16][48]['hgtprs'][100000][459410400000] = 139.624;
+				cfsrMeans[16][48]['hgtprs'][100000][459432000000] = 133.696;
+				cfsrMeans[16][48]['hgtprs'][100000][459453600000] = 128.601;
+				cfsrMeans[16][48]['hgtprs'][100000][459475200000] = 137.439;
+				cfsrMeans[16][48]['hgtprs'][100000][459496800000] = 139.572;
+				cfsrMeans[16][48]['hgtprs'][100000][459518400000] = 133.662;
+				cfsrMeans[16][48]['hgtprs'][100000][459540000000] = 128.548;
+				cfsrMeans[16][48]['hgtprs'][100000][459561600000] = 137.38;
+				cfsrMeans[16][48]['hgtprs'][100000][459583200000] = 139.515;
+				cfsrMeans[16][48]['hgtprs'][100000][459604800000] = 133.627;
+				cfsrMeans[16][48]['hgtprs'][100000][459626400000] = 128.508;
+				cfsrMeans[16][48]['hgtprs'][100000][459648000000] = 137.303;
+				cfsrMeans[16][48]['hgtprs'][100000][459669600000] = 139.457;
+				cfsrMeans[16][48]['hgtprs'][100000][459691200000] = 133.592;
+				cfsrMeans[16][48]['hgtprs'][100000][459712800000] = 128.472;
+				cfsrMeans[16][48]['hgtprs'][100000][459734400000] = 137.24;
+				cfsrMeans[16][48]['hgtprs'][100000][459756000000] = 139.411;
+				cfsrMeans[16][48]['hgtprs'][100000][459777600000] = 133.571;
+				cfsrMeans[16][48]['hgtprs'][100000][459799200000] = 128.437;
+				cfsrMeans[16][48]['hgtprs'][100000][459820800000] = 137.166;
+				cfsrMeans[16][48]['hgtprs'][100000][459842400000] = 139.364;
+				cfsrMeans[16][48]['hgtprs'][100000][459864000000] = 133.551;
+				cfsrMeans[16][48]['hgtprs'][100000][459885600000] = 128.419;
+				cfsrMeans[16][48]['hgtprs'][100000][459907200000] = 137.106;
+				cfsrMeans[16][48]['hgtprs'][100000][459928800000] = 139.318;
+				cfsrMeans[16][48]['hgtprs'][100000][459950400000] = 133.541;
+				cfsrMeans[16][48]['hgtprs'][100000][459972000000] = 128.404;
+				cfsrMeans[16][48]['hgtprs'][100000][459993600000] = 137.049;
+				cfsrMeans[16][48]['hgtprs'][100000][460015200000] = 139.273;
+				cfsrMeans[16][48]['hgtprs'][100000][460036800000] = 133.539;
+				cfsrMeans[16][48]['hgtprs'][100000][460058400000] = 128.408;
+				cfsrMeans[16][48]['hgtprs'][100000][460080000000] = 136.994;
+				cfsrMeans[16][48]['hgtprs'][100000][460101600000] = 139.242;
+				cfsrMeans[16][48]['hgtprs'][100000][460123200000] = 133.542;
+				cfsrMeans[16][48]['hgtprs'][100000][460144800000] = 128.403;
+				cfsrMeans[16][48]['hgtprs'][100000][460166400000] = 136.956;
+				cfsrMeans[16][48]['hgtprs'][100000][460188000000] = 139.209;
+				cfsrMeans[16][48]['hgtprs'][100000][460209600000] = 133.553;
+				cfsrMeans[16][48]['hgtprs'][100000][460231200000] = 128.428;
+				cfsrMeans[16][48]['hgtprs'][100000][460252800000] = 136.907;
+				cfsrMeans[16][48]['hgtprs'][100000][460274400000] = 139.185;
+				cfsrMeans[16][48]['hgtprs'][100000][460296000000] = 133.579;
+				cfsrMeans[16][48]['hgtprs'][100000][460317600000] = 128.456;
+				cfsrMeans[16][48]['hgtprs'][100000][460339200000] = 136.874;
+				cfsrMeans[16][48]['hgtprs'][100000][460360800000] = 139.163;
+				cfsrMeans[16][48]['hgtprs'][100000][460382400000] = 133.608;
+				cfsrMeans[16][48]['hgtprs'][100000][460404000000] = 128.488;
+				cfsrMeans[16][48]['hgtprs'][100000][460425600000] = 136.857;
+				cfsrMeans[16][48]['hgtprs'][100000][460447200000] = 139.144;
+				cfsrMeans[16][48]['hgtprs'][100000][460468800000] = 133.642;
+				cfsrMeans[16][48]['hgtprs'][100000][460490400000] = 128.536;
+				cfsrMeans[16][48]['hgtprs'][100000][460512000000] = 136.831;
+				cfsrMeans[16][48]['hgtprs'][100000][460533600000] = 139.14;
+				cfsrMeans[16][48]['hgtprs'][100000][460555200000] = 133.701;
+				cfsrMeans[16][48]['hgtprs'][100000][460576800000] = 128.6;
+				cfsrMeans[16][48]['hgtprs'][100000][460598400000] = 136.819;
+				cfsrMeans[16][48]['hgtprs'][100000][460620000000] = 139.137;
+				cfsrMeans[16][48]['hgtprs'][100000][460641600000] = 133.758;
+				cfsrMeans[16][48]['hgtprs'][100000][460663200000] = 128.68;
+				cfsrMeans[16][48]['hgtprs'][100000][460684800000] = 136.822;
+				cfsrMeans[16][48]['hgtprs'][100000][460706400000] = 139.136;
+				cfsrMeans[16][48]['hgtprs'][100000][460728000000] = 133.827;
+				cfsrMeans[16][48]['hgtprs'][100000][460749600000] = 128.775;
+				cfsrMeans[16][48]['hgtprs'][100000][460771200000] = 136.828;
+				cfsrMeans[16][48]['hgtprs'][100000][460792800000] = 139.149;
+				cfsrMeans[16][48]['hgtprs'][100000][460814400000] = 133.907;
+				cfsrMeans[16][48]['hgtprs'][100000][460836000000] = 128.87;
+				cfsrMeans[16][48]['hgtprs'][100000][460857600000] = 136.847;
+				cfsrMeans[16][48]['hgtprs'][100000][460879200000] = 139.176;
+				cfsrMeans[16][48]['hgtprs'][100000][460900800000] = 134.007;
+				cfsrMeans[16][48]['hgtprs'][100000][460922400000] = 128.992;
+				cfsrMeans[16][48]['hgtprs'][100000][460944000000] = 136.867;
+				cfsrMeans[16][48]['hgtprs'][100000][460965600000] = 139.215;
+				cfsrMeans[16][48]['hgtprs'][100000][460987200000] = 134.108;
+				cfsrMeans[16][48]['hgtprs'][100000][461008800000] = 129.127;
+				cfsrMeans[16][48]['hgtprs'][100000][461030400000] = 136.912;
+				cfsrMeans[16][48]['hgtprs'][100000][461052000000] = 139.254;
+				cfsrMeans[16][48]['hgtprs'][100000][461073600000] = 134.218;
+				cfsrMeans[16][48]['hgtprs'][100000][461095200000] = 129.273;
+				cfsrMeans[16][48]['hgtprs'][100000][461116800000] = 136.957;
+				cfsrMeans[16][48]['hgtprs'][100000][461138400000] = 139.298;
+				cfsrMeans[16][48]['hgtprs'][100000][461160000000] = 134.352;
+				cfsrMeans[16][48]['hgtprs'][100000][461181600000] = 129.43;
+				cfsrMeans[16][48]['hgtprs'][100000][461203200000] = 137.014;
+				cfsrMeans[16][48]['hgtprs'][100000][461224800000] = 139.36;
+				cfsrMeans[16][48]['hgtprs'][100000][461246400000] = 134.494;
+				cfsrMeans[16][48]['hgtprs'][100000][461268000000] = 129.604;
+				cfsrMeans[16][48]['hgtprs'][100000][461289600000] = 137.094;
+				cfsrMeans[16][48]['hgtprs'][100000][461311200000] = 139.433;
+				cfsrMeans[16][48]['hgtprs'][100000][461332800000] = 134.646;
+				cfsrMeans[16][48]['hgtprs'][100000][461354400000] = 129.8;
+				cfsrMeans[16][48]['hgtprs'][100000][461376000000] = 137.171;
+				cfsrMeans[16][48]['hgtprs'][100000][461397600000] = 139.516;
+				cfsrMeans[16][48]['hgtprs'][100000][461419200000] = 134.805;
+				cfsrMeans[16][48]['hgtprs'][100000][461440800000] = 129.996;
+				cfsrMeans[16][48]['hgtprs'][100000][461462400000] = 137.269;
+				cfsrMeans[16][48]['hgtprs'][100000][461484000000] = 139.609;
+				cfsrMeans[16][48]['hgtprs'][100000][461505600000] = 134.985;
+				cfsrMeans[16][48]['hgtprs'][100000][461527200000] = 130.227;
+				cfsrMeans[16][48]['hgtprs'][100000][461548800000] = 137.376;
+				cfsrMeans[16][48]['hgtprs'][100000][461570400000] = 139.71;
+				cfsrMeans[16][48]['hgtprs'][100000][461592000000] = 135.172;
+				cfsrMeans[16][48]['hgtprs'][100000][461613600000] = 130.465;
+				cfsrMeans[16][48]['hgtprs'][100000][461635200000] = 137.5;
+				cfsrMeans[16][48]['hgtprs'][100000][461656800000] = 139.819;
+				cfsrMeans[16][48]['hgtprs'][100000][461678400000] = 135.365;
+				cfsrMeans[16][48]['hgtprs'][100000][461700000000] = 130.711;
+				cfsrMeans[16][48]['hgtprs'][100000][461721600000] = 137.634;
+				cfsrMeans[16][48]['hgtprs'][100000][461743200000] = 139.947;
+				cfsrMeans[16][48]['hgtprs'][100000][461764800000] = 135.577;
+				cfsrMeans[16][48]['hgtprs'][100000][461786400000] = 130.973;
+				cfsrMeans[16][48]['hgtprs'][100000][461808000000] = 137.787;
+				cfsrMeans[16][48]['hgtprs'][100000][461829600000] = 140.085;
+				cfsrMeans[16][48]['hgtprs'][100000][461851200000] = 135.806;
+				cfsrMeans[16][48]['hgtprs'][100000][461872800000] = 131.256;
+				cfsrMeans[16][48]['hgtprs'][100000][461894400000] = 137.946;
+				cfsrMeans[16][48]['hgtprs'][100000][461916000000] = 140.241;
+				cfsrMeans[16][48]['hgtprs'][100000][461937600000] = 136.039;
+				cfsrMeans[16][48]['hgtprs'][100000][461959200000] = 131.549;
+				cfsrMeans[16][48]['hgtprs'][100000][461980800000] = 138.122;
+				cfsrMeans[16][48]['hgtprs'][100000][462002400000] = 140.403;
+				cfsrMeans[16][48]['hgtprs'][100000][462024000000] = 136.288;
+				cfsrMeans[16][48]['hgtprs'][100000][462045600000] = 131.86;
+				cfsrMeans[16][48]['hgtprs'][100000][462067200000] = 138.303;
+				cfsrMeans[16][48]['hgtprs'][100000][462088800000] = 140.57;
+				cfsrMeans[16][48]['hgtprs'][100000][462110400000] = 136.54;
+				cfsrMeans[16][48]['hgtprs'][100000][462132000000] = 132.188;
+				cfsrMeans[16][48]['hgtprs'][100000][462153600000] = 138.512;
+				cfsrMeans[16][48]['hgtprs'][100000][462175200000] = 140.753;
+				cfsrMeans[16][48]['hgtprs'][100000][462196800000] = 136.806;
+				cfsrMeans[16][48]['hgtprs'][100000][462218400000] = 132.533;
+				cfsrMeans[16][48]['hgtprs'][100000][462240000000] = 138.723;
+				cfsrMeans[16][48]['hgtprs'][100000][462261600000] = 140.951;
+				cfsrMeans[16][48]['hgtprs'][100000][462283200000] = 137.086;
+				cfsrMeans[16][48]['hgtprs'][100000][462304800000] = 132.881;
+				cfsrMeans[16][48]['hgtprs'][100000][462326400000] = 138.948;
+				cfsrMeans[16][48]['hgtprs'][100000][462348000000] = 141.163;
+				cfsrMeans[16][48]['hgtprs'][100000][462369600000] = 137.366;
+				cfsrMeans[16][48]['hgtprs'][100000][462391200000] = 133.242;
+				cfsrMeans[16][48]['hgtprs'][100000][462412800000] = 139.186;
+				cfsrMeans[16][48]['hgtprs'][100000][462434400000] = 141.376;
+				cfsrMeans[16][48]['hgtprs'][100000][462456000000] = 137.672;
+				cfsrMeans[16][48]['hgtprs'][100000][462477600000] = 133.618;
+				cfsrMeans[16][48]['hgtprs'][100000][462499200000] = 139.437;
+				cfsrMeans[16][48]['hgtprs'][100000][462520800000] = 141.602;
+				cfsrMeans[16][48]['hgtprs'][100000][462542400000] = 137.976;
+				cfsrMeans[16][48]['hgtprs'][100000][462564000000] = 134.006;
+				cfsrMeans[16][48]['hgtprs'][100000][462585600000] = 139.699;
+				cfsrMeans[16][48]['hgtprs'][100000][462607200000] = 141.853;
+				cfsrMeans[16][48]['hgtprs'][100000][462628800000] = 138.291;
+				cfsrMeans[16][48]['hgtprs'][100000][462650400000] = 134.406;
+				cfsrMeans[16][48]['hgtprs'][100000][462672000000] = 139.972;
+				cfsrMeans[16][48]['hgtprs'][100000][462693600000] = 142.103;
+				cfsrMeans[16][48]['hgtprs'][100000][462715200000] = 138.617;
+				cfsrMeans[16][48]['hgtprs'][100000][462736800000] = 134.83;
+				cfsrMeans[16][48]['hgtprs'][100000][462758400000] = 140.255;
+				cfsrMeans[16][48]['hgtprs'][100000][462780000000] = 142.363;
+				cfsrMeans[16][48]['hgtprs'][100000][462801600000] = 138.94;
+				cfsrMeans[16][48]['hgtprs'][100000][462823200000] = 135.252;
+				cfsrMeans[16][48]['hgtprs'][100000][462844800000] = 140.56;
+				cfsrMeans[16][48]['hgtprs'][100000][462866400000] = 142.632;
+				cfsrMeans[16][48]['hgtprs'][100000][462888000000] = 139.273;
+				cfsrMeans[16][48]['hgtprs'][100000][462909600000] = 135.684;
+				cfsrMeans[16][48]['hgtprs'][100000][462931200000] = 140.872;
+				cfsrMeans[16][48]['hgtprs'][100000][462952800000] = 142.911;
+				cfsrMeans[16][48]['hgtprs'][100000][462974400000] = 139.627;
+				cfsrMeans[16][48]['hgtprs'][100000][462996000000] = 136.124;
+				cfsrMeans[16][48]['hgtprs'][100000][463017600000] = 141.189;
+				cfsrMeans[16][48]['hgtprs'][100000][463039200000] = 143.2;
+				cfsrMeans[16][48]['hgtprs'][100000][463060800000] = 139.977;
+				cfsrMeans[16][48]['hgtprs'][100000][463082400000] = 136.574;
+				cfsrMeans[16][48]['hgtprs'][100000][463104000000] = 141.514;
+				cfsrMeans[16][48]['hgtprs'][100000][463125600000] = 143.496;
+				cfsrMeans[16][48]['hgtprs'][100000][463147200000] = 140.322;
+				cfsrMeans[16][48]['hgtprs'][100000][463168800000] = 137.031;
+				cfsrMeans[16][48]['hgtprs'][100000][463190400000] = 141.86;
+				cfsrMeans[16][48]['hgtprs'][100000][463212000000] = 143.813;
+				cfsrMeans[16][48]['hgtprs'][100000][463233600000] = 140.688;
+				cfsrMeans[16][48]['hgtprs'][100000][463255200000] = 137.496;
+				cfsrMeans[16][48]['hgtprs'][100000][463276800000] = 142.201;
+				cfsrMeans[16][48]['hgtprs'][100000][463298400000] = 144.125;
+				cfsrMeans[16][48]['hgtprs'][100000][463320000000] = 141.049;
+				cfsrMeans[16][48]['hgtprs'][100000][463341600000] = 137.969;
+				cfsrMeans[16][48]['hgtprs'][100000][463363200000] = 142.561;
+				cfsrMeans[16][48]['hgtprs'][100000][463384800000] = 144.445;
+				cfsrMeans[16][48]['hgtprs'][100000][463406400000] = 141.417;
+				cfsrMeans[16][48]['hgtprs'][100000][463428000000] = 138.449;
+				cfsrMeans[16][48]['hgtprs'][100000][463449600000] = 142.916;
+				cfsrMeans[16][48]['hgtprs'][100000][463471200000] = 144.772;
+				cfsrMeans[16][48]['hgtprs'][100000][463492800000] = 141.792;
+				cfsrMeans[16][48]['hgtprs'][100000][463514400000] = 138.923;
+				cfsrMeans[16][48]['hgtprs'][100000][463536000000] = 143.291;
+				cfsrMeans[16][48]['hgtprs'][100000][463557600000] = 145.106;
+				cfsrMeans[16][48]['hgtprs'][100000][463579200000] = 142.162;
+				cfsrMeans[16][48]['hgtprs'][100000][463600800000] = 139.417;
+				cfsrMeans[16][48]['hgtprs'][100000][463622400000] = 143.66;
+				cfsrMeans[16][48]['hgtprs'][100000][463644000000] = 145.447;
+				cfsrMeans[16][48]['hgtprs'][100000][463665600000] = 142.526;
+				cfsrMeans[16][48]['hgtprs'][100000][463687200000] = 139.905;
+				cfsrMeans[16][48]['hgtprs'][100000][463708800000] = 144.048;
+				cfsrMeans[16][48]['hgtprs'][100000][463730400000] = 145.79;
+				cfsrMeans[16][48]['hgtprs'][100000][463752000000] = 142.897;
+				cfsrMeans[16][48]['hgtprs'][100000][463773600000] = 140.387;
+				cfsrMeans[16][48]['hgtprs'][100000][463795200000] = 144.432;
+				cfsrMeans[16][48]['hgtprs'][100000][463816800000] = 146.139;
+				cfsrMeans[16][48]['hgtprs'][100000][463838400000] = 143.276;
+				cfsrMeans[16][48]['hgtprs'][100000][463860000000] = 140.89;
+				cfsrMeans[16][48]['hgtprs'][100000][463881600000] = 144.822;
+				cfsrMeans[16][48]['hgtprs'][100000][463903200000] = 146.49;
+				cfsrMeans[16][48]['hgtprs'][100000][463924800000] = 143.644;
+				cfsrMeans[16][48]['hgtprs'][100000][463946400000] = 141.374;
+				cfsrMeans[16][48]['hgtprs'][100000][463968000000] = 145.214;
+				cfsrMeans[16][48]['hgtprs'][100000][463989600000] = 146.843;
+				cfsrMeans[16][48]['hgtprs'][100000][464011200000] = 144.013;
+				cfsrMeans[16][48]['hgtprs'][100000][464032800000] = 141.865;
+				cfsrMeans[16][48]['hgtprs'][100000][464054400000] = 145.61;
+				cfsrMeans[16][48]['hgtprs'][100000][464076000000] = 147.197;
+				cfsrMeans[16][48]['hgtprs'][100000][464097600000] = 144.384;
+				cfsrMeans[16][48]['hgtprs'][100000][464119200000] = 142.365;
+				cfsrMeans[16][48]['hgtprs'][100000][464140800000] = 146.004;
+				cfsrMeans[16][48]['hgtprs'][100000][464162400000] = 147.554;
+				cfsrMeans[16][48]['hgtprs'][100000][464184000000] = 144.745;
+				cfsrMeans[16][48]['hgtprs'][100000][464205600000] = 142.848;
+				cfsrMeans[16][48]['hgtprs'][100000][464227200000] = 146.397;
+				cfsrMeans[16][48]['hgtprs'][100000][464248800000] = 147.907;
+				cfsrMeans[16][48]['hgtprs'][100000][464270400000] = 145.109;
+				cfsrMeans[16][48]['hgtprs'][100000][464292000000] = 143.333;
+				cfsrMeans[16][48]['hgtprs'][100000][464313600000] = 146.801;
+				cfsrMeans[16][48]['hgtprs'][100000][464335200000] = 148.264;
+				cfsrMeans[16][48]['hgtprs'][100000][464356800000] = 145.463;
+				cfsrMeans[16][48]['hgtprs'][100000][464378400000] = 143.816;
+				cfsrMeans[16][48]['hgtprs'][100000][464400000000] = 147.191;
+				cfsrMeans[16][48]['hgtprs'][100000][464421600000] = 148.619;
+				cfsrMeans[16][48]['hgtprs'][100000][464443200000] = 145.809;
+				cfsrMeans[16][48]['hgtprs'][100000][464464800000] = 144.295;
+				cfsrMeans[16][48]['hgtprs'][100000][464486400000] = 147.595;
+				cfsrMeans[16][48]['hgtprs'][100000][464508000000] = 148.972;
+				cfsrMeans[16][48]['hgtprs'][100000][464529600000] = 146.152;
+				cfsrMeans[16][48]['hgtprs'][100000][464551200000] = 144.767;
+				cfsrMeans[16][48]['hgtprs'][100000][464572800000] = 147.986;
+				cfsrMeans[16][48]['hgtprs'][100000][464594400000] = 149.318;
+				cfsrMeans[16][48]['hgtprs'][100000][464616000000] = 146.491;
+				cfsrMeans[16][48]['hgtprs'][100000][464637600000] = 145.231;
+				cfsrMeans[16][48]['hgtprs'][100000][464659200000] = 148.365;
+				cfsrMeans[16][48]['hgtprs'][100000][464680800000] = 149.663;
+				cfsrMeans[16][48]['hgtprs'][100000][464702400000] = 146.822;
+				cfsrMeans[16][48]['hgtprs'][100000][464724000000] = 145.688;
+				cfsrMeans[16][48]['hgtprs'][100000][464745600000] = 148.758;
+				cfsrMeans[16][48]['hgtprs'][100000][464767200000] = 150.004;
+				cfsrMeans[16][48]['hgtprs'][100000][464788800000] = 147.141;
+				cfsrMeans[16][48]['hgtprs'][100000][464810400000] = 146.14;
+				cfsrMeans[16][48]['hgtprs'][100000][464832000000] = 149.134;
+				cfsrMeans[16][48]['hgtprs'][100000][464853600000] = 150.339;
+				cfsrMeans[16][48]['hgtprs'][100000][464875200000] = 147.454;
+				cfsrMeans[16][48]['hgtprs'][100000][464896800000] = 146.586;
+				cfsrMeans[16][48]['hgtprs'][100000][464918400000] = 149.507;
+				cfsrMeans[16][48]['hgtprs'][100000][464940000000] = 150.67;
+				cfsrMeans[16][48]['hgtprs'][100000][464961600000] = 147.757;
+				cfsrMeans[16][48]['hgtprs'][100000][464983200000] = 147.017;
+				cfsrMeans[16][48]['hgtprs'][100000][465004800000] = 149.875;
+				cfsrMeans[16][48]['hgtprs'][100000][465026400000] = 150.996;
+				cfsrMeans[16][48]['hgtprs'][100000][465048000000] = 148.05;
+				cfsrMeans[16][48]['hgtprs'][100000][465069600000] = 147.439;
+				cfsrMeans[16][48]['hgtprs'][100000][465091200000] = 150.234;
+				cfsrMeans[16][48]['hgtprs'][100000][465112800000] = 151.31;
+				cfsrMeans[16][48]['hgtprs'][100000][465134400000] = 148.336;
+				cfsrMeans[16][48]['hgtprs'][100000][465156000000] = 147.85;
+				cfsrMeans[16][48]['hgtprs'][100000][465177600000] = 150.582;
+				cfsrMeans[16][48]['hgtprs'][100000][465199200000] = 151.616;
+				cfsrMeans[16][48]['hgtprs'][100000][465220800000] = 148.606;
+				cfsrMeans[16][48]['hgtprs'][100000][465242400000] = 148.249;
+				cfsrMeans[16][48]['hgtprs'][100000][465264000000] = 150.924;
+				cfsrMeans[16][48]['hgtprs'][100000][465285600000] = 151.912;
+				cfsrMeans[16][48]['hgtprs'][100000][465307200000] = 148.871;
+				cfsrMeans[16][48]['hgtprs'][100000][465328800000] = 148.642;
+				cfsrMeans[16][48]['hgtprs'][100000][465350400000] = 151.257;
+				cfsrMeans[16][48]['hgtprs'][100000][465372000000] = 152.202;
+				cfsrMeans[16][48]['hgtprs'][100000][465393600000] = 149.115;
+				cfsrMeans[16][48]['hgtprs'][100000][465415200000] = 149.012;
+				cfsrMeans[16][48]['hgtprs'][100000][465436800000] = 151.579;
+				cfsrMeans[16][48]['hgtprs'][100000][465458400000] = 152.477;
+				cfsrMeans[16][48]['hgtprs'][100000][465480000000] = 149.356;
+				cfsrMeans[16][48]['hgtprs'][100000][465501600000] = 149.382;
+				cfsrMeans[16][48]['hgtprs'][100000][465523200000] = 151.894;
+				cfsrMeans[16][48]['hgtprs'][100000][465544800000] = 152.742;
+				cfsrMeans[16][48]['hgtprs'][100000][465566400000] = 149.579;
+				cfsrMeans[16][48]['hgtprs'][100000][465588000000] = 149.725;
+				cfsrMeans[16][48]['hgtprs'][100000][465609600000] = 152.194;
+				cfsrMeans[16][48]['hgtprs'][100000][465631200000] = 153.001;
+				cfsrMeans[16][48]['hgtprs'][100000][465652800000] = 149.794;
+				cfsrMeans[16][48]['hgtprs'][100000][465674400000] = 150.057;
+				cfsrMeans[16][48]['hgtprs'][100000][465696000000] = 152.481;
+				cfsrMeans[16][48]['hgtprs'][100000][465717600000] = 153.238;
+				cfsrMeans[16][48]['hgtprs'][100000][465739200000] = 149.993;
+				cfsrMeans[16][48]['hgtprs'][100000][465760800000] = 150.383;
+				cfsrMeans[16][48]['hgtprs'][100000][465782400000] = 152.762;
+				cfsrMeans[16][48]['hgtprs'][100000][465804000000] = 153.473;
+				cfsrMeans[16][48]['hgtprs'][100000][465825600000] = 150.18;
+				cfsrMeans[16][48]['hgtprs'][100000][465847200000] = 150.682;
+				cfsrMeans[16][48]['hgtprs'][100000][465868800000] = 153.027;
+				cfsrMeans[16][48]['hgtprs'][100000][465890400000] = 153.688;
+				cfsrMeans[16][48]['hgtprs'][100000][465912000000] = 150.347;
+				cfsrMeans[16][48]['hgtprs'][100000][465933600000] = 150.982;
+				cfsrMeans[16][48]['hgtprs'][100000][465955200000] = 153.278;
+				cfsrMeans[16][48]['hgtprs'][100000][465976800000] = 153.896;
+				cfsrMeans[16][48]['hgtprs'][100000][465998400000] = 150.504;
+				cfsrMeans[16][48]['hgtprs'][100000][466020000000] = 151.25;
+				cfsrMeans[16][48]['hgtprs'][100000][466041600000] = 153.51;
+				cfsrMeans[16][48]['hgtprs'][100000][466063200000] = 154.082;
+				cfsrMeans[16][48]['hgtprs'][100000][466084800000] = 150.651;
+				cfsrMeans[16][48]['hgtprs'][100000][466106400000] = 151.515;
+				cfsrMeans[16][48]['hgtprs'][100000][466128000000] = 153.727;
+				cfsrMeans[16][48]['hgtprs'][100000][466149600000] = 154.262;
+				cfsrMeans[16][48]['hgtprs'][100000][466171200000] = 150.783;
+				cfsrMeans[16][48]['hgtprs'][100000][466192800000] = 151.757;
+				cfsrMeans[16][48]['hgtprs'][100000][466214400000] = 153.933;
+				cfsrMeans[16][48]['hgtprs'][100000][466236000000] = 154.422;
+				cfsrMeans[16][48]['hgtprs'][100000][466257600000] = 150.9;
+				cfsrMeans[16][48]['hgtprs'][100000][466279200000] = 151.992;
+				cfsrMeans[16][48]['hgtprs'][100000][466300800000] = 154.132;
+				cfsrMeans[16][48]['hgtprs'][100000][466322400000] = 154.573;
+				cfsrMeans[16][48]['hgtprs'][100000][466344000000] = 151.005;
+				cfsrMeans[16][48]['hgtprs'][100000][466365600000] = 152.198;
+				cfsrMeans[16][48]['hgtprs'][100000][466387200000] = 154.304;
+				cfsrMeans[16][48]['hgtprs'][100000][466408800000] = 154.705;
+				cfsrMeans[16][48]['hgtprs'][100000][466430400000] = 151.09;
+				cfsrMeans[16][48]['hgtprs'][100000][466452000000] = 152.392;
+				cfsrMeans[16][48]['hgtprs'][100000][466473600000] = 154.477;
+				cfsrMeans[16][48]['hgtprs'][100000][466495200000] = 154.824;
+				cfsrMeans[16][48]['hgtprs'][100000][466516800000] = 151.17;
+				cfsrMeans[16][48]['hgtprs'][100000][466538400000] = 152.578;
+				cfsrMeans[16][48]['hgtprs'][100000][466560000000] = 154.618;
+				cfsrMeans[16][48]['hgtprs'][100000][466581600000] = 154.926;
+				cfsrMeans[16][48]['hgtprs'][100000][466603200000] = 151.232;
+				cfsrMeans[16][48]['hgtprs'][100000][466624800000] = 152.746;
+				cfsrMeans[16][48]['hgtprs'][100000][466646400000] = 154.755;
+				cfsrMeans[16][48]['hgtprs'][100000][466668000000] = 155.015;
+				cfsrMeans[16][48]['hgtprs'][100000][466689600000] = 151.278;
+				cfsrMeans[16][48]['hgtprs'][100000][466711200000] = 152.889;
+				cfsrMeans[16][48]['hgtprs'][100000][466732800000] = 154.866;
+				cfsrMeans[16][48]['hgtprs'][100000][466754400000] = 155.09;
+				cfsrMeans[16][48]['hgtprs'][100000][466776000000] = 151.312;
+				cfsrMeans[16][48]['hgtprs'][100000][466797600000] = 153.021;
+				cfsrMeans[16][48]['hgtprs'][100000][466819200000] = 154.969;
+				cfsrMeans[16][48]['hgtprs'][100000][466840800000] = 155.139;
+				cfsrMeans[16][48]['hgtprs'][100000][466862400000] = 151.344;
+				cfsrMeans[16][48]['hgtprs'][100000][466884000000] = 153.146;
+				cfsrMeans[16][48]['hgtprs'][100000][466905600000] = 155.066;
+				cfsrMeans[16][48]['hgtprs'][100000][466927200000] = 155.184;
+				cfsrMeans[16][48]['hgtprs'][100000][466948800000] = 151.35;
+				cfsrMeans[16][48]['hgtprs'][100000][466970400000] = 153.254;
+				cfsrMeans[16][48]['hgtprs'][100000][466992000000] = 155.135;
+				cfsrMeans[16][48]['hgtprs'][100000][467013600000] = 155.214;
+				cfsrMeans[16][48]['hgtprs'][100000][467035200000] = 151.36;
+				cfsrMeans[16][48]['hgtprs'][100000][467056800000] = 153.336;
+				cfsrMeans[16][48]['hgtprs'][100000][467078400000] = 155.191;
+				cfsrMeans[16][48]['hgtprs'][100000][467100000000] = 155.234;
+				cfsrMeans[16][48]['hgtprs'][100000][467121600000] = 151.337;
+				cfsrMeans[16][48]['hgtprs'][100000][467143200000] = 153.419;
+				cfsrMeans[16][48]['hgtprs'][100000][467164800000] = 155.237;
+				cfsrMeans[16][48]['hgtprs'][100000][467186400000] = 155.233;
+				cfsrMeans[16][48]['hgtprs'][100000][467208000000] = 151.323;
+				cfsrMeans[16][48]['hgtprs'][100000][467229600000] = 153.481;
+				cfsrMeans[16][48]['hgtprs'][100000][467251200000] = 155.264;
+				cfsrMeans[16][48]['hgtprs'][100000][467272800000] = 155.227;
+				cfsrMeans[16][48]['hgtprs'][100000][467294400000] = 151.282;
+				cfsrMeans[16][48]['hgtprs'][100000][467316000000] = 153.523;
+				cfsrMeans[16][48]['hgtprs'][100000][467337600000] = 155.284;
+				cfsrMeans[16][48]['hgtprs'][100000][467359200000] = 155.204;
+				cfsrMeans[16][48]['hgtprs'][100000][467380800000] = 151.243;
+				cfsrMeans[16][48]['hgtprs'][100000][467402400000] = 153.561;
+				cfsrMeans[16][48]['hgtprs'][100000][467424000000] = 155.288;
+				cfsrMeans[16][48]['hgtprs'][100000][467445600000] = 155.156;
+				cfsrMeans[16][48]['hgtprs'][100000][467467200000] = 151.2;
+				cfsrMeans[16][48]['hgtprs'][100000][467488800000] = 153.596;
+				cfsrMeans[16][48]['hgtprs'][100000][467510400000] = 155.277;
+				cfsrMeans[16][48]['hgtprs'][100000][467532000000] = 155.109;
+				cfsrMeans[16][48]['hgtprs'][100000][467553600000] = 151.133;
+				cfsrMeans[16][48]['hgtprs'][100000][467575200000] = 153.604;
+				cfsrMeans[16][48]['hgtprs'][100000][467596800000] = 155.253;
+				cfsrMeans[16][48]['hgtprs'][100000][467618400000] = 155.051;
+				cfsrMeans[16][48]['hgtprs'][100000][467640000000] = 151.068;
+				cfsrMeans[16][48]['hgtprs'][100000][467661600000] = 153.612;
+				cfsrMeans[16][48]['hgtprs'][100000][467683200000] = 155.219;
+				cfsrMeans[16][48]['hgtprs'][100000][467704800000] = 154.972;
+				cfsrMeans[16][48]['hgtprs'][100000][467726400000] = 150.996;
+				cfsrMeans[16][48]['hgtprs'][100000][467748000000] = 153.595;
+				cfsrMeans[16][48]['hgtprs'][100000][467769600000] = 155.173;
+				cfsrMeans[16][48]['hgtprs'][100000][467791200000] = 154.898;
+				cfsrMeans[16][48]['hgtprs'][100000][467812800000] = 150.915;
+				cfsrMeans[16][48]['hgtprs'][100000][467834400000] = 153.588;
+				cfsrMeans[16][48]['hgtprs'][100000][467856000000] = 155.131;
+				cfsrMeans[16][48]['hgtprs'][100000][467877600000] = 154.804;
+				cfsrMeans[16][48]['hgtprs'][100000][467899200000] = 150.827;
+				cfsrMeans[16][48]['hgtprs'][100000][467920800000] = 153.558;
+				cfsrMeans[16][48]['hgtprs'][100000][467942400000] = 155.067;
+				cfsrMeans[16][48]['hgtprs'][100000][467964000000] = 154.704;
+				cfsrMeans[16][48]['hgtprs'][100000][467985600000] = 150.732;
+				cfsrMeans[16][48]['hgtprs'][100000][468007200000] = 153.53;
+				cfsrMeans[16][48]['hgtprs'][100000][468028800000] = 154.993;
+				cfsrMeans[16][48]['hgtprs'][100000][468050400000] = 154.597;
+				cfsrMeans[16][48]['hgtprs'][100000][468072000000] = 150.642;
+				cfsrMeans[16][48]['hgtprs'][100000][468093600000] = 153.491;
+				cfsrMeans[16][48]['hgtprs'][100000][468115200000] = 154.91;
+				cfsrMeans[16][48]['hgtprs'][100000][468136800000] = 154.471;
+				cfsrMeans[16][48]['hgtprs'][100000][468158400000] = 150.544;
+				cfsrMeans[16][48]['hgtprs'][100000][468180000000] = 153.441;
+				cfsrMeans[16][48]['hgtprs'][100000][468201600000] = 154.829;
+				cfsrMeans[16][48]['hgtprs'][100000][468223200000] = 154.352;
+				cfsrMeans[16][48]['hgtprs'][100000][468244800000] = 150.438;
+				cfsrMeans[16][48]['hgtprs'][100000][468266400000] = 153.392;
+				cfsrMeans[16][48]['hgtprs'][100000][468288000000] = 154.738;
+				cfsrMeans[16][48]['hgtprs'][100000][468309600000] = 154.224;
+				cfsrMeans[16][48]['hgtprs'][100000][468331200000] = 150.335;
+				cfsrMeans[16][48]['hgtprs'][100000][468352800000] = 153.331;
+				cfsrMeans[16][48]['hgtprs'][100000][468374400000] = 154.634;
+				cfsrMeans[16][48]['hgtprs'][100000][468396000000] = 154.088;
+				cfsrMeans[16][48]['hgtprs'][100000][468417600000] = 150.235;
+				cfsrMeans[16][48]['hgtprs'][100000][468439200000] = 153.281;
+				cfsrMeans[16][48]['hgtprs'][100000][468460800000] = 154.534;
+				cfsrMeans[16][48]['hgtprs'][100000][468482400000] = 153.955;
+				cfsrMeans[16][48]['hgtprs'][100000][468504000000] = 150.135;
+				cfsrMeans[16][48]['hgtprs'][100000][468525600000] = 153.216;
+				cfsrMeans[16][48]['hgtprs'][100000][468547200000] = 154.434;
+				cfsrMeans[16][48]['hgtprs'][100000][468568800000] = 153.81;
+				cfsrMeans[16][48]['hgtprs'][100000][468590400000] = 150.023;
+				cfsrMeans[16][48]['hgtprs'][100000][468612000000] = 153.159;
+				cfsrMeans[16][48]['hgtprs'][100000][468633600000] = 154.317;
+				cfsrMeans[16][48]['hgtprs'][100000][468655200000] = 153.678;
+				cfsrMeans[16][48]['hgtprs'][100000][468676800000] = 149.924;
+				cfsrMeans[16][48]['hgtprs'][100000][468698400000] = 153.096;
+				cfsrMeans[16][48]['hgtprs'][100000][468720000000] = 154.208;
+				cfsrMeans[16][48]['hgtprs'][100000][468741600000] = 153.53;
+				cfsrMeans[16][48]['hgtprs'][100000][468763200000] = 149.834;
+				cfsrMeans[16][48]['hgtprs'][100000][468784800000] = 153.037;
+				cfsrMeans[16][48]['hgtprs'][100000][468806400000] = 154.104;
+				cfsrMeans[16][48]['hgtprs'][100000][468828000000] = 153.398;
+				cfsrMeans[16][48]['hgtprs'][100000][468849600000] = 149.739;
+				cfsrMeans[16][48]['hgtprs'][100000][468871200000] = 152.967;
+				cfsrMeans[16][48]['hgtprs'][100000][468892800000] = 153.989;
+				cfsrMeans[16][48]['hgtprs'][100000][468914400000] = 153.253;
+				cfsrMeans[16][48]['hgtprs'][100000][468936000000] = 149.648;
+				cfsrMeans[16][48]['hgtprs'][100000][468957600000] = 152.908;
+				cfsrMeans[16][48]['hgtprs'][100000][468979200000] = 153.882;
+				cfsrMeans[16][48]['hgtprs'][100000][469000800000] = 153.11;
+				cfsrMeans[16][48]['hgtprs'][100000][469022400000] = 149.572;
+				cfsrMeans[16][48]['hgtprs'][100000][469044000000] = 152.858;
+				cfsrMeans[16][48]['hgtprs'][100000][469065600000] = 153.78;
+				cfsrMeans[16][48]['hgtprs'][100000][469087200000] = 152.979;
+				cfsrMeans[16][48]['hgtprs'][100000][469108800000] = 149.494;
+				cfsrMeans[16][48]['hgtprs'][100000][469130400000] = 152.801;
+				cfsrMeans[16][48]['hgtprs'][100000][469152000000] = 153.685;
+				cfsrMeans[16][48]['hgtprs'][100000][469173600000] = 152.857;
+				cfsrMeans[16][48]['hgtprs'][100000][469195200000] = 149.424;
+				cfsrMeans[16][48]['hgtprs'][100000][469216800000] = 152.755;
+				cfsrMeans[16][48]['hgtprs'][100000][469238400000] = 153.58;
+				cfsrMeans[16][48]['hgtprs'][100000][469260000000] = 152.727;
+				cfsrMeans[16][48]['hgtprs'][100000][469281600000] = 149.359;
+				cfsrMeans[16][48]['hgtprs'][100000][469303200000] = 152.723;
+				cfsrMeans[16][48]['hgtprs'][100000][469324800000] = 153.489;
+				cfsrMeans[16][48]['hgtprs'][100000][469346400000] = 152.609;
+				cfsrMeans[16][48]['hgtprs'][100000][469368000000] = 149.307;
+				cfsrMeans[16][48]['hgtprs'][100000][469389600000] = 152.682;
+				cfsrMeans[16][48]['hgtprs'][100000][469411200000] = 153.403;
+				cfsrMeans[16][48]['hgtprs'][100000][469432800000] = 152.501;
+				cfsrMeans[16][48]['hgtprs'][100000][469454400000] = 149.265;
+				cfsrMeans[16][48]['hgtprs'][100000][469476000000] = 152.655;
+				cfsrMeans[16][48]['hgtprs'][100000][469497600000] = 153.331;
+				cfsrMeans[16][48]['hgtprs'][100000][469519200000] = 152.396;
+				cfsrMeans[16][48]['hgtprs'][100000][469540800000] = 149.227;
+				cfsrMeans[16][48]['hgtprs'][100000][469562400000] = 152.644;
+				cfsrMeans[16][48]['hgtprs'][100000][469584000000] = 153.26;
+				cfsrMeans[16][48]['hgtprs'][100000][469605600000] = 152.3;
+				cfsrMeans[16][48]['hgtprs'][100000][469627200000] = 149.211;
+				cfsrMeans[16][48]['hgtprs'][100000][469648800000] = 152.628;
+				cfsrMeans[16][48]['hgtprs'][100000][469670400000] = 153.2;
+				cfsrMeans[16][48]['hgtprs'][100000][469692000000] = 152.218;
+				cfsrMeans[16][48]['hgtprs'][100000][469713600000] = 149.202;
+				cfsrMeans[16][48]['hgtprs'][100000][469735200000] = 152.627;
+				cfsrMeans[16][48]['hgtprs'][100000][469756800000] = 153.147;
+				cfsrMeans[16][48]['hgtprs'][100000][469778400000] = 152.141;
+				cfsrMeans[16][48]['hgtprs'][100000][469800000000] = 149.195;
+				cfsrMeans[16][48]['hgtprs'][100000][469821600000] = 152.639;
+				cfsrMeans[16][48]['hgtprs'][100000][469843200000] = 153.11;
+				cfsrMeans[16][48]['hgtprs'][100000][469864800000] = 152.077;
+				cfsrMeans[16][48]['hgtprs'][100000][469886400000] = 149.213;
+				cfsrMeans[16][48]['hgtprs'][100000][469908000000] = 152.661;
+				cfsrMeans[16][48]['hgtprs'][100000][469929600000] = 153.071;
+				cfsrMeans[16][48]['hgtprs'][100000][469951200000] = 152.024;
+				cfsrMeans[16][48]['hgtprs'][100000][469972800000] = 149.238;
+				cfsrMeans[16][48]['hgtprs'][100000][469994400000] = 152.702;
+				cfsrMeans[16][48]['hgtprs'][100000][470016000000] = 153.055;
+				cfsrMeans[16][48]['hgtprs'][100000][470037600000] = 151.993;
+				cfsrMeans[16][48]['hgtprs'][100000][470059200000] = 149.279;
+				cfsrMeans[16][48]['hgtprs'][100000][470080800000] = 152.745;
+				cfsrMeans[16][48]['hgtprs'][100000][470102400000] = 153.056;
+				cfsrMeans[16][48]['hgtprs'][100000][470124000000] = 151.971;
+				cfsrMeans[16][48]['hgtprs'][100000][470145600000] = 149.346;
+				cfsrMeans[16][48]['hgtprs'][100000][470167200000] = 152.799;
+				cfsrMeans[16][48]['hgtprs'][100000][470188800000] = 153.07;
+				cfsrMeans[16][48]['hgtprs'][100000][470210400000] = 151.961;
+				cfsrMeans[16][48]['hgtprs'][100000][470232000000] = 149.417;
+				cfsrMeans[16][48]['hgtprs'][100000][470253600000] = 152.873;
+				cfsrMeans[16][48]['hgtprs'][100000][470275200000] = 153.092;
+				cfsrMeans[16][48]['hgtprs'][100000][470296800000] = 151.965;
+				cfsrMeans[16][48]['hgtprs'][100000][470318400000] = 149.499;
+				cfsrMeans[16][48]['hgtprs'][100000][470340000000] = 152.957;
+				cfsrMeans[16][48]['hgtprs'][100000][470361600000] = 153.132;
+				cfsrMeans[16][48]['hgtprs'][100000][470383200000] = 151.995;
+				cfsrMeans[16][48]['hgtprs'][100000][470404800000] = 149.604;
+				cfsrMeans[16][48]['hgtprs'][100000][470426400000] = 153.062;
+				cfsrMeans[16][48]['hgtprs'][100000][470448000000] = 153.183;
+				cfsrMeans[16][48]['hgtprs'][100000][470469600000] = 152.024;
+				cfsrMeans[16][48]['hgtprs'][100000][470491200000] = 149.72;
+				cfsrMeans[16][48]['hgtprs'][100000][470512800000] = 153.176;
+				cfsrMeans[16][48]['hgtprs'][100000][470534400000] = 153.248;
+				cfsrMeans[16][48]['hgtprs'][100000][470556000000] = 152.088;
+				cfsrMeans[16][48]['hgtprs'][100000][470577600000] = 149.854;
+				cfsrMeans[16][48]['hgtprs'][100000][470599200000] = 153.307;
+				cfsrMeans[16][48]['hgtprs'][100000][470620800000] = 153.344;
+				cfsrMeans[16][48]['hgtprs'][100000][470642400000] = 152.157;
+				cfsrMeans[16][48]['hgtprs'][100000][470664000000] = 149.993;
+				cfsrMeans[16][48]['hgtprs'][100000][470685600000] = 153.449;
+				cfsrMeans[16][48]['hgtprs'][100000][470707200000] = 153.439;
+				cfsrMeans[16][48]['hgtprs'][100000][470728800000] = 152.25;
+				cfsrMeans[16][48]['hgtprs'][100000][470750400000] = 150.156;
+				cfsrMeans[16][48]['hgtprs'][100000][470772000000] = 153.613;
+				cfsrMeans[16][48]['hgtprs'][100000][470793600000] = 153.562;
+				cfsrMeans[16][48]['hgtprs'][100000][470815200000] = 152.353;
+				cfsrMeans[16][48]['hgtprs'][100000][470836800000] = 150.34;
+				cfsrMeans[16][48]['hgtprs'][100000][470858400000] = 153.782;
+				cfsrMeans[16][48]['hgtprs'][100000][470880000000] = 153.703;
+				cfsrMeans[16][48]['hgtprs'][100000][470901600000] = 152.481;
+				cfsrMeans[16][48]['hgtprs'][100000][470923200000] = 150.539;
+				cfsrMeans[16][48]['hgtprs'][100000][470944800000] = 153.983;
+				cfsrMeans[16][48]['hgtprs'][100000][470966400000] = 153.855;
+				cfsrMeans[16][48]['hgtprs'][100000][470988000000] = 152.62;
+				cfsrMeans[16][48]['hgtprs'][100000][471009600000] = 150.749;
+				cfsrMeans[16][48]['hgtprs'][100000][471031200000] = 154.191;
+				cfsrMeans[16][48]['hgtprs'][100000][471052800000] = 154.026;
+				cfsrMeans[16][48]['hgtprs'][100000][471074400000] = 152.783;
+				cfsrMeans[16][48]['hgtprs'][100000][471096000000] = 150.983;
+				cfsrMeans[16][48]['hgtprs'][100000][471117600000] = 154.413;
+				cfsrMeans[16][48]['hgtprs'][100000][471139200000] = 154.211;
+				cfsrMeans[16][48]['hgtprs'][100000][471160800000] = 152.955;
+				cfsrMeans[16][48]['hgtprs'][100000][471182400000] = 151.225;
+				cfsrMeans[16][48]['hgtprs'][100000][471204000000] = 154.642;
+				cfsrMeans[16][48]['hgtprs'][100000][471225600000] = 154.419;
+				cfsrMeans[16][48]['hgtprs'][100000][471247200000] = 153.156;
+				cfsrMeans[16][48]['hgtprs'][100000][471268800000] = 151.481;
+				cfsrMeans[16][48]['hgtprs'][100000][471290400000] = 154.895;
+				cfsrMeans[16][48]['hgtprs'][100000][471312000000] = 154.639;
+				cfsrMeans[16][48]['hgtprs'][100000][471333600000] = 153.37;
+				cfsrMeans[16][48]['hgtprs'][100000][471355200000] = 151.755;
+				cfsrMeans[16][48]['hgtprs'][100000][471376800000] = 155.167;
+				cfsrMeans[16][48]['hgtprs'][100000][471398400000] = 154.881;
+				cfsrMeans[16][48]['hgtprs'][100000][471420000000] = 153.593;
+				cfsrMeans[16][48]['hgtprs'][100000][471441600000] = 152.051;
+				cfsrMeans[16][48]['hgtprs'][100000][471463200000] = 155.442;
+				cfsrMeans[16][48]['hgtprs'][100000][471484800000] = 155.127;
+				cfsrMeans[16][48]['hgtprs'][100000][471506400000] = 153.848;
+				cfsrMeans[16][48]['hgtprs'][100000][471528000000] = 152.349;
+				cfsrMeans[16][48]['hgtprs'][100000][471549600000] = 155.743;
+				cfsrMeans[16][48]['hgtprs'][100000][471571200000] = 155.4;
+				cfsrMeans[16][48]['hgtprs'][100000][471592800000] = 154.104;
+				cfsrMeans[16][48]['hgtprs'][100000][471614400000] = 152.666;
+				cfsrMeans[16][48]['hgtprs'][100000][471636000000] = 156.052;
+				cfsrMeans[16][48]['hgtprs'][100000][471657600000] = 155.69;
+				cfsrMeans[16][48]['hgtprs'][100000][471679200000] = 154.387;
+				cfsrMeans[16][48]['hgtprs'][100000][471700800000] = 153;
+				cfsrMeans[16][48]['hgtprs'][100000][471722400000] = 156.37;
+				cfsrMeans[16][48]['hgtprs'][100000][471744000000] = 155.989;
+				cfsrMeans[16][48]['hgtprs'][100000][471765600000] = 154.682;
+				cfsrMeans[16][48]['hgtprs'][100000][471787200000] = 153.34;
+				cfsrMeans[16][48]['hgtprs'][100000][471808800000] = 156.708;
+				cfsrMeans[16][48]['hgtprs'][100000][471830400000] = 156.306;
+				cfsrMeans[16][48]['hgtprs'][100000][471852000000] = 155;
+				cfsrMeans[16][48]['hgtprs'][100000][471873600000] = 153.697;
+				cfsrMeans[16][48]['hgtprs'][100000][471895200000] = 157.049;
+				cfsrMeans[16][48]['hgtprs'][100000][471916800000] = 156.638;
+				cfsrMeans[16][48]['hgtprs'][100000][471938400000] = 155.326;
+				cfsrMeans[16][48]['hgtprs'][100000][471960000000] = 154.072;
+				cfsrMeans[16][48]['hgtprs'][100000][471981600000] = 157.403;
+				cfsrMeans[16][48]['hgtprs'][100000][472003200000] = 156.988;
+				cfsrMeans[16][48]['hgtprs'][100000][472024800000] = 155.657;
+				cfsrMeans[16][48]['hgtprs'][100000][472046400000] = 154.445;
+				cfsrMeans[16][48]['hgtprs'][100000][472068000000] = 157.769;
+				cfsrMeans[16][48]['hgtprs'][100000][472089600000] = 157.349;
+				cfsrMeans[16][48]['hgtprs'][100000][472111200000] = 156.016;
+				cfsrMeans[16][48]['hgtprs'][100000][472132800000] = 154.83;
+				cfsrMeans[16][48]['hgtprs'][100000][472154400000] = 158.145;
+				cfsrMeans[16][48]['hgtprs'][100000][472176000000] = 157.709;
+				cfsrMeans[16][48]['hgtprs'][100000][472197600000] = 156.376;
+				cfsrMeans[16][48]['hgtprs'][100000][472219200000] = 155.221;
+				cfsrMeans[16][48]['hgtprs'][100000][472240800000] = 158.54;
+				cfsrMeans[16][48]['hgtprs'][100000][472262400000] = 158.092;
+				cfsrMeans[16][48]['hgtprs'][100000][472284000000] = 156.754;
+				cfsrMeans[16][48]['hgtprs'][100000][472305600000] = 155.629;
+				cfsrMeans[16][48]['hgtprs'][100000][472327200000] = 158.929;
+				cfsrMeans[16][48]['hgtprs'][100000][472348800000] = 158.484;
+				cfsrMeans[16][48]['hgtprs'][100000][472370400000] = 157.135;
+				cfsrMeans[16][48]['hgtprs'][100000][472392000000] = 156.043;
+				cfsrMeans[16][48]['hgtprs'][100000][472413600000] = 159.335;
+				cfsrMeans[16][48]['hgtprs'][100000][472435200000] = 158.895;
+				cfsrMeans[16][48]['hgtprs'][100000][472456800000] = 157.532;
+				cfsrMeans[16][48]['hgtprs'][100000][472478400000] = 156.449;
+				cfsrMeans[16][48]['hgtprs'][100000][472500000000] = 159.732;
+				cfsrMeans[16][48]['hgtprs'][100000][472521600000] = 159.298;
+				cfsrMeans[16][48]['hgtprs'][100000][472543200000] = 157.936;
+				cfsrMeans[16][48]['hgtprs'][100000][472564800000] = 156.876;
+				cfsrMeans[16][48]['hgtprs'][100000][472586400000] = 160.143;
+				cfsrMeans[16][48]['hgtprs'][100000][472608000000] = 159.719;
+				cfsrMeans[16][48]['hgtprs'][100000][472629600000] = 158.346;
+				cfsrMeans[16][48]['hgtprs'][100000][472651200000] = 157.299;
+				cfsrMeans[16][48]['hgtprs'][100000][472672800000] = 160.568;
+				cfsrMeans[16][48]['hgtprs'][100000][472694400000] = 160.143;
+				cfsrMeans[16][48]['hgtprs'][100000][472716000000] = 158.761;
+				cfsrMeans[16][48]['hgtprs'][100000][472737600000] = 157.728;
+				cfsrMeans[16][48]['hgtprs'][100000][472759200000] = 160.988;
+				cfsrMeans[16][48]['hgtprs'][100000][472780800000] = 160.575;
+				cfsrMeans[16][48]['hgtprs'][100000][472802400000] = 159.186;
+				cfsrMeans[16][48]['hgtprs'][100000][472824000000] = 158.156;
+				cfsrMeans[16][48]['hgtprs'][100000][472845600000] = 161.409;
+				cfsrMeans[16][48]['hgtprs'][100000][472867200000] = 161.004;
+				cfsrMeans[16][48]['hgtprs'][100000][472888800000] = 159.607;
+				cfsrMeans[16][48]['hgtprs'][100000][472910400000] = 158.581;
+				cfsrMeans[16][48]['hgtprs'][100000][472932000000] = 161.831;
+				cfsrMeans[16][48]['hgtprs'][100000][472953600000] = 161.432;
+				cfsrMeans[16][48]['hgtprs'][100000][472975200000] = 160.038;
+				cfsrMeans[16][48]['hgtprs'][100000][472996800000] = 159.01;
+				cfsrMeans[16][48]['hgtprs'][100000][473018400000] = 162.245;
+				cfsrMeans[16][48]['hgtprs'][100000][473040000000] = 161.873;
+				cfsrMeans[16][48]['hgtprs'][100000][473061600000] = 160.465;
+				cfsrMeans[16][48]['hgtprs'][100000][473083200000] = 159.438;
+				cfsrMeans[16][48]['hgtprs'][100000][473104800000] = 162.666;
+				cfsrMeans[16][48]['hgtprs'][100000][473126400000] = 162.315;
+				cfsrMeans[16][48]['hgtprs'][100000][473148000000] = 160.89;
+				cfsrMeans[16][48]['hgtprs'][100000][473169600000] = 159.864;
+				cfsrMeans[16][48]['hgtprs'][100000][473191200000] = 163.08;
+				cfsrMeans[16][48]['hgtprs'][100000][473212800000] = 162.745;
+				cfsrMeans[16][48]['hgtprs'][100000][473234400000] = 161.322;
+				cfsrMeans[16][48]['hgtprs'][100000][473256000000] = 160.283;
+				cfsrMeans[16][48]['hgtprs'][100000][473277600000] = 163.489;
+				cfsrMeans[16][48]['hgtprs'][100000][473299200000] = 163.176;
+				cfsrMeans[16][48]['hgtprs'][100000][473320800000] = 161.741;
+				cfsrMeans[16][48]['hgtprs'][100000][473342400000] = 160.696;
+				cfsrMeans[16][48]['hgtprs'][100000][473364000000] = 163.907;

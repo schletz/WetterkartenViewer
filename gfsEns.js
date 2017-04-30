@@ -1,5 +1,5 @@
 /* jshint strict:global */
-/* globals $, localStorage, console, cfsrMeans */
+/* globals $, localStorage, console, cfsrMeans, cfsrMeansYear */
 "use strict";
 
 /* 
@@ -19,12 +19,15 @@ Date.prototype.getIsoDate = function () {
         (second < 10 ? "0" : "") + second + "Z";
 };
 
+var Converter = {
+    kToC: function (val) { return val - 273.15; }
+};
 /*
  * GfsEns Object
  */
 
 var GfsEns = {
-    version: "201724129_3",
+    version: "201724130_1",
     parsedData: [],
     /* Der Startzeitpunkt der Diagrammausgabe ist die letzte volle 6. Stunde, die aber mindestens 
      * 6 Stunden her ist. Wird in den getData Methoden verwendet. */
@@ -38,19 +41,19 @@ var GfsEns = {
      * umgewandelt. */
     requests: [
         /* Temperatur auf 850hpa */
-        { param: "tmpprs", zIndex: 25, transform: function (val) { return val - 273.15; }, loadHistory: true },
+        { param: "tmpprs", zIndex: 25, loadHistory: true },
         /* Temperatur auf 500hpa */
-        { param: "tmpprs", zIndex: 18, transform: function (val) { return val - 273.15; }, loadHistory: true },
+        { param: "tmpprs", zIndex: 18, loadHistory: true },
 
         /* Geopot Höhe 500hpa, die Transformation erzeugt die Abweichung vom Mittel in dam. */
-        { param: "hgtprs", zIndex: 18, transform: function (val) { return (val - 5570) / 10.0; } },
+        { param: "hgtprs", zIndex: 18 },
         /* Geopot Höhe 1000hpa, die Transformation erzeugt die Abweichung vom Mittel in dam. */
-        { param: "hgtprs", zIndex: 30, transform: function (val) { return (val - 111) / 10.0; } },
+        { param: "hgtprs", zIndex: 30 },
 
         /* Temperatur auf 500hpa */
-        { param: "tmpprs", zIndex: 18, transform: function (val) { return val - 273.15; }, loadHistory: true },
+        { param: "tmpprs", zIndex: 18, loadHistory: true },
         /* Temperatur in Höhen über dem Boden. Wir brauchen nur 2m (z: fist) */
-        { param: "tmp_m", zIndex: "first", transform: function (val) { return val - 273.15; }, loadHistory: true },
+        { param: "tmp_m", zIndex: "first", loadHistory: true },
         /* Druck reduziert auf Meeresniveau. */
         //{ param: "prmslmsl", zIndex: "first", transform: function (val) { return val / 100.0; } },
         /* Relative Feuchte auf 700hpa */
@@ -153,7 +156,7 @@ var GfsEns = {
                 url = self.getRequestUrl(item);
 
                 $.ajax({ url: url, dataType: "json" }).done(function (data) {
-                    self.parseData(data, item.param, item.transform);
+                    self.parseData(data, item.param);
                     self.requestsLoaded++;
                     self.onLoaded(self, "Parameter geladen (" +
                         self.requestsLoaded + "/" + self.requests.length + ")",
@@ -185,22 +188,33 @@ var GfsEns = {
      * @param {string} param Der gelesene Parameter (z. B. tmp_m).
      * @param {function} transform Die Transformationsfunktion, die für jeden Wert ausgeführt wird.
      */
-    parseData: function (data, param, transform) {
+    parseData: function (data, param) {
         var self = this;
         var indexes = [];
 
         data.entries.forEach(function (item) {
             var run = new Date(item.axes.reftime).getTime();
             var time = new Date(item.axes.time).getTime();
+
             var z = 0;
             /* Manche Daten haben kein z. Sie werden mit z = 0 gespeichert. */
             if (item.axes.z !== undefined) { z = 1 * item.axes.z; }
 
+            var mean = null;
             var val = 1 * item.data[param];
-            if (transform !== undefined) { val = transform(val); }
-
             if (indexes[z] === undefined) { indexes[z] = []; }
             if (indexes[z][time] === undefined) {
+                /* Im Array cfsrMeans nachsehen, ob ein Mittelwert zu diesem Parameter
+                 * und diesem Z Wert existiert. Die Mittelwerte haben eigentlich kein Jahr,
+                 * aber in cfsrMeansYear ist das Jahr angegeben, auf welches sich die dortigen
+                 * Timestamps beziehen. */
+                try {
+                    var timeForMean = new Date(Math.round(time / (6 * 3600e3)) * 6 * 3600e3);
+                    timeForMean.setUTCFullYear(cfsrMeansYear);
+                    timeForMean = timeForMean.getTime();
+                    mean = cfsrMeans[16][48][param][z][timeForMean];
+                }
+                catch (e) { }
                 self.parsedData.push({
                     param: param,
                     z: z,
@@ -209,6 +223,7 @@ var GfsEns = {
                     count: 1,
                     minVal: val,
                     maxVal: val,
+                    mean: mean,
                     lastRun: run
                 });
                 indexes[z][time] = self.parsedData.length - 1;
@@ -238,8 +253,8 @@ var GfsEns = {
      */
     postprocessData: function () {
         var self = this;
-        var gpt500 = { time: 0, val: 0 };
-        var gpt1000 = { time: 0, val: 0 };
+        var gpt500 = { time: 0, val: 0, mean: 0 };
+        var gpt1000 = { time: 0, val: 0, mean: 0 };
 
         /* Highcharts und die nachfolgende Bearbeitung benötigen nach der Zeit sortierte Daten. */
         self.parsedData.sort(function (a, b) { return a.time - b.time; });
@@ -247,10 +262,10 @@ var GfsEns = {
         self.parsedData.forEach(function (item) {
             var time = item.time;
             if (item.param == "hgtprs" && item.z == 100000) {
-                gpt1000.time = time; gpt1000.val = item.val;
+                gpt1000.time = time; gpt1000.val = item.val; gpt1000.mean = item.mean;
             }
             if (item.param == "hgtprs" && item.z == 50000) {
-                gpt500.time = time; gpt500.val = item.val;
+                gpt500.time = time; gpt500.val = item.val; gpt500.mean = item.mean;
             }
             if (gpt500.time == time && gpt1000.time == time) {
                 self.parsedData.push({
@@ -259,6 +274,7 @@ var GfsEns = {
                     time: time,
                     val: gpt500.val - gpt1000.val,
                     count: 1,
+                    mean: gpt500.mean - gpt1000.mean,
                     minVal: gpt500.val - gpt1000.val,
                     maxVal: gpt500.val - gpt1000.val,
                     lastRun: item.lastRun
@@ -280,21 +296,25 @@ var GfsEns = {
      * @returns Ein JSON Objekt mit dem Aufbau
      * {values: [[Timestamp, Value], ...], ranges: [[Timestamp, Min, Max], ...]}
      */
-    getData: function (param, z) {
+    getData: function (param, z, transform) {
         if (param === undefined) { param = "tmpprs"; }
         if (z === undefined) { z = 0; }
+        if (transform === undefined) { transform = function (val) { return val; }; }
 
         var self = this;
-        var result = { values: [], ranges: [] };
+        var result = { values: [], ranges: [], means: [] };
         this.parsedData.forEach(function (item) {
             var time = item.time;
             if (item.param == param && item.z == z) {
                 if (time >= self.startDate) {
-                    result.values.push([time - 60e3 * new Date(time).getTimezoneOffset(), item.val]);
+                    result.values.push([time - 60e3 * new Date(time).getTimezoneOffset(), transform(item.val)]);
+                    if (item.mean !== null) {
+                        result.means.push([time - 60e3 * new Date(time).getTimezoneOffset(), transform(item.mean)]);
+                    }
                     /* Nur wenn mindestens 3 Läufe einen Wert berechnet haben, geben wir min und max
                      * zurück. */
                     if (item.count > 2) {
-                        result.ranges.push([time - 60e3 * new Date(time).getTimezoneOffset(), item.minVal, item.maxVal]);
+                        result.ranges.push([time - 60e3 * new Date(time).getTimezoneOffset(), transform(item.minVal), transform(item.maxVal)]);
                     }
                 }
             }
@@ -352,32 +372,7 @@ var GfsEns = {
         return result;
     },
 
-    getMeanData: function (param, z, duration) {
-        if (duration === undefined) { duration = 240 * 3600e3; }
-        if (cfsrMeans === undefined) { return []; }
-        var self = this;
-        var result = [];
 
-        var startDate = new Date(self.startDate);
-
-        cfsrMeans.forEach(function (item) {
-            var time = null;
-            if (item.param == param && item.z == z) {
-                time = new Date(item.time);
-                time.setUTCFullYear(startDate.getUTCFullYear());
-                if (time.getTime() < startDate.getTime()) {
-                    time.setUTCFullYear(time.getUTCFullYear() + 1);
-                }
-
-                if (time.getTime() >= startDate.getTime() && time.getTime() <= (startDate.getTime() + duration)) {
-                    result.push([time.getTime(), item.val]);
-                }
-            }
-        });
-
-        result.sort(function (a, b) { return a[0] - b[0]; });
-        return result;
-    },
     /**
      * Liefert den Farbcode eines Wertes aufgrund der in windColors definierten Heatmap.
      * 

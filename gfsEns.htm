@@ -62,6 +62,7 @@
     };
 
     GfsEns.onReady = function (source) {
+        //console.log(JSON.stringify(source.parsedData));
         Highcharts.chart('diagram', {
             chart: { height: "50%" },
             title: { text: 'GFS 4 runs overview 48° NB, 16.5° ÖL' },
@@ -122,7 +123,7 @@
                     name: '2m Temperatur',
                     type: 'line',
                     marker: { enabled: false },
-                    data: source.getData("tmp_m", 2).values,
+                    data: source.getData("tmp_m", 2, Converter.kToC).values,
                     tooltip: { valueSuffix: '°C', valueDecimals: 0 },
                     color: "#920000",
                     zIndex: 10,
@@ -130,7 +131,7 @@
                 },
                 {
                     name: '2m Temperatur (letzte 4 Läufe)',
-                    data: source.getData("tmp_m", 2).ranges,
+                    data: source.getData("tmp_m", 2, Converter.kToC).ranges,
                     enableMouseTracking: false,
                     type: 'arearange',
                     lineWidth: 0,
@@ -148,7 +149,7 @@
                     enableMouseTracking: false,                    
                     marker: { enabled: false },
                     tooltip: { valueSuffix: '°C', valueDecimals: 0 },
-                    data: source.getMeanData("tmpprs", 85000),
+                    data: source.getData("tmpprs", 85000, Converter.kToC).means,
                     color: "#000000",
                     zIndex: 20
                 },
@@ -157,7 +158,7 @@
                     type: 'line',
                     marker: { enabled: false },
                     tooltip: { valueSuffix: '°C', valueDecimals: 0 },
-                    data: source.getData("tmpprs", 85000).values,
+                    data: source.getData("tmpprs", 85000, Converter.kToC).values,
                     color: "#000000",
                     zIndex: 20,
                     yAxis: "temp"                    
@@ -165,7 +166,7 @@
                 {
                     name: '850hpa Temperatur (letzte 4 Läufe)',
                     enableMouseTracking: false,
-                    data: source.getData("tmpprs", 85000).ranges,
+                    data: source.getData("tmpprs", 85000, Converter.kToC).ranges,
                     type: 'arearange',
                     lineWidth: 0,
                     fillOpacity: 0.2,
@@ -179,7 +180,7 @@
                     type: 'line',
                     marker: { enabled: false },
                     tooltip: { valueSuffix: '°C', valueDecimals: 0 },
-                    data: source.getData("tmpprs", 50000).values,
+                    data: source.getData("tmpprs", 50000, Converter.kToC).values,
                     color: "#5C2E00",
                     zIndex: 30,
                     yAxis: "temp500"
@@ -187,7 +188,7 @@
                 {
                     name: '500hpa Temperatur (letzte 4 Läufe)',
                     enableMouseTracking: false,
-                    data: source.getData("tmpprs", 50000).ranges,
+                    data: source.getData("tmpprs", 50000, Converter.kToC).ranges,
                     type: 'arearange',
                     lineWidth: 0,
                     fillOpacity: 0.2,
@@ -197,23 +198,23 @@
                     yAxis: "temp500"
                 },
                 {
-                    name: '1000hpa Geopot. (Abw.)',
+                    name: '1000hpa Geopot.',
                     marker: { enabled: false },
                     tooltip: { valueSuffix: 'dam', valueDecimals: 0 },
-                    data: source.getData("hgtprs", 100000).values,
+                    data: source.getData("hgtprs", 100000, function(val) { return (val - 111) / 10.0; }).values,
                     color: "#009612",
                     zIndex: 40,
                     yAxis: "gpt",
                 },
                 {
-                    name: 'ReTop 500-1000hPa (Abw.)',
+                    name: 'ReTop 500-1000hPa',
                     marker: { enabled: false },
                     tooltip: { valueSuffix: 'dam', valueDecimals: 0 },
-                    data: source.getData("retop", 50000).values,
+                    data: source.getData("retop", 50000, function(val) { return (val - 5459) / 10.0; }).values,
                     color: "#8AE6B8",
                     zIndex: 40,
                     yAxis: "gpt",
-                },                
+                },                                   
                 /*
                 {
                     name: 'Luftdruck (MSL) (letzte 4 Läufe)',
