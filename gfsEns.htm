@@ -8,6 +8,7 @@
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="cfsrMeans.js"></script>
     <script src="gfsEns.js"></script>
     <style type="text/css">
         html,
@@ -139,7 +140,6 @@
                     zIndex: 5,
                     yAxis: "temp"                    
                 },
-                /*
                 {
                     name: '850hpa Temperatur CFSR Mean (1981-2010)',
                     type: 'spline',
@@ -148,11 +148,10 @@
                     enableMouseTracking: false,                    
                     marker: { enabled: false },
                     tooltip: { valueSuffix: '°C', valueDecimals: 0 },
-                    data: source.getData("TMP_850_30YR").values,
+                    data: source.getMeanData("tmpprs", 85000),
                     color: "#000000",
                     zIndex: 20
                 },
-                */
                 {
                     name: '850hpa Temperatur',
                     type: 'line',

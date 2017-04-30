@@ -1,20 +1,13 @@
-## Kompilieren von Grib2json
-1. Java JDK von [http://www.oracle.com/technetwork/java/javase/downloads] laden und in `C:\jdk18` installieren.
-2. Grib2json von [https://github.com/cambecc/grib2json] laden. 
-3. Maven von [https://maven.apache.org/download.cgi] laden.
-4. `C:\jdk18\bin` zu PATH hinzufügen.
+## Download von WGRIB2
+AUf [http://www.ftp.cpc.ncep.noaa.gov/wd51we/wgrib2/Windows_XP/] kann die neueste wgrib2.exe samt allen
+DLL dateien geladen werden.
 
-Danach in der Konsole
-```
-java -version
-set JAVA_HOME=C:\jdk18
-cd grib2json
-(Pfad zu Maven)\bin\mvn package
-```
+## Download von CFSR Mean Dateien
+Von [http://cfs.ncep.noaa.gov/cfsv2/downloads.html] können unter *Calibration Climatologies of CFSR Timeseries*
+GRIB Dateien bezogen werden. 
 
-Nun kann `C:\Users\Michael\Desktop\grib2json\target\grib2json-0.8.0-SNAPSHOT.tar.gz` entpackt werden.
-Im bin Ordner befindet sich die grib2json.cmd Datei. Vorher muss aber mit `set JAVA_HOME=C:\jds18` das
-Javaverzeichnis gesetzt werden.
+Mit ´wgrib2.exe.v2.0.3 t850.cfsr.mean.clim.daily.1982.2010.grb2 -lon 16 48 -t > t850.csv` kann dann ein CSV
+mit den Werten geschrieben werden.
 
 ## Download er gefilterten Grib Dateien
 Von [http://nomads.ncep.noaa.gov] können gefilterte GRIB Dateien bezogen werden. 1 Request generiert

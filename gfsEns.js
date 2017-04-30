@@ -1,5 +1,5 @@
 /* jshint strict:global */
-/* globals $, localStorage, console */
+/* globals $, localStorage, console, cfsrMeans */
 "use strict";
 
 /* 
@@ -349,6 +349,33 @@ var GfsEns = {
                 }
             }
         });
+        return result;
+    },
+
+    getMeanData: function (param, z, duration) {
+        if (duration === undefined) { duration = 240 * 3600e3; }
+        if (cfsrMeans === undefined) { return []; }
+        var self = this;
+        var result = [];
+
+        var startDate = new Date(self.startDate);
+
+        cfsrMeans.forEach(function (item) {
+            var time = null;
+            if (item.param == param && item.z == z) {
+                time = new Date(item.time);
+                time.setUTCFullYear(startDate.getUTCFullYear());
+                if (time.getTime() < startDate.getTime()) {
+                    time.setUTCFullYear(time.getUTCFullYear() + 1);
+                }
+
+                if (time.getTime() >= startDate.getTime() && time.getTime() <= (startDate.getTime() + duration)) {
+                    result.push([time.getTime(), item.val]);
+                }
+            }
+        });
+
+        result.sort(function (a, b) { return a[0] - b[0]; });
         return result;
     },
     /**
