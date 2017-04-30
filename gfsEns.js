@@ -27,15 +27,15 @@ var Converter = {
  */
 
 var GfsEns = {
-    version: "201724130_1",
+    version: "201724130_2",
     parsedData: [],
     /* Der Startzeitpunkt der Diagrammausgabe ist die letzte volle 6. Stunde, die aber mindestens 
      * 6 Stunden her ist. Wird in den getData Methoden verwendet. */
     startDate: new Date(Math.floor((Date.now() - 6 * 3600e3) / 6 / 3600e3) * 6 * 3600e3).getTime(),
     planetOsUrl: "https://api.planetos.com/v1/datasets/noaa_gfs_pgrb2_global_forecast_recompute_0.25degree/point?var={param}" +
     "&z={z}&lat={lat}&lon={lon}&count={count}&reftime_start={firstRun}&reftime_end={lastRun}&apikey=a7017583aeb944d2b8bfec81ff9a2363",
-    lat: 48,
-    lon: 16.5,
+    lat: 0,
+    lon: 0,
     /* Alle abzufragenden Daten. Jeder Eintrag ist ein Ajax Request, bei dem die Daten von
      * PlanetOs angefordert werden. Alle Werte werden mit der Transform-Funktion, wenn angegeben,
      * umgewandelt. */
@@ -44,16 +44,14 @@ var GfsEns = {
         { param: "tmpprs", zIndex: 25, loadHistory: true },
         /* Temperatur auf 500hpa */
         { param: "tmpprs", zIndex: 18, loadHistory: true },
+        /* Temperatur in Höhen über dem Boden. Wir brauchen nur 2m (z: fist) */
+        { param: "tmp_m", zIndex: "first", loadHistory: true },
 
         /* Geopot Höhe 500hpa, die Transformation erzeugt die Abweichung vom Mittel in dam. */
         { param: "hgtprs", zIndex: 18 },
         /* Geopot Höhe 1000hpa, die Transformation erzeugt die Abweichung vom Mittel in dam. */
         { param: "hgtprs", zIndex: 30 },
 
-        /* Temperatur auf 500hpa */
-        { param: "tmpprs", zIndex: 18, loadHistory: true },
-        /* Temperatur in Höhen über dem Boden. Wir brauchen nur 2m (z: fist) */
-        { param: "tmp_m", zIndex: "first", loadHistory: true },
         /* Druck reduziert auf Meeresniveau. */
         //{ param: "prmslmsl", zIndex: "first", transform: function (val) { return val / 100.0; } },
         /* Relative Feuchte auf 700hpa */
@@ -92,14 +90,24 @@ var GfsEns = {
             count = 1; requestData.zIndex = "first";
             url = url.replace("reftime_start={firstRun}&reftime_end={lastRun}", "context=reftime_time1_isobaric3_lat_lon");
         }
-        return url.replace("{lat}", this.lat).
-            replace("{lon}", this.lon).
+        /* Die Auflösung der GFS Daten beträgt 0.25°, daher runden wir auf das nächste volle
+         * Viertel. */
+        return url.replace("{lat}", Math.round(this.lat / 0.25) * 0.25).
+            replace("{lon}", Math.round(this.lon / 0.25) * 0.25).
             replace("{param}", requestData.param).
             replace("{z}", requestData.zIndex).
             replace("{count}", count).
             replace("{firstRun}", requestData.firstRun.getIsoDate()).
             replace("{lastRun}", requestData.lastRun.getIsoDate());
 
+    },
+
+    init: function(param) {
+        var self = this;
+
+        self.lat = param.lat || 48;
+        self.lon = param.lon || 16.3;
+        self.loadData();
     },
 
     /**
@@ -191,11 +199,13 @@ var GfsEns = {
     parseData: function (data, param) {
         var self = this;
         var indexes = [];
+        /* Die CFSR Daten 1981 - 2010 haben eine Auflösung von 1°. */
+        var meanLat = Math.round(self.lat);
+        var meanLon = Math.round(self.lon);
 
         data.entries.forEach(function (item) {
             var run = new Date(item.axes.reftime).getTime();
             var time = new Date(item.axes.time).getTime();
-
             var z = 0;
             /* Manche Daten haben kein z. Sie werden mit z = 0 gespeichert. */
             if (item.axes.z !== undefined) { z = 1 * item.axes.z; }
@@ -212,7 +222,7 @@ var GfsEns = {
                     var timeForMean = new Date(Math.round(time / (6 * 3600e3)) * 6 * 3600e3);
                     timeForMean.setUTCFullYear(cfsrMeansYear);
                     timeForMean = timeForMean.getTime();
-                    mean = cfsrMeans[16][48][param][z][timeForMean];
+                    mean = cfsrMeans[meanLon][meanLat][param][z][timeForMean];
                 }
                 catch (e) { }
                 self.parsedData.push({
