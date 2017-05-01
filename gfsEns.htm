@@ -66,14 +66,9 @@
          * der 850 hpa Temperatur. Da die Temperatur im Jahresverlauf stark schwankt, ist dies
          * notwendig, um die Temperatur in der Diagrammmitte zu halten. Sonst schneiden sich die
          * Temperaturkurven mit den anderen Linien zu stark. */
-        var t850Mean = null;
-        try {
-            t850Mean = source.getData("tmpprs", 85000, Converter.kToC).means[0][1];
-        }
-        catch (e) { }
-        /* Auf ganze 5°C runden. */
-        if (typeof t850Mean == "number") { t850Mean = Math.round(t850Mean / 5) * 5; }
-        else { t850Mean = 5; }
+        var t850Mean = source.getMean("tmpprs", 85000, Converter.kToC, 5);
+        t850Mean = Math.round(t850Mean / 5) * 5;
+
 
         //console.log(JSON.stringify(source.parsedData));
         Highcharts.chart('diagram', {

@@ -377,7 +377,33 @@ var GfsEns = {
         return result;
     },
 
+    /**
+     * Berechnet den Mittelwert aller Messdaten eines bestimmten Parameters und einer bestimmten
+     * Ebene.
+     * 
+     * @param {string} param Der zu mittelnde Parameter.
+     * @param {number} z Die vertikale Schicht (z. B. 85000 für 850hPa)
+     * @param {function} transform Die Transformationsfunktion, die für jedes Element vor der 
+     * Mittelwertbildung angewandt wird.
+     * @param {number} defaultVal Der Standardwert, der gelifert wird, wenn keine Daten gefunden
+     * wurden.
+     * @returns 
+     */
+    getMean: function (param, z, transform, defaultVal) {
+        if (defaultVal === undefined) { defaultVal = null; }
+        if (transform === undefined) { transform = function (val) { return val; }; }
+        var sum = 0;
+        var count = 0;
 
+        this.parsedData.forEach(function (item) {
+            if (item.param == param && item.z == z) {
+                sum += transform(item.val);
+                count++;
+            }
+        });
+        if (count > 0) { return sum / count; }
+        return defaultVal;
+    },
     /**
      * Liefert eine Zeitreihe mit den Winddaten. Dabei wird Windgeschrindigkeit und Windrichtung aus
      * den U und V Komponenten des Windes berechnet (Umwandlung kartesisch -> polar).
