@@ -108,7 +108,8 @@
 
                 {
                     id: "winddir", labels: { format: '{value}°' }, title: { text: null }, gridLineWidth: 0, opposite: true, offset: -10,
-                    tickPositions: [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360]
+                    tickPositions: [-720, 0, 90, 180, 270, 360]
+                    //tickPositions: [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360]
                 },
                 {
                     id: "rh", labels: { format: '{value}%' }, title: { text: null }, gridLineWidth: 0, opposite: true, offset: 20,
@@ -129,7 +130,14 @@
                 */
                 {
                     id: "gpt", labels: { format: '{value}dam' }, title: { text: null }, gridLineWidth: 0, opposite: true, offset: 50,
-                    tickPositions: [-90, -20, -10, 0, 10, 20, 30]
+                    tickPositions: [-90, -20, -10, 0, 10, 20, 30],
+                    plotLines: [{
+                        color: '#005900',
+                        dashStyle: 'ShortDash',
+                        width: 3,
+                        value: 0,
+                        zIndex: 99
+                    }]                    
                 }
             ],
             tooltip: { crosshairs: true, shared: true },
@@ -218,7 +226,8 @@
                     marker: { enabled: false },
                     tooltip: { valueSuffix: 'dam', valueDecimals: 0 },
                     data: source.getData("hgtprs", 100000, function (val) { return (val - 111) / 10.0; }).values,
-                    color: "#009612",
+                    color: "#00A500",
+                    //color: "#00CA09",
                     zIndex: 40,
                     yAxis: "gpt",
                 },
@@ -227,7 +236,8 @@
                     marker: { enabled: false },
                     tooltip: { valueSuffix: 'dam', valueDecimals: 0 },
                     data: source.getData("retop", 50000, function (val) { return (val - 5459) / 10.0; }).values,
-                    color: "#1F7A7A",
+                    color: "#140958",
+                    //color: "#1F7A7A",
                     zIndex: 40,
                     yAxis: "gpt",
                 },
@@ -237,7 +247,8 @@
                     marker: { enabled: false },
                     tooltip: { valueSuffix: ' x 1/10 Pa/s', valueDecimals: 0 },
                     data: source.getData("vvelprs", 70000, function (val) { return 10 * val; }).values,
-                    color: "#8AE6B8",
+                    color: "#FF97B7",
+                    //color: "#8AE6B8",
                     zIndex: 40,
                     yAxis: "gpt",
                 },

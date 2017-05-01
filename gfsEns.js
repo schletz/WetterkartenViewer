@@ -300,7 +300,7 @@ var GfsEns = {
             if (item.param == "hgtprs" && item.z == 50000) {
                 gpt500Item = item;
             }
-            if (item.param == "rhprs" && item.z <= 70000) {
+            if (item.param == "rhprs" && item.z >= 70000) {
                 maxRhprs.time = time; maxRhprs.val = Math.max(maxRhprs.val, item.val); maxRhprs.lastRun = item.lastRun;
             }
             /* Nächster Zeitwert ist anders? Die Parameter - wenn sie gefunden wurden - schreiben
