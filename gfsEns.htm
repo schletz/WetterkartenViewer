@@ -259,6 +259,16 @@
                     zIndex: 40
                 },
                 {
+                    name: 'Max. Feuchte',
+                    type: 'line',
+                    marker: { enabled: false },
+                    tooltip: { valueSuffix: '%', valueDecimals: 0 },
+                    data: source.getData("maxRhprs", 0).values,
+                    color: "#A6B0F1",
+                    yAxis: "rh",
+                    zIndex: 40
+                },                
+                {
                     name: '10m Wind',
                     type: "scatter",
                     data: source.getWindData(10),
