@@ -27,7 +27,7 @@ var Converter = {
  */
 
 var GfsEns = {
-    version: "20170501_1",
+    version: "20170501_2",
     parsedData: [],
     /* Der Startzeitpunkt der Diagrammausgabe ist die letzte volle 6. Stunde, die aber mindestens 
      * 6 Stunden her ist. Wird in den getData Methoden verwendet. */
