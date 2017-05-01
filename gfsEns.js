@@ -270,21 +270,21 @@ var GfsEns = {
 
     /**
      * Erstellt Parameter, die sich durch Berechnung aus anderen Parametern ergeben. Aktuell
-     * wird nur die Relative Topografie berechnet, also die Differenz zwischen der Höhe der 
-     * 500 und 1000 hPa Druckschickt.
+     * wird die relative Topografie berechnet, also die Differenz zwischen der Höhe der 
+     * 500 und 1000 hPa Druckschicht, und die maximale relative Feuchte im Bereich von 1000 - 700hPa
+     * berechnet.
      * 
      * @returns 
      */
     postprocessData: function () {
         var self = this;
-        /* Diese Parameter dienen zur berechnung der Daten. */
+        /* Diese Parameter dienen zur Berechnung der Daten. */
         var gpt500Item = null;
         var gpt1000Item = null;
         var maxRhprs = { time: 0, val: 0, lastRun: 0 };
 
-        var timeOld = 0;
         var time = 0;
-        var len = self.parsedData.length;
+        var len = self.parsedData.length;       // Da das Array wächst, wird die Länge vorberechnet.
         var item = null;
 
         /* Highcharts und die nachfolgende Bearbeitung benötigen nach der Zeit sortierte Daten. */
@@ -303,6 +303,8 @@ var GfsEns = {
             if (item.param == "rhprs" && item.z <= 70000) {
                 maxRhprs.time = time; maxRhprs.val = Math.max(maxRhprs.val, item.val); maxRhprs.lastRun = item.lastRun;
             }
+            /* Nächster Zeitwert ist anders? Die Parameter - wenn sie gefunden wurden - schreiben
+             * (klassischer Gruppenwechsel) */
             if (i + 1 == len || self.parsedData[i + 1].time != time) {
                 if (gpt500Item !== null && gpt1000Item !== null) {
                     self.parsedData.push({
