@@ -62,6 +62,19 @@
     };
 
     GfsEns.onReady = function (source) {
+        /* Für die Tick Positionen auf der Temperaturachse nehmen wir den erste Mittelwert
+         * der 850 hpa Temperatur. Da die Temperatur im Jahresverlauf stark schwankt, ist dies
+         * notwendig, um die Temperatur in der Diagrammmitte zu halten. Sonst schneiden sich die
+         * Temperaturkurven mit den anderen Linien zu stark. */
+        var t850Mean = null;
+        try {
+            t850Mean = source.getData("tmpprs", 85000, Converter.kToC).means[0][1];
+        }
+        catch (e) { }
+        /* Auf ganze 5°C runden. */
+        if (typeof t850Mean == "number") { t850Mean = Math.round(t850Mean / 5) * 5; }
+        else { t850Mean = 5; }
+
         //console.log(JSON.stringify(source.parsedData));
         Highcharts.chart('diagram', {
             chart: { height: "50%" },
@@ -77,7 +90,11 @@
             yAxis: [
                 {
                     id: "temp", labels: { format: '{value}°C' }, title: { text: null },
-                    tickPositions: [-20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30, 35, 40],
+                    tickPositions: [
+                        t850Mean - 25, t850Mean - 20, t850Mean - 15, t850Mean - 10, t850Mean - 5,
+                        t850Mean, t850Mean + 5, t850Mean + 10, t850Mean + 15, t850Mean + 20, t850Mean + 25,
+                        t850Mean + 30, t850Mean + 35
+                    ],
                     minorTickInterval: 1, minorGridLineColor: "#cccccc", gridLineColor: "#999999",
                     offset: -10
                 },
@@ -87,7 +104,11 @@
                 },
                 {
                     id: "temp500", labels: { format: '{value}°C' }, title: { text: null }, gridLineWidth: 0, offset: 60,
-                    tickPositions: [-45, -40, -35, -30, -25, -20, -15, -10, -5, 0, 5, 10, 15]
+                    tickPositions: [
+                        t850Mean - 50, t850Mean - 45, t850Mean - 40, t850Mean - 35, t850Mean - 30,
+                        t850Mean - 25, t850Mean - 20, t850Mean - 15, t850Mean - 10, t850Mean - 5, t850Mean,
+                        t850Mean + 5, t850Mean + 10
+                    ],
                 },
 
                 {
@@ -220,7 +241,7 @@
                     //type: 'spline',                    
                     marker: { enabled: false },
                     tooltip: { valueSuffix: ' x 1/10 Pa/s', valueDecimals: 0 },
-                    data: source.getData("vvelprs", 70000, function (val) { return 10*val; }).values,
+                    data: source.getData("vvelprs", 70000, function (val) { return 10 * val; }).values,
                     color: "#8AE6B8",
                     zIndex: 40,
                     yAxis: "gpt",
@@ -267,7 +288,7 @@
                     color: "#A6B0F1",
                     yAxis: "rh",
                     zIndex: 40
-                },                
+                },
                 {
                     name: '10m Wind',
                     type: "scatter",
