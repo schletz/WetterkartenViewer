@@ -278,9 +278,9 @@ var GfsEns = {
     postprocessData: function () {
         var self = this;
         /* Diese Parameter dienen zur berechnung der Daten. */
-        var gpt500 = { time: 0, val: 0, mean: 0, lastRun: 0 };
-        var gpt1000 = { time: 0, val: 0, mean: 0, lastRun: 0 };
-        var maxRhprs = {time: 0, val: 0, lastRun: 0};
+        var gpt500Item = null;
+        var gpt1000Item = null;
+        var maxRhprs = { time: 0, val: 0, lastRun: 0 };
 
         var timeOld = 0;
         var time = 0;
@@ -293,24 +293,34 @@ var GfsEns = {
         for (var i = 0; i < len; i++) {
             item = self.parsedData[i];
             time = item.time;
-            if (i > 0 && (time != timeOld || i == len - 1)) {
-                if (gpt500.time !== 0 && gpt500.time == gpt1000.time) {
+
+            if (item.param == "hgtprs" && item.z == 100000) {
+                gpt1000Item = item;
+            }
+            if (item.param == "hgtprs" && item.z == 50000) {
+                gpt500Item = item;
+            }
+            if (item.param == "rhprs" && item.z <= 70000) {
+                maxRhprs.time = time; maxRhprs.val = Math.max(maxRhprs.val, item.val); maxRhprs.lastRun = item.lastRun;
+            }
+            if (i + 1 == len || self.parsedData[i + 1].time != time) {
+                if (gpt500Item !== null && gpt1000Item !== null) {
                     self.parsedData.push({
                         param: "retop",
                         z: 50000,
-                        time: gpt500.time,
-                        val: gpt500.val - gpt1000.val,
+                        time: gpt500Item.time,
+                        val: gpt500Item.val - gpt1000Item.val,
                         count: 1,
-                        mean: gpt500.mean - gpt1000.mean,
-                        minVal: gpt500.val - gpt1000.val,
-                        maxVal: gpt500.val - gpt1000.val,
-                        lastRun: gpt500.lastRun
+                        mean: gpt500Item.mean - gpt1000Item.mean,
+                        minVal: gpt500Item.val - gpt1000Item.val,
+                        maxVal: gpt500Item.val - gpt1000Item.val,
+                        lastRun: gpt500Item.lastRun
                     });
                 }
                 if (maxRhprs.time !== 0) {
                     self.parsedData.push({
                         param: "maxRhprs",
-                        z: 0,
+                        z: 70000,
                         time: maxRhprs.time,
                         val: maxRhprs.val,
                         count: 1,
@@ -318,23 +328,12 @@ var GfsEns = {
                         minVal: maxRhprs.val,
                         maxVal: maxRhprs.val,
                         lastRun: maxRhprs.lastRun
-                    });                    
+                    });
                 }
-                gpt1000.time = 0;
-                gpt500.time = 0;
-                maxRhprs.time = 0; maxRhprs.val = -1;
+                gpt1000Item = null;
+                gpt500Item = null;
+                maxRhprs.time = 0; maxRhprs.val = 0;
             }
-            if (item.param == "hgtprs" && item.z == 100000) {
-                gpt1000.time = time; gpt1000.val = item.val; gpt1000.mean = item.mean; gpt1000.lastRun = item.lastRun;
-            }
-            if (item.param == "hgtprs" && item.z == 50000) {
-                gpt500.time = time; gpt500.val = item.val; gpt500.mean = item.mean; gpt500.lastRun = item.lastRun;
-            }
-            if (item.param == "rhprs" && item.z <= 70000) {
-                maxRhprs.time = time; maxRhprs.val = Math.max(maxRhprs.val, item.val); maxRhprs.lastRun = item.lastRun;
-            }
-            timeOld = time;
-
         }
 
         return true;
