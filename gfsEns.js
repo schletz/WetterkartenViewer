@@ -40,6 +40,8 @@ var GfsEns = {
     get gfsLon() { return Math.round(this.lon / 0.25) * 0.25; },
     get cfsrLat() { return Math.round(this.lat); },
     get cfsrLon() { return Math.round(this.lon); },
+    newestLastRun: 0,                    // Der neueste Run-Timestamp aller Datensätze
+    oldestLastRun: Number.MAX_VALUE,     // Der älteste Run-Timestamp aller Datensätze
     /* Alle abzufragenden Daten. Jeder Eintrag ist ein Ajax Request, bei dem die Daten von
      * PlanetOs angefordert werden. Alle Werte werden mit der Transform-Funktion, wenn angegeben,
      * umgewandelt. */
@@ -189,11 +191,15 @@ var GfsEns = {
                     if (self.requestsLoaded == self.requests.length) {
                         self.postprocessData();
                         self.onReady(self);
-                        localStorage.setItem("parsedData", JSON.stringify(self.parsedData));
-                        localStorage.setItem("lastRun", lastRun);
-                        localStorage.setItem("gfsLat", self.gfsLat);
-                        localStorage.setItem("gfsLon", self.gfsLon);
-                        localStorage.setItem("version", self.version);
+                        /* Die Daten nur schreiben, wenn alle Datensätze vom gleichen Lauf kommen.
+                         * Bei fehlerhaften Importen ist das nicht immer der Fall. */
+                        if (self.newestLastRun == self.oldestLastRun) {
+                            localStorage.setItem("parsedData", JSON.stringify(self.parsedData));
+                            localStorage.setItem("lastRun", lastRun);
+                            localStorage.setItem("gfsLat", self.gfsLat);
+                            localStorage.setItem("gfsLon", self.gfsLon);
+                            localStorage.setItem("version", self.version);
+                        }
                         return true;
                     }
                 }).fail(function () {
@@ -297,6 +303,8 @@ var GfsEns = {
         for (var i = 0; i < len; i++) {
             item = self.parsedData[i];
             time = item.time;
+            self.newestLastRun = Math.max(self.newestLastRun, item.lastRun);
+            self.oldestLastRun = Math.min(self.oldestLastRun, item.lastRun);
 
             if (item.param == "hgtprs" && item.z == 100000) {
                 gpt1000Item = item;
@@ -341,7 +349,9 @@ var GfsEns = {
                 maxRhprs.time = 0; maxRhprs.val = 0;
             }
         }
-
+        self.onLoaded(self, "Daten fertig geladen",
+            "Lauf: " + new Date(self.oldestLastRun).toISOString() + " - " +
+            new Date(self.newestLastRun).toISOString());
         return true;
     },
 
