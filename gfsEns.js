@@ -140,7 +140,10 @@ var GfsEns = {
         if (lastRun === undefined) {
             url = self.getRequestUrl({ param: "reftime" });
             $.ajax({ url: url, dataType: "json" }).done(function (data) {
-                var lastRun = new Date(data.entries[0].axes.reftime);
+                var lastRun = new Date(data.entries[0].axes.reftime).getTime();
+                /* Nur volle 6h als letzten Lauf nehmen. Manchmal kommen zwischenzeiten, wenn
+                 * es beim Import Probleme gab. */
+                lastRun = new Date(Math.floor(lastRun / 6 / 3600e3) * 6 * 3600e3);
                 if (isNaN(lastRun.getTime())) { return self.onError(self, "READ_LAST_RUN_FAILED"); }
 
                 self.onLoaded(self, "Letzter Lauf auf PlanetOs: " + lastRun.toISOString());
