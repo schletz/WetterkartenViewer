@@ -296,6 +296,7 @@ var GfsEns = {
         var time = 0;
         var len = self.parsedData.length;       // Da das Array wächst, wird die Länge vorberechnet.
         var item = null;
+        var now = new Date().getTime();
 
         /* Highcharts und die nachfolgende Bearbeitung benötigen nach der Zeit sortierte Daten. */
         self.parsedData.sort(function (a, b) { return a.time - b.time; });
@@ -303,8 +304,13 @@ var GfsEns = {
         for (var i = 0; i < len; i++) {
             item = self.parsedData[i];
             time = item.time;
-            self.newestLastRun = Math.max(self.newestLastRun, item.lastRun);
-            self.oldestLastRun = Math.min(self.oldestLastRun, item.lastRun);
+            /* Ermitteln, wie alt die Prognose der angezeigten Datenpunkte ist. Nur wenn alle
+             * angezeigten Werte das gleiche Laufdatum haben, werden die Daten in den Local Storage
+             * gespeichert. */
+            if (time >= now) {
+                self.newestLastRun = Math.max(self.newestLastRun, item.lastRun);
+                self.oldestLastRun = Math.min(self.oldestLastRun, item.lastRun);
+            }
 
             if (item.param == "hgtprs" && item.z == 100000) {
                 gpt1000Item = item;
