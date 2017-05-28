@@ -242,6 +242,17 @@
                     yAxis: "gpt",
                 },
                 {
+                    name: '500hPa Geopot.',
+                    marker: { enabled: false },
+                    tooltip: { valueSuffix: 'dam', valueDecimals: 0 },
+                    data: source.getData("hgtprs", 50000, function (val) { return (val - 5570) / 10.0; }).values,
+                    color: "#FF97B7",
+                    //color: "#1F7A7A",
+                    zIndex: 40,
+                    yAxis: "gpt",
+                },                
+                /*
+                {
                     name: '700hpa Vertikalbew.',
                     //type: 'spline',                    
                     marker: { enabled: false },
@@ -252,6 +263,7 @@
                     zIndex: 40,
                     yAxis: "gpt",
                 },
+                */
                 /*
                 {
                     name: 'Luftdruck (MSL) (letzte 4 Läufe)',
@@ -296,9 +308,9 @@
                     zIndex: 40
                 },
                 {
-                    name: '10m Wind',
+                    name: '1000hPa Wind',
                     type: "scatter",
-                    data: source.getWindData(10),
+                    data: source.getWindData(100000),
                     marker: { radius: 4, symbol: "square" },
                     zIndex: 1,
                     yAxis: "winddir",

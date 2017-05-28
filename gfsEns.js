@@ -27,7 +27,7 @@ var Converter = {
  */
 
 var GfsEns = {
-    version: "20170501_2",
+    version: "20170526_1",
     parsedData: [],
     /* Der Startzeitpunkt der Diagrammausgabe ist die letzte volle 6. Stunde, die aber mindestens 
      * 6 Stunden her ist. Wird in den getData Methoden verwendet. */
@@ -62,16 +62,20 @@ var GfsEns = {
         //{ param: "prmslmsl", zIndex: "first", transform: function (val) { return val / 100.0; } },
 
         /* Vertical velocity (pressure) @700hpa" */
-        { param: "vvelprs", zIndex: 12 },
+        //{ param: "vvelprs", zIndex: 12 },
 
         /* Relative Feuchte */
         { param: "rhprs", zIndex: "all" },
 
         /* 3h Niederschlag */
         { param: "apcpsfc_3_Hour_Accumulation" },
-        /* U und V Komponente des 10m Windws (z: first wird als Standard gesetzt) */
+        /* U und V Komponente des 1000 hPa Windws (z: first wird als Standard gesetzt) */
+        { param: "vgrdprs", zIndex: "last" },
+        { param: "ugrdprs", zIndex: "last" }
+        /*
         { param: "vgrd_m" },
         { param: "ugrd_m" }
+        */
     ],
     requestsLoaded: 0,    // Für die Bestimmung, wann alle Ajax Requests fertig sind.
     windColors: [[0, '#CCCCCC'], [10, '#6E79FA'], [20, '#1AFF00'], [30, '#FFE900'], [40, '#FF0000'], [50, '#CC0074']],
@@ -141,8 +145,9 @@ var GfsEns = {
         /* Kein letzter Lauf? Diesen anfordern */
         if (lastRun === undefined) {
             url = self.getRequestUrl({ param: "reftime" });
+
             $.ajax({ url: url, dataType: "json" }).done(function (data) {
-                var lastRun = new Date(data.entries[0].axes.reftime).getTime();
+                var lastRun = new Date(data.entries[0].classifiers.reference_time).getTime();
                 /* Nur volle 6h als letzten Lauf nehmen. Manchmal kommen zwischenzeiten, wenn
                  * es beim Import Probleme gab. Um double Fehler zu vermeiden, wird 1 min
                  * dazuaddiert. */
@@ -228,8 +233,14 @@ var GfsEns = {
         var meanLon = self.cfsrLon;
 
         data.entries.forEach(function (item) {
-            var run = new Date(item.axes.reftime).getTime();
-            var time = new Date(item.axes.time).getTime();
+            /* Z für UTC bei Befarf einfügen. */
+            var run = /Z$/.test(item.axes.reftime) ? new Date(item.axes.reftime).getTime() :
+                new Date(item.axes.reftime + "Z").getTime();
+
+            /* Z für UTC bei Befarf einfügen. */
+            var time = /Z$/.test(item.axes.time) ? new Date(item.axes.time).getTime() :
+                new Date(item.axes.time + "Z").getTime();
+
             var z = 0;
             /* Manche Daten haben kein z. Sie werden mit z = 0 gespeichert. */
             if (item.axes.z !== undefined) { z = 1 * item.axes.z; }
@@ -318,7 +329,7 @@ var GfsEns = {
             if (item.param == "hgtprs" && item.z == 50000) {
                 gpt500Item = item;
             }
-            if (item.param == "rhprs" && item.z >= 70000) {
+            if (item.param == "rhprs" && item.z >= 50000) {
                 maxRhprs.time = time; maxRhprs.val = Math.max(maxRhprs.val, item.val); maxRhprs.lastRun = item.lastRun;
             }
             /* Nächster Zeitwert ist anders? Die Parameter - wenn sie gefunden wurden - schreiben
@@ -438,17 +449,17 @@ var GfsEns = {
         var ugrd = { time: 0, val: 0 };
         var windSpeed = 0, windDir = 0, result = [];
 
-        if (z === undefined) { z = 10; }
+        if (z === undefined) { z = 100000; }
         this.parsedData.forEach(function (item) {
             var time = item.time;
             /* Nur wenn der Zeitpunkt im Intervall [jetzt-6h, letzterLauf + 240h] liegt, wird der
              * Datenpunkt zurückgegeben. Prognosen > 240h sind für das Diagramm uninteressant, da 
              * hier nur mit einer Auflösung von 6h gerechnet wird. */
             if (time >= self.startDate) {
-                if (item.param == "vgrd_m" && item.z == z) {
+                if (item.param == "vgrdprs" && item.z == z) {
                     vgrd.time = time; vgrd.val = item.val;
                 }
-                if (item.param == "ugrd_m" && item.z == z) {
+                if (item.param == "ugrdprs" && item.z == z) {
                     ugrd.time = time; ugrd.val = item.val;
                 }
                 if (vgrd.time == time && ugrd.time == time) {
