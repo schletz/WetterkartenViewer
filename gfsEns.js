@@ -49,7 +49,7 @@ var GfsEns = {
         /* Temperatur auf 850hpa */
         { param: "tmpprs", zIndex: 25, loadHistory: true },
         /* Temperatur auf 500hpa */
-        { param: "tmpprs", zIndex: 18, loadHistory: true },
+        { param: "tmpprs", zIndex: 18 },
         /* Temperatur in Höhen über dem Boden. Wir brauchen nur 2m (z: fist) */
         { param: "tmp_m", zIndex: "first", loadHistory: true },
 
