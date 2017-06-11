@@ -56,10 +56,10 @@ Date.fromW3InitString = function (val) {
  * @param {number} hour Die Stunde.
  * @returns Das Datumsobjekt, welches den oberen Regeln entspricht.
  */
-Date.fromUTCHours = function(hour) {
+Date.fromUTCHours = function (hour) {
     var d = new Date();
     if (d.getUTCHours() < hour) {
-        d.setUTCDate(d.getUTCDate()-1);
+        d.setUTCDate(d.getUTCDate() - 1);
     }
     d.setUTCHours(hour);
     d.setUTCMinutes(0);
@@ -67,6 +67,9 @@ Date.fromUTCHours = function(hour) {
     d.setUTCMilliseconds(0);
     return d;
 };
+
+Date.prototype.weekdays = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+Date.prototype.monthName = ["Jän", "Feb", "März", "Apr", "Mai", "Juni", "Juli", "Aug", "Sep", "Okt", "Nov", "Dez"];
 
 /**
  * Formatiert das Datum in der Form YYYYMMDD. Dies wird bei manchen URLs als Parameter verwendet.
@@ -95,3 +98,87 @@ Date.prototype.getUTCymdh = function () {
 
     return this.getUTCymd() + hour;
 };
+
+/**
+ * Liefert den Datumsstring als deutsches Datum in der Form TTT, T. MMM JJJJ
+ * (z. B. Mo, 7. Aug 2017)
+ * 
+ * @returns Der Datumsstring
+ */
+Date.prototype.getGermanStr = function () {
+    var year = this.getFullYear();
+    var month = this.getMonth() + 1;
+    var day = this.getDate();
+    return this.weekdays[this.getDay()] + ", " + day + ". " + this.monthName[month] + " " + year;
+
+}
+/**
+ * Gibt das julianische Datum des Datumsobjektes zurück. Dabei wird immer 12h UTC angenommen.
+ * 
+ * @returns Das iulianische Datum.
+ */
+Date.prototype.jd = function () {
+    /* 1.1.1970 12h UTC = JD 2440588 */
+    return Math.floor(0.5 + this.getTime() / 86400000.0) + 2440588;
+}
+
+/**
+ * Gibt das Datum des Ostersonntags im gregorianischen Kalender zurück.
+ * Quelle: Meeus. Astronomical Algorithms, 2nd Ed, p67
+ * @param {number} year Das Jahr
+ * 
+ * @returns Ein Datumsobjekt, welches den Ostersonntag um 12:00 in Lokalzeit angibt.
+ */
+Date.fromEasterDate = function (year) {
+    var a = year % 19;
+    var b = Math.floor(year / 100);
+    var c = year % 100;
+    var d = Math.floor(b / 4);
+    var e = b % 4;
+    var f = Math.floor((b + 8) / 25);
+    var g = Math.floor((b - f + 1) / 3);
+    var h = (19 * a + b - d - g + 15) % 30;
+    var i = Math.floor(c / 4);
+    var k = c % 4;
+    var l = ((32 + 2 * e + 2 * i - h - k) % 7);
+    var m = Math.floor((a + 11 * h + 22 * l) / 451);
+    var n = Math.floor((h + l - 7 * m + 114) / 31);
+    var p = ((h + l - 7 * m + 114) % 31);
+    return new Date(year, n - 1, p + 1, 12, 0, 0, 0);
+}
+
+/**
+ * Gibt true zurück, wenn das angegebene Datum ein österreichischer Feiertag ist.
+ * Sonntage werden - wenn sie nicht auf einen Feiertag fallen - nicht als Feiertag zurück geliefert.
+ * 
+ * @returns true bei einem Feiertag, falls bei keinem Feiertag.
+ */
+Date.prototype.isHoliday = function () {
+    var year = this.getFullYear();
+    var month = this.getMonth() + 1;
+    var day = this.getDate();
+    var jd = this.jd();
+    var easter = null;
+
+    /* Fixe Feiertage */
+    if (month == 1 && day == 1) { return true; }
+    if (month == 1 && day == 6) { return true; }
+    if (month == 5 && day == 1) { return true; }
+    if (month == 8 && day == 15) { return true; }
+    if (month == 10 && day == 26) { return true; }
+    if (month == 11 && day == 1) { return true; }
+    if (month == 12 && day == 25) { return true; }
+    if (month == 12 && day == 26) { return true; }
+
+    /* Feiertage mit Bezug auf den Ostersonntag */
+    if (month >= 3 && month <= 6) {
+        easter = Date.fromEasterDate(year).jd();
+        if (jd == easter) { return true; }      // Ostersonntag
+        if (jd == easter + 1) { return true; }  // Ostermontag
+        if (jd == easter + 39) { return true; } // Christi Himmelfahrt
+        if (jd == easter + 49) { return true; } // Pfingstsonntag
+        if (jd == easter + 50) { return true; } // Pfingstmontag
+        if (jd == easter + 60) { return true; } // Fronleichnam
+    }
+    return false;
+}
