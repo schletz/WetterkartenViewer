@@ -30,6 +30,12 @@
       height: 512px;
       background-position: right top;
     }
+
+    p {
+      background-color:white;
+      display: inline;
+      font-family: sans-serif;
+    }
   </style>
   <script src="dateMethods.js" type="text/javascript"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -61,19 +67,23 @@
   <script type="text/javascript">
     var time = 0;
     var z500Url = "", t850Url = "";
-    var image = null, imageElem = null, imageNr = 0;
-    var currentHour = (new Date()).getUTCymdh(); // Damit 1x pro Stunde sicher neu geladen wird.
+    var image = null, imageElem = null, dateElem = null, imageNr = 0;
+    var currentDate = null;
 
     for (time = 0; time <= 240; time += 24) {
+      currentDate = new Date(lastRun.getTime() + time*3600e3);
+      dateElem = $("<p>").text(currentDate.getGermanStr() + " " + currentDate.getUTCHours() + "h");
       z500Url = getMeteocielUrl(1, time);
       t850Url = getMeteocielUrl(0, time);
 
       imageElem = $("<div>");
       imageElem.css("background-image", "url(" + z500Url + ")");
+      imageElem.append(dateElem);
       $("#imgContainer").append(imageElem);
 
       imageElem = $("<div>");
       imageElem.css("background-image", "url(" + t850Url + ")");
+      imageElem.append(dateElem.clone());
       $("#imgContainer").append(imageElem);
 
 
