@@ -512,9 +512,7 @@ Weathermap.initUi = function (container) {
         ],
         /* wxcharts overview, niederschlag und Gesamtbewölkung*/
         [
-            { start: 1, step: 1, stop: 102, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "europe", "arpege") },
-            { start: 103, step: 1, stop: 120, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "europe") },
-            { start: 123, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "europe") },
+            { start: 3, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "europe") },
             { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "europe") },
 
             { start: 1, step: 1, stop: 102, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany", "arpege") },
