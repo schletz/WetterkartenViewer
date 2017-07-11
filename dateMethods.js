@@ -107,7 +107,7 @@ Date.prototype.getUTCymdh = function () {
  */
 Date.prototype.getGermanStr = function () {
     var year = this.getFullYear();
-    var month = this.getMonth() + 1;
+    var month = this.getMonth();
     var day = this.getDate();
     return this.weekdays[this.getDay()] + ", " + day + ". " + this.monthName[month] + " " + year;
 
