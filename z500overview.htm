@@ -49,10 +49,11 @@
      * 
      * @returns Die URL des Bildes.
      */
-    function getMeteocielUrl(type, time) {
-      var url = "http://www.meteociel.fr/modeles/ecmwf/runs/{$run}/ECM{$type}-{$time}.GIF"
+    function getMeteocielUrl(map, type, time) {
+      var url = "http://www.meteociel.fr/modeles/ecmwf/runs/{$run}/EC{$map}{$type}-{$time}.GIF"
 
       return url.replace("{$run}", lastRun.getUTCymdh())
+        .replace("{$map}", map)
         .replace("{$type}", type)
         .replace("{$time}", time);
     };
@@ -73,8 +74,8 @@
     for (time = 0; time <= 240; time += 24) {
       currentDate = new Date(lastRun.getTime() + time*3600e3);
       dateElem = $("<p>").text(currentDate.getGermanStr() + " " + currentDate.getUTCHours() + "h");
-      z500Url = getMeteocielUrl(1, time);
-      t850Url = getMeteocielUrl(0, time);
+      z500Url = getMeteocielUrl("E", 1, time);
+      t850Url = getMeteocielUrl("M", 0, time);
 
       imageElem = $("<div>");
       imageElem.css("background-image", "url(" + z500Url + ")");
