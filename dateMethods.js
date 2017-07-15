@@ -111,7 +111,7 @@ Date.prototype.getGermanStr = function () {
     var day = this.getDate();
     return this.weekdays[this.getDay()] + ", " + day + ". " + this.monthName[month] + " " + year;
 
-}
+};
 /**
  * Gibt das julianische Datum des Datumsobjektes zurück. Dabei wird immer 12h UTC angenommen.
  * 
@@ -120,7 +120,7 @@ Date.prototype.getGermanStr = function () {
 Date.prototype.jd = function () {
     /* 1.1.1970 12h UTC = JD 2440588 */
     return Math.floor(0.5 + this.getTime() / 86400000.0) + 2440588;
-}
+};
 
 /**
  * Gibt das Datum des Ostersonntags im gregorianischen Kalender zurück.
@@ -145,7 +145,7 @@ Date.fromEasterDate = function (year) {
     var n = Math.floor((h + l - 7 * m + 114) / 31);
     var p = ((h + l - 7 * m + 114) % 31);
     return new Date(year, n - 1, p + 1, 12, 0, 0, 0);
-}
+};
 
 /**
  * Gibt true zurück, wenn das angegebene Datum ein österreichischer Feiertag ist.
@@ -181,4 +181,4 @@ Date.prototype.isHoliday = function () {
         if (jd == easter + 60) { return true; } // Fronleichnam
     }
     return false;
-}
+};

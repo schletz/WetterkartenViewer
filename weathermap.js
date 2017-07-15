@@ -17,6 +17,19 @@ function Panel() {
     this.defaultImage.src = "notAvailable.jpg";
 }
 
+Panel.clone = function(oldPanel) {
+    if (oldPanel === null) { return null; }
+    var p = new Panel();
+
+    p.images = oldPanel.images;
+    p.imageDictionary = oldPanel.imageDictionary;
+    p.defaultImage = oldPanel.defaultImage;
+    p.currentImage = oldPanel.currentImage;
+    p.currentLayer = oldPanel.currentLayer;
+    p.maxLayer = oldPanel.maxLayer;
+    return p;
+};
+
 /**
  * Erzeugt ein Imageobjekt und setzt die Quelle auf die übergebene URL. Zusätzlich wird die URL
  * als Key für das Imagedirectory verwendet. Wurde diese URL schon geladen, wird aus dem 
@@ -168,17 +181,18 @@ var Weathermap = {
         });
 
         if (this.fullsizePanel !== null) {
-            var fullsizeImage = this.fullsizePanel.currentImage;
+            var fullsizeImage = this.fullsizePanel.getImage(self.time);
             $("#imageDetails img").remove();
             $("#imageDetails").append($(fullsizeImage).clone());
         }
     },
+    
     _fullsizePanel: null,
     get fullsizePanel() {
         return this._fullsizePanel;
     },
     set fullsizePanel(newPanel) {
-        this._fullsizePanel = newPanel;
+        this._fullsizePanel = Panel.clone(newPanel);
         if (newPanel !== null) {
             this.showFullsizePanel();
         }
