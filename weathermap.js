@@ -511,17 +511,20 @@ Weathermap.initUi = function (container) {
             { start: 0, step: 3, stop: 240, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("850temp") },
             { start: 252, step: 12, stop: 384, layer: 0, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("850temp") },
 
-            { start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPME") },
+            { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPME") },
             { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPME") },
 
+            { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPEU") },
+            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPEU") },
+
             /* ECMWF T850 */
-            { start: 0, step: 24, stop: 240, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("ecmwf", "t850", "centroeuropa") },
+            { start: 0, step: 24, stop: 240, layer: 3, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("ecmwf", "t850", "centroeuropa") },
 
             // WXC 850hpa Anomalie
-            { start: 0, step: 6, stop: 240, layer: 3, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t850anom", "centroeuropa") },
-            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t850anom", "centroeuropa") },
+            { start: 0, step: 6, stop: 240, layer: 4, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t850anom", "centroeuropa") },
+            { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t850anom", "centroeuropa") },
 
-            { start: 0, step: 24, stop: 240, layer: 4, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("ecmwf", "t850anom", "centroeuropa") }
+            { start: 0, step: 24, stop: 240, layer: 5, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("ecmwf", "t850anom", "centroeuropa") }
 
         ],
         /* wxcharts overview, niederschlag und Gesamtbewölkung*/
