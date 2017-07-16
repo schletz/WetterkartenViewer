@@ -539,6 +539,8 @@ Weathermap.initUi = function (container) {
             // W3 6h Max/Min 2m Temperatur
             { start: 6, step: 6, stop: 102, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(9, "ARPEGE") },
             { start: 108, step: 6, stop: 240, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(9, "GFS") },
+            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(48, "GFSOPME") },
+
             // w3 3h GFS niederschlag
             { start: 3, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(28, "GFS") },
             // Gesamtbewölkung
