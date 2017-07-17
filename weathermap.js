@@ -224,6 +224,8 @@ var Weathermap = {
                 runHour = Weathermap.lastRun.arpege.getUTCHours();
                 time += arpegeDelay;
             }
+            /* ECMWF wird alle 12 Stunden mit 7 Stunden Verzögerung bereitgestellt. */
+            else if (model === "ecmwf") { runHour = Date.fromRunParam(12, 7).getUTCHours(); }
             else { runHour = Weathermap.lastRun.gfs.getUTCHours(); }
 
             /* Die 6 h und 18 h Läufe werden bei ARPEGE nur bis 72 h bzw. 60h gerechnet. Daher nehmen wir
