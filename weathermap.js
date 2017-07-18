@@ -605,11 +605,15 @@ Weathermap.initUi = function (container) {
             { start: 0, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "w850", "centroeuropa") },
             { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "w850", "centroeuropa") },
 
+            // 925 hpa Wind
+            { start: 0, step: 3, stop: 240, layer: 5, urlGenerator: Weathermap.getWzUrlGenerator(29) },
+            { start: 252, step: 12, stop: 384, layer: 5, urlGenerator: Weathermap.getWzUrlGenerator(29) },
+
             // Wind Gust
-            { start: 3, step: 3, stop: 72, layer: 5, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
-            { start: 78, step: 6, stop: 102, layer: 5, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
-            { start: 105, step: 3, stop: 240, layer: 5, urlGenerator: Weathermap.getWzUrlGenerator(19) },
-            { start: 252, step: 12, stop: 384, layer: 5, urlGenerator: Weathermap.getWzUrlGenerator(19) }
+            { start: 3, step: 3, stop: 72, layer: 6, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
+            { start: 78, step: 6, stop: 102, layer: 6, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
+            { start: 105, step: 3, stop: 240, layer: 6, urlGenerator: Weathermap.getWzUrlGenerator(19) },
+            { start: 252, step: 12, stop: 384, layer: 6, urlGenerator: Weathermap.getWzUrlGenerator(19) }
         ],
         /* wrf 4km karten, akkumulierter niederschlag */
         [
