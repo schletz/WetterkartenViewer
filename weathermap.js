@@ -594,16 +594,17 @@ Weathermap.initUi = function (container) {
             { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(7, "GFSOPEU") },
             { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(7, "GFSOPEU") },
 
-            // meteocironale 850 hpa wind (europa)
-            { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "w850", "europa") },
-            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "w850", "europa") },
             // meteocironale 500 hpa wind (europa)
-            { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "w500", "europa") },
-            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "w500", "europa") },
+            { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "w500", "europa") },
+            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "w500", "europa") },
 
             // meteocironale 850 hpa wind (mitteleuropa)
-            { start: 0, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "w850", "centroeuropa") },
-            { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "w850", "centroeuropa") },
+            { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "w850", "centroeuropa") },
+            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "w850", "centroeuropa") },
+
+            // WZ 850hpa Stromlinien
+            { start: 0, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPME") },
+            { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPME") },            
 
             // 925 hpa Wind
             { start: 0, step: 3, stop: 240, layer: 5, urlGenerator: Weathermap.getWzUrlGenerator(29) },
