@@ -217,7 +217,7 @@
 				var latStr = '' + deg + '°';
 				if (min > 0 || sec > 0) { latStr += min + "'"; }
 				if (sec > 0) { latStr += sec + '"'; }
-				latStr += (deg < 0 ? "S" : "N");
+				latStr += (lat < 0 ? "S" : "N");
 				return latStr;
 			},
 
@@ -226,6 +226,8 @@
 					return this.options.lngFormatTickLabel(lng);
 				}
 
+				if (lng < -180)  { lng += 360; }
+				if (lng > 180)  { lng -= 360; }
 				lng = Math.round(3600 * lng);
 				var deg = Math.floor(Math.abs(lng) / 3600.0);
 				var min = Math.floor(Math.abs(lng) / 60.0 - 60 * deg);
@@ -233,7 +235,7 @@
 				var lngStr = '' + deg + '°';
 				if (min > 0 || sec > 0) { lngStr += min + "'"; }
 				if (sec > 0) { lngStr += sec + '"'; }
-				lngStr += (deg < 0 ? "W" : "E");
+				lngStr += (lng < 0 ? "W" : "E");
 				return lngStr;
 			},
 
