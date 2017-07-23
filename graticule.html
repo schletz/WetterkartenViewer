@@ -589,7 +589,6 @@
 	<script type="text/javascript">
 		$("#step li").on("click", function () {
 			var step = 1 * $(this).data("val") / 3600.0;
-			console.log(grid.options);
 			grid._currLatInterval = step;
 			grid._currLngInterval = step;
 			grid.options.latInterval = [{ start: 0, end: 100, interval: step }],
