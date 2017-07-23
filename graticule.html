@@ -2,13 +2,16 @@
 <html lang="en">
 
 <head>
-	<title>Leaflet Lat/Lon Graticule Demo</title>
+	<title>Leaflet Lat/Lon Graticule</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css" integrity="sha512-wcw6ts8Anuw10Mzh9Ytw4pylW8+NAD4ch3lqm9lzAsTxg0GFeJgoAtxuCLREZSC5lUXdVyo/7yfsqFjQ4S+aKw=="
 	 crossorigin="" />
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	 crossorigin="anonymous"></script>
 	<script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js" integrity="sha512-mNqn2Wg7tSToJhvHcqfzLMU6J4mkOImSPTxVZAdo+lcPlk+GhZmYgACEe0x35K7YzW1zJ7XyJV/TT1MrdXvMcA=="
 	 crossorigin=""></script>
 
@@ -528,45 +531,97 @@
 
 	<style>
 		html,
-		body,
-		#map {
+		body {
 			width: 100%;
 			height: 100%;
 			margin: 0px;
 			padding: 0px;
+			z-index: 0;
+			font-family: sans-serif;
+		}
+
+		#map {
+			width: 100%;
+			height: calc(100% - 25px);
+		}
+
+		#options {
+			height: 25px;
+		}
+
+		#options ul {
+			list-style-type: none;
+			overflow: hidden;
+			margin: 0px;
+			padding: 0px;
+			float:left;
+		}
+
+		#options li {
+			float: left;
+			padding-left: 10px;
+			cursor: pointer;
 		}
 	</style>
 </head>
 
 <body>
+	<div id="options">
+		<ul id="step">
+			<li data-val="3600">1°</li>
+			<li data-val="1800">0.5°</li>
+			<li data-val="900">0.25°</li>
+			<li data-val="450">0.125°</li>
+			<li data-val="360">0.1°</li>
+			<li data-val="60">1'</li>
+			<li data-val="10">10"</li>
+			<li data-val="6">0.1'</li>			
+			<li data-val="1">1"</li>
+		</ul>
+		<ul id="mapType">
+			<li data-val="0">Topografisch</li>
+			<li data-val="1">Straße</li>
+			<li data-val="2">Satellit</li>
+		</ul>		
+	</div>
 	<div id="map" class="map"></div>
 
-	<div>
-	</div>
+	<script type="text/javascript">
+		$("#step li").on("click", function () {
+			var step = 1 * $(this).data("val") / 3600.0;
+			console.log(grid.options);
+			grid._currLatInterval = step;
+			grid._currLngInterval = step;
+			grid.options.latInterval = [{ start: 0, end: 100, interval: step }],
+			grid.options.lngInterval = [{ start: 0, end: 100, interval: step }],
+			grid.options.zoomInterval = [{ start: 0, end: 100, interval: step }];
+			grid._reset();
+		});
+	
+
+		$("#mapType li").on("click", function () {
+			var layerNr = 1 * $(this).data("val");
+			mapLayers.forEach(function(item) {
+				map.removeLayer(item);
+			});
+			map.addLayer(mapLayers[layerNr]);
+		});	
+	</script>
 
 	<script>
 		var map = new L.Map('map', { zoomControl: false }).setView([48, 15], 6);
 		// https://mapserver.mapy.cz/1turist-m/8-143-86
 		// https://mapserver.mapy.cz/wturist_winter-m/8-140-90
-		L.tileLayer('https://mapserver.mapy.cz/wturist_winter-m/{z}-{x}-{y}').addTo(map);
+		// https://mapserver.mapy.cz/bing/9-283-179
+		var mapLayers = [];
+		mapLayers[0] = L.tileLayer('https://mapserver.mapy.cz/wturist_winter-m/{z}-{x}-{y}');
+		mapLayers[1] = L.tileLayer('https://mapserver.mapy.cz/1turist-m/{z}-{x}-{y}');
+		mapLayers[2] = L.tileLayer('https://mapserver.mapy.cz/bing/{z}-{x}-{y}');
+		map.addLayer(mapLayers[0]);//mapLayers[0].addTo(map);
 
-		L.latlngGraticule({
+		var grid = L.latlngGraticule({
 			showLabel: true,
-			color: '#222',
-			zoomInterval: [
-				{ start: 1, end: 1, interval: 45 },
-				{ start: 2, end: 2, interval: 20 },
-				{ start: 3, end: 3, interval: 10 },
-				{ start: 4, end: 4, interval: 5 },
-				{ start: 5, end: 5, interval: 2 },
-				{ start: 6, end: 6, interval: 1 },
-				{ start: 7, end: 8, interval: 0.5 },
-				{ start: 9, end: 10, interval: 0.25 },
-				{ start: 11, end: 12, interval: 0.1 },
-				{ start: 13, end: 15, interval: 1.0 / 60 },
-				{ start: 16, end: 17, interval: 10.0 / 3600 },
-				{ start: 18, end: 20, interval: 5.0 / 3600 }
-			]
+			color: '#222'
 		}).addTo(map);
 
 // 		console.log(map.options.crs);
