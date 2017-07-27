@@ -594,21 +594,20 @@ Weathermap.initUi = function (container) {
             { start: 252, step: 12, stop: 384, layer: 6, urlGenerator: Weathermap.getWzUrlGenerator(49, "GFSOPME") }
         ],
         [
-            /* 700hpa Vertikalbewegung, Temperatur 500 hpA, CAPE, 300hpa Vorticity/Divergenz */
-            // WZ 700 hpa Vertikalbewegung
-            { start: 0, step: 3, stop: 240, layer: 0, urlGenerator: Weathermap.getWzUrlGenerator(6) },
-            { start: 252, step: 12, stop: 384, layer: 0, urlGenerator: Weathermap.getWzUrlGenerator(6) },
-
+            /* 500hpa Vertikalbewegung, Temperatur 500 hpA, CAPE, 300hpa Vorticity/Divergenz */
+            // W3 500hpa Vertikalbewegung
+            { start: 3, step: 3, stop: 240, layer: 0, urlGenerator: Weathermap.getW3UrlGenerator(19, "GFS") },
+            { start: 252, step: 12, stop: 384, layer: 0, urlGenerator: Weathermap.getW3UrlGenerator(23, "GFS", "EUROPE") },
+            // Cape
             { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(11, "GFSOPME") },
             { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(11, "GFSOPME") },
+            // W3 700hpa Vertikalbewegung
+            { start: 3, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(20, "GFS") },
+            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(13, "GFS", "EUROPE") },
 
             // 500 hpa Temp
-            { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "euroatlantico") },
-            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "euroatlantico") },
-
             { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "centroeuropa") },
             { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "centroeuropa") },
-            // CAPE und Lifted Index
 
             //Relative Vorticity 300 hpa (Wetter.net)
             { start: 3, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWetterdataUrlGenerator(30) },
