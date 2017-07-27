@@ -618,13 +618,15 @@ Weathermap.initUi = function (container) {
 
         /* wz 850hpa wind (mitteleuropa und europa) und theta e */
         [
-            // wz theta 3
-            { start: 0, step: 3, stop: 240, layer: 0, urlGenerator: Weathermap.getWzUrlGenerator(7) },
-            { start: 252, step: 12, stop: 384, layer: 0, urlGenerator: Weathermap.getWzUrlGenerator(7) },
-
             // Schichtdicken Advektion 
-            { start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWetterNetUrlGenerator("gfs", "schichtdicken-advektion", "eu") },
-            { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(9, "GFS", "EUROPE") },            
+            { start: 3, step: 3, stop: 240, layer: 0, urlGenerator: Weathermap.getWetterNetUrlGenerator("gfs", "schichtdicken-advektion", "eu") },
+            { start: 252, step: 12, stop: 384, layer: 0, urlGenerator: Weathermap.getW3UrlGenerator(9, "GFS", "EUROPE") },    
+
+            // wz theta 3
+            { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(7) },
+            { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(7) },
+
+        
 
             // meteocironale 500 hpa wind (europa)
             /*
