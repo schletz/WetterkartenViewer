@@ -633,7 +633,7 @@ Weathermap.initUi = function (container) {
             { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(7, "GFSOPEU") },
 
             // Wetter.NET 850 hpa Vertikalbewegung
-            { start: 3, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWetterdataUrlGenerator(58) },
+            //{ start: 3, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWetterdataUrlGenerator(58) },
 
 
             // meteocironale 500 hpa wind (europa)
@@ -648,12 +648,12 @@ Weathermap.initUi = function (container) {
             */
 
             // WZ 850hpa Stromlinien
-            { start: 0, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPME") },
-            { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPME") },
+            { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPME") },
+            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPME") },
 
             // 925 hpa Wind
-            { start: 3, step: 3, stop: 240, layer: 5, urlGenerator: Weathermap.getWetterdataUrlGenerator(15) },
-            { start: 252, step: 12, stop: 384, layer: 5, urlGenerator: Weathermap.getWzUrlGenerator(29) },
+            { start: 3, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWetterdataUrlGenerator(15) },
+            { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(29) },
 
             // Wind Gust
             /*
