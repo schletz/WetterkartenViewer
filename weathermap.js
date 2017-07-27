@@ -597,18 +597,14 @@ Weathermap.initUi = function (container) {
             { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "centroeuropa") },
             { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "centroeuropa") },
 
-            { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(11, "GFSOPEU") },
-            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(11, "GFSOPEU") },
+            { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(11, "GFSOPME") },
+            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(11, "GFSOPME") },
 
-            { start: 0, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(11, "GFSOPME") },
-            { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(11, "GFSOPME") },
+            { start: 3, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWetterNetUrlGenerator("gfs", "relative-vort-300hpa", "eu") },
+            { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(43, "GFS", "EUROPE") },
 
-
-            { start: 3, step: 3, stop: 240, layer: 5, urlGenerator: Weathermap.getWetterNetUrlGenerator("gfs", "relative-vort-300hpa", "eu") },
-            { start: 252, step: 12, stop: 384, layer: 5, urlGenerator: Weathermap.getW3UrlGenerator(43, "GFS", "EUROPE") },
-
-            { start: 0, step: 3, stop: 240, layer: 6, urlGenerator: Weathermap.getW3UrlGenerator(38, "GFS", "EUROPE") },
-            { start: 252, step: 12, stop: 384, layer: 6, urlGenerator: Weathermap.getW3UrlGenerator(38, "GFS", "EUROPE") },
+            { start: 0, step: 3, stop: 240, layer: 5, urlGenerator: Weathermap.getW3UrlGenerator(38, "GFS", "EUROPE") },
+            { start: 252, step: 12, stop: 384, layer: 5, urlGenerator: Weathermap.getW3UrlGenerator(38, "GFS", "EUROPE") },
 
 
         ],
