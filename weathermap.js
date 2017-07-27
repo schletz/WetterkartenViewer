@@ -594,10 +594,10 @@ Weathermap.initUi = function (container) {
             { start: 252, step: 12, stop: 384, layer: 6, urlGenerator: Weathermap.getWzUrlGenerator(49, "GFSOPME") }
         ],
         [
-            /* 500hpa Vertikalbewegung, Temperatur 500 hpA, CAPE, 300hpa Vorticity/Divergenz */
-            // Wetter.NET 500 hpa Vertikalbewegung
-            { start: 3, step: 3, stop: 240, layer: 0, urlGenerator: Weathermap.getWetterdataUrlGenerator(48) },
-            { start: 252, step: 12, stop: 384, layer: 0, urlGenerator: Weathermap.getW3UrlGenerator(6, "GFS", "EUROPE") },
+            /* 700hpa Vertikalbewegung, Temperatur 500 hpA, CAPE, 300hpa Vorticity/Divergenz */
+            // WZ 700 hpa Vertikalbewegung
+            { start: 0, step: 3, stop: 240, layer: 0, urlGenerator: Weathermap.getWzUrlGenerator(6) },
+            { start: 252, step: 12, stop: 384, layer: 0, urlGenerator: Weathermap.getWzUrlGenerator(6) },
 
             // 500 hpa Temp
             { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "euroatlantico") },
