@@ -599,15 +599,16 @@ Weathermap.initUi = function (container) {
             { start: 0, step: 3, stop: 240, layer: 0, urlGenerator: Weathermap.getWzUrlGenerator(6) },
             { start: 252, step: 12, stop: 384, layer: 0, urlGenerator: Weathermap.getWzUrlGenerator(6) },
 
-            // 500 hpa Temp
-            { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "euroatlantico") },
-            { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "euroatlantico") },
+            { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(11, "GFSOPME") },
+            { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(11, "GFSOPME") },
 
-            { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "centroeuropa") },
-            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "centroeuropa") },
+            // 500 hpa Temp
+            { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "euroatlantico") },
+            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "euroatlantico") },
+
+            { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "centroeuropa") },
+            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "centroeuropa") },
             // CAPE und Lifted Index
-            { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(11, "GFSOPME") },
-            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(11, "GFSOPME") },
 
             //Relative Vorticity 300 hpa (Wetter.net)
             { start: 3, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWetterdataUrlGenerator(30) },
