@@ -543,11 +543,11 @@ Weathermap.initUi = function (container) {
             { start: 0, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPEU") },
             { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPEU") },
 
-            { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(41, "GFS", "EUROPE") },
-            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(41, "GFS", "EUROPE") },
+            { start: 0, step: 3, stop: 240, layer: 5, urlGenerator: Weathermap.getW3UrlGenerator(41, "GFS", "EUROPE") },
+            { start: 252, step: 12, stop: 384, layer: 5, urlGenerator: Weathermap.getW3UrlGenerator(41, "GFS", "EUROPE") },
 
             /* ECMWF T850 */
-            { start: 0, step: 24, stop: 240, layer: 5, urlGenerator: Weathermap.getWxcUrlGenerator("850temp", "germany", "ecmwf") },
+            { start: 0, step: 24, stop: 240, layer: 6, urlGenerator: Weathermap.getWxcUrlGenerator("850temp", "germany", "ecmwf") },
 
             // Meteogiornale 850hpa Anomalie
             /*
