@@ -524,10 +524,10 @@ Weathermap.initUi = function (container) {
             { start: 3, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getMeteocielUrlCenerator("gfs", 0, "gfseu") },
             { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getMeteocielUrlCenerator("gfs", 0, "gfseu") },
 
-            //Relative Vorticity 500 hpa (Wetter.net)
+            // Vorticityadvektion 500 hpa
             //{ start: 3, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWetterdataUrlGenerator(23) },
-            { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(42, "GFS", "EUROPE") },
-            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(42, "GFS", "EUROPE") },
+            { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(7, "GFS", "EUROPE") },
+            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(7, "GFS", "EUROPE") },
 
 
             /*
@@ -626,10 +626,10 @@ Weathermap.initUi = function (container) {
             { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "centroeuropa") },
             { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "centroeuropa") },
 
-            //Relative Vorticity 300 hpa (Wetter.net)
+            //Vorticityadvektion 300 hpa (Wetter.net)
             //{ start: 3, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWetterdataUrlGenerator(30) },
-            { start: 0, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(43, "GFS", "EUROPE") },
-            { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(43, "GFS", "EUROPE") },
+            { start: 0, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(8, "GFS", "EUROPE") },
+            { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(8, "GFS", "EUROPE") },
             // 300 hpa Divergenz
             { start: 0, step: 3, stop: 240, layer: 5, urlGenerator: Weathermap.getW3UrlGenerator(38, "GFS", "EUROPE") },
             { start: 252, step: 12, stop: 384, layer: 5, urlGenerator: Weathermap.getW3UrlGenerator(38, "GFS", "EUROPE") },
