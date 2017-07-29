@@ -287,7 +287,7 @@ var Weathermap = {
         };
     },
     getW3UrlGenerator: function (type, model, region) {
-        if (region === undefined) { region = "ME"; }
+        if (region === undefined) { region = "025Grad"; }
 
         if (model === undefined || model === "GFS") { model = ""; }
         else { model = "_" + model; }
@@ -326,8 +326,8 @@ var Weathermap = {
             }
             var runParam = runHour < 10 ? "0" + runHour : runHour;
             var timeParam = time < 10 ? "0" + time : time;
-            var resolutionParam = region == "ME" ? "_025Grad" : "";
-            return "http://www1.wetter3.de/Animation_" + runParam + "_UTC" + resolutionParam + modelParam + "/" + timeParam + "_" + type + ".gif";
+            var regionParam = region === "" ? "" : "_" + region;
+            return "http://www1.wetter3.de/Animation_" + runParam + "_UTC" + regionParam + modelParam + "/" + timeParam + "_" + type + ".gif";
         };
     },
 
@@ -497,10 +497,8 @@ Weathermap.initUi = function (container) {
     Weathermap.createPanels([
         /* wxcharts MSLP */
         [
-            { start: 0, step: 3, stop: 240, layer: 0, urlGenerator: Weathermap.getW3UrlGenerator(1, "GFS", "EUROPE") },
-            { start: 252, step: 12, stop: 384, layer: 0, urlGenerator: Weathermap.getW3UrlGenerator(1, "GFS", "EUROPE") },
-            
-            //{ start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(1, "GFS") },
+            { start: 0, step: 3, stop: 240, layer: 0, urlGenerator: Weathermap.getW3UrlGenerator(1, "GFS", "") },
+            { start: 252, step: 12, stop: 384, layer: 0, urlGenerator: Weathermap.getW3UrlGenerator(1, "GFS", "") },
 
             { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
             { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
@@ -529,19 +527,14 @@ Weathermap.initUi = function (container) {
             //{ start: 3, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getMeteocielUrlCenerator("gfs", 0, "gfseu") },
             //{ start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getMeteocielUrlCenerator("gfs", 0, "gfseu") },
 
-            // Vorticityadvektion 500 hpa
-            //{ start: 3, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWetterdataUrlGenerator(23) },
-            { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(7, "GFS", "EUROPE") },
-            { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(7, "GFS", "EUROPE") },
-       
-            //Q Vektor
-            { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(12, "GFS", "EUROPE") },
-            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(12, "GFS", "EUROPE") },
+            // 500 hpa ReTop
+            { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(1, "GFS", "05Grad") },
+            { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(1, "GFS", "05Grad") },
                    
-
+            // 500 hpa Temp
+            { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "centroeuropa") },
+            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "centroeuropa") },
             /*
-            { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "z500", "centroeuropa") },
-            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "z500", "centroeuropa") },
             { start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPME") },
             { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(1, "GFSOPME") },
 
@@ -568,18 +561,18 @@ Weathermap.initUi = function (container) {
             { start: 0, step: 6, stop: 240, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("850temp") },
             { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("850temp") },
 
-            { start: 0, step: 24, stop: 240, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("850temp_anom", "euratl", "ecmwf") },
-
-            { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPME") },
-            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPME") },
+            { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPME") },
+            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPME") },
 
             //{ start: 0, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPEU") },
             //{ start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(2, "GFSOPEU") },
 
-            { start: 0, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(10, "GFS", "EUROPE") },
-            { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(10, "GFS", "EUROPE") },
+            { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(10, "GFS", "") },
+            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(10, "GFS", "") },
 
-            /* ECMWF T850 */
+
+            /* ECMWF Anomaly und T850 */
+            { start: 0, step: 24, stop: 240, layer: 4, urlGenerator: Weathermap.getWxcUrlGenerator("850temp_anom", "euratl", "ecmwf") },
             { start: 0, step: 24, stop: 240, layer: 5, urlGenerator: Weathermap.getWxcUrlGenerator("850temp", "germany", "ecmwf") },
 
             // Meteogiornale 850hpa Anomalie
@@ -600,39 +593,35 @@ Weathermap.initUi = function (container) {
             { start: 123, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
             { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
             // W3 6h Max/Min 2m Temperatur
-            { start: 6, step: 6, stop: 102, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(9, "ARPEGE") },
-            { start: 108, step: 6, stop: 240, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(9, "GFS") },
+            { start: 6, step: 6, stop: 102, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(9, "ARPEGE", "025Grad") },
+            { start: 108, step: 6, stop: 240, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(9, "GFS", "025Grad") },
             { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(48, "GFSOPME") },
 
             // w3 3h GFS niederschlag
-            { start: 3, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(28, "GFS") },
+            { start: 3, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(28, "GFS", "025Grad") },
             // Gesamtbewölkung
-            { start: 3, step: 3, stop: 72, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
-            { start: 78, step: 6, stop: 102, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE") },
-            { start: 105, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(18, "GFS") },
+            { start: 3, step: 3, stop: 72, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE", "025Grad") },
+            { start: 78, step: 6, stop: 102, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE", "025Grad") },
+            { start: 105, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(18, "GFS", "025Grad") },
             // W3 700 hpa Feuchtigkeit
-            { start: 3, step: 3, stop: 240, layer: 5, urlGenerator: Weathermap.getW3UrlGenerator(2, "GFS") },
+            { start: 3, step: 3, stop: 240, layer: 5, urlGenerator: Weathermap.getW3UrlGenerator(2, "GFS", "025Grad") },
             // Akkumulierter Niederschlag
-            { start: 6, step: 6, stop: 102, layer: 6, urlGenerator: Weathermap.getW3UrlGenerator(26, "ARPEGE") },
-            { start: 108, step: 6, stop: 240, layer: 6, urlGenerator: Weathermap.getW3UrlGenerator(26, "GFS") },
+            { start: 6, step: 6, stop: 102, layer: 6, urlGenerator: Weathermap.getW3UrlGenerator(26, "ARPEGE", "025Grad") },
+            { start: 108, step: 6, stop: 240, layer: 6, urlGenerator: Weathermap.getW3UrlGenerator(26, "GFS", "025Grad") },
             { start: 252, step: 12, stop: 384, layer: 6, urlGenerator: Weathermap.getWzUrlGenerator(49, "GFSOPME") }
         ],
         [
             /* 500hpa Vertikalbewegung, Temperatur 500 hpA, CAPE, 300hpa Vorticity/Divergenz */
             // W3 500hpa Vertikalbewegung
-            { start: 3, step: 3, stop: 240, layer: 0, urlGenerator: Weathermap.getW3UrlGenerator(19, "GFS") },
-            { start: 252, step: 12, stop: 384, layer: 0, urlGenerator: Weathermap.getW3UrlGenerator(23, "GFS", "EUROPE") },
+            { start: 3, step: 3, stop: 240, layer: 0, urlGenerator: Weathermap.getW3UrlGenerator(19, "GFS", "025Grad") },
+            { start: 252, step: 12, stop: 384, layer: 0, urlGenerator: Weathermap.getW3UrlGenerator(23, "GFS", "") },
             // Cape
             { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(11, "GFSOPME") },
             { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(11, "GFSOPME") },
 
-            // 500 hpa Temp
-            { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "centroeuropa") },
-            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "centroeuropa") },
-
             // 300 hpa Divergenz
-            { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(38, "GFS", "EUROPE") },
-            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(38, "GFS", "EUROPE") },
+            { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(38, "GFS", "") },
+            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(38, "GFS", "") },
 
             // WZ 700hpa Vertikalbewegung
             //{ start: 0, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(6, "GFSOPME") },
@@ -650,14 +639,6 @@ Weathermap.initUi = function (container) {
             { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(7) },
             { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWzUrlGenerator(7) },
 
-            // Schichtdicken Advektion 
-            //{ start: 3, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWetterdataUrlGenerator(9) },
-            { start: 0, step:3, stop: 240, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(9, "GFS", "EUROPE") },
-            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(9, "GFS", "EUROPE") },
-
-            // Wetter.NET 850 hpa Vertikalbewegung
-            //{ start: 3, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWetterdataUrlGenerator(58) },
-
 
             // meteocironale 500 hpa wind (europa)
             /*
@@ -671,13 +652,13 @@ Weathermap.initUi = function (container) {
             */
 
             // WZ 850hpa Stromlinien
-            { start: 0, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPME") },
-            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPME") },
+            { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPME") },
+            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(3, "GFSOPME") },
 
             // 925 hpa Wind
             //{ start: 3, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWetterdataUrlGenerator(15) },
-            { start: 3, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(29) },
-            { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(29) },
+            { start: 3, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(29) },
+            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(29) },
 
             // Wind Gust
             /*
