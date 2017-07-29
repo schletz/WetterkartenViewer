@@ -464,6 +464,11 @@ var Weathermap = {
         if (image.naturalWidth && image.naturalHeight) {
             width = image.naturalWidth;
             height = image.naturalHeight;
+            /* Bild ist sehr klein? Mindestens mit 50 % der Bildschirmbreite anzeigen. */
+            if (width < 0.5*$(window).width()) {
+                width = 0.5*$(window).width();
+                height = width * image.naturalHeight / image.naturalWidth;
+            }
             if ($(window).width() < width) {
                 width = $(window).width();
                 height = width * image.naturalHeight / image.naturalWidth;
@@ -647,8 +652,8 @@ Weathermap.initUi = function (container) {
 
             // Schichtdicken Advektion 
             //{ start: 3, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getWetterdataUrlGenerator(9) },
-            { start: 0, step:3, stop: 240, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(11, "GFS", "EUROPE") },
-            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(11, "GFS", "EUROPE") },
+            { start: 0, step:3, stop: 240, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(9, "GFS", "EUROPE") },
+            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(9, "GFS", "EUROPE") },
 
             // Wetter.NET 850 hpa Vertikalbewegung
             //{ start: 3, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWetterdataUrlGenerator(58) },
