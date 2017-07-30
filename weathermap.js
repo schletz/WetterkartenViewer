@@ -631,6 +631,12 @@ Weathermap.initUi = function (container) {
             // 300 hpa Divergenz
             { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(38, "GFS", "") },
             { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(38, "GFS", "") },
+            // 2m Taupunkt
+            { start: 3, step: 3, stop: 72, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(8, "ARPEGE", "025Grad") },
+            { start: 78, step: 6, stop: 102, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(8, "ARPEGE", "025Grad") },
+            { start: 105, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(8, "GFS", "025Grad") },
+            { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(37, "GFSOPME") },            
+
 
             // WZ 700hpa Vertikalbewegung
             //{ start: 0, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(6, "GFSOPME") },
