@@ -427,6 +427,15 @@ var Weathermap = {
         };
     },
 
+    getKartenhausteinUrlGenerator: function (type, region) {
+        if (type === undefined) { type = "ANOM2m"; }
+        if (region === undefined) { region = "europe"; }
+        return function (time) {
+            var timeParam = time < 10 ? "0" + time : time;
+            return "http://www.karstenhaustein.com/reanalysis/gfs0p5/" + type + "_" + region + "/" + type + "_f" + timeParam + "_" + region + ".png";
+        }
+    },
+
     createPanels: function (panelsToLoad) {
         var p = null, panelDiv = null, i = 0;
         var self = this;
@@ -465,8 +474,8 @@ var Weathermap = {
             width = image.naturalWidth;
             height = image.naturalHeight;
             /* Bild ist sehr klein? Mindestens mit 50 % der Bildschirmbreite anzeigen. */
-            if (width < 0.5*$(window).width()) {
-                width = 0.5*$(window).width();
+            if (width < 0.5 * $(window).width()) {
+                width = 0.5 * $(window).width();
                 height = width * image.naturalHeight / image.naturalWidth;
             }
             if ($(window).width() < width) {
@@ -506,15 +515,15 @@ Weathermap.initUi = function (container) {
             //{ start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWetterdataUrlGenerator(10) },
             //{ start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWetterNetUrlGenerator("500hpa-bodendruck", "eu") },
 
-
             { start: 0, step: 6, stop: 240, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("meanslp_anom") },
             { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("meanslp_anom") },
 
-
             { start: 0, step: 24, stop: 240, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("meanslp_anom", "euratl", "ecmwf") },
-
+            // T2M Anomalie
+            { start: 0, step: 6, stop: 168, layer: 4, urlGenerator: Weathermap.getKartenhausteinUrlGenerator("ANOM2m", "europe") },
             // Hohe Warte Surroundings
-            { start: Weathermap.maxTime, layer: 4, urlGenerator: function () { return "http://old.wetterzentrale.de/pics/11035.gif"; } }
+            { start: Weathermap.maxTime, layer: 5, urlGenerator: function () { return "http://old.wetterzentrale.de/pics/11035.gif"; } }
+
         ],
         /* wxcharts 500 hpa geopot height (europa von wxcharts und wetterzentrale) */
         [
@@ -530,7 +539,7 @@ Weathermap.initUi = function (container) {
             // 500 hpa ReTop
             { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(1, "GFS", "05Grad") },
             { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(1, "GFS", "05Grad") },
-                   
+
             // 500 hpa Temp
             { start: 0, step: 3, stop: 240, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "centroeuropa") },
             { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getMeteogiornaleUrlGenerator("gfs", "t500", "centroeuropa") },
