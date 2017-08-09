@@ -597,17 +597,21 @@ Weathermap.initUi = function (container) {
             { start: 3, step: 3, stop: 240, layer: 0, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "europe") },
             { start: 252, step: 12, stop: 384, layer: 0, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "europe") },
 
+                        // w3 3h GFS niederschlag
+            { start: 6, step: 6, stop: 102, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(4, "ARPEGE", "025Grad") },
+            { start: 105, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getW3UrlGenerator(28, "GFS", "025Grad") },
+            /*
             { start: 1, step: 1, stop: 102, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany", "arpege") },
             { start: 103, step: 1, stop: 120, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
             { start: 123, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
             { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("overview", "germany") },
+            */
             // W3 6h Max/Min 2m Temperatur
             { start: 6, step: 6, stop: 102, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(9, "ARPEGE", "025Grad") },
             { start: 108, step: 6, stop: 240, layer: 2, urlGenerator: Weathermap.getW3UrlGenerator(9, "GFS", "025Grad") },
             { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWzUrlGenerator(48, "GFSOPME") },
 
-            // w3 3h GFS niederschlag
-            { start: 3, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getW3UrlGenerator(28, "GFS", "025Grad") },
+
             // Gesamtbewölkung
             { start: 3, step: 3, stop: 72, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE", "025Grad") },
             { start: 78, step: 6, stop: 102, layer: 4, urlGenerator: Weathermap.getW3UrlGenerator(13, "ARPEGE", "025Grad") },
