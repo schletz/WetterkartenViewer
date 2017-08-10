@@ -682,6 +682,11 @@ Weathermap.initUi = function (container) {
             { start: 3, step: 3, stop: 240, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(29) },
             { start: 252, step: 12, stop: 384, layer: 3, urlGenerator: Weathermap.getWzUrlGenerator(29) },
 
+            // 700 hpa Wind
+            //{ start: 3, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWetterdataUrlGenerator(15) },
+            { start: 3, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(27) },
+            { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getWzUrlGenerator(27) },
+
             // Wind Gust
             /*
             { start: 3, step: 3, stop: 72, layer: 5, urlGenerator: Weathermap.getW3UrlGenerator(31, "ARPEGE") },
