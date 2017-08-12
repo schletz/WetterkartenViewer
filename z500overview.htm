@@ -18,29 +18,22 @@
     }
 
     #imgContainer img {
-      float: left;
-      margin-right: 5px;
+      margin: 0px;
+      width: 544px;
+      height: 417px;
     }
 
-    #imgContainer div {
-      float: left;
-      margin-right: 5px;
-      width: 768px;
-      max-width: calc(50% - 5px);
-      height: 512px;
-      background-position: right top;
-    }
-
-    p {
-      background-color:white;
-      display: inline;
-      font-family: sans-serif;
+    .leftCol {
+      clear: both;
     }
   </style>
   <script src="dateMethods.js" type="text/javascript"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script type="text/javascript">
-    var lastRun = Date.fromRunParam(12, 7);
+    "use strict";
+    var lastGfsRun = Date.fromRunParam(6, 5);
+    var lastEcmwfRun = Date.fromRunParam(12, 7);
+    var ecmwfDelay = (lastGfsRun.getTime() - lastEcmwfRun.getTime()) / 3600e3;
     /**
      * Gibt die URL einer Meteociel Wetterkarte zurück.
      * 
@@ -50,12 +43,23 @@
      * @returns Die URL des Bildes.
      */
     function getMeteocielUrl(map, type, time) {
-      var url = "http://www.meteociel.fr/modeles/ecmwf/runs/{$run}/EC{$map}{$type}-{$time}.GIF"
+      var url = "http://www.meteociel.fr/modeles/ecmwf/runs/{$run}/EC{$map}{$type}-{$time}.GIF";
 
       return url.replace("{$run}", lastRun.getUTCymdh())
         .replace("{$map}", map)
         .replace("{$type}", type)
         .replace("{$time}", time);
+    };
+
+    function getWxchartslUrl(model, type, time) {
+      if (time < 0) { time = 0; }
+      var url = "http://wxcharts.eu/charts/{$model}/euratl/{$run}/{$type}_{$time}.jpg";
+      var runHour = (model.slice(0, 5) == "ecmwf" ? lastEcmwfRun.getUTCHours() : lastGfsRun.getUTCHours());
+
+      return url.replace("{$run}", ("00" + runHour).slice(-2))
+        .replace("{$model}", model)
+        .replace("{$type}", type)
+        .replace("{$time}", ("000" + time).slice(-3));
     };
   </script>
   <title>Z500 Overview</title>
@@ -66,44 +70,29 @@
 
   </div>
   <script type="text/javascript">
+    "use strict";
     var time = 0;
-    var z500Url = "", t850Url = "";
-    var image = null, imageElem = null, dateElem = null, imageNr = 0;
-    var currentDate = null;
+    var ecmwf500Url = "", gfs500Url = "", ecmwfEns500Url = "";
+    var divElem = null, imageElem = null;
 
     for (time = 0; time <= 240; time += 24) {
-      currentDate = new Date(lastRun.getTime() + time*3600e3);
-      dateElem = $("<p>").text(currentDate.getGermanStr() + " " + currentDate.getUTCHours() + "h");
-      z500Url = getMeteocielUrl("E", 1, time);
-      t850Url = getMeteocielUrl("M", 0, time);
+      ecmwf500Url = getWxchartslUrl("ecmwf", "gph500_anom", time);
+      ecmwfEns500Url = getWxchartslUrl("ecmwf_ens", "gph500_anom", time);
+      gfs500Url = getWxchartslUrl("gfs", "gph500_anom", time - ecmwfDelay);
 
-      imageElem = $("<div>");
-      imageElem.css("background-image", "url(" + z500Url + ")");
-      imageElem.append(dateElem);
-      $("#imgContainer").append(imageElem);
+      divElem = $("<div>");
+      imageElem = $("<img>").attr("src", ecmwf500Url).addClass("ecmwf");
+      imageElem.appendTo(divElem);
 
-      imageElem = $("<div>");
-      imageElem.css("background-image", "url(" + t850Url + ")");
-      imageElem.append(dateElem.clone());
-      $("#imgContainer").append(imageElem);
+      if ($("body").innerWidth() >= 1650) {
+        imageElem = $("<img>").attr("src", ecmwfEns500Url).addClass("ecmwfEns");
+        imageElem.appendTo(divElem);
 
+      }
+      imageElem = $("<img>").attr("src", gfs500Url).addClass("gfs");
+      imageElem.appendTo(divElem);
 
-      /*
-            image = new Image(768, 512);
-            image.src = getMeteocielUrl("gfseu", 0, time) + "?rnd=" + currentHour;
-            imageElem = $(image);
-            $("#imgContainer").append(image);
-      
-            image = new Image(840, 648);
-            image.src = getMeteogiornaleUrl("centroeuropa", "z850", time) + "?rnd=" + currentHour;
-            imageElem = $(image);
-            $("#imgContainer").append(imageElem);
-      
-            if (imageNr % 2 == 0) { imageElem.addClass("col2"); }
-            if (imageNr % 3 == 0) { imageElem.addClass("col3"); }
-            if (imageNr % 4 == 0) { imageElem.addClass("col4"); }
-            imageNr++;
-            */
+      divElem.appendTo("#imgContainer");
     }
   </script>
 
