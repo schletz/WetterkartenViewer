@@ -19,8 +19,8 @@
 
     #imgContainer img {
       margin: 0px;
-      width: 544px;
-      height: 417px;
+      width: 630px;
+      height: 483px;
     }
 
     .leftCol {
@@ -84,7 +84,7 @@
       imageElem = $("<img>").attr("src", ecmwf500Url).addClass("ecmwf");
       imageElem.appendTo(divElem);
 
-      if ($("body").innerWidth() >= 1650) {
+      if ($("body").innerWidth() >= 1900) {
         imageElem = $("<img>").attr("src", ecmwfEns500Url).addClass("ecmwfEns");
         imageElem.appendTo(divElem);
 
