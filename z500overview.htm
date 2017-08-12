@@ -75,7 +75,7 @@
     var ecmwf500Url = "", gfs500Url = "", ecmwfEns500Url = "";
     var divElem = null, imageElem = null;
 
-    for (time = 0; time <= 240; time += 24) {
+    for (time = 24; time <= 240; time += 24) {
       ecmwf500Url = getWxchartslUrl("ecmwf", "gph500_anom", time);
       ecmwfEns500Url = getWxchartslUrl("ecmwf_ens", "gph500_anom", time);
       gfs500Url = getWxchartslUrl("gfs", "gph500_anom", time - ecmwfDelay);
