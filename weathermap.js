@@ -515,10 +515,7 @@ Weathermap.initUi = function (container) {
             //{ start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWetterdataUrlGenerator(10) },
             //{ start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWetterNetUrlGenerator("500hpa-bodendruck", "eu") },
 
-            { start: 0, step: 6, stop: 240, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("meanslp_anom") },
-            { start: 252, step: 12, stop: 384, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("meanslp_anom") },
-
-            { start: 0, step: 24, stop: 240, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("meanslp_anom", "euratl", "ecmwf") },
+            { start: 0, step: 24, stop: 240, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("meanslp", "euratl", "ecmwf") },
             // T2M Anomalie
             { start: 0, step: 6, stop: 168, layer: 4, urlGenerator: Weathermap.getKartenhausteinUrlGenerator("ANOM2m", "europe") },
             // Hohe Warte Surroundings
