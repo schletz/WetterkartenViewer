@@ -515,11 +515,11 @@ Weathermap.initUi = function (container) {
             //{ start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWetterdataUrlGenerator(10) },
             //{ start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWetterNetUrlGenerator("500hpa-bodendruck", "eu") },
 
-            { start: 0, step: 24, stop: 240, layer: 3, urlGenerator: Weathermap.getWxcUrlGenerator("meanslp", "euratl", "ecmwf") },
+            { start: 0, step: 24, stop: 240, layer: 2, urlGenerator: Weathermap.getWxcUrlGenerator("meanslp", "euratl", "ecmwf") },
             // T2M Anomalie
-            { start: 0, step: 6, stop: 168, layer: 4, urlGenerator: Weathermap.getKartenhausteinUrlGenerator("ANOM2m", "europe") },
+            { start: 0, step: 6, stop: 168, layer: 3, urlGenerator: Weathermap.getKartenhausteinUrlGenerator("ANOM2m", "europe") },
             // Hohe Warte Surroundings
-            { start: Weathermap.maxTime, layer: 5, urlGenerator: function () { return "http://old.wetterzentrale.de/pics/11035.gif"; } }
+            { start: Weathermap.maxTime, layer: 4, urlGenerator: function () { return "http://old.wetterzentrale.de/pics/11035.gif"; } }
 
         ],
         /* wxcharts 500 hpa geopot height (europa von wxcharts und wetterzentrale) */
