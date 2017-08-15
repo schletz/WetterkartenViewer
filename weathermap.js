@@ -509,8 +509,8 @@ Weathermap.initUi = function (container) {
             { start: 0, step: 3, stop: 240, layer: 0, urlGenerator: Weathermap.getW3UrlGenerator(1, "GFS", "") },
             { start: 252, step: 12, stop: 384, layer: 0, urlGenerator: Weathermap.getW3UrlGenerator(1, "GFS", "") },
 
-            { start: 0, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
-            { start: 252, step: 12, stop: 384, layer: 1, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
+            { start: 0, step: 3, stop: 240, layer: 1, preload:true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
+            { start: 252, step: 12, stop: 384, layer: 1, preload:true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
 
             //{ start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWetterdataUrlGenerator(10) },
             //{ start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWetterNetUrlGenerator("500hpa-bodendruck", "eu") },
