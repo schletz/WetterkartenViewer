@@ -33,6 +33,7 @@
     "use strict";
     var lastGfsRun = Date.fromRunParam(6, 5);
     var lastEcmwfRun = Date.fromRunParam(12, 7);
+    var lastEcmwfEnsRun = Date.fromRunParam(12, 10);
     var ecmwfDelay = (lastGfsRun.getTime() - lastEcmwfRun.getTime()) / 3600e3;
     /**
      * Gibt die URL einer Meteociel Wetterkarte zurück.
@@ -84,7 +85,7 @@
       imageElem = $("<img>").attr("src", ecmwf500Url).addClass("ecmwf");
       imageElem.appendTo(divElem);
 
-      if ($("body").innerWidth() >= 1900) {
+      if ($("body").innerWidth() >= 1900 && lastEcmwfEnsRun.getTime() == lastEcmwfRun.getTime()) {
         imageElem = $("<img>").attr("src", ecmwfEns500Url).addClass("ecmwfEns");
         imageElem.appendTo(divElem);
 
