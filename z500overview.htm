@@ -16,13 +16,13 @@
       margin: 0px;
       padding: 0px;
     }
-
+    
     #imgContainer img {
       margin: 0px;
       width: 630px;
       height: 483px;
     }
-
+    
     .leftCol {
       clear: both;
     }
@@ -33,29 +33,20 @@
     "use strict";
     var lastGfsRun = Date.fromRunParam(6, 5);
     var lastEcmwfRun = Date.fromRunParam(12, 7);
-    var lastEcmwfEnsRun = Date.fromRunParam(12, 10);
+    //var lastEcmwfEnsRun = Date.fromRunParam(12, 9);
     var ecmwfDelay = (lastGfsRun.getTime() - lastEcmwfRun.getTime()) / 3600e3;
     /**
-     * Gibt die URL einer Meteociel Wetterkarte zurück.
+     * Gibt die URL einer Wetterkarte zurück.
      * 
      * @param {string} type Die Daten der Wetterkarte (z. B. 0 für 500hpa Geopot Hoehe)
      * @param {number} time Die Stunden seit dem Beginn des Laufes (12 für Run+12h)
      * 
      * @returns Die URL des Bildes.
      */
-    function getMeteocielUrl(map, type, time) {
-      var url = "http://www.meteociel.fr/modeles/ecmwf/runs/{$run}/EC{$map}{$type}-{$time}.GIF";
-
-      return url.replace("{$run}", lastRun.getUTCymdh())
-        .replace("{$map}", map)
-        .replace("{$type}", type)
-        .replace("{$time}", time);
-    };
-
-    function getWxchartslUrl(model, type, time) {
+    function getWxchartslUrl(model, type, time, run) {
       if (time < 0) { time = 0; }
       var url = "http://wxcharts.eu/charts/{$model}/euratl/{$run}/{$type}_{$time}.jpg";
-      var runHour = (model.slice(0, 5) == "ecmwf" ? lastEcmwfRun.getUTCHours() : lastGfsRun.getUTCHours());
+      var runHour = run.getUTCHours();
 
       return url.replace("{$run}", ("00" + runHour).slice(-2))
         .replace("{$model}", model)
@@ -73,25 +64,31 @@
   <script type="text/javascript">
     "use strict";
     var time = 0;
-    var ecmwf500Url = "", gfs500Url = "", ecmwfEns500Url = "";
+    var ecmwf500Url = "", gfs500Url = "", ecmwfEns500Url = "", gfsPrev500Url = "";
     var divElem = null, imageElem = null;
 
     for (time = 24; time <= 240; time += 24) {
-      ecmwf500Url = getWxchartslUrl("ecmwf", "gph500_anom", time);
-      ecmwfEns500Url = getWxchartslUrl("ecmwf_ens", "gph500_anom", time);
-      gfs500Url = getWxchartslUrl("gfs", "gph500_anom", time - ecmwfDelay);
+      ecmwf500Url = getWxchartslUrl("ecmwf", "gph500_anom", time, lastEcmwfRun);
+      //ecmwfEns500Url = getWxchartslUrl("ecmwf_ens", "gph500_anom", time, lastEcmwfEnsRun);
+      gfs500Url = getWxchartslUrl("gfs", "gph500_anom", time - ecmwfDelay, lastGfsRun);
+      gfsPrev500Url = getWxchartslUrl("gfs", "gph500_anom", time - ecmwfDelay + 6,
+        new Date(lastGfsRun.getTime() - 6 * 3600e3));
 
       divElem = $("<div>");
       imageElem = $("<img>").attr("src", ecmwf500Url).addClass("ecmwf");
       imageElem.appendTo(divElem);
 
-      if ($("body").innerWidth() >= 1900 && lastEcmwfEnsRun.getTime() == lastEcmwfRun.getTime()) {
-        imageElem = $("<img>").attr("src", ecmwfEns500Url).addClass("ecmwfEns");
+      imageElem = $("<img>").attr("src", gfs500Url).addClass("gfs");
+      imageElem.appendTo(divElem);
+
+      if ($("body").innerWidth() >= 1900) {
+        //&& lastEcmwfEnsRun.getTime() == lastEcmwfRun.getTime()) {
+        //imageElem = $("<img>").attr("src", ecmwfEns500Url).addClass("ecmwfEns");
+        imageElem = $("<img>").attr("src", gfsPrev500Url).addClass("gfsPrev");
         imageElem.appendTo(divElem);
 
       }
-      imageElem = $("<img>").attr("src", gfs500Url).addClass("gfs");
-      imageElem.appendTo(divElem);
+
 
       divElem.appendTo("#imgContainer");
     }
