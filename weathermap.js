@@ -436,6 +436,21 @@ var Weathermap = {
         };
     },
 
+    getTempsUrlGenerator: function () {
+        var runHour = Weathermap.lastRun.gfs.getUTCHours();
+        var lastTemp = Date.fromRunParam(12, 3);
+        return function (time) {
+            if (time === 0) {
+                return "http://weather.uwyo.edu/upperair/images/{$date}.11035.skewt.parc.gif".
+                    replace("{$date}", lastTemp.getUTCymdh());
+            }
+
+            return "http://www.wetterzentrale.de/maps/GFSOP{$run}_48_16_{$time}_120.png"
+                .replace("{$run}", ("00" + runHour).slice(-2))
+                .replace("{$time}", time);
+        };
+    },
+
     createPanels: function (panelsToLoad) {
         var p = null, panelDiv = null, i = 0;
         var self = this;
@@ -509,8 +524,8 @@ Weathermap.initUi = function (container) {
             { start: 0, step: 3, stop: 240, layer: 0, urlGenerator: Weathermap.getW3UrlGenerator(1, "GFS", "") },
             { start: 252, step: 12, stop: 384, layer: 0, urlGenerator: Weathermap.getW3UrlGenerator(1, "GFS", "") },
 
-            { start: 0, step: 3, stop: 240, layer: 1, preload:true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
-            { start: 252, step: 12, stop: 384, layer: 1, preload:true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
+            { start: 0, step: 3, stop: 240, layer: 1, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
+            { start: 252, step: 12, stop: 384, layer: 1, preload: true, urlGenerator: Weathermap.getWxcUrlGenerator("mslp") },
 
             //{ start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWetterdataUrlGenerator(10) },
             //{ start: 3, step: 3, stop: 240, layer: 1, urlGenerator: Weathermap.getWetterNetUrlGenerator("500hpa-bodendruck", "eu") },
@@ -519,7 +534,8 @@ Weathermap.initUi = function (container) {
             // T2M Anomalie
             { start: 0, step: 6, stop: 168, layer: 3, urlGenerator: Weathermap.getKartenhausteinUrlGenerator("ANOM2m", "europe") },
             // Hohe Warte Surroundings
-            { start: Weathermap.maxTime, layer: 4, urlGenerator: function () { return "http://old.wetterzentrale.de/pics/11035.gif"; } }
+            { start: 0, step: 3, stop: 240, layer: 4, urlGenerator: Weathermap.getTempsUrlGenerator() },
+            { start: 252, step: 12, stop: 384, layer: 4, urlGenerator: Weathermap.getTempsUrlGenerator() }
 
         ],
         /* wxcharts 500 hpa geopot height (europa von wxcharts und wetterzentrale) */
