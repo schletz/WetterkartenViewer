@@ -438,7 +438,7 @@ var Weathermap = {
 
     getTempsUrlGenerator: function () {
         var runHour = Weathermap.lastRun.gfs.getUTCHours();
-        var lastTemp = Date.fromRunParam(12, 3);
+        var lastTemp = Date.fromRunParam(12, 1);
         return function (time) {
             if (time === 0) {
                 return "http://weather.uwyo.edu/upperair/images/{$date}.11035.skewt.parc.gif".
